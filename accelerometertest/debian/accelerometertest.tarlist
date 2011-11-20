@@ -1,0 +1,24 @@
+# This file is created by MADDE 'dh_fixperms'.
+# MADDE 'dpkg-deb' uses this file when creating
+# 'data.tar.gz' for debian package ar archive.
+755 root root . ./opt /
+755 root root . ./opt/accelerometertest /
+755 root root . ./opt/accelerometertest/bin /
+755 root root . ./opt/accelerometertest/bin/accelerometertest debian/accelerometertest/opt/accelerometertest/bin/accelerometertest
+755 root root . ./opt/accelerometertest/qml /
+755 root root . ./opt/accelerometertest/qml/accelerometertest /
+644 root root . ./opt/accelerometertest/qml/accelerometertest/MainPage.qml debian/accelerometertest/opt/accelerometertest/qml/accelerometertest/MainPage.qml
+644 root root . ./opt/accelerometertest/qml/accelerometertest/main.qml debian/accelerometertest/opt/accelerometertest/qml/accelerometertest/main.qml
+755 root root . ./usr /
+755 root root . ./usr/share /
+755 root root . ./usr/share/applications /
+644 root root . ./usr/share/applications/accelerometertest_harmattan.desktop debian/accelerometertest/usr/share/applications/accelerometertest_harmattan.desktop
+755 root root . ./usr/share/doc /
+755 root root . ./usr/share/doc/accelerometertest /
+644 root root . ./usr/share/doc/accelerometertest/changelog.gz debian/accelerometertest/usr/share/doc/accelerometertest/changelog.gz
+644 root root . ./usr/share/doc/accelerometertest/copyright debian/accelerometertest/usr/share/doc/accelerometertest/copyright
+755 root root . ./usr/share/icons /
+755 root root . ./usr/share/icons/hicolor /
+755 root root . ./usr/share/icons/hicolor/80x80 /
+755 root root . ./usr/share/icons/hicolor/80x80/apps /
+644 root root . ./usr/share/icons/hicolor/80x80/apps/accelerometertest80.png debian/accelerometertest/usr/share/icons/hicolor/80x80/apps/accelerometertest80.png
