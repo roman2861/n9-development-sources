@@ -1,0 +1,23 @@
+Format: 1.8
+Date: Sat, 19 Nov 2011 16:44:07 +0000
+Source: simplecounter
+Binary: simplecounter
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ simplecounter - <insert up to 60 chars description>
+Changes: 
+ simplecounter (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ 950c2d77b6686159c9987fa4e0672ab9eac33cef 18674 simplecounter_0.0.1_armel.deb
+Checksums-Sha256: 
+ e0c57b9d95c1e2e41512b4ab45939852cc6f9803c8ede308f8e4d2cb15483778 18674 simplecounter_0.0.1_armel.deb
+Files: 
+ e96bcb63930d0c969e95269f16f98e82 18674 user/other optional simplecounter_0.0.1_armel.deb
+Maemo-Display-Name: simplecounter
