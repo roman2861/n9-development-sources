@@ -1,0 +1,23 @@
+Format: 1.8
+Date: Sun, 20 Nov 2011 21:46:44 +0000
+Source: accelerometertest
+Binary: accelerometertest
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ accelerometertest - <insert up to 60 chars description>
+Changes: 
+ accelerometertest (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ f53fd7a7ff3da93a174fd51e5c00ec45ccd7c4d6 18342 accelerometertest_0.0.1_armel.deb
+Checksums-Sha256: 
+ 3aa08b197dd1e8ab86575136ac334ac0dec8d8e1817c2e4fe54c16390b36ddb4 18342 accelerometertest_0.0.1_armel.deb
+Files: 
+ 9b02f3cd902b4312e9a504c41e4fd689 18342 user/other optional accelerometertest_0.0.1_armel.deb
+Maemo-Display-Name: accelerometertest
