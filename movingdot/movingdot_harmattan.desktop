@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Name=movingdot
+Exec=/usr/bin/invoker --type=d -s /opt/movingdot/bin/movingdot
+Icon=/usr/share/icons/hicolor/80x80/apps/movingdot80.png
+X-Window-Icon=
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
