@@ -10,7 +10,6 @@ Page {
         id : rctCameraUI
         color: "black"
         visible: true
-//        anchors.centerIn: parent
         width: 460
         height: 460
         x: 10
@@ -31,9 +30,6 @@ Page {
             exposureCompensation: 0
 
             onImageCaptured : {
-//                photoPreview.source = preview
-//                stillControls.previewAvailable = true
-//                cameraUI.state = "PhotoPreview"
             }
         }
     }
