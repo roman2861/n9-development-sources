@@ -1,0 +1,23 @@
+Format: 1.8
+Date: Mon, 05 Dec 2011 21:15:28 +0000
+Source: transitiontest
+Binary: transitiontest
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ transitiontest - <insert up to 60 chars description>
+Changes: 
+ transitiontest (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ 9c62df2123e35a60f42c8baaad859775ee7d1869 18302 transitiontest_0.0.1_armel.deb
+Checksums-Sha256: 
+ 0c9794b10087cb8bbb05dcc00d70089b73607b2fe33cf7ba8a5f21d67b89a0c5 18302 transitiontest_0.0.1_armel.deb
+Files: 
+ 5a9df73eaf16425ab55c38a94de9b4af 18302 user/other optional transitiontest_0.0.1_armel.deb
+Maemo-Display-Name: transitiontest
