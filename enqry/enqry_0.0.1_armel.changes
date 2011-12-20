@@ -1,0 +1,23 @@
+Format: 1.8
+Date: Thu, 08 Dec 2011 17:52:30 +0000
+Source: enqry
+Binary: enqry
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ enqry      - <insert up to 60 chars description>
+Changes: 
+ enqry (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ 604f355584edad43d49e2a853eb7798aabc24095 44532 enqry_0.0.1_armel.deb
+Checksums-Sha256: 
+ aa99c295442615ba7c1e76b3a2687d9472a527d7700fb2ad7cf7306c10e9aacb 44532 enqry_0.0.1_armel.deb
+Files: 
+ 203c158a2b645586c9d1368c1223dfc1 44532 user/other optional enqry_0.0.1_armel.deb
+Maemo-Display-Name: enqry

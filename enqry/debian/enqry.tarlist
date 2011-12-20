@@ -1,0 +1,33 @@
+# This file is created by MADDE 'dh_fixperms'.
+# MADDE 'dpkg-deb' uses this file when creating
+# 'data.tar.gz' for debian package ar archive.
+755 root root . ./opt /
+755 root root . ./opt/enqry /
+755 root root . ./opt/enqry/bin /
+755 root root . ./opt/enqry/bin/enqry debian/enqry/opt/enqry/bin/enqry
+755 root root . ./opt/enqry/qml /
+755 root root . ./opt/enqry/qml/enqry /
+644 root root . ./opt/enqry/qml/enqry/AboutPage.qml debian/enqry/opt/enqry/qml/enqry/AboutPage.qml
+644 root root . ./opt/enqry/qml/enqry/Header.qml debian/enqry/opt/enqry/qml/enqry/Header.qml
+644 root root . ./opt/enqry/qml/enqry/MainPage.qml debian/enqry/opt/enqry/qml/enqry/MainPage.qml
+644 root root . ./opt/enqry/qml/enqry/UploadControls.qml debian/enqry/opt/enqry/qml/enqry/UploadControls.qml
+644 root root . ./opt/enqry/qml/enqry/UploadPage.qml debian/enqry/opt/enqry/qml/enqry/UploadPage.qml
+644 root root . ./opt/enqry/qml/enqry/UploadProgress.qml debian/enqry/opt/enqry/qml/enqry/UploadProgress.qml
+644 root root . ./opt/enqry/qml/enqry/UploadResult.qml debian/enqry/opt/enqry/qml/enqry/UploadResult.qml
+755 root root . ./opt/enqry/qml/enqry/js /
+644 root root . ./opt/enqry/qml/enqry/js/globals.js debian/enqry/opt/enqry/qml/enqry/js/globals.js
+644 root root . ./opt/enqry/qml/enqry/js/qrlogic.js debian/enqry/opt/enqry/qml/enqry/js/qrlogic.js
+644 root root . ./opt/enqry/qml/enqry/main.qml debian/enqry/opt/enqry/qml/enqry/main.qml
+755 root root . ./usr /
+755 root root . ./usr/share /
+755 root root . ./usr/share/applications /
+644 root root . ./usr/share/applications/enqry_harmattan.desktop debian/enqry/usr/share/applications/enqry_harmattan.desktop
+755 root root . ./usr/share/doc /
+755 root root . ./usr/share/doc/enqry /
+644 root root . ./usr/share/doc/enqry/changelog.gz debian/enqry/usr/share/doc/enqry/changelog.gz
+644 root root . ./usr/share/doc/enqry/copyright debian/enqry/usr/share/doc/enqry/copyright
+755 root root . ./usr/share/icons /
+755 root root . ./usr/share/icons/hicolor /
+755 root root . ./usr/share/icons/hicolor/80x80 /
+755 root root . ./usr/share/icons/hicolor/80x80/apps /
+644 root root . ./usr/share/icons/hicolor/80x80/apps/enqry80.png debian/enqry/usr/share/icons/hicolor/80x80/apps/enqry80.png

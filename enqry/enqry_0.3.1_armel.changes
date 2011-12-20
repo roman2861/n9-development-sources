@@ -1,0 +1,23 @@
+Format: 1.8
+Date: So, 11 Dez 2011 21:41:40 +0100
+Source: enqry
+Binary: enqry
+Architecture: armel
+Version: 0.3.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ enqry      - enQRy is a QR code reader for MeeGo
+Changes: 
+ enqry (0.3.1) unstable; urgency=low
+ .
+   * <Add change description here>
+Checksums-Sha1: 
+ 9ac75e5b5aa409cded9fc4f983609ad6dcf9e27a 46084 enqry_0.3.1_armel.deb
+Checksums-Sha256: 
+ f8bd5e131f21077b22f043e36ca265919a2aa09cfeeaf3461d3db4711128a633 46084 enqry_0.3.1_armel.deb
+Files: 
+ 22cdf661b22915d47c0e40f209488608 46084 user/other optional enqry_0.3.1_armel.deb
+Maemo-Display-Name: enQRy
