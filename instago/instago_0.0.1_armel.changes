@@ -1,0 +1,23 @@
+Format: 1.8
+Date: Sun, 19 Aug 2012 09:19:13 +0000
+Source: instago
+Binary: instago
+Architecture: armel
+Version: 0.0.1
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ instago    - <insert up to 60 chars description>
+Changes: 
+ instago (0.0.1) unstable; urgency=low
+ .
+   * Initial Release.
+Checksums-Sha1: 
+ 4b4225a162dfd5360e99d5abb1b398c681e66527 18422 instago_0.0.1_armel.deb
+Checksums-Sha256: 
+ 3be4bb29d1633b211e2e30ccc65829f9695b6cd7aec2f11483286de0632dda14 18422 instago_0.0.1_armel.deb
+Files: 
+ eee31a195a8c1b0c074767c8cb0d738e 18422 user/other optional instago_0.0.1_armel.deb
+Maemo-Display-Name: instago
