@@ -4,10 +4,14 @@ import com.nokia.meego 1.0
 PageStackWindow {
     id: appWindow
 
-    initialPage: mainPage
+    initialPage: mainPage    
 
     MainPage {
         id: mainPage
+    }
+
+    Component.onCompleted: {
+        theme.inverted = true;
     }
 
     ToolBarLayout {
