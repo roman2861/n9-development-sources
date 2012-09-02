@@ -15,7 +15,7 @@ PageStackWindow {
     }
 
     ToolBarLayout {
-        id: commonTools
+        id: homeToolbar
         visible: true
         ToolIcon {
             platformIconId: "toolbar-view-menu"
@@ -24,11 +24,30 @@ PageStackWindow {
         }
     }
 
+    ToolBarLayout {
+        id: overviewToolbar
+        visible: false
+        ToolIcon {
+            iconId: "toolbar-home";
+            onClicked: {
+                myMenu.close();
+                pageStack.pop();
+            }
+        }
+        ToolIcon {
+            iconId: "toolbar-refresh";
+            onClicked: {
+            }
+        }
+
+    }
+
+
     Menu {
         id: myMenu
         visualParent: pageStack
         MenuLayout {
-            MenuItem { text: qsTr("Sample menu item") }
+            MenuItem { text: qsTr("Popular Photos"); onClicked: { pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml")) } }
         }
     }
 }
