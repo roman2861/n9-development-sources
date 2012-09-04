@@ -19,7 +19,7 @@ Rectangle{
     }
 
     // full width, height is 80 px
-    width: parent.width ;
+    width: parent.width;
     height: 80
 
     // image element that holds the image property
@@ -31,13 +31,14 @@ Rectangle{
     // text element that holds the text property
     Text {
         id: txtHeader
-        anchors
-        {
-            verticalCenter: parent.verticalCenter
-        }
-        x: 20
+
+        anchors.fill: parent
+
         font.pixelSize: 30
         font.family: "Nokia Pure Text Light"
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+
         text: qsTr(text)
         color: "white"
     }

@@ -21,8 +21,8 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header_logo.png"
-        text: qsTr("")
+        source: "img/top_header.png"
+        text: qsTr("Discover")
     }
 
 
@@ -62,13 +62,17 @@ Page {
             Rectangle {
                 color: "#2B2B2B"
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: galleryGrid.cellWidth-5
-                height: galleryGrid.cellHeight-5
+                width: 154
+                height: 154
 
                 // the actual gallery image
                 Image {
                     id: galleryThumbnail
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors
+                    {
+                        horizontalCenter: parent.horizontalCenter;
+                        verticalCenter: parent.verticalCenter;
+                    }
                     source: url
                 }
             }
@@ -148,6 +152,7 @@ Page {
         ToolIcon {
             iconId: "toolbar-settings";
             onClicked: {
+                pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         }
     }

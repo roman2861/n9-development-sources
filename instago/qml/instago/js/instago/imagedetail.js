@@ -9,7 +9,10 @@ function showDetailImageFromGallery(imageGallery, imageIndex)
     iCurrentIndex = imageIndex;
     console.log("Showing image with index " + iCurrentIndex + " and name " + arrPopularImages[iCurrentIndex]["originalimage"])
     detailImage.source = arrPopularImages[iCurrentIndex]["originalimage"];
-    imageCaption.text = arrPopularImages[iCurrentIndex]["caption"];
+    userprofilePicture.source = arrPopularImages[iCurrentIndex]["profilepicture"];
+    userprofileUsername.text = arrPopularImages[iCurrentIndex]["username"];
+    userprofileCreatedtime.text = arrPopularImages[iCurrentIndex]["createdtime"];
+    metadataLikes.text = arrPopularImages[iCurrentIndex]["likes"] + " like this";
 }
 
 function nextPopularImage()

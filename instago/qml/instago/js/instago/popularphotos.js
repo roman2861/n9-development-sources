@@ -28,6 +28,14 @@ function loadImages()
                             arrPopularImages[index]["caption"] = "";
                         }
                         arrPopularImages[index]["username"] = jsonObject.data[index].user["username"];
+                        arrPopularImages[index]["profilepicture"] = jsonObject.data[index].user["profile_picture"];
+                        arrPopularImages[index]["likes"] = jsonObject.data[index].likes["count"];
+
+                        arrPopularImages[index]["createdtime"] = jsonObject.data[index].created_time;
+                        var time = new Date(arrPopularImages[index]["createdtime"] * 1000);
+                        var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
+                        time.getHours() + ":" + time.getMinutes();
+                        arrPopularImages[index]["createdtime"] = timeStr;
 
                         galleryListModel.append({
                                                     "url":arrPopularImages[index]["thumbnail"],

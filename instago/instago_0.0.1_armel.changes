@@ -9,15 +9,15 @@ Urgency: low
 Maintainer: unknown <>
 Changed-By: unknown <>
 Description: 
- instago    - <insert up to 60 chars description>
+ instago    - <An Instagram client for MeeGo>
 Changes: 
  instago (0.0.1) unstable; urgency=low
  .
    * Initial Release.
 Checksums-Sha1: 
- 11991f05225e160c3f6881d06f3147c933d7a31a 57248 instago_0.0.1_armel.deb
+ 9b073bc1c4c25528805831f4030019191c1cfd89 64170 instago_0.0.1_armel.deb
 Checksums-Sha256: 
- e059db37d99af20cccae8d6ebf2081d0156750752e84511e82b685124a131a59 57248 instago_0.0.1_armel.deb
+ 6ad23285dfebd66b3fa9293b2ffc9bb8db381254aad4a223f123ffd1dd0305ad 64170 instago_0.0.1_armel.deb
 Files: 
- f781e6f0c1aa18e9d6429386a0a3008d 57248 user/other optional instago_0.0.1_armel.deb
-Maemo-Display-Name: instago
+ 97451a15f531d90b259a14e3c00728d3 64170 user/other optional instago_0.0.1_armel.deb
+Maemo-Display-Name: Instago

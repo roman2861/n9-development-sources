@@ -8,6 +8,9 @@ Page {
     // use the detail view toolbar
     tools: detailViewToolbar
 
+    // lock orientation to portrait mode
+    orientationLock: PageOrientation.LockPortrait
+
     Component.onCompleted: {
         PhotoDetailScript.showDetailImageFromGallery(Globals.currentGalleryContent, Globals.currentGalleryIndex);
     }
@@ -16,27 +19,106 @@ Page {
     Header {
         id: pageHeader
         source: "img/top_header.png"
-        text: qsTr("Detail")
+        text: qsTr("Photo")
     }
 
 
-    // main container for the detail image and content
+    // container for the user name and data
     Rectangle {
-        id: detailImageContainer
+        id: userprofileContainer
 
         anchors {
             top: pageHeader.bottom;
-            topMargin: 3;
+            topMargin: 5;
             left: parent.left;
             right: parent.right;
         }
 
-        color: "#2B2B2B"
+        color: "transparent"
 
         // full width, height is 80 px
         width: parent.width;
-        height: 480
+        height: 60
 
+
+        // user profile picture (60x60)
+        Rectangle {
+            id: userprofilePictureContainer
+
+            anchors {
+                top: parent.top;
+                left: parent.left;
+                leftMargin: 5;
+            }
+
+            color: "#2B2B2B"
+
+            width: 60
+            height: 60
+
+            // actual user image
+            Image {
+                id: userprofilePicture
+
+                anchors.fill: parent
+                smooth: true
+            }
+        }
+
+
+        // username
+        Text {
+            id: userprofileUsername
+            text: ""
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+
+            anchors {
+                top: parent.top;
+                left: userprofilePictureContainer.right;
+                leftMargin: 5;
+                right: parent.right;
+            }
+            wrapMode: Text.Wrap
+            height: 30
+        }
+
+        // creation time
+        Text {
+            id: userprofileCreatedtime
+            text: ""
+            font.family: "Nokia Pure Text"
+            font.pixelSize: 18
+
+            anchors {
+                top: userprofileUsername.bottom;
+                left: userprofilePictureContainer.right;
+                leftMargin: 5;
+                right: parent.right;
+            }
+            wrapMode: Text.Wrap
+            height: 20
+        }
+    }
+
+    // container for the detail image and its loader
+    Rectangle {
+        id: detailImageContainer
+
+        anchors {
+            top: userprofileContainer.bottom;
+            topMargin: 5;
+            left: parent.left;
+            leftMargin: 5;
+            right: parent.right;
+            rightMargin: 5;
+        }
+
+        color: "#2B2B2B"
+
+        // full width, height is 470 px (max width - border)
+        width: parent.width;
+        height: 470
 
         // show the loading indicator as long as the page is not ready
         BusyIndicator {
@@ -55,8 +137,8 @@ Page {
 
             anchors.top: detailImageContainer.top
 
-            width: 480
-            height: 480
+            width: parent.width
+            height: 470
             smooth: true
 
             // invisible until loading is finished
@@ -73,8 +155,43 @@ Page {
                 }
             }
         }
+    }
 
+    // container for the metadata
+    Rectangle {
+        id: metadataContainer
 
+        anchors {
+            top: detailImageContainer.bottom;
+            topMargin: 5;
+            left: parent.left;
+            right: parent.right;
+        }
+
+        color: "transparent"
+
+        // full width, height is 80 px
+        width: parent.width;
+        height: 100
+
+        Text {
+            id: metadataLikes
+            text: ""
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+
+            anchors {
+                top: parent.top;
+                left: parent.left;
+                leftMargin: 5;
+                right: parent.right;
+            }
+            wrapMode: Text.Wrap
+            height: 25
+        }
+    }
+
+    /*
         // image caption
         // this is pretty much unlimited length by instagram so it has to be cut
         Text {
@@ -84,14 +201,18 @@ Page {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
 
-            wrapMode: Text.Wrap
+            width: 480
 
             anchors {
                 top: detailImage.bottom
                 topMargin: 10
+                left: parent.left;
+                right: parent.right;
+                bottom: parent.bottom;
             }
+            wrapMode: Text.Wrap
         }
-    }
+    */
 
     // toolbar for the detail page
     ToolBarLayout {
@@ -104,51 +225,4 @@ Page {
             }
         }
     }
-
-    /*
-    MouseArea {
-            Image {
-                id: currentImage
-                width: 480
-                height: 480
-                smooth: true
-                anchors.centerIn: parent
-                visible: false
-
-                enabled: {
-                    PopularPhotos.test(Globals.sPressedImage);
-                }
-        }
-
-        id: mouseArea
-        anchors.fill: parent;
-
-        property int oldX: 0
-        property int oldY: 0
-
-        onPressed: {
-            oldX = mouseX;
-            oldY = mouseY;
-        }
-
-        onReleased: {
-            var xDiff = oldX - mouseX;
-            var yDiff = oldY - mouseY;
-            if( Math.abs(xDiff) > Math.abs(yDiff) ) {
-                if( oldX > mouseX) {
-//                    onLeftSwipe();
-                    PopularPhotos.nextPopularImage();
-                    console.log("left");
-                } else {
-//                    onRightSwipe();
-                    PopularPhotos.prevPopularImage();
-                    console.log("right");
-                }
-            } else {
-                if( oldY > mouseY) {}
-                else { }
-            }
-        }
-    }
-*/
 }
