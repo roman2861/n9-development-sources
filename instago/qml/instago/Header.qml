@@ -1,0 +1,44 @@
+import QtQuick 1.0
+
+Rectangle{
+    id: header
+
+    // text property for the header
+    // set text will be shown in the header
+    property alias text : txtHeader.text
+
+    // image property for the header
+    // given image will be shown (640x80)
+    property alias source : imgHeader.source
+
+    // place it on top
+    anchors {
+        top: parent.top;
+        left: parent.left;
+        right: parent.right
+    }
+
+    // full width, height is 80 px
+    width: parent.width ;
+    height: 80
+
+    // image element that holds the image property
+    Image {
+        id: imgHeader
+        source: source
+     }
+
+    // text element that holds the text property
+    Text {
+        id: txtHeader
+        anchors
+        {
+            verticalCenter: parent.verticalCenter
+        }
+        x: 20
+        font.pixelSize: 30
+        font.family: "Nokia Pure Text Light"
+        text: qsTr(text)
+        color: "white"
+    }
+}
