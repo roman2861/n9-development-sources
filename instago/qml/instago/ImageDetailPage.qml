@@ -1,8 +1,8 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "js/instago/globals.js" as Globals
-import "js/instago/imagedetail.js" as PhotoDetailScript
+import "js/globals.js" as Globals
+import "js/imagedetail.js" as PhotoDetailScript
 
 Page {
     // use the detail view toolbar
