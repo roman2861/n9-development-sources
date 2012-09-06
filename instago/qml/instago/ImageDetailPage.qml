@@ -32,6 +32,9 @@ Page {
             bottom: parent.bottom;
         }
 
+        width: parent.width
+        height: parent.height
+
         Flickable {
             id: contentFlickableContainer
 
@@ -252,7 +255,8 @@ Page {
                         right: parent.right;
                         rightMargin: 5;
                     }
-                    wrapMode: Text.Wrap
+
+                    wrapMode: TextEdit.Wrap
                 }
             }
         }

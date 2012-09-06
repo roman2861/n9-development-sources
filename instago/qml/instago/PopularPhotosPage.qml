@@ -103,6 +103,58 @@ Page {
     }
 
 
+    // error indicator that is shown when the gallery could not be loaded
+    Rectangle {
+        id: errorIndicator
+
+        anchors {
+            top: pageHeader.bottom;
+            topMargin: 3;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+        color: "transparent"
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked:
+            {
+                console.log("Refresh clicked")
+                errorIndicator.visible = false;
+                galleryGrid.reload = true;
+            }
+        }
+
+        Text {
+            id: reloadMessage
+            anchors.fill: parent
+
+            anchors {
+                top: parent.top;
+                left: parent.left;
+                leftMargin: 10;
+                right: parent.right;
+                rightMargin: 10;
+                bottom: parent.bottom;
+            }
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            wrapMode: Text.Wrap
+
+            text: "Could not load the popular photo list. Please tap to try again."
+        }
+
+    }
+
+
     // the actual grid view
     // this contains the individual items and shows them as a list
     GridView {

@@ -40,8 +40,6 @@ function loadUserProfile(userId)
                     arrUserProfile["bio"] = jsonObject.data.bio;
                     userprofileBio.text = qsTr(arrUserProfile["bio"]);
 
-                    // console.log("Appended list with URL: " + arrPopularImages[index]["thumbnail"] + " and ID: " + index);
-
                     console.log("Done loading user profile");
                 }
             }

@@ -12,7 +12,19 @@ function loadImages()
                 {
                     console.log("Loading popular photos");
 
+                    if (req.status != 200)
+                    {
+                        console.debug("bad status: " + req.status);
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+                        errorIndicator.visible = true;
+
+                        return;
+                    }
+
+                    console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
+
                     galleryListModel.clear();
                     for ( var index in jsonObject.data )
                     {

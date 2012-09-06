@@ -21,11 +21,12 @@ function showDetailImageFromGallery(imageGallery, imageIndex)
     metadataImageCaption.text = arrPopularImages[iCurrentIndex]["username"] + ": " + arrPopularImages[iCurrentIndex]["caption"];
 
     // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
-    metadataImageCaption.height = Math.floor(metadataImageCaption.text.length / 42 * 22);
+    metadataImageCaption.height = Math.floor(((metadataImageCaption.text.length / 42) + (metadataImageCaption.text.split("\n").length - 1)) * 24 );
+    // console.log("Lines: " + metadataImageCaption.lineCount + "und height: " + metadataImageCaption.lineHeight + " = " + metadataImageCaption.lineCount / metadataImageCaption.lineHeight);
 
     // this is fed to the flickable container as content height
     contentFlickableContainer.contentHeight = (userprofileContainer.height + detailImageContainer.height + 100 + metadataImageCaption.height);
-//    console.log("total: " + contentFlickableContainer.contentHeight + " userprofile: " + userprofileContainer.height + " detailimage: " + detailImageContainer.height + " +100 and caption: " + metadataImageCaption.height);
+    // console.log("total: " + contentFlickableContainer.contentHeight + " userprofile: " + userprofileContainer.height + " detailimage: " + detailImageContainer.height + " +100 and caption: " + metadataImageCaption.height);
 }
 
 function nextPopularImage()

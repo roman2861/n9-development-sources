@@ -1,5 +1,25 @@
+instago (0.0.2) unstable; urgency=low
+
+  * Moved js files to /js
+  * Added instagramkeys.js that holds the app keys
+  * Added profile page
+  * Removed instagram application key from popularphotos.js file (now in its own)
+  * Added about page
+  * Switched to light theme
+  * Added user information
+  * App is now more like the current iPhone one
+  * Cleaned code and filenames
+  * Added reload behavior
+  * Overview and detail view sort of works
+  * Included captions in detail view
+
+ -- Dirk <>  Sun, 06 Sep 2012 09:19:13 +0000
+
+
 instago (0.0.1) unstable; urgency=low
 
-  * Initial Release.
+  * Initial Release
+  * Single page for loading popular images
+  * Popular images work
 
- -- unknown <>  Sun, 19 Aug 2012 09:19:13 +0000
+ -- Dirk <>  Sun, 19 Aug 2012 09:19:13 +0000

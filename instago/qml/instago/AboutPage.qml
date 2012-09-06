@@ -50,7 +50,7 @@ Page {
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 
-        text: "An Instagram client for MeeGo. Browse popular photos, look at your friends images and find new people.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.0.1";
+        text: "An Instagram client for MeeGo. Browse popular photos, look at your friends images and find new people.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.0.2";
     }
 
 
