@@ -1,7 +1,7 @@
+// Globals contain the instagram API keys
+Qt.include("instagramkeys.js")
+
 var arrPopularImages = [];
-var bPopularPhotosLoaded = false;
-var iCurrentIndex = 0;
-var sPressedImage = "";
 
 function loadImages()
 {
@@ -16,35 +16,38 @@ function loadImages()
                     galleryListModel.clear();
                     for ( var index in jsonObject.data )
                     {
-                        arrPopularImages[index] = [];
-                        arrPopularImages[index]["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
-                        arrPopularImages[index]["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
-                        if (jsonObject.data[index].caption !== null)
+                        if (index <= 17)
                         {
-                            arrPopularImages[index]["caption"] = jsonObject.data[index].caption["text"];
-                        }
-                        else
-                        {
-                            arrPopularImages[index]["caption"] = "";
-                        }
-                        arrPopularImages[index]["username"] = jsonObject.data[index].user["username"];
-                        arrPopularImages[index]["profilepicture"] = jsonObject.data[index].user["profile_picture"];
-                        arrPopularImages[index]["likes"] = jsonObject.data[index].likes["count"];
+                            arrPopularImages[index] = [];
+                            arrPopularImages[index]["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
+                            arrPopularImages[index]["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
+                            if (jsonObject.data[index].caption !== null)
+                            {
+                                arrPopularImages[index]["caption"] = jsonObject.data[index].caption["text"];
+                            }
+                            else
+                            {
+                                arrPopularImages[index]["caption"] = "";
+                            }
+                            arrPopularImages[index]["username"] = jsonObject.data[index].user["username"];
+                            arrPopularImages[index]["profilepicture"] = jsonObject.data[index].user["profile_picture"];
+                            arrPopularImages[index]["userid"] = jsonObject.data[index].user["id"];
+                            arrPopularImages[index]["likes"] = jsonObject.data[index].likes["count"];
 
-                        arrPopularImages[index]["createdtime"] = jsonObject.data[index].created_time;
-                        var time = new Date(arrPopularImages[index]["createdtime"] * 1000);
-                        var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
-                        time.getHours() + ":" + time.getMinutes();
-                        arrPopularImages[index]["createdtime"] = timeStr;
+                            arrPopularImages[index]["createdtime"] = jsonObject.data[index].created_time;
+                            var time = new Date(arrPopularImages[index]["createdtime"] * 1000);
+                            var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
+                            time.getHours() + ":" + time.getMinutes();
+                            arrPopularImages[index]["createdtime"] = timeStr;
 
-                        galleryListModel.append({
-                                                    "url":arrPopularImages[index]["thumbnail"],
-                                                    "index":index
-                                                });
-                        // console.log("Appended list with URL: " + arrPopularImages[index]["thumbnail"] + " and ID: " + index);
+                            galleryListModel.append({
+                                                        "url":arrPopularImages[index]["thumbnail"],
+                                                        "index":index
+                                                    });
+                            // console.log("Appended list with URL: " + arrPopularImages[index]["thumbnail"] + " and ID: " + index);
+                        }
                     }
 
-                    bPopularPhotosLoaded = true;
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
                     galleryGrid.visible = true;
@@ -53,6 +56,6 @@ function loadImages()
                 }
             }
 
-    req.open("GET", "https://api.instagram.com/v1/media/popular?client_id=3bbd61a332384e66a46026c3dbbfaadc", true);
+    req.open("GET", "https://api.instagram.com/v1/media/popular?client_id=" + instagramClientId, true);
     req.send();
 }

@@ -15,9 +15,9 @@ Changes:
  .
    * Initial Release.
 Checksums-Sha1: 
- 9b073bc1c4c25528805831f4030019191c1cfd89 64170 instago_0.0.1_armel.deb
+ a8e5ad83b75f8933f4697e5df8ebbc3c380dca7d 84330 instago_0.0.1_armel.deb
 Checksums-Sha256: 
- 6ad23285dfebd66b3fa9293b2ffc9bb8db381254aad4a223f123ffd1dd0305ad 64170 instago_0.0.1_armel.deb
+ ce02fb8f0fea5e7ede8f2064a23022a9fba249f742547b9e93501633155c5cc5 84330 instago_0.0.1_armel.deb
 Files: 
- 97451a15f531d90b259a14e3c00728d3 64170 user/other optional instago_0.0.1_armel.deb
+ 3ccd3d2bdb053d3a3f109968b997e801 84330 user/other optional instago_0.0.1_armel.deb
 Maemo-Display-Name: Instago

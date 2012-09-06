@@ -16,12 +16,12 @@ Page {
     }
 
     Text {
-        id : txtHeadline
+        id : aboutHeadline
         visible: true
 
         anchors {
             horizontalCenter: parent.horizontalCenter
-            bottom: txtMaintext.top
+            bottom: aboutMaintext.top
             bottomMargin: 20
         }
 
@@ -36,7 +36,7 @@ Page {
 
 
     Text {
-        id : txtMaintext
+        id : aboutMaintext
         visible: true
 
         anchors {
@@ -50,7 +50,7 @@ Page {
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 
-        text: "An Instagram client for MeeGo. Browse popular and your friends photos as well as find new people.<br /><br />It was developed as a sideproject by Dirk Songür (dirk@songuer.de).";
+        text: "An Instagram client for MeeGo. Browse popular photos, look at your friends images and find new people.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.0.1";
     }
 
 

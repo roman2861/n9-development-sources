@@ -22,7 +22,7 @@ Page {
     Header {
         id: pageHeader
         source: "img/top_header.png"
-        text: qsTr("Discover")
+        text: qsTr("Popular")
     }
 
 
@@ -31,11 +31,13 @@ Page {
     Component {
         id: galleryDelegate
 
+
         // this is an individual gallery item
         Item {
             id: galleryItem
             width: galleryGrid.cellWidth
             height: galleryGrid.cellHeight
+
 
             // use the whole item as tap surface
             // all taps on the item will be handled by the onclick event
@@ -43,12 +45,15 @@ Page {
                 anchors.fill: parent
                 onClicked:
                 {
+                    // console.log("Image tapped. Id was: " + galleryIndex.text + ", source file was: " + galleryThumbnail.source);
+
                     Globals.currentGalleryContent = PopularPhotosScript.arrPopularImages;
                     Globals.currentGalleryIndex = galleryIndex.text;
-                    console.log("Image tapped. Id was: " + galleryIndex.text + ", source file was: " + galleryThumbnail.source);
+
                     pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"))
                 }
             }
+
 
             // this is just a dummy text that contains the id of the gallery image
             Text {
@@ -57,10 +62,11 @@ Page {
                 visible: false
             }
 
+
             // this is the rectangle that holds the actual gallery image
             // its used as an empty default rect that is filled if the image could be loaded
             Rectangle {
-                color: "#2B2B2B"
+                color: "gainsboro"
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 154
                 height: 154
