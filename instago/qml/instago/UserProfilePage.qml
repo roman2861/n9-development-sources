@@ -37,6 +37,7 @@ Page {
         width: parent.width;
         height: 130
 
+
         // user profile picture (120x120)
         Rectangle {
             id: userprofilePictureContainer
@@ -47,10 +48,12 @@ Page {
                 leftMargin: 10;
             }
 
-            color: "gainsboro"
-
             width: 120
             height: 120
+
+            // light gray color to mark loading image
+            color: "gainsboro"
+
 
             // actual user image
             Image {
@@ -65,9 +68,6 @@ Page {
         // username
         Text {
             id: userprofileFullname
-            text: ""
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 30
 
             anchors {
                 top: parent.top;
@@ -76,11 +76,19 @@ Page {
                 right: parent.right;
             }
 
-            wrapMode: Text.Wrap
             height: 35
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 30
+            wrapMode: Text.Wrap
+
+            // user name
+            // text will be given by the js function
+            text: ""
         }
 
 
+        // number of images
         Rectangle {
             id: userprofileImagecount
 
@@ -91,17 +99,16 @@ Page {
                 leftMargin: 10;
             }
 
+            // light background to create boxes
             color: "gainsboro"
 
             width: 100
             height: 80
 
+
+            // actual number is shown as big, centered text
             Text {
                 id: imagecountNumber
-                text: ""
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
-                horizontalAlignment: Text.AlignHCenter
 
                 anchors {
                     top: parent.top
@@ -110,16 +117,20 @@ Page {
                     right: parent.right;
                 }
 
+                font.family: "Nokia Pure Text Light"
+                font.pixelSize: 30
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
+
+                // number of images
+                // text will be given by the js function
+                text: ""
             }
 
+
+            // label for number of images
             Text {
                 id: imagecountText
-                text: "photos"
-                font.family: "Nokia Pure Text"
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                color: "darkgray"
 
                 anchors {
                     top: imagecountNumber.bottom
@@ -128,11 +139,18 @@ Page {
                     bottom: parent.bottom
                 }
 
+                font.family: "Nokia Pure Text"
+                font.pixelSize: 20
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
+                color: "darkgray"
+
+                text: "photos"
             }
         }
 
 
+        // number of followers
         Rectangle {
             id: userprofileFollowers
 
@@ -143,17 +161,16 @@ Page {
                 leftMargin: 10;
             }
 
+            // light background to create boxes
             color: "gainsboro"
 
             width: 100
             height: 80
 
+
+            // actual number is shown as big, centered text
             Text {
                 id: followersNumber
-                text: ""
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
-                horizontalAlignment: Text.AlignHCenter
 
                 anchors {
                     top: parent.top
@@ -162,16 +179,20 @@ Page {
                     right: parent.right;
                 }
 
+                font.family: "Nokia Pure Text Light"
+                font.pixelSize: 30
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
+
+                // number of followers
+                // text will be given by the js function
+                text: ""
             }
 
+
+            // label for number of followers
             Text {
                 id: followersText
-                text: "followers"
-                font.family: "Nokia Pure Text"
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                color: "darkgray"
 
                 anchors {
                     top: followersNumber.bottom
@@ -181,10 +202,17 @@ Page {
                 }
 
                 wrapMode: Text.Wrap
+                font.family: "Nokia Pure Text"
+                font.pixelSize: 20
+                horizontalAlignment: Text.AlignHCenter
+                color: "darkgray"
+
+                text: "followers"
             }
         }
 
 
+        // number of users the actual user follows
         Rectangle {
             id: userprofileFollowing
 
@@ -195,17 +223,16 @@ Page {
                 leftMargin: 10;
             }
 
+            // light background to create boxes
             color: "gainsboro"
 
             width: 100
             height: 80
 
+
+            // actual number is shown as big, centered text
             Text {
                 id: followingNumber
-                text: ""
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
-                horizontalAlignment: Text.AlignHCenter
 
                 anchors {
                     top: parent.top
@@ -214,18 +241,20 @@ Page {
                     right: parent.right;
                 }
 
-//                height: 30
-
+                font.family: "Nokia Pure Text Light"
+                font.pixelSize: 30
+                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
+
+                // following
+                // text will be given by the js function
+                text: ""
             }
 
+
+            // label for number of followings
             Text {
                 id: followingText
-                text: "following"
-                font.family: "Nokia Pure Text"
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                color: "darkgray"
 
                 anchors {
                     top: followingNumber.bottom
@@ -234,16 +263,21 @@ Page {
                     bottom: parent.bottom
                 }
 
+                font.family: "Nokia Pure Text"
+                font.pixelSize: 20
+                horizontalAlignment: Text.AlignHCenter
+                color: "darkgray"
                 wrapMode: Text.Wrap
+
+                text: "following"
             }
         }
     }
 
+
+    // bio of the user
     Text {
         id: userprofileBio
-        text: ""
-        font.family: "Nokia Pure Text Light"
-        font.pixelSize: 25
 
         anchors {
             top: userprofileContainer.bottom
@@ -255,7 +289,15 @@ Page {
             bottom: parent.bottom
         }
 
+        font.family: "Nokia Pure Text Light"
+        font.pixelSize: 25
         wrapMode: Text.Wrap
+
+        // user bio
+        // text will be given by the js function
+        // beware that the length is not limited by Instagram
+        // this might be LONG!
+        text: ""
     }
 
 

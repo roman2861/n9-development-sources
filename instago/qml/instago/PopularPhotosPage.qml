@@ -47,9 +47,9 @@ Page {
                 {
                     // console.log("Image tapped. Id was: " + galleryIndex.text + ", source file was: " + galleryThumbnail.source);
 
+                    // store the photo array and the id of the tapped image in globals and switch to detail page
                     Globals.currentGalleryContent = PopularPhotosScript.arrPopularImages;
                     Globals.currentGalleryIndex = galleryIndex.text;
-
                     pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"))
                 }
             }
@@ -58,6 +58,7 @@ Page {
             // this is just a dummy text that contains the id of the gallery image
             Text {
                 id: galleryIndex
+
                 text: index
                 visible: false
             }
@@ -66,19 +67,23 @@ Page {
             // this is the rectangle that holds the actual gallery image
             // its used as an empty default rect that is filled if the image could be loaded
             Rectangle {
-                color: "gainsboro"
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 154
                 height: 154
 
+                // light gray color to mark loading image
+                color: "gainsboro"
+
                 // the actual gallery image
                 Image {
                     id: galleryThumbnail
+
                     anchors
                     {
                         horizontalCenter: parent.horizontalCenter;
                         verticalCenter: parent.verticalCenter;
                     }
+
                     source: url
                 }
             }
@@ -96,10 +101,12 @@ Page {
     // show the loading indicator as long as the page is not ready
     BusyIndicator {
         id: loadingIndicator
+
+        anchors.centerIn: parent
         platformStyle: BusyIndicatorStyle { size: "large" }
+
         running:  true
         visible: true
-        anchors.centerIn: parent
     }
 
 
@@ -118,19 +125,24 @@ Page {
         visible: false
         color: "transparent"
 
+
+        // the error text is a tap area that calls the reload function
         MouseArea {
             anchors.fill: parent
+
             onClicked:
             {
-                console.log("Refresh clicked")
+                // console.log("Refresh clicked")
                 errorIndicator.visible = false;
                 galleryGrid.reload = true;
             }
         }
 
+
+        // generic error message that something went wrong
+        // this is most likely the case when the network went away
         Text {
             id: reloadMessage
-            anchors.fill: parent
 
             anchors {
                 top: parent.top;
@@ -141,12 +153,11 @@ Page {
                 bottom: parent.bottom;
             }
 
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 25
-
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
 
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
             wrapMode: Text.Wrap
 
             text: "Could not load the popular photo list. Please tap to try again."
@@ -164,6 +175,7 @@ Page {
         property bool reload: false
 
         // this reloads the galley if the reload property has been changed
+        // this is called by the menu or the error message
         onReloadChanged: {
             if (galleryGrid.reload)
             {
@@ -200,6 +212,7 @@ Page {
     ToolBarLayout {
         id: popularPhotosToolbar
         visible: false
+
         ToolIcon {
             iconId: "toolbar-refresh";
             onClicked: {
@@ -207,6 +220,7 @@ Page {
                 galleryGrid.reload = true;
             }
         }
+
         ToolIcon {
             iconId: "toolbar-settings";
             onClicked: {

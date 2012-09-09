@@ -15,9 +15,10 @@ Page {
         text: qsTr("")
     }
 
+
+    // headline
     Text {
         id : aboutHeadline
-        visible: true
 
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -25,28 +26,31 @@ Page {
             bottomMargin: 20
         }
 
+        width: 400
+        visible: true
+
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
-
-        width: 400
         wrapMode: Text.WordWrap
 
         text: "Instago";
     }
 
 
+    // description
     Text {
         id : aboutMaintext
-        visible: true
 
         anchors {
             centerIn: parent
         }
 
+        width: 400
+        visible: true
+
         font.family: "Nokia Pure Text"
         font.pixelSize: 20
 
-        width: 400
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 
@@ -58,6 +62,7 @@ Page {
     ToolBarLayout {
         id: aboutToolbar
         visible: false
+
         ToolIcon {
             iconId: "toolbar-back";
             onClicked: {

@@ -18,10 +18,13 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
+
         source: "img/top_header.png"
         text: qsTr("Photo")
     }
 
+
+    // this just wraps the main content of the detail page
     Rectangle {
         id: pageContentContainer
 
@@ -35,6 +38,8 @@ Page {
         width: parent.width
         height: parent.height
 
+
+        // make the whole content area vertically flickable
         Flickable {
             id: contentFlickableContainer
 
@@ -46,7 +51,9 @@ Page {
             // clipping needs to be true so that the size is limited to the container
             clip: true
 
+            // flick up / down to see all content
             flickableDirection: Flickable.VerticalFlick
+
 
             // container for the user name and data
             Rectangle {
@@ -59,9 +66,10 @@ Page {
                     right: parent.right;
                 }
 
+                // no background color
                 color: "transparent"
 
-                // full width, height is 80 px
+                // full width, height is 60 px
                 width: parent.width;
                 height: 60
 
@@ -72,10 +80,10 @@ Page {
                     anchors.fill: parent
                     onClicked:
                     {
-                        console.log("Profile tapped. Id was: " + userprofileUserID.text);
+                        // console.log("Profile tapped. Id was: " + userprofileUserID.text);
 
+                        // store the user id in globals and switch to profile page
                         Globals.currentUserId = userprofileUserID.text;
-
                         pageStack.push(Qt.resolvedUrl("UserProfilePage.qml"))
 
                     }
@@ -85,8 +93,9 @@ Page {
                 // this is just a dummy text that contains the id of the user
                 Text {
                     id: userprofileUserID
-                    text: ""
+
                     visible: false
+                    text: ""
                 }
 
 
@@ -100,12 +109,14 @@ Page {
                         leftMargin: 5;
                     }
 
+                    // light gray color to mark loading image
                     color: "gainsboro"
 
                     width: 60
                     height: 60
 
                     // actual user image
+                    // source will be given by the js function
                     Image {
                         id: userprofilePicture
 
@@ -118,9 +129,6 @@ Page {
                 // username
                 Text {
                     id: userprofileUsername
-                    text: ""
-                    font.family: "Nokia Pure Text Light"
-                    font.pixelSize: 25
 
                     anchors {
                         top: parent.top;
@@ -128,16 +136,22 @@ Page {
                         leftMargin: 5;
                         right: parent.right;
                     }
-                    wrapMode: Text.Wrap
+
                     height: 30
+
+                    font.family: "Nokia Pure Text Light"
+                    font.pixelSize: 25
+                    wrapMode: Text.Wrap
+
+                    // actual user name
+                    // text will be given by the js function
+                    text: ""
                 }
+
 
                 // creation time
                 Text {
                     id: userprofileCreatedtime
-                    text: ""
-                    font.family: "Nokia Pure Text"
-                    font.pixelSize: 18
 
                     anchors {
                         top: userprofileUsername.bottom;
@@ -145,10 +159,19 @@ Page {
                         leftMargin: 5;
                         right: parent.right;
                     }
-                    wrapMode: Text.Wrap
+
                     height: 20
+
+                    font.family: "Nokia Pure Text"
+                    font.pixelSize: 18
+                    wrapMode: Text.Wrap
+
+                    // date and time the image was created
+                    // date will be formatted and given by the js function
+                    text: ""
                 }
             }
+
 
             // container for the detail image and its loader
             Rectangle {
@@ -163,31 +186,35 @@ Page {
                     rightMargin: 5;
                 }
 
-                color: "gainsboro"
-
-                // full width, height is 470 px (max width - border)
+                // full width, height is 470 px
+                // effectively this is 470 x 470 (max width - border)
                 width: parent.width;
                 height: 470
+
+                // light gray color to mark loading image
+                color: "gainsboro"
+
 
                 // show the loading indicator as long as the page is not ready
                 BusyIndicator {
                     id: loadingIndicator
+
+                    anchors.centerIn: parent
+
                     platformStyle: BusyIndicatorStyle { size: "large" }
                     running:  true
                     visible: true
-                    anchors.centerIn: parent
                 }
 
 
                 // the actual detail image
-                // it's set to 480x480 px although the actual detail image size is 612x612
+                // it's set to  px although the actual detail image size is 612x612
                 Image {
                     id: detailImage
 
                     anchors.top: detailImageContainer.top
-
                     width: parent.width
-                    height: 470
+                    height: parent.height
                     smooth: true
 
                     // invisible until loading is finished
@@ -206,6 +233,7 @@ Page {
                 }
             }
 
+
             // container for the metadata
             Rectangle {
                 id: metadataContainer
@@ -217,18 +245,16 @@ Page {
                     right: parent.right;
                 }
 
-                color: "transparent"
-
-                // full width, height is 80 px
+                // full width, height is dynamic
                 width: parent.width;
+
+                // no background color
+                color: "transparent"
 
 
                 // number of likes
                 Text {
                     id: metadataLikes
-                    text: ""
-                    font.family: "Nokia Pure Text Light"
-                    font.pixelSize: 25
 
                     anchors {
                         top: parent.top;
@@ -236,16 +262,20 @@ Page {
                         leftMargin: 5;
                         right: parent.right;
                     }
+
+                    font.family: "Nokia Pure Text Light"
+                    font.pixelSize: 25
                     wrapMode: Text.Wrap
+
+                    // number of likes
+                    // text will be given by the js function
+                    text: ""
                 }
 
                 // image caption
                 // this is pretty much unlimited length by instagram so it has to be cut
                 Text {
                     id: metadataImageCaption
-                    text: ""
-                    font.family: "Nokia Pure Text"
-                    font.pixelSize: 20
 
                     anchors {
                         top: metadataLikes.bottom
@@ -256,7 +286,15 @@ Page {
                         rightMargin: 5;
                     }
 
+                    font.family: "Nokia Pure Text"
+                    font.pixelSize: 20
                     wrapMode: TextEdit.Wrap
+
+                    // image description
+                    // text will be given by the js function
+                    // beware that the length is not limited by Instagram
+                    // this might be LONG!
+                    text: ""
                 }
             }
         }
@@ -268,6 +306,7 @@ Page {
     ToolBarLayout {
         id: detailViewToolbar
         visible: false
+
         ToolIcon {
             iconId: "toolbar-back";
             onClicked: {
