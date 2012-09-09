@@ -1,7 +1,5 @@
 var arrPopularImages = [];
-var bPopularPhotosLoaded = false;
 var iCurrentIndex = 0;
-var sPressedImage = "";
 
 function showDetailImageFromGallery(imageGallery, imageIndex)
 {

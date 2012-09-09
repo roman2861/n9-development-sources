@@ -35,7 +35,7 @@ Page {
 
         color: "transparent"
         width: parent.width;
-        height: 130
+        height: 140
 
 
         // user profile picture (120x120)
@@ -48,8 +48,8 @@ Page {
                 leftMargin: 10;
             }
 
-            width: 120
-            height: 120
+            width: 125
+            height: 125
 
             // light gray color to mark loading image
             color: "gainsboro"
