@@ -1,5 +1,5 @@
 Format: 1.8
-Date: Mon, 10 Sep 2012 09:19:13 +0000
+Date: Mon, 13 Sep 2012 09:19:13 +0000
 Source: instago
 Binary: instago
 Architecture: armel
@@ -13,12 +13,16 @@ Description:
 Changes: 
  instago (0.1.0) stable; urgency=low
  .
+   * Added sharing to photo detail page
    * Optimized code
    * Better alignment of user profile data
+   * New icon
+   * Updated Instago description text
+   * App name now capital "Instago"
 Checksums-Sha1: 
- 3b825da08e8c01cd0dcc0a99939fc5017f4a9dce 86080 instago_0.1.0_armel.deb
+ 639e5b706f2a5c05f1a280c3add43aef41c2cdcd 87802 instago_0.1.0_armel.deb
 Checksums-Sha256: 
- 8adbef5fa5a61157232ce2a0e4941c52eaf7663e42d4d29418837623ae441a17 86080 instago_0.1.0_armel.deb
+ d9b08e8535bcb425ee7cfc82c8efdb63731062b5b3e4698accaef5e1dbdc1fd7 87802 instago_0.1.0_armel.deb
 Files: 
- ccf5768eb6077093e80957fe3941bf34 86080 user/other optional instago_0.1.0_armel.deb
+ f08b1c6a2d7dbab272211d7511053635 87802 user/other optional instago_0.1.0_armel.deb
 Maemo-Display-Name: Instago

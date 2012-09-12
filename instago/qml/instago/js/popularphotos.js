@@ -1,7 +1,9 @@
 // Globals contain the instagram API keys
 Qt.include("instagramkeys.js")
 
+
 var arrPopularImages = [];
+
 
 function loadImages()
 {

@@ -2,8 +2,10 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
+
 import "js/globals.js" as Globals
 import "js/popularphotos.js" as PopularPhotosScript
+
 
 Page {
     // use the popular photos toolbar

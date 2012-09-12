@@ -1,9 +1,13 @@
 instago (0.1.0) stable; urgency=low
 
+  * Added sharing to photo detail page
   * Optimized code
   * Better alignment of user profile data
+  * New icon
+  * Updated Instago description text
+  * App name now capital "Instago"
 
- -- Dirk Songuer <dirk@songuer.de>  Mon, 10 Sep 2012 09:19:13 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Mon, 13 Sep 2012 09:19:13 +0000
 
 
 instago (0.0.2) unstable; urgency=low

@@ -1,6 +1,7 @@
 var arrPopularImages = [];
 var iCurrentIndex = 0;
 
+
 function showDetailImageFromGallery(imageGallery, imageIndex)
 {
     arrPopularImages = imageGallery;
@@ -27,6 +28,7 @@ function showDetailImageFromGallery(imageGallery, imageIndex)
     contentFlickableContainer.contentHeight = (userprofileContainer.height + detailImageContainer.height + 100 + metadataImageCaption.height);
     // console.log("total: " + contentFlickableContainer.contentHeight + " userprofile: " + userprofileContainer.height + " detailimage: " + detailImageContainer.height + " +100 and caption: " + metadataImageCaption.height);
 }
+
 
 function nextPopularImage()
 {

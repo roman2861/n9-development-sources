@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'sharehelper.h'
 **
-** Created: Wed 12. Sep 11:08:03 2012
+** Created: Wed 12. Sep 19:18:43 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_ShareHelper[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -31,13 +31,16 @@ static const uint qt_meta_data_ShareHelper[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      23,   13,   12,   12, 0x0a,
+      35,   13,   12,   12, 0x0a,
+      69,   13,   12,   12, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ShareHelper[] = {
-    "ShareHelper\0\0title,url\0share(QString,QString)\0"
+    "ShareHelper\0\0title,description,url\0"
+    "shareURL(QString,QString,QString)\0"
+    "shareImage(QString,QString,QString)\0"
 };
 
 const QMetaObject ShareHelper::staticMetaObject = {
@@ -69,10 +72,11 @@ int ShareHelper::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: share((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 0: shareURL((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 1: shareImage((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
         default: ;
         }
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }

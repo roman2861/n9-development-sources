@@ -1,7 +1,9 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+
 import "js/globals.js" as Globals
 import "js/userprofile.js" as UserProfileScript
+
 
 Page {
     // use the detail view toolbar

@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
+
 Page {
     // use the detail view toolbar
     tools: aboutToolbar
@@ -54,7 +55,7 @@ Page {
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 
-        text: "An Instagram client for MeeGo. Browse popular photos, look at your friends images and find new people.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.0.2";
+        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.1.0 (Public Beta)";
     }
 
 
