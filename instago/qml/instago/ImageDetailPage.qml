@@ -1,8 +1,10 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import cz.vutbr.fit.pcmlich 1.0
+
 import "js/globals.js" as Globals
 import "js/imagedetail.js" as PhotoDetailScript
+
 
 Page {
     // use the detail view toolbar
@@ -296,9 +298,23 @@ Page {
                     // this might be LONG!
                     text: ""
                 }
+
+                // this is just a dummy text that contains the instagram url target
+                Text {
+                    id: metadataInstagramURL
+
+                    text: ""
+                    visible: false
+                }
             }
         }
 
+    }
+
+
+    // this is the share helper component that makes the share dialog available
+    ShareHelper {
+        id: shareHelper
     }
 
 
@@ -311,6 +327,17 @@ Page {
             iconId: "toolbar-back";
             onClicked: {
                 pageStack.pop();
+            }
+        }
+
+        ToolIcon {
+            iconId: "toolbar-share";
+            onClicked: {
+                console.log("Share clicked for URL: " + metadataInstagramURL.text);
+
+                // call the share dialog
+                // note that this will not work in the simulator
+                shareHelper.shareURL("Instago Link", metadataImageCaption.text, metadataInstagramURL.text);
             }
         }
     }

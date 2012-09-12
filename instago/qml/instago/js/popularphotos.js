@@ -33,6 +33,8 @@ function loadImages()
                             arrPopularImages[index] = [];
                             arrPopularImages[index]["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
                             arrPopularImages[index]["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
+                            arrPopularImages[index]["linktoinstagram"] = jsonObject.data[index].link;
+
                             if (jsonObject.data[index].caption !== null)
                             {
                                 arrPopularImages[index]["caption"] = jsonObject.data[index].caption["text"];
@@ -41,6 +43,7 @@ function loadImages()
                             {
                                 arrPopularImages[index]["caption"] = "";
                             }
+
                             arrPopularImages[index]["username"] = jsonObject.data[index].user["username"];
                             arrPopularImages[index]["profilepicture"] = jsonObject.data[index].user["profile_picture"];
                             arrPopularImages[index]["userid"] = jsonObject.data[index].user["id"];

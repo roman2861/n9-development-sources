@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-09-06T22:27:22. -->
+<!-- Written by Qt Creator 2.4.1, 2012-09-12T15:52:38. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -173,12 +173,14 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">MaemoUploadAndInstallDpkgPackageStep</value>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.1.0_armel.deb</value>
        <value type="QString">D:/coding/MeeGo/instago/instago_0.0.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.0.2_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.0.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/Instago_0.0.1_armel.deb</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
+       <value type="QString">192.168.2.15</value>
        <value type="QString">localhost</value>
        <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.15</value>
@@ -189,8 +191,10 @@
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
+       <value type="QDateTime">2012-09-12T15:51:28</value>
        <value type="QDateTime">2012-08-19T14:43:18</value>
        <value type="QDateTime">2012-09-06T22:25:30</value>
        <value type="QDateTime">2012-09-06T08:02:43</value>

@@ -17,6 +17,7 @@ function showDetailImageFromGallery(imageGallery, imageIndex)
     userprofileUserID.text = arrPopularImages[iCurrentIndex]["userid"];
     metadataLikes.text = arrPopularImages[iCurrentIndex]["likes"] + " like this";
     metadataImageCaption.text = arrPopularImages[iCurrentIndex]["username"] + ": " + arrPopularImages[iCurrentIndex]["caption"];
+    metadataInstagramURL.text = arrPopularImages[iCurrentIndex]["linktoinstagram"];
 
     // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
     metadataImageCaption.height = Math.floor(((metadataImageCaption.text.length / 42) + (metadataImageCaption.text.split("\n").length - 1)) * 24 );
