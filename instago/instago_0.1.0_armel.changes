@@ -20,9 +20,9 @@ Changes:
    * Updated Instago description text
    * App name now capital "Instago"
 Checksums-Sha1: 
- 639e5b706f2a5c05f1a280c3add43aef41c2cdcd 87802 instago_0.1.0_armel.deb
+ 26b30ff760bd65123d770b5e4a572ba1898a79a6 87998 instago_0.1.0_armel.deb
 Checksums-Sha256: 
- d9b08e8535bcb425ee7cfc82c8efdb63731062b5b3e4698accaef5e1dbdc1fd7 87802 instago_0.1.0_armel.deb
+ f2ef8e811c0c3d32c865eaa3bafcbf7f3ec5658ea483c409c07e8ae1f495c328 87998 instago_0.1.0_armel.deb
 Files: 
- f08b1c6a2d7dbab272211d7511053635 87802 user/other optional instago_0.1.0_armel.deb
+ 24d4441715783a0b6f318fbc26c1d1a4 87998 user/other optional instago_0.1.0_armel.deb
 Maemo-Display-Name: Instago

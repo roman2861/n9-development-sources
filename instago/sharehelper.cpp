@@ -10,18 +10,18 @@
 // The article "How to Use the Harmattan’s ShareUI Framework in Qml" on linux4us.org was also helpful
 // See: http://blog.linux4us.org/2012/06/14/how-to-use-the-harmattans-shareui-framework-qml/
 
-
 #include <QDeclarativeContext>
-#ifndef QT_SIMULATOR
-#include <maemo-meegotouch-interfaces/shareuiinterface.h>
-#include <MDataUri>
-#endif
 
+#ifndef QT_SIMULATOR
+    #include <maemo-meegotouch-interfaces/shareuiinterface.h>
+    #include <MDataUri>
+#endif
 
 ShareHelper::ShareHelper(QObject *parent) :
     QObject(parent)
 {
 }
+
 
 // shares a URL with the share-ui interface
 void ShareHelper::shareURL(QString title, QString description, QString url) {

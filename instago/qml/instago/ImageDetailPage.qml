@@ -1,10 +1,19 @@
+// *************************************************** //
+// Image Detail Page
+//
+// The image detail page is shown when a specific
+// Instagram image is displayed.
+// The page has a number of features that can be
+// applied to the image as well as the user that
+// uploaded it.
+// *************************************************** //
+
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtShareHelper 1.0
 
 import "js/globals.js" as Globals
 import "js/imagedetail.js" as PhotoDetailScript
-
 
 Page {
     // use the detail view toolbar

@@ -1,11 +1,20 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
+// *************************************************** //
+// Popular Photos Page
+//
+// The popular photos page is shown as default starting
+// page.
+// It shows a grid of the current popular photos that
+// can be tapped.
+// It also contains general menu controls for the
+// application.
+// *************************************************** //
+
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
 import "js/globals.js" as Globals
 import "js/popularphotos.js" as PopularPhotosScript
-
 
 Page {
     // use the popular photos toolbar

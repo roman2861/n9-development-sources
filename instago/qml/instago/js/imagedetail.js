@@ -6,7 +6,7 @@ function showDetailImageFromGallery(imageGallery, imageIndex)
 {
     arrPopularImages = imageGallery;
     iCurrentIndex = imageIndex;
-//    console.log("Showing image with index " + iCurrentIndex + " and name " + arrPopularImages[iCurrentIndex]["originalimage"])
+    // console.log("Showing image with index " + iCurrentIndex + " and name " + arrPopularImages[iCurrentIndex]["originalimage"])
 
     // fill image components
     detailImage.source = arrPopularImages[iCurrentIndex]["originalimage"];

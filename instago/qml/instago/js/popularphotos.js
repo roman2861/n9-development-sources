@@ -54,7 +54,7 @@ function loadImages()
                             arrPopularImages[index]["createdtime"] = jsonObject.data[index].created_time;
                             var time = new Date(arrPopularImages[index]["createdtime"] * 1000);
                             var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
-                            time.getHours() + ":" + time.getMinutes();
+                                    time.getHours() + ":" + time.getMinutes();
                             arrPopularImages[index]["createdtime"] = timeStr;
 
                             galleryListModel.append({

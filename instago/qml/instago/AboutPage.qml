@@ -1,6 +1,12 @@
+// *************************************************** //
+// About Page
+//
+// The about page contains a description for the
+// application.
+// *************************************************** //
+
 import QtQuick 1.1
 import com.nokia.meego 1.0
-
 
 Page {
     // use the detail view toolbar

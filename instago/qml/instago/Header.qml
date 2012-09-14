@@ -1,5 +1,12 @@
-import QtQuick 1.0
+// *************************************************** //
+// Header Component
+//
+// The header component is used by the application pages.
+// It displays a rectangle with a given background image
+// and text.
+// *************************************************** //
 
+import QtQuick 1.0
 
 Rectangle{
     id: header
@@ -27,7 +34,7 @@ Rectangle{
     Image {
         id: imgHeader
         source: source
-     }
+    }
 
     // text element that holds the text property
     Text {
