@@ -24,7 +24,7 @@ function loadImages()
                         return;
                     }
 
-                    console.debug("content: " + req.responseText);
+                    // console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
 
                     galleryListModel.clear();

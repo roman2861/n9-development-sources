@@ -28,7 +28,6 @@ Page {
         PopularPhotosScript.loadImages();
     }
 
-
     // standard header for the current page
     Header {
         id: pageHeader

@@ -5,11 +5,15 @@ PageStackWindow {
     id: appWindow
 
     // initial page is the gallery of popular photos
-    initialPage: popularPhotosPage
+    initialPage: splashScreenPage //popularPhotosPage
 
     // register the popular photo page
     PopularPhotosPage {
         id: popularPhotosPage
     }
 
+    // register the popular photo page
+    SplashScreenPage {
+        id: splashScreenPage
+    }
 }
