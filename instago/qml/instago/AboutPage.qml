@@ -9,7 +9,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 Page {
-    // use the detail view toolbar
+    // use the about view toolbar
     tools: aboutToolbar
 
     // lock orientation to portrait mode
@@ -61,7 +61,7 @@ Page {
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 
-        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.1.1 (Developer Build)";
+        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.1.2 (Developer Build)";
     }
 
 
@@ -70,6 +70,7 @@ Page {
         id: aboutToolbar
         visible: false
 
+        // jump back to the user profile page
         ToolIcon {
             iconId: "toolbar-back";
             onClicked: {

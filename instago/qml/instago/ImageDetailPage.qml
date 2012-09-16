@@ -95,7 +95,7 @@ Page {
 
                         // store the user id in globals and switch to profile page
                         Globals.currentUserId = userprofileUserID.text;
-                        pageStack.push(Qt.resolvedUrl("UserProfilePage.qml"))
+                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"))
 
                     }
                 }
@@ -332,6 +332,7 @@ Page {
         id: detailViewToolbar
         visible: false
 
+        // jump back to the popular photos page
         ToolIcon {
             iconId: "toolbar-back";
             onClicked: {
@@ -339,6 +340,7 @@ Page {
             }
         }
 
+        // initiate the share dialog
         ToolIcon {
             iconId: "toolbar-share";
             onClicked: {

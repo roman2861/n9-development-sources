@@ -223,6 +223,7 @@ Page {
         id: popularPhotosToolbar
         visible: false
 
+        // refresh the popular photos grid
         ToolIcon {
             iconId: "toolbar-refresh";
             onClicked: {
@@ -231,10 +232,11 @@ Page {
             }
         }
 
+        // jump to the profile page of the current user
         ToolIcon {
-            iconId: "toolbar-settings";
+            iconId: "toolbar-contact";
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+                pageStack.push(Qt.resolvedUrl("UserProfilePage.qml"))
             }
         }
     }

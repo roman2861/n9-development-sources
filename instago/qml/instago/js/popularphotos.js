@@ -8,12 +8,11 @@ var arrPopularImages = [];
 function loadImages()
 {
     var req = new XMLHttpRequest();
+    console.log("Loading popular photos");
     req.onreadystatechange = function()
             {
                 if (req.readyState == XMLHttpRequest.DONE)
                 {
-                    console.log("Loading popular photos");
-
                     if (req.status != 200)
                     {
                         console.debug("bad status: " + req.status);
@@ -69,7 +68,7 @@ function loadImages()
                     loadingIndicator.visible = false;
                     galleryGrid.visible = true;
 
-                    console.log("Done loading popular photos.");
+                    console.log("Done loading popular photos");
                 }
             }
 
