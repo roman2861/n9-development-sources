@@ -11,7 +11,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 import "js/globals.js" as Globals
-import "js/userprofile.js" as UserProfileScript
+import "js/userdetail.js" as UserDetailScript
 
 Page {
     // use the detail view toolbar
@@ -21,7 +21,7 @@ Page {
     orientationLock: PageOrientation.LockPortrait
 
     Component.onCompleted: {
-        UserProfileScript.loadUserProfile(Globals.currentUserId);
+        UserDetailScript.loadUserDetail(Globals.currentUserId);
     }
 
     // standard header for the current page
@@ -34,7 +34,7 @@ Page {
 
     // container for the user name and data
     Rectangle {
-        id: userprofileContainer
+        id: userdetailContainer
 
         anchors {
             top: pageHeader.bottom;
@@ -50,7 +50,7 @@ Page {
 
         // user profile picture (120x120)
         Rectangle {
-            id: userprofilePictureContainer
+            id: userdetailPictureContainer
 
             anchors {
                 top: parent.top;
@@ -67,7 +67,7 @@ Page {
 
             // actual user image
             Image {
-                id: userprofilePicture
+                id: userdetailPicture
 
                 anchors.fill: parent
                 smooth: true
@@ -77,11 +77,11 @@ Page {
 
         // username
         Text {
-            id: userprofileFullname
+            id: userdetailFullname
 
             anchors {
                 top: parent.top;
-                left: userprofilePictureContainer.right;
+                left: userdetailPictureContainer.right;
                 leftMargin: 10;
                 right: parent.right;
             }
@@ -100,12 +100,12 @@ Page {
 
         // number of images
         Rectangle {
-            id: userprofileImagecount
+            id: userdetailImagecount
 
             anchors {
-                top: userprofileFullname.bottom;
+                top: userdetailFullname.bottom;
                 topMargin: 10
-                left: userprofilePictureContainer.right;
+                left: userdetailPictureContainer.right;
                 leftMargin: 10;
             }
 
@@ -162,12 +162,12 @@ Page {
 
         // number of followers
         Rectangle {
-            id: userprofileFollowers
+            id: userdetailFollowers
 
             anchors {
-                top: userprofileFullname.bottom;
+                top: userdetailFullname.bottom;
                 topMargin: 10
-                left: userprofileImagecount.right;
+                left: userdetailImagecount.right;
                 leftMargin: 10;
             }
 
@@ -224,12 +224,12 @@ Page {
 
         // number of users the actual user follows
         Rectangle {
-            id: userprofileFollowing
+            id: userdetailFollowing
 
             anchors {
-                top: userprofileFullname.bottom;
+                top: userdetailFullname.bottom;
                 topMargin: 10
-                left: userprofileFollowers.right;
+                left: userdetailFollowers.right;
                 leftMargin: 10;
             }
 
@@ -287,10 +287,10 @@ Page {
 
     // bio of the user
     Text {
-        id: userprofileBio
+        id: userdetailBio
 
         anchors {
-            top: userprofileContainer.bottom
+            top: userdetailContainer.bottom
             topMargin: 10
             left: parent.left
             leftMargin: 10
@@ -309,7 +309,6 @@ Page {
         // this might be LONG!
         text: ""
     }
-
 
 
     // toolbar for the detail page

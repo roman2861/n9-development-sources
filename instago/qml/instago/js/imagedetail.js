@@ -1,9 +1,9 @@
-var arrPopularImages = [];
-var iCurrentIndex = 0;
-
 
 function showDetailImageFromGallery(imageGallery, imageIndex)
 {
+    var arrPopularImages = [];
+    var iCurrentIndex = 0;
+
     arrPopularImages = imageGallery;
     iCurrentIndex = imageIndex;
     // console.log("Showing image with index " + iCurrentIndex + " and name " + arrPopularImages[iCurrentIndex]["originalimage"])

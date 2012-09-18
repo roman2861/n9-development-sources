@@ -61,7 +61,7 @@ Page {
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 
-        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.1.2 (Developer Build)";
+        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.2.0 (Developer Build)";
     }
 
 

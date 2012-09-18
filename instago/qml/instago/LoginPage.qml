@@ -26,6 +26,8 @@ Page {
         text: qsTr("Login")
     }
 
+
+    // browser window showing the Instagram authentication process
     WebView {
         id: loginInstagramWebView
 
@@ -48,7 +50,22 @@ Page {
 
         // check on every page load if the oauth token is in it
         onUrlChanged: {
-            Authentication.checkUrlForToken(url)
+            var instagramResponse = new Array();
+            instagramResponse = Authentication.checkInstagramAuthenticationUrl(url);
+            console.log("Status: " + instagramResponse["status"]);
+
+            if (instagramResponse["status"] == "AUTH_ERROR")
+            {
+                loginInstagramWebView.visible = false;
+                loginErrorText.text = instagramResponse["error_description"];
+                loginErrorContainer.visible = true;
+            }
+
+            if (instagramResponse["status"] == "AUTH_SUCCESS")
+            {
+                loginInstagramWebView.visible = false;
+                loginSuccessContainer.visible = true;
+            }
         }
 
         // activates the loading indicator when a new page is loaded
@@ -77,6 +94,120 @@ Page {
     }
 
 
+    Rectangle {
+        id: loginErrorContainer
+
+        anchors {
+            top: pageHeader.bottom;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false;
+
+        // no background color
+        color: "transparent"
+
+
+        // headline
+        Text {
+            id : loginErrorHeadline
+
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottom: loginErrorText.top
+                bottomMargin: 20
+            }
+
+            width: 400
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+            wrapMode: Text.WordWrap
+
+            text: "Could not authenticate you";
+        }
+
+
+        // description
+        Text {
+            id : loginErrorText
+
+            anchors {
+                centerIn: parent
+            }
+
+            width: 400
+
+            font.family: "Nokia Pure Text"
+            font.pixelSize: 20
+
+            wrapMode: Text.WordWrap
+            textFormat: Text.RichText
+
+            text: "";
+        }
+    }
+
+
+    Rectangle {
+        id: loginSuccessContainer
+
+        anchors {
+            top: pageHeader.bottom;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false;
+
+        // no background color
+        color: "transparent"
+
+
+        // headline
+        Text {
+            id : loginSuccessHeadline
+
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottom: loginSuccessText.top
+                bottomMargin: 20
+            }
+
+            width: 400
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+            wrapMode: Text.WordWrap
+
+            text: "Thank you for authenticating";
+        }
+
+
+        // description
+        Text {
+            id : loginSuccessText
+
+            anchors {
+                centerIn: parent
+            }
+
+            width: 400
+
+            font.family: "Nokia Pure Text"
+            font.pixelSize: 20
+
+            wrapMode: Text.WordWrap
+            textFormat: Text.RichText
+
+            text: "You are authenticated with Instagram and you can now use all Instago features. Have fun!";
+        }
+    }
+
+
     // toolbar for the detail page
     ToolBarLayout {
         id: loginToolbar
@@ -85,7 +216,7 @@ Page {
         ToolIcon {
             iconId: "toolbar-back";
             onClicked: {
-                pageStack.pop();
+                pageStack.pop(Qt.resolvedUrl("PopularPhotosPage.qml"));
             }
         }
     }

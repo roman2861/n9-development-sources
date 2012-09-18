@@ -1,6 +1,7 @@
-instago (0.1.2) unstable; urgency=low
+instago (0.2.0) unstable; urgency=low
 
-  * Added authentication page
+  * Added authentication with Instagram
+  * Added user profile page
 
  -- Dirk Songuer <dirk@songuer.de>  Sun, 16 Sep 2012 12:55:13 +0000
 
@@ -15,39 +16,37 @@ instago (0.1.1) unstable; urgency=low
 instago (0.1.0) stable; urgency=low
 
   * Added sharing to photo detail page
+  * Changed alignment of user profile data
+  * Changed icon
+  * Changed Instago description text
+  * Changed name to "Instago" (capital)
   * Optimized code
-  * Better alignment of user profile data
-  * New icon
-  * Updated Instago description text
-  * App name now capital "Instago"
 
  -- Dirk Songuer <dirk@songuer.de>  Mon, 13 Sep 2012 09:19:13 +0000
 
 
 instago (0.0.2) unstable; urgency=low
 
-  * Proper packaging
-  * New icon in Program Manager
+  * Added proper packaging
+  * Added new icon in Program Manager
 
  -- Dirk Songuer <dirk@songuer.de>  Sun, 06 Sep 2012 09:19:13 +0000
 
 
 instago (0.0.1) unstable; urgency=low
 
-  * Moved js files to /js
+  * Initial Release
   * Added instagramkeys.js that holds the app keys
   * Added profile page
-  * Removed instagram application key from popularphotos.js file (now in its own)
   * Added about page
-  * Switched to light theme
-  * Added user information
-  * App is now more like the current iPhone one
-  * Cleaned code and filenames
-  * Added reload behavior
-  * Overview and detail view sort of works
-  * Included captions in detail view
-  * Initial Release
-  * Single page for loading popular images
-  * Popular images work
+  * Added user detail page
+  * Added reload behavior for popular photos
+  * Added captions in detail view
+  * Added popular images
+  * Removed instagram application key from popularphotos.js file (now in its own)
+  * Changed app theme to light theme
+  * Changed design to be more like the current iPhone one
+  * Moved js files to /js
+  * Optimized code and filenames
 
  -- Dirk Songuer <dirk@songuer.de>  Sun, 19 Aug 2012 09:19:13 +0000

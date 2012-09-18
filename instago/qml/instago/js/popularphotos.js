@@ -7,8 +7,8 @@ var arrPopularImages = [];
 
 function loadImages()
 {
-    var req = new XMLHttpRequest();
     console.log("Loading popular photos");
+    var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
                 if (req.readyState == XMLHttpRequest.DONE)

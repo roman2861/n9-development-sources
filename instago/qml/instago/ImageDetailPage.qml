@@ -96,7 +96,6 @@ Page {
                         // store the user id in globals and switch to profile page
                         Globals.currentUserId = userprofileUserID.text;
                         pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"))
-
                     }
                 }
 

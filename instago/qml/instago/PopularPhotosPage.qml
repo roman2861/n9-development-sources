@@ -170,7 +170,7 @@ Page {
             font.pixelSize: 25
             wrapMode: Text.Wrap
 
-            text: "Could not load the popular photo list. Please tap to try again."
+            text: "Popular photo stream won't load.<br />Check your connection and tap<br />to try again."
         }
 
     }
