@@ -13,6 +13,7 @@ import com.nokia.meego 1.0
 import QtShareHelper 1.0
 
 import "js/globals.js" as Globals
+import "js/authentication.js" as Authentication
 import "js/imagedetail.js" as ImageDetailScript
 
 Page {
@@ -26,6 +27,11 @@ Page {
 
     Component.onCompleted: {
         ImageDetailScript.loadImage(imageId);
+
+        if (Authentication.isAuthorized())
+        {
+            iconUnliked.visible = true;
+        }
     }
 
     // standard header for the current page
@@ -346,6 +352,7 @@ Page {
         ToolIcon {
             id: iconUnliked
             iconId: "toolbar-favorite-unmark";
+            visible: false;
             onClicked: {
                 iconUnliked.visible = false;
                 iconLiked.visible = true;

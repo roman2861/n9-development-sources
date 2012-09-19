@@ -3,6 +3,8 @@ Qt.include("instagramkeys.js");
 Qt.include("authentication.js");
 
 
+// load the user data for a given Instagram user id
+// the user data will be used to fill the UserMetadata component
 function loadUserProfile(userId)
 {
     console.log("Loading user profile for user " + userId);
@@ -49,6 +51,8 @@ function loadUserProfile(userId)
 }
 
 
+// load the image stream for a given user from Instagram
+// the image data will be used to fill the standard ImageGallery component
 function loadUserImages(userId)
 {
     console.log("Loading user image list for user " + userId);

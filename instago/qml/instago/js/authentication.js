@@ -116,11 +116,7 @@ function getStoredInstagramData()
 {
     var instagramUserdata = new Array();
     var db = openDatabaseSync("Instago", "1.0", "Instago persistent data storage", 1);
-    /*
-    db.transaction(function(tx) {
-                       tx.executeSql('DROP TABLE userdata');
-                   });
-*/
+
     db.transaction(function(tx) {
                        tx.executeSql('CREATE TABLE IF NOT EXISTS userdata(id TEXT, access_token TEXT)');
                    });

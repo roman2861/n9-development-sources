@@ -3,6 +3,10 @@ Qt.include("instagramkeys.js");
 Qt.include("authentication.js");
 
 
+// load an image with a given Instagram media id
+// the image data will be used to fill the ImageDetailPage
+// note that the image data is different for an authenticated
+// user vs an unknown one
 function loadImage(imageId)
 {
     console.log("Loading image " + imageId);
@@ -16,7 +20,7 @@ function loadImage(imageId)
                         console.debug("bad status: " + req.status);
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
-                        errorIndicator.visible = true;
+                        //errorIndicator.visible = true;
 
                         return;
                     }
@@ -75,7 +79,17 @@ function loadImage(imageId)
                 }
             }
 
-    var instagramUserdata = getStoredInstagramData();
-    req.open("GET", "https://api.instagram.com/v1/media/" + imageId + "/?access_token=" + instagramUserdata["access_token"], true);
+    var url = "";
+    if (isAuthorized())
+    {
+        var instagramUserdata = getStoredInstagramData();
+        url = "https://api.instagram.com/v1/media/" + imageId + "/?access_token=" + instagramUserdata["access_token"];
+    }
+    else
+    {
+        url = "https://api.instagram.com/v1/media/" + imageId + "/?client_id=" + instagramClientId;
+    }
+
+    req.open("GET", url, true);
     req.send();
 }

@@ -2,6 +2,8 @@
 Qt.include("instagramkeys.js")
 
 
+// load the popular image stream from Instagram
+// the image data will be used to fill the standard ImageGallery component
 function loadImages()
 {
     console.log("Loading popular photos");

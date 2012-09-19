@@ -55,7 +55,7 @@ Page {
         onImagecountClicked: {
             userprofileBio.visible = false;
             userprofileContentHeadline.text = "Your Photos";
-            UserProfileScript.loadUserImages();
+            UserDataScript.loadUserImages(userId);
             userprofileGallery.visible = true;
         }
 
@@ -66,6 +66,33 @@ Page {
         onFollowingClicked: {
 
         }
+    }
+
+
+    // container headline
+    // container is only visible if user is authenticated
+    Text {
+        id: userprofileContentHeadline
+
+        anchors {
+            top: userprofileMetadata.bottom
+            topMargin: 10
+            left: parent.left
+            leftMargin: 10
+            right: parent.right;
+            rightMargin: 10
+        }
+
+        height: 30
+        visible: false
+
+        font.family: "Nokia Pure Text Light"
+        font.pixelSize: 25
+        wrapMode: Text.Wrap
+
+        // content container headline
+        // text will be given by the content switchers
+        text: "Your Bio"
     }
 
 
@@ -92,6 +119,40 @@ Page {
         // beware that the length is not limited by Instagram
         // this might be LONG!
         text: ""
+    }
+
+
+    // gallery of user images
+    // container is only visible if user is authenticated
+    ImageGallery {
+        id: userprofileGallery;
+
+        anchors {
+            top: userprofileContentHeadline.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onItemClicked: {
+            console.log("Image tapped: " + imageId);
+            pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+        }
+    }
+
+
+    // show the loading indicator as long as the page is not ready
+    BusyIndicator {
+        id: loadingIndicator
+
+        anchors.centerIn: parent
+        platformStyle: BusyIndicatorStyle { size: "large" }
+
+        running:  false
+        visible: false
     }
 
 
