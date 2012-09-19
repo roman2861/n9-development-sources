@@ -7,4 +7,4 @@ var instagramClientId = ""; // Instagram client id
 var instagramClientSecret = ""; // Instagram client secret
 var instagramAuthorizeUrl = "https://api.instagram.com/oauth/authorize"; // Instagram URL the user authenticates against
 var instagramTokenRequestUrl = "https://api.instagram.com/oauth/access_token"; // Instagram URL to request a permanent token
-var instagramRedirectUrl = "http://www.instago.mobi"; // Instagram redirect URL
+var instagramRedirectUrl = ""; // Instagram redirect URL
