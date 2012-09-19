@@ -13,7 +13,7 @@ import com.nokia.meego 1.0
 import QtShareHelper 1.0
 
 import "js/globals.js" as Globals
-import "js/imagedetail.js" as PhotoDetailScript
+import "js/imagedetail.js" as ImageDetailScript
 
 Page {
     // use the detail view toolbar
@@ -22,8 +22,10 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
+    property string imageId: "";
+
     Component.onCompleted: {
-        PhotoDetailScript.showDetailImageFromGallery(Globals.currentGalleryContent, Globals.currentGalleryIndex);
+        ImageDetailScript.loadImage(imageId);
     }
 
     // standard header for the current page
@@ -46,6 +48,8 @@ Page {
             bottom: parent.bottom;
         }
 
+        // general style definition
+        color: "transparent"
         width: parent.width
         height: parent.height
 
@@ -91,11 +95,8 @@ Page {
                     anchors.fill: parent
                     onClicked:
                     {
-                        // console.log("Profile tapped. Id was: " + userprofileUserID.text);
-
-                        // store the user id in globals and switch to profile page
-                        Globals.currentUserId = userprofileUserID.text;
-                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"))
+                        console.log("Profile tapped. Id was: " + userprofileUserID.text);
+                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userprofileUserID.text})
                     }
                 }
 
@@ -218,7 +219,7 @@ Page {
 
 
                 // the actual detail image
-                // it's set to  px although the actual detail image size is 612x612
+                // it's set to 480 px although the actual detail image size is 612x612
                 Image {
                     id: detailImage
 
@@ -338,6 +339,32 @@ Page {
                 pageStack.pop();
             }
         }
+
+
+        // like image event
+        // as the image is not liked yet, the star is unmarked
+        ToolIcon {
+            id: iconUnliked
+            iconId: "toolbar-favorite-unmark";
+            onClicked: {
+                iconUnliked.visible = false;
+                iconLiked.visible = true;
+            }
+        }
+
+
+        // unlike image event
+        // as the image is already liked, the star is marked
+        ToolIcon {
+            id: iconLiked
+            iconId: "toolbar-favorite-mark";
+            visible: false;
+            onClicked: {
+                iconLiked.visible = false;
+                iconUnliked.visible = true;
+            }
+        }
+
 
         // initiate the share dialog
         ToolIcon {

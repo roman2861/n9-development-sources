@@ -213,6 +213,7 @@ Page {
         id: loginToolbar
         visible: false
 
+
         ToolIcon {
             iconId: "toolbar-back";
             onClicked: {

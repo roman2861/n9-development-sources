@@ -1,10 +1,61 @@
 // Globals contain the instagram API keys
-Qt.include("instagramkeys.js")
+Qt.include("instagramkeys.js");
+Qt.include("authentication.js");
 
 
-function loadImages()
+function loadUserProfile(userId)
 {
-    console.log("Loading popular photos");
+    console.log("Loading user profile for user " + userId);
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function()
+            {
+                if (req.readyState == XMLHttpRequest.DONE)
+                {
+                    var userData = [];
+                    var jsonObject = eval('(' + req.responseText + ')');
+
+                    userData["username"] = jsonObject.data.username;
+                    pageHeader.text = qsTr("@" + userData["username"]);
+
+                    userData["fullname"] = jsonObject.data.full_name;
+                    if (userData["fullname"] == "") userData["fullname"] = userData["username"];
+                    userprofileMetadata.fullname = userData["fullname"];
+
+                    userData["profilepicture"] = jsonObject.data.profile_picture;
+                    userprofileMetadata.profilepicture = userData["profilepicture"];
+
+                    userData["numberofphotos"] = jsonObject.data.counts["media"];
+                    if (userData["numberofphotos"] > 10000) userData["numberofphotos"] = Math.floor(userData["numberofphotos"] / 1000) + "K";
+                    userprofileMetadata.imagecount = userData["numberofphotos"];
+
+                    userData["numberoffollowers"] = jsonObject.data.counts["followed_by"];
+                    if (userData["numberoffollowers"] > 10000) userData["numberoffollowers"] = Math.floor(userData["numberoffollowers"] / 1000) + "K";
+                    userprofileMetadata.followers = userData["numberoffollowers"];
+
+                    userData["numberoffollows"] = jsonObject.data.counts["follows"];
+                    if (userData["numberoffollows"] > 10000) userData["numberoffollows"] = Math.floor(userData["numberoffollows"] / 1000) + "K";
+                    userprofileMetadata.following = userData["numberoffollows"];
+
+                    userData["bio"] = jsonObject.data.bio;
+                    userprofileBio.text = qsTr(userData["bio"]);
+
+                    console.log("Done loading user profile");
+                }
+            }
+
+    req.open("GET", "https://api.instagram.com/v1/users/" + userId + "?client_id=" + instagramClientId, true);
+    req.send();
+}
+
+
+function loadUserImages(userId)
+{
+    console.log("Loading user image list for user " + userId);
+
+    loadingIndicator.running = true;
+    loadingIndicator.visible = true;
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -23,7 +74,7 @@ function loadImages()
                     // console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
 
-                    imageGallery.clearGallery();
+                    userprofileGallery.clearGallery();
                     for ( var index in jsonObject.data )
                     {
                         var imageData = new Array();
@@ -55,7 +106,7 @@ function loadImages()
                                     time.getHours() + ":" + time.getMinutes();
                             imageData["createdtime"] = timeStr;
 
-                            imageGallery.addToGallery({
+                            userprofileGallery.addToGallery({
                                                         "url":imageData["thumbnail"],
                                                         "index":imageData["imageid"]
                                                     });
@@ -65,12 +116,13 @@ function loadImages()
 
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
-                    imageGallery.visible = true;
+                    userprofileGallery.visible = true;
 
-                    console.log("Done loading popular photos");
+                    console.log("Done loading user image list");
                 }
             }
 
-    req.open("GET", "https://api.instagram.com/v1/media/popular?client_id=" + instagramClientId, true);
+    var instagramUserdata = getStoredInstagramData();
+    req.open("GET", "https://api.instagram.com/v1/users/" + userId + "/media/recent/?count=15&access_token=" + instagramUserdata["access_token"], true);
     req.send();
 }

@@ -11,7 +11,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 import "js/globals.js" as Globals
-import "js/userdetail.js" as UserDetailScript
+import "js/userdata.js" as UserDataScript
 
 Page {
     // use the detail view toolbar
@@ -20,8 +20,10 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
+    property string userId: "";
+
     Component.onCompleted: {
-        UserDetailScript.loadUserDetail(Globals.currentUserId);
+        UserDataScript.loadUserProfile(userId);
     }
 
     // standard header for the current page
@@ -32,9 +34,8 @@ Page {
     }
 
 
-    // container for the user name and data
-    Rectangle {
-        id: userdetailContainer
+    UserMetadata {
+        id: userprofileMetadata;
 
         anchors {
             top: pageHeader.bottom;
@@ -43,254 +44,37 @@ Page {
             right: parent.right;
         }
 
-        color: "transparent"
-        width: parent.width;
-        height: 140
+//        visible: false
 
-
-        // user profile picture (120x120)
-        Rectangle {
-            id: userdetailPictureContainer
-
-            anchors {
-                top: parent.top;
-                left: parent.left;
-                leftMargin: 10;
-            }
-
-            width: 125
-            height: 125
-
-            // light gray color to mark loading image
-            color: "gainsboro"
-
-
-            // actual user image
-            Image {
-                id: userdetailPicture
-
-                anchors.fill: parent
-                smooth: true
-            }
+        onProfilepictureClicked: {
+            userprofileGallery.visible = false;
+            userprofileBio.visible = true;
+            userprofileContentHeadline.text = "Your Bio";
         }
 
-
-        // username
-        Text {
-            id: userdetailFullname
-
-            anchors {
-                top: parent.top;
-                left: userdetailPictureContainer.right;
-                leftMargin: 10;
-                right: parent.right;
-            }
-
-            height: 35
-
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 30
-            wrapMode: Text.Wrap
-
-            // user name
-            // text will be given by the js function
-            text: ""
+        onImagecountClicked: {
+            userprofileBio.visible = false;
+            userprofileContentHeadline.text = "Your Photos";
+            UserProfileScript.loadUserImages();
+            userprofileGallery.visible = true;
         }
 
+        onFollowersClicked: {
 
-        // number of images
-        Rectangle {
-            id: userdetailImagecount
-
-            anchors {
-                top: userdetailFullname.bottom;
-                topMargin: 10
-                left: userdetailPictureContainer.right;
-                leftMargin: 10;
-            }
-
-            // light background to create boxes
-            color: "gainsboro"
-
-            width: 100
-            height: 80
-
-
-            // actual number is shown as big, centered text
-            Text {
-                id: imagecountNumber
-
-                anchors {
-                    top: parent.top
-                    topMargin: 10
-                    left: parent.left
-                    right: parent.right;
-                }
-
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
-                horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.Wrap
-
-                // number of images
-                // text will be given by the js function
-                text: ""
-            }
-
-
-            // label for number of images
-            Text {
-                id: imagecountText
-
-                anchors {
-                    top: imagecountNumber.bottom
-                    left: parent.left
-                    right: parent.right;
-                    bottom: parent.bottom
-                }
-
-                font.family: "Nokia Pure Text"
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.Wrap
-                color: "darkgray"
-
-                text: "photos"
-            }
         }
 
+        onFollowingClicked: {
 
-        // number of followers
-        Rectangle {
-            id: userdetailFollowers
-
-            anchors {
-                top: userdetailFullname.bottom;
-                topMargin: 10
-                left: userdetailImagecount.right;
-                leftMargin: 10;
-            }
-
-            // light background to create boxes
-            color: "gainsboro"
-
-            width: 100
-            height: 80
-
-
-            // actual number is shown as big, centered text
-            Text {
-                id: followersNumber
-
-                anchors {
-                    top: parent.top
-                    topMargin: 10
-                    left: parent.left
-                    right: parent.right;
-                }
-
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
-                horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.Wrap
-
-                // number of followers
-                // text will be given by the js function
-                text: ""
-            }
-
-
-            // label for number of followers
-            Text {
-                id: followersText
-
-                anchors {
-                    top: followersNumber.bottom
-                    left: parent.left
-                    right: parent.right;
-                    bottom: parent.bottom
-                }
-
-                wrapMode: Text.Wrap
-                font.family: "Nokia Pure Text"
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                color: "darkgray"
-
-                text: "followers"
-            }
-        }
-
-
-        // number of users the actual user follows
-        Rectangle {
-            id: userdetailFollowing
-
-            anchors {
-                top: userdetailFullname.bottom;
-                topMargin: 10
-                left: userdetailFollowers.right;
-                leftMargin: 10;
-            }
-
-            // light background to create boxes
-            color: "gainsboro"
-
-            width: 100
-            height: 80
-
-
-            // actual number is shown as big, centered text
-            Text {
-                id: followingNumber
-
-                anchors {
-                    top: parent.top
-                    topMargin: 10
-                    left: parent.left
-                    right: parent.right;
-                }
-
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
-                horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.Wrap
-
-                // following
-                // text will be given by the js function
-                text: ""
-            }
-
-
-            // label for number of followings
-            Text {
-                id: followingText
-
-                anchors {
-                    top: followingNumber.bottom
-                    left: parent.left
-                    right: parent.right;
-                    bottom: parent.bottom
-                }
-
-                font.family: "Nokia Pure Text"
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                color: "darkgray"
-                wrapMode: Text.Wrap
-
-                text: "following"
-            }
         }
     }
 
 
     // bio of the user
     Text {
-        id: userdetailBio
+        id: userprofileBio
 
         anchors {
-            top: userdetailContainer.bottom
+            top: userprofileMetadata.bottom
             topMargin: 10
             left: parent.left
             leftMargin: 10

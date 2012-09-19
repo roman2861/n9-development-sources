@@ -12,7 +12,7 @@ import com.nokia.meego 1.0
 
 import "js/globals.js" as Globals
 import "js/authentication.js" as Authentication
-import "js/userprofile.js" as UserProfileScript
+import "js/userdata.js" as UserDataScript
 
 Page {
     // use the detail view toolbar
@@ -29,10 +29,12 @@ Page {
             console.log("User is authorized");
 
             // load profile data for user
-            UserProfileScript.loadUserProfile();
+            var instagramUserdata = Authentication.getStoredInstagramData();
+            UserDataScript.loadUserProfile(instagramUserdata["id"]);
 
             // activate profile containers
             userprofileMetadata.visible = true;
+            userprofileContentHeadline.visible = true;
             userprofileBio.visible = true;
             profiletoolbarLogout.visible = true;
         }
@@ -145,10 +147,18 @@ Page {
         visible: false
 
         onProfilepictureClicked: {
+            userprofileGallery.visible = false;
+            userprofileBio.visible = true;
+            userprofileContentHeadline.text = "Your Bio";
         }
 
         onImagecountClicked: {
+            userprofileBio.visible = false;
+            userprofileContentHeadline.text = "Your Photos";
 
+            var instagramUserdata = Authentication.getStoredInstagramData();
+            UserDataScript.loadUserImages(instagramUserdata["id"]);
+            userprofileGallery.visible = true;
         }
 
         onFollowersClicked: {
@@ -176,6 +186,7 @@ Page {
         }
 
         height: 30
+        visible: false
 
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
@@ -216,117 +227,37 @@ Page {
     }
 
 
-    // this is the main container component
-    // it contains the actual gallery items
-    Component {
-        id: galleryDelegate
-
-
-        // this is an individual gallery item
-        Item {
-            id: galleryItem
-            width: galleryGrid.cellWidth
-            height: galleryGrid.cellHeight
-
-
-            // use the whole item as tap surface
-            // all taps on the item will be handled by the onclick event
-            MouseArea {
-                anchors.fill: parent
-                onClicked:
-                {
-                    // console.log("Image tapped. Id was: " + galleryIndex.text + ", source file was: " + galleryThumbnail.source);
-
-                    // store the photo array and the id of the tapped image in globals and switch to detail page
-                    Globals.currentGalleryContent = PopularPhotosScript.arrPopularImages;
-                    Globals.currentGalleryIndex = galleryIndex.text;
-                    pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"))
-                }
-            }
-
-
-            // this is just a dummy text that contains the id of the gallery image
-            Text {
-                id: galleryIndex
-
-                text: index
-                visible: false
-            }
-
-
-            // this is the rectangle that holds the actual gallery image
-            // its used as an empty default rect that is filled if the image could be loaded
-            Rectangle {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 154
-                height: 154
-
-                // light gray color to mark loading image
-                color: "gainsboro"
-
-                // the actual gallery image
-                Image {
-                    id: galleryThumbnail
-
-                    anchors
-                    {
-                        horizontalCenter: parent.horizontalCenter;
-                        verticalCenter: parent.verticalCenter;
-                    }
-
-                    source: url
-                }
-            }
-        }
-    }
-
-
-    // this is just an id
-    // the model is defined in the array
-    ListModel {
-        id: galleryListModel
-    }
-
-
-    // the actual grid view
-    // this contains the individual items and shows them as a list
-    GridView {
-        id: galleryGrid
-
-        // this checks if the gallery needs to be reloaded
-        property bool reload: false
-
-        // this reloads the galley if the reload property has been changed
-        // this is called by the menu or the error message
-        onReloadChanged: {
-            if (galleryGrid.reload)
-            {
-                loadingIndicator.running = true;
-                loadingIndicator.visible = true;
-                galleryGrid.visible = false;
-                PopularPhotosScript.loadImages();
-                galleryGrid.reload = false;
-            }
-        }
+    // gallery of user images
+    // container is only visible if user is authenticated
+    ImageGallery {
+        id: userprofileGallery;
 
         anchors {
             top: userprofileContentHeadline.bottom
-            topMargin: 3;
+            topMargin: 10;
             left: parent.left;
             right: parent.right;
             bottom: parent.bottom;
         }
 
-        cellWidth: 160; cellHeight: 160
-        focus: true
         visible: false
 
-        // clipping needs to be true so that the size is limited to the container
-        clip: true
+        onItemClicked: {
+            console.log("Image tapped: " + imageId);
+            pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+        }
+    }
 
-        // define model and delegate
-        model: galleryListModel
-        delegate: galleryDelegate
+
+    // show the loading indicator as long as the page is not ready
+    BusyIndicator {
+        id: loadingIndicator
+
+        anchors.centerIn: parent
+        platformStyle: BusyIndicatorStyle { size: "large" }
+
+        running:  false
+        visible: false
     }
 
 
@@ -335,6 +266,7 @@ Page {
         id: profileToolbar
         visible: false
 
+
         // jump back to the popular photos page
         ToolIcon {
             iconId: "toolbar-back";
@@ -342,6 +274,7 @@ Page {
                 pageStack.pop();
             }
         }
+
 
         // logout
         ToolIcon {
@@ -354,6 +287,7 @@ Page {
                 pageStack.pop(Qt.resolvedUrl("PopularPhotosPage.qml"));
             }
         }
+
 
         // jump to the about page
         ToolIcon {
