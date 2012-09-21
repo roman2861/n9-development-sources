@@ -72,7 +72,10 @@ Page {
             {
                 // console.log("Refresh clicked")
                 errorIndicator.visible = false;
-                galleryGrid.reload = true;
+                imageGallery.visible = false;
+                loadingIndicator.running = true;
+                loadingIndicator.visible = true;
+                PopularPhotosScript.loadImages();
             }
         }
 
@@ -120,7 +123,7 @@ Page {
         onItemClicked: {
             console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
-        }
+        }        
     }
 
 
@@ -134,7 +137,11 @@ Page {
         ToolIcon {
             iconId: "toolbar-refresh";
             onClicked: {
-                console.log("Refresh clicked")
+                // console.log("Refresh clicked");
+                imageGallery.visible = false;
+                loadingIndicator.running = true;
+                loadingIndicator.visible = true;
+                PopularPhotosScript.loadImages();
             }
         }
 

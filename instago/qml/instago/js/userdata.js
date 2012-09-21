@@ -53,9 +53,9 @@ function loadUserProfile(userId)
 
 // load the image stream for a given user from Instagram
 // the image data will be used to fill the standard ImageGallery component
-function loadUserImages(userId)
+function loadUserImages(userId, max_id)
 {
-    console.log("Loading user image list for user " + userId);
+    console.log("Loading user image list for user " + userId + " and max_id: " + max_id);
 
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
@@ -78,7 +78,11 @@ function loadUserImages(userId)
                     // console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
 
-                    userprofileGallery.clearGallery();
+                    if (max_id === 0)
+                    {
+                        userprofileGallery.clearGallery();
+                    }
+
                     for ( var index in jsonObject.data )
                     {
                         var imageData = new Array();
@@ -118,6 +122,11 @@ function loadUserImages(userId)
                         }
                     }
 
+                    if (jsonObject.pagination.next_max_id != null)
+                    {
+                        paginationNextMaxId = jsonObject.pagination.next_max_id;
+                    }
+
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
                     userprofileGallery.visible = true;
@@ -127,6 +136,13 @@ function loadUserImages(userId)
             }
 
     var instagramUserdata = getStoredInstagramData();
-    req.open("GET", "https://api.instagram.com/v1/users/" + userId + "/media/recent/?count=15&access_token=" + instagramUserdata["access_token"], true);
+    var url = "https://api.instagram.com/v1/users/" + userId + "/media/recent/?count=15&access_token=" + instagramUserdata["access_token"];
+    if (max_id !== 0)
+    {
+        url += "&max_id=" + max_id;
+    }
+
+    console.log(url);
+    req.open("GET", url, true);
     req.send();
 }

@@ -9,7 +9,8 @@
 // *************************************************** //
 
 import QtQuick 1.1
-import com.nokia.meego 1.0
+import com.nokia.meego 1.1
+import com.nokia.extras 1.1
 import QtShareHelper 1.0
 
 import "js/globals.js" as Globals
@@ -42,6 +43,14 @@ Page {
         text: qsTr("Photo")
     }
 
+    // standard info banner for action notifications
+    InfoBanner {
+        id: pageInfobanner
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+        timerShowTime: 1500
+        timerEnabled: true
+    }
 
     // this just wraps the main content of the detail page
     Rectangle {
@@ -354,6 +363,9 @@ Page {
             iconId: "toolbar-favorite-unmark";
             visible: false;
             onClicked: {
+                pageInfobanner.text = "Hey, you found a new favorite image!";
+                pageInfobanner.show();
+
                 iconUnliked.visible = false;
                 iconLiked.visible = true;
             }
@@ -367,6 +379,9 @@ Page {
             iconId: "toolbar-favorite-mark";
             visible: false;
             onClicked: {
+                pageInfobanner.text = "Oh, so you don't like this image anymore?";
+                pageInfobanner.show();
+
                 iconLiked.visible = false;
                 iconUnliked.visible = true;
             }

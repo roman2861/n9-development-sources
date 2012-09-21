@@ -21,6 +21,8 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
+    property string paginationNextMaxId: "";
+
     // check if the user is already logged in
     Component.onCompleted: {
         if (Authentication.isAuthorized())
@@ -157,7 +159,7 @@ Page {
             userprofileContentHeadline.text = "Your Photos";
 
             var instagramUserdata = Authentication.getStoredInstagramData();
-            UserDataScript.loadUserImages(instagramUserdata["id"]);
+            UserDataScript.loadUserImages(instagramUserdata["id"], 0);
             userprofileGallery.visible = true;
         }
 
@@ -245,6 +247,13 @@ Page {
         onItemClicked: {
             console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+        }
+
+        onListBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                UserDataScript.loadUserImages(userId, paginationNextMaxId);
+            }
         }
     }
 

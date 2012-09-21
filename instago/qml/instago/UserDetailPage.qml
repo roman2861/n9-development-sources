@@ -8,9 +8,11 @@
 // *************************************************** //
 
 import QtQuick 1.1
-import com.nokia.meego 1.0
+import com.nokia.meego 1.1
+import com.nokia.extras 1.1
 
 import "js/globals.js" as Globals
+import "js/authentication.js" as Authentication
 import "js/userdata.js" as UserDataScript
 
 Page {
@@ -21,9 +23,15 @@ Page {
     orientationLock: PageOrientation.LockPortrait
 
     property string userId: "";
+    property string paginationNextMaxId: "";
 
     Component.onCompleted: {
         UserDataScript.loadUserProfile(userId);
+
+        if (Authentication.isAuthorized())
+        {
+            userprofileFollowUser.visible = true;
+        }
     }
 
     // standard header for the current page
@@ -31,6 +39,15 @@ Page {
         id: pageHeader
         source: "img/top_header.png"
         text: qsTr("")
+    }
+
+    // standard info banner for action notifications
+    InfoBanner {
+        id: pageInfobanner
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+        timerShowTime: 1500
+        timerEnabled: true
     }
 
 
@@ -48,14 +65,14 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
-            userprofileBio.visible = true;
+            userprofileBioContainer.visible = true;
             userprofileContentHeadline.text = "Your Bio";
         }
 
         onImagecountClicked: {
-            userprofileBio.visible = false;
+            userprofileBioContainer.visible = false;
             userprofileContentHeadline.text = "Your Photos";
-            UserDataScript.loadUserImages(userId);
+            UserDataScript.loadUserImages(userId, 0);
             userprofileGallery.visible = true;
         }
 
@@ -96,29 +113,95 @@ Page {
     }
 
 
-    // bio of the user
-    Text {
-        id: userprofileBio
+    Rectangle {
+        id: userprofileBioContainer
 
         anchors {
             top: userprofileMetadata.bottom
             topMargin: 10
             left: parent.left
-            leftMargin: 10
             right: parent.right;
-            rightMargin: 10
             bottom: parent.bottom
         }
 
-        font.family: "Nokia Pure Text Light"
-        font.pixelSize: 25
-        wrapMode: Text.Wrap
+        // no background color
+        color: "transparent"
 
-        // user bio
-        // text will be given by the js function
-        // beware that the length is not limited by Instagram
-        // this might be LONG!
-        text: ""
+        // bio of the user
+        Text {
+            id: userprofileBio
+
+            anchors {
+                top: userprofileBioContainer.top
+                topMargin: 10
+                left: parent.left
+                leftMargin: 10
+                right: parent.right;
+                rightMargin: 10
+            }
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+            wrapMode: Text.Wrap
+
+            // user bio
+            // text will be given by the js function
+            // beware that the length is not limited by Instagram
+            // this might be LONG!
+            text: ""
+        }
+
+
+        // follow button
+        Button {
+            id: userprofileFollowUser
+
+            anchors {
+                left: parent.left;
+                leftMargin: 30;
+                right: parent.right;
+                rightMargin: 30;
+                top: userprofileBio.bottom;
+                topMargin: 30;
+            }
+
+            visible: false
+            text: "Follow"
+
+            onClicked: {
+                pageInfobanner.text = "Hey, you found a new friend!";
+                pageInfobanner.show();
+
+                userprofileFollowUser.visible = false;
+                userprofileUnfollowUser.visible = true;
+            }
+        }
+
+        // unfollow button
+        Button {
+            id: userprofileUnfollowUser
+
+            anchors {
+                left: parent.left;
+                leftMargin: 30;
+                right: parent.right;
+                rightMargin: 30;
+                top: userprofileBio.bottom;
+                topMargin: 30;
+            }
+
+            visible: false
+            text: "Unfollow"
+
+            onClicked: {
+                pageInfobanner.text = "Sorry, but sometimes it doesn't work out";
+                pageInfobanner.show();
+
+                userprofileUnfollowUser.visible = false;
+                userprofileFollowUser.visible = true;
+            }
+        }
+
     }
 
 
@@ -140,6 +223,13 @@ Page {
         onItemClicked: {
             console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+        }
+
+        onListBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                UserDataScript.loadUserImages(userId, paginationNextMaxId);
+            }
         }
     }
 

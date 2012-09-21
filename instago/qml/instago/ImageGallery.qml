@@ -27,8 +27,11 @@ Rectangle {
         galleryListModel.append(items);
     }
 
-    // signal is item was clicked
+    // signal if item was clicked
     signal itemClicked( string imageId );
+
+    // signal if gallery is scrolled to the end
+    signal listBottomReached();
 
     // general style definition
     color: "transparent"
@@ -123,5 +126,12 @@ Rectangle {
         // define model and delegate
         model: galleryListModel
         delegate: galleryDelegate
+
+        // check if list is at the bottom end
+        onMovementEnded: {
+            if(atYEnd) {
+                listBottomReached();
+            }
+        }
     }
 }
