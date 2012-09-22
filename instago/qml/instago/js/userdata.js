@@ -124,7 +124,7 @@ function loadUserImages(userId, max_id)
 
                     if (jsonObject.pagination.next_max_id != null)
                     {
-                        paginationNextMaxId = jsonObject.pagination.next_max_id;
+                        userprofileGallery.paginationNextMaxId = jsonObject.pagination.next_max_id;
                     }
 
                     loadingIndicator.running = false;

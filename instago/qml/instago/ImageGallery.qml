@@ -33,6 +33,8 @@ Rectangle {
     // signal if gallery is scrolled to the end
     signal listBottomReached();
 
+    property string paginationNextMaxId: "";
+
     // general style definition
     color: "transparent"
     width: parent.width;

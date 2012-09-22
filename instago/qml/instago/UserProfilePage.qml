@@ -21,8 +21,6 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
-    property string paginationNextMaxId: "";
-
     // check if the user is already logged in
     Component.onCompleted: {
         if (Authentication.isAuthorized())

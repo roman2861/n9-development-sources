@@ -16,6 +16,7 @@ import QtShareHelper 1.0
 import "js/globals.js" as Globals
 import "js/authentication.js" as Authentication
 import "js/imagedetail.js" as ImageDetailScript
+import "js/likes.js" as Likes
 
 Page {
     // use the detail view toolbar
@@ -366,6 +367,8 @@ Page {
                 pageInfobanner.text = "Hey, you found a new favorite image!";
                 pageInfobanner.show();
 
+                Likes.likeImage(imageId);
+
                 iconUnliked.visible = false;
                 iconLiked.visible = true;
             }
@@ -381,6 +384,8 @@ Page {
             onClicked: {
                 pageInfobanner.text = "Oh, so you don't like this image anymore?";
                 pageInfobanner.show();
+
+                Likes.unlikeImage(imageId);
 
                 iconLiked.visible = false;
                 iconUnliked.visible = true;

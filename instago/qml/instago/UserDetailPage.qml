@@ -14,6 +14,7 @@ import com.nokia.extras 1.1
 import "js/globals.js" as Globals
 import "js/authentication.js" as Authentication
 import "js/userdata.js" as UserDataScript
+import "js/relationships.js" as UserRelationshipScript
 
 Page {
     // use the detail view toolbar
@@ -23,7 +24,7 @@ Page {
     orientationLock: PageOrientation.LockPortrait
 
     property string userId: "";
-    property string paginationNextMaxId: "";
+//    property string paginationNextMaxId: "";
 
     Component.onCompleted: {
         UserDataScript.loadUserProfile(userId);
@@ -172,6 +173,8 @@ Page {
                 pageInfobanner.text = "Hey, you found a new friend!";
                 pageInfobanner.show();
 
+                UserRelationshipScript.setRelationship(userId, "follow");
+
                 userprofileFollowUser.visible = false;
                 userprofileUnfollowUser.visible = true;
             }
@@ -196,6 +199,8 @@ Page {
             onClicked: {
                 pageInfobanner.text = "Sorry, but sometimes it doesn't work out";
                 pageInfobanner.show();
+
+                UserRelationshipScript.setRelationship(userId, "unfollow");
 
                 userprofileUnfollowUser.visible = false;
                 userprofileFollowUser.visible = true;
