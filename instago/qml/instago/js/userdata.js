@@ -7,7 +7,7 @@ Qt.include("authentication.js");
 // the user data will be used to fill the UserMetadata component
 function loadUserProfile(userId)
 {
-    console.log("Loading user profile for user " + userId);
+    // console.log("Loading user profile for user " + userId);
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -42,7 +42,7 @@ function loadUserProfile(userId)
                     userData["bio"] = jsonObject.data.bio;
                     userprofileBio.text = qsTr(userData["bio"]);
 
-                    console.log("Done loading user profile");
+                    // console.log("Done loading user profile");
                 }
             }
 
@@ -55,7 +55,7 @@ function loadUserProfile(userId)
 // the image data will be used to fill the standard ImageGallery component
 function loadUserImages(userId, max_id)
 {
-    console.log("Loading user image list for user " + userId + " and max_id: " + max_id);
+    // console.log("Loading user image list for user " + userId + " and max_id: " + max_id);
 
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
@@ -67,7 +67,7 @@ function loadUserImages(userId, max_id)
                 {
                     if (req.status != 200)
                     {
-                        console.debug("bad status: " + req.status);
+                        // console.debug("bad status: " + req.status);
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
                         errorIndicator.visible = true;
@@ -118,7 +118,8 @@ function loadUserImages(userId, max_id)
                                                         "url":imageData["thumbnail"],
                                                         "index":imageData["imageid"]
                                                     });
-                            // console.log("Appended list with URL: " + imageData["thumbnail"] + " and ID: " + index);
+
+                            // console.log("Appended list with URL: " + imageData["thumbnail"] + " and ID: " + imageData["imageid"]);
                         }
                     }
 
@@ -131,7 +132,7 @@ function loadUserImages(userId, max_id)
                     loadingIndicator.visible = false;
                     userprofileGallery.visible = true;
 
-                    console.log("Done loading user image list");
+                    // console.log("Done loading user image list");
                 }
             }
 
@@ -142,7 +143,6 @@ function loadUserImages(userId, max_id)
         url += "&max_id=" + max_id;
     }
 
-    console.log(url);
     req.open("GET", url, true);
     req.send();
 }

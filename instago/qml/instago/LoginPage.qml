@@ -54,6 +54,7 @@ Page {
             instagramResponse = Authentication.checkInstagramAuthenticationUrl(url);
             console.log("Status: " + instagramResponse["status"]);
 
+            // Show the error message if the Instagram authentication was not successfull
             if (instagramResponse["status"] == "AUTH_ERROR")
             {
                 loginInstagramWebView.visible = false;
@@ -61,6 +62,7 @@ Page {
                 loginErrorContainer.visible = true;
             }
 
+            // Show the success message if the Instagram authentication was ok
             if (instagramResponse["status"] == "AUTH_SUCCESS")
             {
                 loginInstagramWebView.visible = false;
@@ -94,6 +96,7 @@ Page {
     }
 
 
+    // error message that is shown when the authentication went wrong
     Rectangle {
         id: loginErrorContainer
 
@@ -151,6 +154,7 @@ Page {
     }
 
 
+    // success message that is shown when the authentication went ok
     Rectangle {
         id: loginSuccessContainer
 
@@ -212,7 +216,6 @@ Page {
     ToolBarLayout {
         id: loginToolbar
         visible: false
-
 
         ToolIcon {
             iconId: "toolbar-back";

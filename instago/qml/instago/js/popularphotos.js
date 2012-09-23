@@ -6,7 +6,8 @@ Qt.include("instagramkeys.js")
 // the image data will be used to fill the standard ImageGallery component
 function loadImages()
 {
-    console.log("Loading popular photos");
+    // console.log("Loading popular photos");
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -14,7 +15,7 @@ function loadImages()
                 {
                     if (req.status != 200)
                     {
-                        console.debug("bad status: " + req.status);
+                        // console.debug("bad status: " + req.status);
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
                         errorIndicator.visible = true;
@@ -61,7 +62,8 @@ function loadImages()
                                                         "url":imageData["thumbnail"],
                                                         "index":imageData["imageid"]
                                                     });
-                            // console.log("Appended list with URL: " + imageData["thumbnail"] + " and ID: " + index);
+
+                            // console.log("Appended list with URL: " + imageData["thumbnail"] + " and ID: " + imageData["imageid"]);
                         }
                     }
 
@@ -69,7 +71,7 @@ function loadImages()
                     loadingIndicator.visible = false;
                     imageGallery.visible = true;
 
-                    console.log("Done loading popular photos");
+                    // console.log("Done loading popular photos");
                 }
             }
 

@@ -6,7 +6,8 @@ Qt.include("authentication.js");
 // like a given image
 function likeImage(imageId)
 {
-    console.log("Liking image " + imageId);
+    // console.log("Liking image " + imageId);
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -14,14 +15,14 @@ function likeImage(imageId)
                 {
                     if (req.status != 200)
                     {
-                        console.debug("bad status: " + req.status);
+                        // console.debug("bad status: " + req.status);
                         return;
                     }
 
-                    console.debug("content: " + req.responseText);
+                    // console.debug("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
 
-                    console.log("Done liking image");
+                    // console.log("Done liking image");
                 }
             }
 
@@ -37,7 +38,7 @@ function likeImage(imageId)
 // unlike a given image
 function unlikeImage(imageId)
 {
-    console.log("Unliking image " + imageId);
+    // console.log("Unliking image " + imageId);
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -45,14 +46,14 @@ function unlikeImage(imageId)
                 {
                     if (req.status != 200)
                     {
-                        console.debug("bad status: " + req.status);
+                        // console.debug("bad status: " + req.status);
                         return;
                     }
 
                     console.debug("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
 
-                    console.log("Done unliking image");
+                    // console.log("Done unliking image");
                 }
             }
 

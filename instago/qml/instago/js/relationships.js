@@ -6,7 +6,8 @@ Qt.include("authentication.js");
 // follow a given user
 function setRelationship(userId, relationship)
 {
-    console.log("Setting relationship to user " + userId + " to " + relationship);
+    // console.log("Setting relationship to user " + userId + " to " + relationship);
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -14,14 +15,14 @@ function setRelationship(userId, relationship)
                 {
                     if (req.status != 200)
                     {
-                        console.debug("bad status: " + req.status);
+                        // console.debug("bad status: " + req.status);
                         return;
                     }
 
-                    console.debug("content: " + req.responseText);
+                    // console.log("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
 
-                    console.log("Done changing relationship");
+                    // console.log("Done changing relationship");
                 }
             }
 

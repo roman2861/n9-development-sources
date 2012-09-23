@@ -12,7 +12,9 @@ function checkInstagramAuthenticationUrl(url)
     var currentURL = url.toString();
     var returnStatus = new Array();
 
-    console.log("URL: " + currentURL);
+    // console.log("URL: " + currentURL);
+
+    // set default status
     returnStatus["status"] = "NOT_RELEVANT";
 
     // authentication was successful: the URL contains the redirect address as well the token code
@@ -24,7 +26,7 @@ function checkInstagramAuthenticationUrl(url)
 
         if (instagramTokenCode.length > 0)
         {
-            console.log("Found Instagram token code: " + instagramTokenCode);
+            // console.log("Found Instagram token code: " + instagramTokenCode);
             requestPermanentToken(instagramTokenCode);
             returnStatus["status"] = "AUTH_SUCCESS";
         }
@@ -48,8 +50,8 @@ function checkInstagramAuthenticationUrl(url)
             returnStatus[errorMessage[0]] = errorMessage[1].replace(/\+/g, ' ');
         }
 
+        // console.log("Instagram authentication error occured");
         returnStatus["status"] = "AUTH_ERROR";
-        console.log("Instagram authentication error occured");
     }
 
     return returnStatus;
@@ -61,11 +63,12 @@ function requestPermanentToken(tokenCode)
 {
     var instagramPermanentToken = "";
 
+    // console.log("Requesting permanent token");
+
     var req = new XMLHttpRequest();
-    console.log("Requesting permanent token");
     req.onreadystatechange = function()
             {
-                console.log("Ready state: " + req.readyState);
+                // console.log("Ready state: " + req.readyState);
                 if (req.readyState == XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
@@ -74,7 +77,7 @@ function requestPermanentToken(tokenCode)
                         return;
                     }
 
-                    console.debug("content: " + req.responseText);
+                    // console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
 
                     if (jsonObject.error == null)
@@ -125,12 +128,8 @@ function getStoredInstagramData()
                        var rs = tx.executeSql("SELECT * FROM userdata");
                        if (rs.rows.length > 0)
                        {
-                           console.log("Data found with token: " + rs.rows.item(0).access_token + " for user: " + rs.rows.item(0).id);
+                           // console.log("Data found with token: " + rs.rows.item(0).access_token + " for user: " + rs.rows.item(0).id);
                            instagramUserdata = rs.rows.item(0);
-                       }
-                       else
-                       {
-                           console.log("No data found");
                        }
                    });
 
@@ -150,12 +149,12 @@ function isAuthorized()
     if (userdata.length == 0)
     {
         // user does not have a token
-        console.log("User does not have a stored token yet");
+        // console.log("User does not have a stored token yet");
         return false;
     }
 
     // user already has a token
-    console.log("User already has a stored token");
+    // console.log("User already has a stored token");
     return true;
 }
 

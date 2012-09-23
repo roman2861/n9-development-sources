@@ -1,5 +1,4 @@
 .pragma library
 
-var currentGalleryContent = [];
-var currentGalleryIndex = 0;
-var currentUserId = 0;
+var currentApplicationVersion = "0.2.0 (Developer Build)";
+

@@ -141,6 +141,7 @@ Rectangle {
             text: "photos"
         }
 
+
         // use the whole item as tap surface
         // all taps on the item will be handled by the onclick event
         MouseArea {

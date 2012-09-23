@@ -30,11 +30,13 @@ Rectangle{
     width: parent.width;
     height: 80
 
+
     // image element that holds the image property
     Image {
         id: imgHeader
         source: source
     }
+
 
     // text element that holds the text property
     Text {

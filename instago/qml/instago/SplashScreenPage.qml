@@ -9,7 +9,6 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 import "js/globals.js" as Globals
-import "js/popularphotos.js" as PopularPhotosScript
 
 Page {
     // lock orientation to portrait mode
@@ -21,6 +20,25 @@ Page {
         id: splashImage
         source: "img/instago_splashscreen.png"
         anchors.fill: parent
+    }
+
+
+    // version information, pulled from the globals.js
+    Text {
+        id : splashVersionInformation
+
+        y: 560
+        width: 480
+
+        font.family: "Nokia Pure Text"
+        font.pixelSize: 20
+
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+        textFormat: Text.RichText
+
+        color: "white"
+        text: Globals.currentApplicationVersion;
     }
 
 

@@ -4,7 +4,7 @@
 // The image gallery component is used by the application
 // pages. It displays a number of given images in a
 // gallery grid.
-// The grid is flickabble and clips.
+// The grid is flickable and clips.
 // *************************************************** //
 
 import QtQuick 1.0
@@ -33,6 +33,8 @@ Rectangle {
     // signal if gallery is scrolled to the end
     signal listBottomReached();
 
+    // property that holds the id of the next image
+    // this is given by Instagram for easy pagination
     property string paginationNextMaxId: "";
 
     // general style definition
@@ -52,24 +54,14 @@ Rectangle {
             width: galleryGrid.cellWidth
             height: galleryGrid.cellHeight
 
-
             // use the whole item as tap surface
-            // all taps on the item will be handled by the onclick event
+            // all taps on the item will be handled by the itemClicked event
             MouseArea {
                 anchors.fill: parent
                 onClicked:
                 {
-                    itemClicked(galleryIndex.text);
+                    itemClicked(index);
                 }
-            }
-
-
-            // this is just a dummy text that contains the id of the gallery image
-            Text {
-                id: galleryIndex
-
-                text: index
-                visible: false
             }
 
 

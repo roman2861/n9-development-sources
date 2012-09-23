@@ -25,11 +25,23 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
+    // this holds the image id that is shown
+    // the property will be filled by the calling page
     property string imageId: "";
 
+    // this holds the user id of the image author
+    // the property will be filled by the loader method
+    property string userId: "";
+
+    // this holds the Instagram URL for the image
+    // the property will be filled by the loader method
+    property string instagramUrl: "";
+
     Component.onCompleted: {
+        // load image data for the given image
         ImageDetailScript.loadImage(imageId);
 
+        // show like button if the user is logged in
         if (Authentication.isAuthorized())
         {
             iconUnliked.visible = true;
@@ -47,11 +59,14 @@ Page {
     // standard info banner for action notifications
     InfoBanner {
         id: pageInfobanner
+
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
+
         timerShowTime: 1500
         timerEnabled: true
     }
+
 
     // this just wraps the main content of the detail page
     Rectangle {
@@ -111,18 +126,9 @@ Page {
                     anchors.fill: parent
                     onClicked:
                     {
-                        console.log("Profile tapped. Id was: " + userprofileUserID.text);
-                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userprofileUserID.text})
+                        // console.log("Profile tapped. Id was: " + userprofileUserID.text);
+                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId})
                     }
-                }
-
-
-                // this is just a dummy text that contains the id of the user
-                Text {
-                    id: userprofileUserID
-
-                    visible: false
-                    text: ""
                 }
 
 
@@ -299,6 +305,7 @@ Page {
                     text: ""
                 }
 
+
                 // image caption
                 // this is pretty much unlimited length by instagram so it has to be cut
                 Text {
@@ -323,17 +330,8 @@ Page {
                     // this might be LONG!
                     text: ""
                 }
-
-                // this is just a dummy text that contains the instagram url target
-                Text {
-                    id: metadataInstagramURL
-
-                    text: ""
-                    visible: false
-                }
             }
         }
-
     }
 
 
@@ -397,11 +395,11 @@ Page {
         ToolIcon {
             iconId: "toolbar-share";
             onClicked: {
-                console.log("Share clicked for URL: " + metadataInstagramURL.text);
+                console.log("Share clicked for URL: " + instagramUrl);
 
                 // call the share dialog
                 // note that this will not work in the simulator
-                shareHelper.shareURL("Instago Link", metadataImageCaption.text, metadataInstagramURL.text);
+                shareHelper.shareURL("Instago Link", metadataImageCaption.text, instagramUrl);
             }
         }
     }

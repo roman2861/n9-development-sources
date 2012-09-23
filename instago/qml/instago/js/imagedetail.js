@@ -9,7 +9,8 @@ Qt.include("authentication.js");
 // user vs an unknown one
 function loadImage(imageId)
 {
-    console.log("Loading image " + imageId);
+    // console.log("Loading image " + imageId);
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -34,7 +35,7 @@ function loadImage(imageId)
                     detailImage.source = imageData["originalimage"];
 
                     imageData["linktoinstagram"] = jsonObject.data.link;
-                    metadataInstagramURL.text = imageData["linktoinstagram"];
+                    instagramUrl = imageData["linktoinstagram"];
 
                     imageData["imageid"] = jsonObject.data.id;
 
@@ -55,14 +56,16 @@ function loadImage(imageId)
                     userprofilePicture.source = imageData["profilepicture"];
 
                     imageData["userid"] = jsonObject.data.user["id"];
-                    userprofileUserID.text = imageData["userid"];
+                    userId = imageData["userid"];
 
                     imageData["likes"] = jsonObject.data.likes["count"];
                     metadataLikes.text = imageData["likes"] + " people liked this";
 
                     imageData["createdtime"] = jsonObject.data.created_time;
                     var time = new Date(imageData["createdtime"] * 1000);
-                    var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
+                    var timeStr = time.getMonth() +
+                            "/" + time.getDate() +
+                            "/" + time.getFullYear() + ", " +
                             time.getHours() + ":" + time.getMinutes();
                     imageData["createdtime"] = timeStr;
                     userprofileCreatedtime.text = imageData["createdtime"];
@@ -75,7 +78,7 @@ function loadImage(imageId)
                     contentFlickableContainer.contentHeight = (userprofileContainer.height + detailImageContainer.height + 100 + metadataImageCaption.height);
                     // console.log("total: " + contentFlickableContainer.contentHeight + " userprofile: " + userprofileContainer.height + " detailimage: " + detailImageContainer.height + " +100 and caption: " + metadataImageCaption.height);
 
-                    console.log("Done loading image");
+                    // console.log("Done loading image");
                 }
             }
 

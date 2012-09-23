@@ -23,12 +23,15 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
+    // this holds the user id of the respective user
+    // the property will be filled by the calling page
     property string userId: "";
-//    property string paginationNextMaxId: "";
 
     Component.onCompleted: {
+        // load the users profile
         UserDataScript.loadUserProfile(userId);
 
+        // show follow button if the user is logged in
         if (Authentication.isAuthorized())
         {
             userprofileFollowUser.visible = true;
@@ -42,6 +45,7 @@ Page {
         text: qsTr("")
     }
 
+
     // standard info banner for action notifications
     InfoBanner {
         id: pageInfobanner
@@ -52,6 +56,7 @@ Page {
     }
 
 
+    // header with the user metadata
     UserMetadata {
         id: userprofileMetadata;
 
@@ -67,12 +72,12 @@ Page {
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
             userprofileBioContainer.visible = true;
-            userprofileContentHeadline.text = "Your Bio";
+            userprofileContentHeadline.text = "User Bio";
         }
 
         onImagecountClicked: {
             userprofileBioContainer.visible = false;
-            userprofileContentHeadline.text = "Your Photos";
+            userprofileContentHeadline.text = "User Photos";
             UserDataScript.loadUserImages(userId, 0);
             userprofileGallery.visible = true;
         }
@@ -102,7 +107,7 @@ Page {
         }
 
         height: 30
-        visible: false
+        //        visible: false
 
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
@@ -110,7 +115,7 @@ Page {
 
         // content container headline
         // text will be given by the content switchers
-        text: "Your Bio"
+        text: "User Bio"
     }
 
 
@@ -118,12 +123,14 @@ Page {
         id: userprofileBioContainer
 
         anchors {
-            top: userprofileMetadata.bottom
+            top: userprofileContentHeadline.bottom
             topMargin: 10
             left: parent.left
             right: parent.right;
             bottom: parent.bottom
         }
+
+        //        visible: false
 
         // no background color
         color: "transparent"
@@ -243,8 +250,18 @@ Page {
     BusyIndicator {
         id: loadingIndicator
 
-        anchors.centerIn: parent
-        platformStyle: BusyIndicatorStyle { size: "large" }
+        //anchors.centerIn: parent
+        platformStyle: BusyIndicatorStyle { size: "small" }
+
+        anchors {
+            top: userprofileContentHeadline.top
+            topMargin: 0
+            right: parent.right;
+            rightMargin: 20
+        }
+
+        width: 10
+        height: 10
 
         running:  false
         visible: false

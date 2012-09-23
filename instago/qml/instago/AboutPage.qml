@@ -8,6 +8,8 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
+import "js/globals.js" as Globals
+
 Page {
     // use the about view toolbar
     tools: aboutToolbar
@@ -23,7 +25,7 @@ Page {
     }
 
 
-    // headline
+    // headline for the about page
     Text {
         id : aboutHeadline
 
@@ -44,7 +46,7 @@ Page {
     }
 
 
-    // description
+    // description for the about page
     Text {
         id : aboutMaintext
 
@@ -61,7 +63,7 @@ Page {
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 
-        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version 0.2.0 (Developer Build)";
+        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version " + Globals.currentApplicationVersion;
     }
 
 

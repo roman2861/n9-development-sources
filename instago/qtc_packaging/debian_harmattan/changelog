@@ -3,9 +3,9 @@ instago (0.2.0) unstable; urgency=low
   * Added authentication with Instagram
   * Added user profile page
   * Added likes
-  * Added following
+  * Added user relationships (follow/unfollow)
   * Added notifications for Instagram actions
-  * Added automatic reloading for gallery images
+  * Added automatic paging / loading for gallery images
 
  -- Dirk Songuer <dirk@songuer.de>  Sun, 16 Sep 2012 12:55:13 +0000
 
