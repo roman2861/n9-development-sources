@@ -130,7 +130,7 @@ Page {
         onItemClicked: {
             // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
-        }        
+        }
     }
 
 

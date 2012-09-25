@@ -45,15 +45,14 @@ Page {
         text: qsTr("")
     }
 
+    // standard notification area
+    NotificationArea {
+        id: notification
 
-    // standard info banner for action notifications
-    InfoBanner {
-        id: pageInfobanner
+        visibilitytime: 1500
+
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
-
-        timerShowTime: 1500
-        timerEnabled: true
     }
 
 
@@ -68,7 +67,7 @@ Page {
             right: parent.right;
         }
 
-//        visible: false
+        //        visible: false
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
@@ -120,6 +119,8 @@ Page {
     }
 
 
+    // bio of the user
+    // this also contains the follow buttons
     Rectangle {
         id: userprofileBioContainer
 
@@ -178,15 +179,16 @@ Page {
             text: "Follow"
 
             onClicked: {
-                pageInfobanner.text = "Hey, you found a new friend!";
-                pageInfobanner.show();
+                notification.text = "Hey, you found a new friend!";
+                notification.show();
 
-//                UserRelationshipScript.setRelationship(userId, "follow");
+                UserRelationshipScript.setRelationship(userId, "follow");
 
                 userprofileFollowUser.visible = false;
                 userprofileUnfollowUser.visible = true;
             }
         }
+
 
         // unfollow button
         Button {
@@ -205,16 +207,15 @@ Page {
             text: "Unfollow"
 
             onClicked: {
-                pageInfobanner.text = "Sorry, but sometimes it doesn't work out";
-                pageInfobanner.show();
+                notification.text = "Sorry, but sometimes it doesn't work out";
+                notification.show();
 
-//                UserRelationshipScript.setRelationship(userId, "unfollow");
+                UserRelationshipScript.setRelationship(userId, "unfollow");
 
                 userprofileUnfollowUser.visible = false;
                 userprofileFollowUser.visible = true;
             }
         }
-
     }
 
 

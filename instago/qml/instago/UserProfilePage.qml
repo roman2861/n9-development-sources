@@ -35,8 +35,7 @@ Page {
             // activate profile containers
             userprofileMetadata.visible = true;
             userprofileContentHeadline.visible = true;
-            userprofileBio.visible = true;
-            profiletoolbarLogout.visible = true;
+            userprofileBioContainer.visible = true;
         }
         else
         {
@@ -134,6 +133,8 @@ Page {
         }
     }
 
+
+    // header with the user metadata
     UserMetadata {
         id: userprofileMetadata;
 
@@ -148,12 +149,12 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
-            userprofileBio.visible = true;
+            userprofileBioContainer.visible = true;
             userprofileContentHeadline.text = "Your Bio";
         }
 
         onImagecountClicked: {
-            userprofileBio.visible = false;
+            userprofileBioContainer.visible = false;
             userprofileContentHeadline.text = "Your Photos";
 
             var instagramUserdata = Authentication.getStoredInstagramData();
@@ -199,31 +200,69 @@ Page {
 
 
     // bio of the user
-    // container is only visible if user is authenticated
-    Text {
-        id: userprofileBio
+    // this also contains the logout buttons
+    Rectangle {
+        id: userprofileBioContainer
 
         anchors {
             top: userprofileContentHeadline.bottom
             topMargin: 10
             left: parent.left
-            leftMargin: 10
             right: parent.right;
-            rightMargin: 10
             bottom: parent.bottom
         }
 
         visible: false
 
-        font.family: "Nokia Pure Text"
-        font.pixelSize: 20
-        wrapMode: Text.Wrap
+        // no background color
+        color: "transparent"
 
-        // user bio
-        // text will be given by the js function
-        // beware that the length is not limited by Instagram
-        // this might be LONG!
-        text: ""
+        // bio of the user
+        Text {
+            id: userprofileBio
+
+            anchors {
+                top: userprofileBioContainer.top
+                topMargin: 10
+                left: parent.left
+                leftMargin: 10
+                right: parent.right;
+                rightMargin: 10
+            }
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+            wrapMode: Text.Wrap
+
+            // user bio
+            // text will be given by the js function
+            // beware that the length is not limited by Instagram
+            // this might be LONG!
+            text: ""
+        }
+
+
+        // follow button
+        Button {
+            id: userprofileLogout
+
+            anchors {
+                left: parent.left;
+                leftMargin: 30;
+                right: parent.right;
+                rightMargin: 30;
+                top: userprofileBio.bottom;
+                topMargin: 30;
+            }
+
+            text: "Logout"
+
+            onClicked: {
+                Authentication.deleteStoredInstagramData();
+                pageStack.clear();
+                pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
+            }
+        }
     }
 
 
@@ -279,20 +318,6 @@ Page {
             iconId: "toolbar-back";
             onClicked: {
                 pageStack.pop();
-            }
-        }
-
-
-        // logout
-        ToolIcon {
-            id: profiletoolbarLogout
-            iconId: "toolbar-delete";
-            visible: false;
-
-            onClicked: {
-                Authentication.deleteStoredInstagramData();
-                pageStack.clear();
-                pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
             }
         }
 

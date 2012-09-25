@@ -28,68 +28,69 @@ function loadImage(imageId)
 
                     var jsonObject = eval('(' + req.responseText + ')');
 
-                    var imageData = new Array();
-                    imageData["thumbnail"] = jsonObject.data.images["thumbnail"]["url"];
+                    var imageCache = new Array();
+                    imageCache["thumbnail"] = jsonObject.data.images["thumbnail"]["url"];
 
-                    imageData["originalimage"] = jsonObject.data.images["standard_resolution"]["url"];
-                    detailImage.source = imageData["originalimage"];
+                    imageCache["originalImage"] = jsonObject.data.images["standard_resolution"]["url"];
+                    imageData.originalImage = imageCache["originalImage"];
 
-                    imageData["linktoinstagram"] = jsonObject.data.link;
-                    instagramUrl = imageData["linktoinstagram"];
+                    imageCache["linkToInstagram"] = jsonObject.data.link;
+                    imageData.linkToInstagram = imageCache["linkToInstagram"];
 
-                    imageData["imageid"] = jsonObject.data.id;
+                    imageCache["imageId"] = jsonObject.data.id;
+                    imageData.imageId = imageCache["imageId"];
+
+                    imageCache["username"] = jsonObject.data.user["username"];
+                    imageData.username = imageCache["username"];
+
+                    imageCache["profilePicture"] = jsonObject.data.user["profile_picture"];
+                    imageData.profilePicture = imageCache["profilePicture"];
+
+                    imageCache["userId"] = jsonObject.data.user["id"];
+                    imageData.userId = imageCache["userId"];
+
+                    imageCache["likes"] = jsonObject.data.likes["count"];
+                    imageData.likes = imageCache["likes"] + " people liked this";
 
                     if (jsonObject.data.caption !== null)
                     {
-                        imageData["caption"] = jsonObject.data.caption["text"];
+                        imageCache["caption"] = jsonObject.data.caption["text"];
                     }
                     else
                     {
-                        imageData["caption"] = "";
+                        imageCache["caption"] = "";
                     }
-                    metadataImageCaption.text = imageData["caption"];
+                    imageData.caption = imageCache["caption"];
 
-                    imageData["username"] = jsonObject.data.user["username"];
-                    userprofileUsername.text = imageData["username"];
-
-                    imageData["profilepicture"] = jsonObject.data.user["profile_picture"];
-                    userprofilePicture.source = imageData["profilepicture"];
-
-                    imageData["userid"] = jsonObject.data.user["id"];
-                    userId = imageData["userid"];
-
-                    imageData["userhasliked"] = jsonObject.data.user_has_liked;
-                    userHasLiked = imageData["userhasliked"];
-                    if (isAuthorized())
+                    if (jsonObject.data.user_has_liked !== undefined)
                     {
-                        if (!userHasLiked)
-                        {
-                            iconUnliked.visible = true;
-                        }
-                        else
+                        imageCache["userHasLiked"] = jsonObject.data.user_has_liked;
+                        imageData.userHasLiked = imageCache["userHasLiked"];
+                        if (jsonObject.data.user_has_liked)
                         {
                             iconLiked.visible = true;
                         }
+                        else
+                        {
+                            iconUnliked.visible = true;
+                        }
                     }
 
-                    imageData["likes"] = jsonObject.data.likes["count"];
-                    metadataLikes.text = imageData["likes"] + " people liked this";
-
-                    imageData["createdtime"] = jsonObject.data.created_time;
-                    var time = new Date(imageData["createdtime"] * 1000);
+                    imageCache["createdTime"] = jsonObject.data.created_time;
+                    var time = new Date(imageCache["createdTime"] * 1000);
                     var timeStr = time.getMonth() +
                             "/" + time.getDate() +
                             "/" + time.getFullYear() + ", " +
                             time.getHours() + ":" + time.getMinutes();
-                    imageData["createdtime"] = timeStr;
-                    userprofileCreatedtime.text = imageData["createdtime"];
+                    imageCache["createdTime"] = timeStr;
+                    imageData.createdTime = imageCache["createdTime"];
 
                     // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
-                    metadataImageCaption.height = Math.floor(((metadataImageCaption.text.length / 42) + (metadataImageCaption.text.split("\n").length - 1)) * 24 );
+                    // metadataImageCaption.height = Math.floor(((metadataImageCaption.text.length / 42) + (metadataImageCaption.text.split("\n").length - 1)) * 24 );
                     // console.log("Lines: " + metadataImageCaption.lineCount + "und height: " + metadataImageCaption.lineHeight + " = " + metadataImageCaption.lineCount / metadataImageCaption.lineHeight);
 
                     // this is fed to the flickable container as content height
-                    contentFlickableContainer.contentHeight = (userprofileContainer.height + detailImageContainer.height + 100 + metadataImageCaption.height);
+                    // contentFlickableContainer.contentHeight = (userprofileContainer.height + detailImageContainer.height + 100 + metadataImageCaption.height);
                     // console.log("total: " + contentFlickableContainer.contentHeight + " userprofile: " + userprofileContainer.height + " detailimage: " + detailImageContainer.height + " +100 and caption: " + metadataImageCaption.height);
 
                     // console.log("Done loading image");

@@ -18,15 +18,15 @@ Rectangle {
     property alias text: notificationText.text
 
     // fade time for fade in and out
-    property int fadeTime: 100
+    property int fadetime: 100
 
     // colors and background of the notification area
-    property alias backgroundColor: notificationArea.color
-    property alias textColor: notificationText.color
-    property alias backgroundImage: notificationImage.source
+    property alias textcolor: notificationText.color
+    property alias backgroundcolor: notificationArea.color
+    property alias backgroundimage: notificationImage.source
 
     // time the notification is shown in ms
-    property alias visibilityTime: notificationTimer.interval
+    property alias visibilitytime: notificationTimer.interval
 
     // signal to show the notification
     signal show();
@@ -92,7 +92,7 @@ Rectangle {
         property: "height";
         from: 0;
         to: 80;
-        duration: notificationArea.fadeTime
+        duration: notificationArea.fadetime
     }
 
 
@@ -103,7 +103,7 @@ Rectangle {
         properties: "opacity"
         from: 0
         to: 0.9
-        duration: notificationArea.fadeTime
+        duration: notificationArea.fadetime
     }
 
 
@@ -114,7 +114,7 @@ Rectangle {
         property: "height";
         from: 80;
         to: 0;
-        duration: notificationArea.fadeTime
+        duration: notificationArea.fadetime
     }
 
 
@@ -125,7 +125,7 @@ Rectangle {
         properties: "opacity"
         from: 0.9
         to: 0
-        duration: notificationArea.fadeTime
+        duration: notificationArea.fadetime
 
         onCompleted: {
             notificationArea.visible = false;
