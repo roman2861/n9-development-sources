@@ -22,6 +22,13 @@ function likeImage(imageId)
                     // console.debug("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
 
+                    var numberOfLikes = parseInt(metadataLikes.text);
+                    numberOfLikes += 1;
+                    metadataLikes.text = numberOfLikes + " people liked this";
+
+                    iconUnliked.visible = false;
+                    iconLiked.visible = true;
+
                     // console.log("Done liking image");
                 }
             }
@@ -50,8 +57,15 @@ function unlikeImage(imageId)
                         return;
                     }
 
-                    console.debug("content: " + req.responseText);
+                    // console.debug("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
+
+                    var numberOfLikes = parseInt(metadataLikes.text);
+                    numberOfLikes -= 1;
+                    metadataLikes.text = numberOfLikes + " people liked this";
+
+                    iconLiked.visible = false;
+                    iconUnliked.visible = true;
 
                     // console.log("Done unliking image");
                 }

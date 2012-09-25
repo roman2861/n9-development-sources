@@ -25,27 +25,25 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
-    // this holds the image id that is shown
+    // the image id that is shown
     // the property will be filled by the calling page
     property string imageId: "";
 
-    // this holds the user id of the image author
+    // the user id of the image author
     // the property will be filled by the loader method
     property string userId: "";
 
-    // this holds the Instagram URL for the image
+    // information if the user has liked the current image
+    // the property will be filled by the loader method
+    property bool userHasLiked: false;
+
+    // the Instagram URL for the image
     // the property will be filled by the loader method
     property string instagramUrl: "";
 
     Component.onCompleted: {
         // load image data for the given image
         ImageDetailScript.loadImage(imageId);
-
-        // show like button if the user is logged in
-        if (Authentication.isAuthorized())
-        {
-            iconUnliked.visible = true;
-        }
     }
 
     // standard header for the current page
@@ -56,18 +54,17 @@ Page {
         text: qsTr("Photo")
     }
 
-    // standard info banner for action notifications
-    InfoBanner {
-        id: pageInfobanner
+    // standard notification area
+    NotificationArea {
+        id: notification
+
+        visibilityTime: 1500
 
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
-
-        timerShowTime: 1500
-        timerEnabled: true
     }
 
-
+/*
     // this just wraps the main content of the detail page
     Rectangle {
         id: pageContentContainer
@@ -121,7 +118,6 @@ Page {
 
 
                 // use the whole user profile as tap surface
-                // all taps on the item will be handled by the onclick event
                 MouseArea {
                     anchors.fill: parent
                     onClicked:
@@ -264,6 +260,29 @@ Page {
                         }
                     }
                 }
+
+                // use the whole detail image as tap surface
+                MouseArea {
+                    anchors.fill: parent
+                    onDoubleClicked:
+                    {
+                        if (Authentication.isAuthorized())
+                        {
+                            if (iconLiked.visible === false)
+                            {
+                                notification.text = "Hey, you found a new favorite image!";
+                                notification.show();
+
+                                Likes.likeImage(imageId);
+                            }
+                            else
+                            {
+                                notification.text = "You already like this image..";
+                                notification.show();
+                            }
+                        }
+                    }
+                }
             }
 
 
@@ -333,7 +352,12 @@ Page {
             }
         }
     }
+*/
 
+    ImageDetails {
+        id: imageData
+
+    }
 
     // this is the share helper component that makes the share dialog available
     ShareHelper {
@@ -362,13 +386,10 @@ Page {
             iconId: "toolbar-favorite-unmark";
             visible: false;
             onClicked: {
-                pageInfobanner.text = "Hey, you found a new favorite image!";
-                pageInfobanner.show();
+                notification.text = "Hey, you found a new favorite image!";
+                notification.show();
 
                 Likes.likeImage(imageId);
-
-                iconUnliked.visible = false;
-                iconLiked.visible = true;
             }
         }
 
@@ -380,13 +401,10 @@ Page {
             iconId: "toolbar-favorite-mark";
             visible: false;
             onClicked: {
-                pageInfobanner.text = "Oh, so you don't like this image anymore?";
-                pageInfobanner.show();
+                notification.text = "Oh, so you don't like this image anymore?"
+                notification.show();
 
                 Likes.unlikeImage(imageId);
-
-                iconLiked.visible = false;
-                iconUnliked.visible = true;
             }
         }
 

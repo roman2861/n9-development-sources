@@ -291,7 +291,8 @@ Page {
 
             onClicked: {
                 Authentication.deleteStoredInstagramData();
-                pageStack.pop(Qt.resolvedUrl("PopularPhotosPage.qml"));
+                pageStack.clear();
+                pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
             }
         }
 

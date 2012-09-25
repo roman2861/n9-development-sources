@@ -220,7 +220,8 @@ Page {
         ToolIcon {
             iconId: "toolbar-back";
             onClicked: {
-                pageStack.pop(Qt.resolvedUrl("PopularPhotosPage.qml"));
+                pageStack.clear();
+                pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
             }
         }
     }

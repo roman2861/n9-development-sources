@@ -58,6 +58,20 @@ function loadImage(imageId)
                     imageData["userid"] = jsonObject.data.user["id"];
                     userId = imageData["userid"];
 
+                    imageData["userhasliked"] = jsonObject.data.user_has_liked;
+                    userHasLiked = imageData["userhasliked"];
+                    if (isAuthorized())
+                    {
+                        if (!userHasLiked)
+                        {
+                            iconUnliked.visible = true;
+                        }
+                        else
+                        {
+                            iconLiked.visible = true;
+                        }
+                    }
+
                     imageData["likes"] = jsonObject.data.likes["count"];
                     metadataLikes.text = imageData["likes"] + " people liked this";
 

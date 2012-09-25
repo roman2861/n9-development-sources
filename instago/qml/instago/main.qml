@@ -4,8 +4,6 @@ import com.nokia.meego 1.0
 PageStackWindow {
     id: appWindow
 
-    // property string test: "test.png"
-
     // initial page is the gallery of popular photos
     initialPage: splashScreenPage
 

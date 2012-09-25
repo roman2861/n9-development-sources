@@ -14,6 +14,7 @@ import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
 import "js/globals.js" as Globals
+import "js/authentication.js" as Authentication
 import "js/popularphotos.js" as PopularPhotosScript
 
 Page {
@@ -26,6 +27,12 @@ Page {
     // load the gallery content as soon as the page is ready
     Component.onCompleted: {
         PopularPhotosScript.loadImages();
+
+        // show home button if the user is logged in
+        if (Authentication.isAuthorized())
+        {
+            iconHome.visible = true;
+        }
     }
 
     // standard header for the current page
@@ -131,6 +138,16 @@ Page {
     ToolBarLayout {
         id: popularPhotosToolbar
         visible: false
+
+        // jump to the user stream
+        ToolIcon {
+            id: iconHome
+            iconId: "toolbar-home"
+            visible: false
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("UserProfilePage.qml"))
+            }
+        }
 
 
         // refresh the popular photos grid

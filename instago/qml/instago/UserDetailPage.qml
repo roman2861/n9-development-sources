@@ -51,6 +51,7 @@ Page {
         id: pageInfobanner
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
+
         timerShowTime: 1500
         timerEnabled: true
     }
@@ -180,7 +181,7 @@ Page {
                 pageInfobanner.text = "Hey, you found a new friend!";
                 pageInfobanner.show();
 
-                UserRelationshipScript.setRelationship(userId, "follow");
+//                UserRelationshipScript.setRelationship(userId, "follow");
 
                 userprofileFollowUser.visible = false;
                 userprofileUnfollowUser.visible = true;
@@ -207,7 +208,7 @@ Page {
                 pageInfobanner.text = "Sorry, but sometimes it doesn't work out";
                 pageInfobanner.show();
 
-                UserRelationshipScript.setRelationship(userId, "unfollow");
+//                UserRelationshipScript.setRelationship(userId, "unfollow");
 
                 userprofileUnfollowUser.visible = false;
                 userprofileFollowUser.visible = true;
