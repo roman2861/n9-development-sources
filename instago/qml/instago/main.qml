@@ -16,4 +16,42 @@ PageStackWindow {
     SplashScreenPage {
         id: splashScreenPage
     }
+
+
+
+    // toolbar for the popular photos
+    ToolBarLayout {
+        id: mainNavigationToolbar
+        visible: false
+
+        // jump to the user stream
+        ToolIcon {
+            id: iconHome
+            iconId: "toolbar-home"
+            visible: false
+            onClicked: {
+                pageStack.replace(Qt.resolvedUrl("UserFeedPage.qml"))
+            }
+        }
+
+
+        // jump to the user stream
+        ToolIcon {
+            id: iconPopular
+            iconId: "toolbar-frequent-used"
+            visible: false
+            onClicked: {
+                pageStack.replace(Qt.resolvedUrl("PopularPhotosPage.qml"))
+            }
+        }
+
+
+        // jump to the profile page of the current user
+        ToolIcon {
+            iconId: "toolbar-contact";
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("UserProfilePage.qml"))
+            }
+        }
+    }
 }

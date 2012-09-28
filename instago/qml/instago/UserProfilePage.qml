@@ -26,21 +26,20 @@ Page {
         if (Authentication.isAuthorized())
         {
             // user is authorized with Instagram
-            console.log("User is authorized");
+            // console.log("User is authorized");
+
+            // show loading indicators while loading user data
+            loadingIndicator.running = false;
+            loadingIndicator.visible = false;
 
             // load profile data for user
             var instagramUserdata = Authentication.getStoredInstagramData();
             UserDataScript.loadUserProfile(instagramUserdata["id"]);
-
-            // activate profile containers
-            userprofileMetadata.visible = true;
-            userprofileContentHeadline.visible = true;
-            userprofileBioContainer.visible = true;
         }
         else
         {
             // user is not authorized with Instagram
-            console.log("User is not authorized");
+            // console.log("User is not authorized");
 
             // activate error container
             userprofileNoTokenContainer.visible = true;
@@ -108,7 +107,7 @@ Page {
             wrapMode: Text.WordWrap
             textFormat: Text.RichText
 
-            text: "You are not connected to Instagram yet,<br />only the public features are available at the moment.<br /><br />Please connect to Instagram to use features like your news stream, following other users<br />or liking other users photos.";
+            text: "You are not connected to Instagram,<br />only the public features are available at the moment.<br /><br />Please connect to Instagram to use features like your news stream, following other users<br />or liking other users photos.";
         }
 
 
@@ -304,6 +303,34 @@ Page {
 
         running:  false
         visible: false
+    }
+
+
+    // error indicator that is shown when a network error occured
+    NetworkErrorMessage {
+        id: networkErrorMesage
+
+        anchors {
+            top: pageHeader.bottom;
+            topMargin: 3;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onMessageTap: {
+            // console.log("Refresh clicked")
+            networkErrorMesage.visible = false;
+            userprofileMetadata.visible = false;
+            userprofileContentHeadline.visible = false;
+            userprofileBioContainer.visible = false;
+            loadingIndicator.running = true;
+            loadingIndicator.visible = true;
+            var instagramUserdata = Authentication.getStoredInstagramData();
+            UserDataScript.loadUserProfile(instagramUserdata["id"]);
+        }
     }
 
 

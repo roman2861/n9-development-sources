@@ -14,33 +14,52 @@ function loadUserProfile(userId)
             {
                 if (req.readyState == XMLHttpRequest.DONE)
                 {
-                    var userData = [];
+                    if (req.status != 200)
+                    {
+                        // console.debug("bad status: " + req.status);
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+                        networkErrorMesage.visible = true;
+
+                        return;
+                    }
+
+                    var userCache = [];
                     var jsonObject = eval('(' + req.responseText + ')');
 
-                    userData["username"] = jsonObject.data.username;
-                    pageHeader.text = qsTr("@" + userData["username"]);
+                    userCache["username"] = jsonObject.data.username;
+                    pageHeader.text = qsTr("@" + userCache["username"]);
 
-                    userData["fullname"] = jsonObject.data.full_name;
-                    if (userData["fullname"] == "") userData["fullname"] = userData["username"];
-                    userprofileMetadata.fullname = userData["fullname"];
+                    userCache["fullname"] = jsonObject.data.full_name;
+                    if (userCache["fullname"] == "") userCache["fullname"] = userCache["username"];
+                    userprofileMetadata.fullname = userCache["fullname"];
 
-                    userData["profilepicture"] = jsonObject.data.profile_picture;
-                    userprofileMetadata.profilepicture = userData["profilepicture"];
+                    userCache["profilepicture"] = jsonObject.data.profile_picture;
+                    userprofileMetadata.profilepicture = userCache["profilepicture"];
 
-                    userData["numberofphotos"] = jsonObject.data.counts["media"];
-                    if (userData["numberofphotos"] > 10000) userData["numberofphotos"] = Math.floor(userData["numberofphotos"] / 1000) + "K";
-                    userprofileMetadata.imagecount = userData["numberofphotos"];
+                    userCache["numberofphotos"] = jsonObject.data.counts["media"];
+                    if (userCache["numberofphotos"] > 10000) userCache["numberofphotos"] = Math.floor(userCache["numberofphotos"] / 1000) + "K";
+                    userprofileMetadata.imagecount = userCache["numberofphotos"];
 
-                    userData["numberoffollowers"] = jsonObject.data.counts["followed_by"];
-                    if (userData["numberoffollowers"] > 10000) userData["numberoffollowers"] = Math.floor(userData["numberoffollowers"] / 1000) + "K";
-                    userprofileMetadata.followers = userData["numberoffollowers"];
+                    userCache["numberoffollowers"] = jsonObject.data.counts["followed_by"];
+                    if (userCache["numberoffollowers"] > 10000) userCache["numberoffollowers"] = Math.floor(userCache["numberoffollowers"] / 1000) + "K";
+                    userprofileMetadata.followers = userCache["numberoffollowers"];
 
-                    userData["numberoffollows"] = jsonObject.data.counts["follows"];
-                    if (userData["numberoffollows"] > 10000) userData["numberoffollows"] = Math.floor(userData["numberoffollows"] / 1000) + "K";
-                    userprofileMetadata.following = userData["numberoffollows"];
+                    userCache["numberoffollows"] = jsonObject.data.counts["follows"];
+                    if (userCache["numberoffollows"] > 10000) userCache["numberoffollows"] = Math.floor(userCache["numberoffollows"] / 1000) + "K";
+                    userprofileMetadata.following = userCache["numberoffollows"];
 
-                    userData["bio"] = jsonObject.data.bio;
-                    userprofileBio.text = qsTr(userData["bio"]);
+                    userCache["bio"] = jsonObject.data.bio;
+                    userprofileBio.text = qsTr(userCache["bio"]);
+
+                    // activate profile containers
+                    userprofileMetadata.visible = true;
+                    userprofileContentHeadline.visible = true;
+                    userprofileBioContainer.visible = true;
+
+                    // hide loading indicator
+                    loadingIndicator.running = false;
+                    loadingIndicator.visible = false;
 
                     // console.log("Done loading user profile");
                 }
@@ -57,8 +76,17 @@ function loadUserImages(userId, max_id)
 {
     // console.log("Loading user image list for user " + userId + " and max_id: " + max_id);
 
-    loadingIndicator.running = true;
-    loadingIndicator.visible = true;
+    if (max_id === 0)
+    {
+        loadingIndicator.running = true;
+        loadingIndicator.visible = true;
+    }
+    else
+    {
+        notification.useTimer = false;
+        notification.text = "Loading more images..";
+        notification.show();
+    }
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -68,9 +96,13 @@ function loadUserImages(userId, max_id)
                     if (req.status != 200)
                     {
                         // console.debug("bad status: " + req.status);
+
+                        notification.hide();
+                        notification.useTimer = true;
+
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
-                        errorIndicator.visible = true;
+                        networkErrorMesage.visible = true;
 
                         return;
                     }
@@ -128,10 +160,18 @@ function loadUserImages(userId, max_id)
                         userprofileGallery.paginationNextMaxId = jsonObject.pagination.next_max_id;
                     }
 
-                    loadingIndicator.running = false;
-                    loadingIndicator.visible = false;
-                    userprofileGallery.visible = true;
+                    if (max_id === 0)
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+                    }
+                    else
+                    {
+                        notification.hide();
+                        notification.useTimer = true;
+                    }
 
+                    userprofileGallery.visible = true;
                     // console.log("Done loading user image list");
                 }
             }

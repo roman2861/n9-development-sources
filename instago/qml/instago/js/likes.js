@@ -4,7 +4,7 @@ Qt.include("authentication.js");
 
 
 // like a given image
-function likeImage(imageId)
+function likeImage(imageId, update)
 {
     // console.log("Liking image " + imageId);
 
@@ -22,12 +22,15 @@ function likeImage(imageId)
                     // console.debug("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
 
-                    var numberOfLikes = parseInt(imageData.likes);
-                    numberOfLikes += 1;
-                    imageData.likes = numberOfLikes + " people liked this";
+                    if (update)
+                    {
+                        var numberOfLikes = parseInt(imageData.likes);
+                        numberOfLikes += 1;
+                        imageData.likes = numberOfLikes + " people liked this";
 
-                    iconUnliked.visible = false;
-                    iconLiked.visible = true;
+                        iconUnliked.visible = false;
+                        iconLiked.visible = true;
+                    }
 
                     // console.log("Done liking image");
                 }
@@ -43,7 +46,7 @@ function likeImage(imageId)
 
 
 // unlike a given image
-function unlikeImage(imageId)
+function unlikeImage(imageId, update)
 {
     // console.log("Unliking image " + imageId);
     var req = new XMLHttpRequest();
@@ -60,12 +63,15 @@ function unlikeImage(imageId)
                     // console.debug("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
 
-                    var numberOfLikes = parseInt(imageData.likes);
-                    numberOfLikes -= 1;
-                    imageData.likes = numberOfLikes + " people liked this";
+                    if (update)
+                    {
+                        var numberOfLikes = parseInt(imageData.likes);
+                        numberOfLikes -= 1;
+                        imageData.likes = numberOfLikes + " people liked this";
 
-                    iconLiked.visible = false;
-                    iconUnliked.visible = true;
+                        iconLiked.visible = false;
+                        iconUnliked.visible = true;
+                    }
 
                     // console.log("Done unliking image");
                 }

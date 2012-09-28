@@ -7,7 +7,7 @@ Standards-Version: 3.7.3
 Homepage: <http://n9development.tumblr.com/>
 
 Package: instago
-Version: 0.2.0
+Version: 0.2.2
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: An Instagram client for MeeGo

@@ -36,6 +36,7 @@ Rectangle {
 
     // define signals to make the interactions accessible
     signal detailImageClicked
+    signal captionChanged
 
 
     // general style definition
@@ -179,7 +180,7 @@ Rectangle {
 
 
         // the actual detail image
-        // it's set to 480 px although the actual detail image size is 612x612
+        // it's set to 470 px although the actual detail image size is 612x612
         Image {
             id: imagedetailImage
 
@@ -277,6 +278,9 @@ Rectangle {
             // beware that the length is not limited by Instagram
             // this might be LONG!
             text: ""
+            onTextChanged: {
+                captionChanged();
+            }
         }
     }
 }

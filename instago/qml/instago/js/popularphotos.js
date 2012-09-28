@@ -18,7 +18,7 @@ function loadImages()
                         // console.debug("bad status: " + req.status);
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
-                        errorIndicator.visible = true;
+                        networkErrorMesage.visible = true;
 
                         return;
                     }

@@ -1,10 +1,9 @@
 // *************************************************** //
-// Popular Photos Page
+// User Feed Page
 //
-// The popular photos page is shown as default starting
-// page.
-// It shows a grid of the current popular photos that
-// can be tapped.
+// The page shows th personal feed of the user. It
+// contains images and content from the people the
+// user currently follows.
 // *************************************************** //
 
 import QtQuick 1.1
@@ -13,7 +12,8 @@ import QtMobility.gallery 1.1
 
 import "js/globals.js" as Globals
 import "js/authentication.js" as Authentication
-import "js/popularphotos.js" as PopularPhotosScript
+import "js/userfeed.js" as Userfeed
+import "js/likes.js" as Likes
 
 Page {
     // use the main navigation toolbar
@@ -24,21 +24,17 @@ Page {
 
     // load the gallery content as soon as the page is ready
     Component.onCompleted: {
-        PopularPhotosScript.loadImages();
+        Userfeed.loadUserFeed();
 
-        // show main buttons if the user is logged in
-        if (Authentication.isAuthorized())
-        {
-            iconHome.visible = true;
-            iconPopular.visible = true;
-        }
+        iconHome.visible = true;
+        iconPopular.visible = true;
     }
 
     // standard header for the current page
     Header {
         id: pageHeader
         source: "img/top_header.png"
-        text: qsTr("Popular")
+        text: qsTr("Your Feed")
 
         // Reload button top right in the header
         Image {
@@ -61,14 +57,24 @@ Page {
 
                 onClicked: {
                     // console.log("Refresh clicked");
-                    imageGallery.visible = false;
+                    feedList.visible = false;
                     networkErrorMesage.visible = false;
                     loadingIndicator.running = true;
                     loadingIndicator.visible = true;
-                    PopularPhotosScript.loadImages();
+                    Userfeed.loadUserFeed();
                 }
             }
         }
+    }
+
+    // standard notification area
+    NotificationArea {
+        id: notification
+
+        visibilitytime: 1500
+
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
     }
 
 
@@ -101,31 +107,82 @@ Page {
         onMessageTap: {
             // console.log("Refresh clicked")
             networkErrorMesage.visible = false;
-            imageGallery.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
-            PopularPhotosScript.loadImages();
+            Userfeed.loadUserFeed();
         }
     }
 
 
-    // the actual image gallery that contains the the popular photos
-    ImageGallery {
-        id: imageGallery;
+    // this is the main container component
+    // it contains the actual gallery items
+    Component {
+        id: feedDelegate
+
+        // this is an individual feed item
+        Item {
+            id: feedItem
+            width: feedList.width
+            height: 610
+
+            // actual image component
+            // this does all the ui stuff for the image and metadata
+            ImageDetails {
+                id: imageData
+
+                // anchors.fill: parent
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                originalImage: d_originalImage
+                linkToInstagram: d_linkToInstagram
+                imageId: d_imageId;
+                username: d_username;
+                profilePicture: d_profilePicture;
+                userId: d_userId;
+                createdTime: d_createdTime;
+                likes: d_likes + " people liked this";
+
+                onDetailImageClicked: {
+                    notification.text = "Hey, you found a new favorite image!";
+                    notification.show();
+
+                    Likes.likeImage(imageId, false);
+                }
+            }
+        }
+    }
+
+
+    // this is just an id
+    // the model is defined in the array
+    ListModel {
+        id: feedListModel
+    }
+
+
+    // the actual grid view
+    // this contains the individual items and shows them as a list
+    ListView {
+        id: feedList
 
         anchors {
             top: pageHeader.bottom;
-            topMargin: 3;
             left: parent.left;
             right: parent.right;
             bottom: parent.bottom;
         }
 
+        focus: true
         visible: false
 
-        onItemClicked: {
-            // console.log("Image tapped: " + imageId);
-            pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
-        }
+        // clipping needs to be true so that the size is limited to the container
+        clip: true
+
+        // define model and delegate
+        model: feedListModel
+        delegate: feedDelegate
     }
+
 }

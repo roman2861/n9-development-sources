@@ -27,14 +27,25 @@ Rectangle {
 
     // time the notification is shown in ms
     property alias visibilitytime: notificationTimer.interval
+    property bool useTimer: true
 
     // signal to show the notification
     signal show();
     onShow: {
+        // console.log("Showing notification");
         notificationInAnimation.start();
         notificationInOpacity.start()
         notificationArea.visible = true;
-        notificationTimer.running = true;
+        if (useTimer === true) { notificationTimer.running = true; }
+    }
+
+    // signal to hide the notification
+    signal hide();
+    onHide: {
+        // console.log("Hiding notification");
+        notificationOutAnimation.start();
+        notificationOutOpacity.start()
+        notificationTimer.running = false;
     }
 
     anchors.left: parent.left

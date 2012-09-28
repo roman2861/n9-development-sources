@@ -67,7 +67,7 @@ Page {
             right: parent.right;
         }
 
-        //        visible: false
+        visible: false
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
@@ -76,10 +76,14 @@ Page {
         }
 
         onImagecountClicked: {
-            userprofileBioContainer.visible = false;
-            userprofileContentHeadline.text = "User Photos";
-            UserDataScript.loadUserImages(userId, 0);
-            userprofileGallery.visible = true;
+            // user photos are only available for logged in users
+            if (Authentication.isAuthorized())
+            {
+                userprofileBioContainer.visible = false;
+                userprofileContentHeadline.text = "User Photos";
+                UserDataScript.loadUserImages(userId, 0);
+                userprofileGallery.visible = true;
+            }
         }
 
         onFollowersClicked: {
@@ -107,7 +111,7 @@ Page {
         }
 
         height: 30
-        //        visible: false
+        visible: false
 
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
@@ -132,7 +136,7 @@ Page {
             bottom: parent.bottom
         }
 
-        //        visible: false
+        visible: false
 
         // no background color
         color: "transparent"
@@ -235,7 +239,7 @@ Page {
         visible: false
 
         onItemClicked: {
-            console.log("Image tapped: " + imageId);
+            // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
         }
 
@@ -252,21 +256,38 @@ Page {
     BusyIndicator {
         id: loadingIndicator
 
-        //anchors.centerIn: parent
-        platformStyle: BusyIndicatorStyle { size: "small" }
+        anchors.centerIn: parent
+        platformStyle: BusyIndicatorStyle { size: "large" }
+
+        running:  true
+        visible: true
+    }
+
+
+    // error indicator that is shown when a network error occured
+    NetworkErrorMessage {
+        id: networkErrorMesage
 
         anchors {
-            top: userprofileContentHeadline.top
-            topMargin: 0
+            top: pageHeader.bottom;
+            topMargin: 3;
+            left: parent.left;
             right: parent.right;
-            rightMargin: 20
+            bottom: parent.bottom;
         }
 
-        width: 10
-        height: 10
-
-        running:  false
         visible: false
+
+        onMessageTap: {
+            // console.log("Refresh clicked")
+            networkErrorMesage.visible = false;
+            userprofileMetadata.visible = false;
+            userprofileContentHeadline.visible = false;
+            userprofileBioContainer.visible = false;
+            loadingIndicator.running = true;
+            loadingIndicator.visible = true;
+            UserDataScript.loadUserProfile(userId);
+        }
     }
 
 

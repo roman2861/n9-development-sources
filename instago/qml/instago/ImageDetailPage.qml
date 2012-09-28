@@ -73,13 +73,31 @@ Page {
         // flick up / down to see all content
         flickableDirection: Flickable.VerticalFlick
 
+/*
+        Rectangle {
+            id: test
 
+            anchors {
+                top: parent.top;
+                left: parent.left;
+                right: parent.right;
+            }
+
+            height: 10
+            z: 10
+
+            color: "#ff0000"
+        }
+*/
         // actual image component
         // this does all the ui stuff for the image and metadata
         ImageDetails {
             id: imageData
 
-            anchors.fill: parent
+            // anchors.fill: parent
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
 
             onDetailImageClicked: {
                 if (Authentication.isAuthorized())
@@ -89,7 +107,7 @@ Page {
                         notification.text = "Hey, you found a new favorite image!";
                         notification.show();
 
-                        Likes.likeImage(imageId);
+                        Likes.likeImage(imageId, true);
                     }
                     else
                     {
@@ -97,6 +115,16 @@ Page {
                         notification.show();
                     }
                 }
+            }
+
+            onCaptionChanged: {
+                // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
+                height = Math.floor(((caption.length / 42) + (caption.split("\n").length - 1)) * 24 ) + 600;
+
+                // this is fed to the flickable container as content height
+                // console.log("height: " + height);
+                // test.height = height;
+                contentFlickableContainer.contentHeight = height;
             }
         }
     }
@@ -132,7 +160,7 @@ Page {
                 notification.text = "Hey, you found a new favorite image!";
                 notification.show();
 
-                Likes.likeImage(imageId);
+                Likes.likeImage(imageId, true);
             }
         }
 
@@ -147,7 +175,7 @@ Page {
                 notification.text = "Oh, so you don't like this image anymore?"
                 notification.show();
 
-                Likes.unlikeImage(imageId);
+                Likes.unlikeImage(imageId, true);
             }
         }
 

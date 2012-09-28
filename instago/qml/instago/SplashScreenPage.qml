@@ -53,7 +53,7 @@ Page {
 
         // when done, replace the splash page with the popular photos page
         onTriggered: {
-            console.log("Closing splash screen");
+            // console.log("Closing splash screen");
             pageStack.replace(popularPhotosPage);
         }
     }
