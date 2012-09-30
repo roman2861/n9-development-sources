@@ -24,6 +24,8 @@ function loadUserProfile(userId)
                         return;
                     }
 
+                    // console.debug("content: " + req.responseText);
+
                     var userCache = [];
                     var jsonObject = eval('(' + req.responseText + ')');
 

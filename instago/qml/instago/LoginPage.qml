@@ -52,7 +52,7 @@ Page {
         onUrlChanged: {
             var instagramResponse = new Array();
             instagramResponse = Authentication.checkInstagramAuthenticationUrl(url);
-            console.log("Status: " + instagramResponse["status"]);
+            // console.log("Status: " + instagramResponse["status"]);
 
             // Show the error message if the Instagram authentication was not successfull
             if (instagramResponse["status"] == "AUTH_ERROR")

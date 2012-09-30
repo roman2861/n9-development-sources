@@ -12,6 +12,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 import QtShareHelper 1.0
+import QtNetworkHelper 1.0
 
 import "js/globals.js" as Globals
 import "js/authentication.js" as Authentication
@@ -73,22 +74,6 @@ Page {
         // flick up / down to see all content
         flickableDirection: Flickable.VerticalFlick
 
-/*
-        Rectangle {
-            id: test
-
-            anchors {
-                top: parent.top;
-                left: parent.left;
-                right: parent.right;
-            }
-
-            height: 10
-            z: 10
-
-            color: "#ff0000"
-        }
-*/
         // actual image component
         // this does all the ui stuff for the image and metadata
         ImageDetails {
@@ -104,14 +89,14 @@ Page {
                 {
                     if (iconLiked.visible === false)
                     {
-                        notification.text = "Hey, you found a new favorite image!";
+                        notification.text = "Added photo to your favourites";
                         notification.show();
 
                         Likes.likeImage(imageId, true);
                     }
                     else
                     {
-                        notification.text = "You already like this image..";
+                        notification.text = "You already like this image";
                         notification.show();
                     }
                 }
@@ -121,9 +106,7 @@ Page {
                 // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
                 height = Math.floor(((caption.length / 42) + (caption.split("\n").length - 1)) * 24 ) + 600;
 
-                // this is fed to the flickable container as content height
-                // console.log("height: " + height);
-                // test.height = height;
+                // that number is fed to the flickable container as content height
                 contentFlickableContainer.contentHeight = height;
             }
         }
@@ -133,6 +116,11 @@ Page {
     // this is the share helper component that makes the share dialog available
     ShareHelper {
         id: shareHelper
+    }
+
+    // this is the network helper component that makes the network helper methods available
+    NetworkHelper {
+        id: networkHelper
     }
 
 
@@ -154,10 +142,10 @@ Page {
         // as the image is not liked yet, the star is unmarked
         ToolIcon {
             id: iconUnliked
-            iconId: "toolbar-favorite-unmark";
+            iconId: "toolbar-frequent-used-dimmed";
             visible: false;
             onClicked: {
-                notification.text = "Hey, you found a new favorite image!";
+                notification.text = "Added photo to your favourites";
                 notification.show();
 
                 Likes.likeImage(imageId, true);
@@ -169,10 +157,10 @@ Page {
         // as the image is already liked, the star is marked
         ToolIcon {
             id: iconLiked
-            iconId: "toolbar-favorite-mark";
+            iconId: "toolbar-frequent-used";
             visible: false;
             onClicked: {
-                notification.text = "Oh, so you don't like this image anymore?"
+                notification.text = "Removed photo from your favourites"
                 notification.show();
 
                 Likes.unlikeImage(imageId, true);
@@ -184,7 +172,7 @@ Page {
         ToolIcon {
             iconId: "toolbar-share";
             onClicked: {
-                console.log("Share clicked for URL: " + imageData.linkToInstagram);
+                // console.log("Share clicked for URL: " + imageData.linkToInstagram);
 
                 // call the share dialog
                 // note that this will not work in the simulator

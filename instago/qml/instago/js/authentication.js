@@ -82,7 +82,7 @@ function requestPermanentToken(tokenCode)
 
                     if (jsonObject.error == null)
                     {
-                        console.log("Found Instagram permanent token code: " + jsonObject);
+                        // console.log("Found Instagram permanent token code: " + jsonObject);
                         instagramPermanentToken = jsonObject.access_token;
                         storeInstagramData(jsonObject);
                     }

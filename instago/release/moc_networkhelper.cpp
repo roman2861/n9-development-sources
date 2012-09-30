@@ -1,15 +1,15 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'sharehelper.h'
+** Meta object code from reading C++ file 'networkhelper.h'
 **
-** Created: Sat 29. Sep 15:20:24 2012
+** Created: Sat 29. Sep 15:10:50 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../sharehelper.h"
+#include "../networkhelper.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'sharehelper.h' doesn't include <QObject>."
+#error "The header file 'networkhelper.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 62
 #error "This file was generated using the moc from 4.7.4. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -17,7 +17,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_ShareHelper[] = {
+static const uint qt_meta_data_NetworkHelper[] = {
 
  // content:
        5,       // revision
@@ -31,49 +31,48 @@ static const uint qt_meta_data_ShareHelper[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      35,   13,   12,   12, 0x0a,
-      69,   13,   12,   12, 0x0a,
+      19,   15,   14,   14, 0x0a,
+      52,   46,   14,   14, 0x0a,
 
        0        // eod
 };
 
-static const char qt_meta_stringdata_ShareHelper[] = {
-    "ShareHelper\0\0title,description,url\0"
-    "shareURL(QString,QString,QString)\0"
-    "shareImage(QString,QString,QString)\0"
+static const char qt_meta_stringdata_NetworkHelper[] = {
+    "NetworkHelper\0\0url\0sendDeleteRequest(QString)\0"
+    "reply\0handleHttpResult(QNetworkReply*)\0"
 };
 
-const QMetaObject ShareHelper::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_ShareHelper,
-      qt_meta_data_ShareHelper, 0 }
+const QMetaObject NetworkHelper::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_NetworkHelper,
+      qt_meta_data_NetworkHelper, 0 }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &ShareHelper::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &NetworkHelper::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *ShareHelper::metaObject() const
+const QMetaObject *NetworkHelper::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *ShareHelper::qt_metacast(const char *_clname)
+void *NetworkHelper::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_ShareHelper))
-        return static_cast<void*>(const_cast< ShareHelper*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_NetworkHelper))
+        return static_cast<void*>(const_cast< NetworkHelper*>(this));
     return QObject::qt_metacast(_clname);
 }
 
-int ShareHelper::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int NetworkHelper::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: shareURL((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
-        case 1: shareImage((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 0: sendDeleteRequest((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: handleHttpResult((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
         default: ;
         }
         _id -= 2;

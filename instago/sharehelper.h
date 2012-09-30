@@ -19,7 +19,7 @@ public:
     explicit ShareHelper(QObject *parent = 0);
     
 signals:
-    
+
 public slots:
     //! Shares a URL with the share-ui interface
     //! \param title The title of the content to be shared

@@ -8,6 +8,9 @@ function loadImages()
 {
     // console.log("Loading popular photos");
 
+    // clear feed list
+    imageGallery.clearGallery();
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -26,7 +29,6 @@ function loadImages()
                     // console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
 
-                    imageGallery.clearGallery();
                     for ( var index in jsonObject.data )
                     {
                         var imageData = new Array();

@@ -59,6 +59,7 @@ Page {
                     // console.log("Refresh clicked");
                     feedList.visible = false;
                     networkErrorMesage.visible = false;
+
                     loadingIndicator.running = true;
                     loadingIndicator.visible = true;
                     Userfeed.loadUserFeed();
@@ -145,7 +146,7 @@ Page {
                 likes: d_likes + " people liked this";
 
                 onDetailImageClicked: {
-                    notification.text = "Hey, you found a new favorite image!";
+                    notification.text = "Added photo to your favourites";
                     notification.show();
 
                     Likes.likeImage(imageId, false);

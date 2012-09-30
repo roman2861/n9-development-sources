@@ -9,6 +9,9 @@ function loadUserFeed()
 {
     // console.log("Loading user feed");
 
+    // clear feed list
+    feedListModel.clear();
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -30,7 +33,6 @@ function loadUserFeed()
                     // var for image cache
                     var imageCache = new Array();
 
-                    feedListModel.clear();
                     for ( var index in jsonObject.data )
                     {
                         imageCache = [];
@@ -74,18 +76,17 @@ function loadUserFeed()
 
                         // console.log("Appended list with ID: " + imageCache["imageId"] + " in index: " + index);
                     }
+
+                    loadingIndicator.running = false;
+                    loadingIndicator.visible = false;
+                    feedList.visible = true;
+
+                    // console.log("Done loading user feed");
                 }
-
-                loadingIndicator.running = false;
-                loadingIndicator.visible = false;
-                feedList.visible = true;
-
-                // console.log("Done loading user feed");
             }
 
     var instagramUserdata = getStoredInstagramData();
     var url = "https://api.instagram.com/v1/users/self/feed?access_token=" + instagramUserdata["access_token"];
     req.open("GET", url, true);
-    // console.log("url: " + url)
     req.send();
 }

@@ -34,7 +34,7 @@ Page {
         // show follow button if the user is logged in
         if (Authentication.isAuthorized())
         {
-            userprofileFollowUser.visible = true;
+            UserRelationshipScript.getRelationship(userId);
         }
     }
 
@@ -183,7 +183,7 @@ Page {
             text: "Follow"
 
             onClicked: {
-                notification.text = "Hey, you found a new friend!";
+                notification.text = "You now follow " + pageHeader.text;
                 notification.show();
 
                 UserRelationshipScript.setRelationship(userId, "follow");
@@ -211,7 +211,7 @@ Page {
             text: "Unfollow"
 
             onClicked: {
-                notification.text = "Sorry, but sometimes it doesn't work out";
+                notification.text = "You unfollowed " + pageHeader.text;
                 notification.show();
 
                 UserRelationshipScript.setRelationship(userId, "unfollow");

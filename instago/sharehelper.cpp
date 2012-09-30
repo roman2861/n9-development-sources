@@ -13,8 +13,8 @@
 #include <QDeclarativeContext>
 
 #ifndef QT_SIMULATOR
-    #include <maemo-meegotouch-interfaces/shareuiinterface.h>
-    #include <MDataUri>
+#include <maemo-meegotouch-interfaces/shareuiinterface.h>
+#include <MDataUri>
 #endif
 
 ShareHelper::ShareHelper(QObject *parent) :
@@ -24,7 +24,8 @@ ShareHelper::ShareHelper(QObject *parent) :
 
 
 // shares a URL with the share-ui interface
-void ShareHelper::shareURL(QString title, QString description, QString url) {
+void ShareHelper::shareURL(QString title, QString description, QString url)
+{
 #ifndef QT_SIMULATOR
     MDataUri dataUri;
 
@@ -34,7 +35,7 @@ void ShareHelper::shareURL(QString title, QString description, QString url) {
     dataUri.setAttribute("title", title);
     dataUri.setAttribute("description", description);
 
-    qDebug() << dataUri.toString();
+    // qDebug() << dataUri.toString();
 
     QStringList items;
     items << dataUri.toString();
@@ -52,7 +53,8 @@ void ShareHelper::shareURL(QString title, QString description, QString url) {
 
 
 // shares an image with the share-ui interface
-void ShareHelper::shareImage(QString title, QString description, QString url) {
+void ShareHelper::shareImage(QString title, QString description, QString url)
+{
 #ifndef QT_SIMULATOR
     MDataUri dataUri;
 

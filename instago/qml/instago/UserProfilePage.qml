@@ -199,7 +199,7 @@ Page {
 
 
     // bio of the user
-    // this also contains the logout buttons
+    // this also contains the logout button
     Rectangle {
         id: userprofileBioContainer
 
@@ -258,6 +258,7 @@ Page {
 
             onClicked: {
                 Authentication.deleteStoredInstagramData();
+
                 pageStack.clear();
                 pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
             }
@@ -281,7 +282,7 @@ Page {
         visible: false
 
         onItemClicked: {
-            console.log("Image tapped: " + imageId);
+            // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
         }
 

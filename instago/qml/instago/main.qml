@@ -35,19 +35,29 @@ PageStackWindow {
         }
 
 
-        // jump to the user stream
+        // jump to the popular photo stream
         ToolIcon {
             id: iconPopular
-            iconId: "toolbar-frequent-used"
+            iconId: "toolbar-all-content-dimmed-white"
             visible: false
+
             onClicked: {
                 pageStack.replace(Qt.resolvedUrl("PopularPhotosPage.qml"))
             }
         }
 
 
+        // this is an "empty" icon slot
+        // it's visible when the user is logged out thus keeping the user profile icon right
+        // will throw an error on runtime: QML QDeclarativeImage_QML_36: Failed to get image from provider: image://theme/icon-m-
+        ToolIcon {
+            id: iconNone
+        }
+
+
         // jump to the profile page of the current user
         ToolIcon {
+            id: iconProfile
             iconId: "toolbar-contact";
             onClicked: {
                 pageStack.push(Qt.resolvedUrl("UserProfilePage.qml"))

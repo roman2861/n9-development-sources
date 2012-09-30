@@ -4,7 +4,7 @@ Qt.include("authentication.js");
 
 
 // like a given image
-function likeImage(imageId, update)
+function likeImage(imageId, updateComponents)
 {
     // console.log("Liking image " + imageId);
 
@@ -22,8 +22,10 @@ function likeImage(imageId, update)
                     // console.debug("content: " + req.responseText);
                     // var jsonObject = eval('(' + req.responseText + ')');
 
-                    if (update)
+                    if (updateComponents)
                     {
+                        // console.log("Updating components");
+
                         var numberOfLikes = parseInt(imageData.likes);
                         numberOfLikes += 1;
                         imageData.likes = numberOfLikes + " people liked this";
@@ -46,41 +48,19 @@ function likeImage(imageId, update)
 
 
 // unlike a given image
-function unlikeImage(imageId, update)
+function unlikeImage(imageId, updateComponents)
 {
     // console.log("Unliking image " + imageId);
-    var req = new XMLHttpRequest();
-    req.onreadystatechange = function()
-            {
-                if (req.readyState == XMLHttpRequest.DONE)
-                {
-                    if (req.status != 200)
-                    {
-                        // console.debug("bad status: " + req.status);
-                        return;
-                    }
-
-                    // console.debug("content: " + req.responseText);
-                    // var jsonObject = eval('(' + req.responseText + ')');
-
-                    if (update)
-                    {
-                        var numberOfLikes = parseInt(imageData.likes);
-                        numberOfLikes -= 1;
-                        imageData.likes = numberOfLikes + " people liked this";
-
-                        iconLiked.visible = false;
-                        iconUnliked.visible = true;
-                    }
-
-                    // console.log("Done unliking image");
-                }
-            }
 
     var instagramUserdata = getStoredInstagramData();
-    var params = "access_token=" + instagramUserdata["access_token"];
+    networkHelper.sendDeleteRequest("https://api.instagram.com/v1/media/" + imageId + "/likes?access_token=" + instagramUserdata["access_token"]);
 
-    var url = "https://api.instagram.com/v1/media/" + imageId + "/likes";
-    req.open("DELETE", url, true);
-    req.send(params);
+    var numberOfLikes = parseInt(imageData.likes);
+    numberOfLikes -= 1;
+    imageData.likes = numberOfLikes + " people liked this";
+
+    iconLiked.visible = false;
+    iconUnliked.visible = true;
+
+    // console.log("Done unliking image");
 }
