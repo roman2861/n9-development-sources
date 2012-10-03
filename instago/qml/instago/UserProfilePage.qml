@@ -148,25 +148,47 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
+            userprofileFollowers.visible = false;
+            userprofileFollowing.visible = false;
+            userprofileContentHeadline.text = "Your bio";
+
             userprofileBio.visible = true;
-            userprofileContentHeadline.text = "Your Bio";
         }
 
         onImagecountClicked: {
             userprofileBio.visible = false;
-            userprofileContentHeadline.text = "Your Photos";
+            userprofileFollowers.visible = false;
+            userprofileFollowing.visible = false;
+            userprofileContentHeadline.text = "Your photos";
 
             var instagramUserdata = Authentication.getStoredInstagramData();
             UserDataScript.loadUserImages(instagramUserdata["id"], 0);
+
             userprofileGallery.visible = true;
         }
 
         onFollowersClicked: {
+            userprofileBio.visible = false;
+            userprofileGallery.visible = false;
+            userprofileFollowing.visible = false;
+            userprofileContentHeadline.text = "People that follow you";
 
+            var instagramUserdata = Authentication.getStoredInstagramData();
+            UserDataScript.loadUserFollowers(instagramUserdata["id"], 0);
+
+            userprofileFollowers.visible = true;
         }
 
         onFollowingClicked: {
+            userprofileBio.visible = false;
+            userprofileGallery.visible = false;
+            userprofileFollowers.visible = false;
+            userprofileContentHeadline.text = "People that you follow";
 
+            var instagramUserdata = Authentication.getStoredInstagramData();
+            UserDataScript.loadUserFollowing(instagramUserdata["id"], 0);
+
+            userprofileFollowing.visible = true;
         }
     }
 
@@ -249,6 +271,40 @@ Page {
                 UserDataScript.loadUserImages(userId, paginationNextMaxId);
             }
         }
+    }
+
+
+    // list of the followers
+    // container is only visible if user is authenticated
+    UserList {
+        id: userprofileFollowers;
+
+        anchors {
+            top: userprofileContentHeadline.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+    }
+
+
+    // list of the followings
+    // container is only visible if user is authenticated
+    UserList {
+        id: userprofileFollowing;
+
+        anchors {
+            top: userprofileContentHeadline.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
     }
 
 

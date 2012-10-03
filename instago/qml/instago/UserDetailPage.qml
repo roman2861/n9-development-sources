@@ -71,8 +71,11 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
-            userprofileBio.visible = true;
+            userprofileFollowers.visible = false;
+            userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Bio";
+
+            userprofileBio.visible = true;
         }
 
         onImagecountClicked: {
@@ -217,6 +220,8 @@ Page {
     }
 
 
+    // list of the followers
+    // container is only visible if user is authenticated
     UserList {
         id: userprofileFollowers;
 
@@ -232,6 +237,8 @@ Page {
     }
 
 
+    // list of the followings
+    // container is only visible if user is authenticated
     UserList {
         id: userprofileFollowing;
 

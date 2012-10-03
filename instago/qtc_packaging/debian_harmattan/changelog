@@ -1,7 +1,8 @@
 instago (0.3.1) unstable; urgency=low
 
   * Added network error check + message to image detail view
-  * Added user follower list
+  * Added user follower (followed by) list
+  * Added user following (follows) list
   * Optimized image detail loading behavior
   * Optimized user profile pages
   * Fixed wrong time format in image detail views (now shows "0n:0n")
