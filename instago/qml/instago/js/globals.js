@@ -1,4 +1,4 @@
 .pragma library
 
-var currentApplicationVersion = "0.3.1 (Developer Build)";
+var currentApplicationVersion = "0.3.2 (Developer Build)";
 

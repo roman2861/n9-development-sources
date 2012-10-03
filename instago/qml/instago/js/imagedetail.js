@@ -1,6 +1,7 @@
 // Globals contain the instagram API keys
 Qt.include("instagramkeys.js");
 Qt.include("authentication.js");
+Qt.include("helpermethods.js");
 
 
 // load an image with a given Instagram media id
@@ -14,7 +15,7 @@ function loadImage(imageId)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                if (req.readyState === XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
                     {
@@ -34,9 +35,6 @@ function loadImage(imageId)
                     imageCache["originalImage"] = jsonObject.data.images["standard_resolution"]["url"];
                     imageData.originalImage = imageCache["originalImage"];
 
-                    imageCache["linkToInstagram"] = jsonObject.data.link;
-                    imageData.linkToInstagram = imageCache["linkToInstagram"];
-
                     imageCache["imageId"] = jsonObject.data.id;
                     imageData.imageId = imageCache["imageId"];
 
@@ -52,6 +50,13 @@ function loadImage(imageId)
                     imageCache["likes"] = jsonObject.data.likes["count"];
                     imageData.likes = imageCache["likes"] + " people liked this";
 
+                    // images that are new and just updated may not have an Instagram page yet
+                    // their link will thus be null
+                    // if they don't have an Instagram page, the share button needs to be deactivated
+                    imageCache["linkToInstagram"] = ensureVariableNotNull(jsonObject.data.link);
+                    imageData.linkToInstagram = imageCache["linkToInstagram"];
+
+                    // the caption is optional
                     if (jsonObject.data.caption !== null)
                     {
                         imageCache["caption"] = jsonObject.data.caption["text"];
@@ -59,10 +64,13 @@ function loadImage(imageId)
                     else
                     {
                         imageCache["caption"] = "";
+                        iconShare.visible = false;
+                        iconShareDeactivated.visible = true;
                     }
                     imageData.caption = imageCache["caption"];
 
-                    if (jsonObject.data.user_has_liked !== undefined)
+                    // check if user has already liked the image
+                    if (jsonObject.data.user_has_liked !== null)
                     {
                         imageCache["userHasLiked"] = jsonObject.data.user_has_liked;
                         imageData.userHasLiked = imageCache["userHasLiked"];
@@ -76,17 +84,8 @@ function loadImage(imageId)
                         }
                     }
 
-                    imageCache["createdTime"] = jsonObject.data.created_time;
-                    var time = new Date(imageCache["createdTime"] * 1000);
-                    var timeStr = time.getMonth() +
-                            "/" + time.getDate() +
-                            "/" + time.getFullYear() + ", ";
-                    if (time.getHours() < 10) { timeStr += "0" + time.getHours() }
-                    else { timeStr += time.getHours() }
-                    timeStr += ":";
-                    if (time.getMinutes() < 10) { timeStr += "0" + time.getMinutes() }
-                    else { timeStr += time.getMinutes() }
-                    imageCache["createdTime"] = timeStr;
+                    // format time
+                    imageCache["createdTime"] = formatInstagramTime(jsonObject.data.created_time);
                     imageData.createdTime = imageCache["createdTime"];
 
                     loadingIndicator.running = false;

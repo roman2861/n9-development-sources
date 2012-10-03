@@ -181,8 +181,10 @@ Page {
         // as the image is not liked yet, the star is unmarked
         ToolIcon {
             id: iconUnliked
+
             iconId: "toolbar-frequent-used-dimmed";
             visible: false;
+
             onClicked: {
                 notification.text = "Added photo to your favourites";
                 notification.show();
@@ -196,8 +198,10 @@ Page {
         // as the image is already liked, the star is marked
         ToolIcon {
             id: iconLiked
+
             iconId: "toolbar-frequent-used";
             visible: false;
+
             onClicked: {
                 notification.text = "Removed photo from your favourites"
                 notification.show();
@@ -209,7 +213,10 @@ Page {
 
         // initiate the share dialog
         ToolIcon {
+            id: iconShare
+
             iconId: "toolbar-share";
+
             onClicked: {
                 // console.log("Share clicked for URL: " + imageData.linkToInstagram);
 
@@ -217,6 +224,14 @@ Page {
                 // note that this will not work in the simulator
                 shareHelper.shareURL("Instago Link", imageData.caption, imageData.linkToInstagram);
             }
+        }
+
+        // initiate the share dialog
+        ToolIcon {
+            id: iconShareDeactivated
+
+            iconId: "toolbar-share-dimmed";
+            visible: false;
         }
     }
 }

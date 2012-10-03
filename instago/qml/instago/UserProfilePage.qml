@@ -264,13 +264,6 @@ Page {
             // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
         }
-
-        onListBottomReached: {
-            if (paginationNextMaxId !== "")
-            {
-                UserDataScript.loadUserImages(userId, paginationNextMaxId);
-            }
-        }
     }
 
 

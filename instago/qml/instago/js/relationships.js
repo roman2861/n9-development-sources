@@ -11,16 +11,13 @@ function setRelationship(userId, relationship)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                if (req.readyState === XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
                     {
                         // console.debug("bad status: " + req.status);
                         return;
                     }
-
-                    // console.log("content: " + req.responseText);
-                    // var jsonObject = eval('(' + req.responseText + ')');
 
                     // console.log("Done changing relationship");
                 }
@@ -43,7 +40,7 @@ function getRelationship(userId)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                if (req.readyState === XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
                     {

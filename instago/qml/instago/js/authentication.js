@@ -18,12 +18,14 @@ function checkInstagramAuthenticationUrl(url)
     returnStatus["status"] = "NOT_RELEVANT";
 
     // authentication was successful: the URL contains the redirect address as well the token code
-    if ( (currentURL.indexOf(instagramRedirectUrl) == 0) && (currentURL.indexOf("code=") > 0) )
+    if ( (currentURL.indexOf(instagramRedirectUrl) === 0) && (currentURL.indexOf("code=") > 0) )
     {
+        // cut URL from string and extract the instagram token
         var instagramTokenCode = "";
         var tokenStartPosition = currentURL.indexOf("code=");
         instagramTokenCode = currentURL.substr((tokenStartPosition+5));
 
+        // if there is an Instagram token, store it and set the return status
         if (instagramTokenCode.length > 0)
         {
             // console.log("Found Instagram token code: " + instagramTokenCode);
@@ -33,15 +35,18 @@ function checkInstagramAuthenticationUrl(url)
     }
 
     // an error occured: the URL contains the error parameters
-    if ( (currentURL.indexOf(instagramRedirectUrl) == 0) && (currentURL.indexOf("error=") > 0) )
+    if ( (currentURL.indexOf(instagramRedirectUrl) === 0) && (currentURL.indexOf("error=") > 0) )
     {
+        // cut URL from string so that only the error message is left
         var stringIndexPosition = currentURL.indexOf("/?");
         var errorString = "";
         errorString = currentURL.substr((stringIndexPosition+2));
 
+        // split the error messages into an array
         var errorMessageList = new Array();
         errorMessageList = errorString.split("&");
 
+        // go through the list of messages and put them into the return array
         for (var index in errorMessageList)
         {
             var errorMessage = new Array();
@@ -69,7 +74,7 @@ function requestPermanentToken(tokenCode)
     req.onreadystatechange = function()
             {
                 // console.log("Ready state: " + req.readyState);
-                if (req.readyState == XMLHttpRequest.DONE)
+                if (req.readyState === XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
                     {

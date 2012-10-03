@@ -30,13 +30,6 @@ Rectangle {
         userListModel.append(items);
     }
 
-    // signal if list is scrolled to the end
-    signal listBottomReached();
-
-    // property that holds the id of the next user
-    // this is given by Instagram for easy pagination
-    property string paginationNextMaxId: "";
-
     // general style definition
     color: "transparent"
     width: parent.width;
@@ -163,12 +156,5 @@ Rectangle {
         // define model and delegate
         model: userListModel
         delegate: userListDelegate
-
-        // check if list is at the bottom end
-        onMovementEnded: {
-            if(atYEnd) {
-                listBottomReached();
-            }
-        }
     }
 }

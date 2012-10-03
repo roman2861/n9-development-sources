@@ -1,3 +1,10 @@
+instago (0.3.2) unstable; urgency=low
+
+  * Fixed edge case when sharing new images that have no Instagram page yet (share button is dimmed)
+
+ -- Dirk Songuer <dirk@songuer.de>  Wed, 03 Oct 2012 15:39:00 +0000
+
+
 instago (0.3.1) unstable; urgency=low
 
   * Added network error check + message to image detail view

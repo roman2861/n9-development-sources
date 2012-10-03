@@ -19,9 +19,6 @@ function likeImage(imageId, updateComponents)
                         return;
                     }
 
-                    // console.debug("content: " + req.responseText);
-                    // var jsonObject = eval('(' + req.responseText + ')');
-
                     if (updateComponents)
                     {
                         // console.log("Updating components");

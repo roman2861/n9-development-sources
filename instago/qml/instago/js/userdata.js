@@ -1,6 +1,7 @@
 // Globals contain the instagram API keys
 Qt.include("instagramkeys.js");
 Qt.include("authentication.js");
+Qt.include("helpermethods.js");
 
 
 // load the user data for a given Instagram user id
@@ -12,7 +13,7 @@ function loadUserProfile(userId)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                if (req.readyState === XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
                     {
@@ -67,18 +68,31 @@ function loadUserProfile(userId)
                 }
             }
 
-    req.open("GET", "https://api.instagram.com/v1/users/" + userId + "?client_id=" + instagramClientId, true);
+    var url = "";
+    if (isAuthenticated())
+    {
+        // we need the auth token for users that are private
+        var instagramUserdata = getStoredInstagramData();
+        url = "https://api.instagram.com/v1/users/" + userId + "?access_token=" + instagramUserdata["access_token"];
+    }
+    else
+    {
+        // calls with the client id can only show public users
+        url = "https://api.instagram.com/v1/users/" + userId + "?client_id=" + instagramClientId;
+    }
+
+    req.open("GET", url, true);
     req.send();
 }
 
 
 // load the image stream for a given user from Instagram
 // the image data will be used to fill the standard ImageGallery component
-function loadUserImages(userId, max_id)
+function loadUserImages(userId, paginationId)
 {
-    // console.log("Loading user image list for user " + userId + " and max_id: " + max_id);
+    // console.log("Loading user image list for user " + userId + " and pagination id: " + paginationId);
 
-    if (max_id === 0)
+    if (paginationId === 0)
     {
         loadingIndicator.running = true;
         loadingIndicator.visible = true;
@@ -93,7 +107,7 @@ function loadUserImages(userId, max_id)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                if (req.readyState === XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
                     {
@@ -112,7 +126,7 @@ function loadUserImages(userId, max_id)
                     // console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
 
-                    if (max_id === 0)
+                    if (paginationId === 0)
                     {
                         userprofileGallery.clearGallery();
                     }
@@ -123,40 +137,25 @@ function loadUserImages(userId, max_id)
                     {
                         imageCache = [];
 
-                        if (index <= 17)
-                        {
-                            imageCache["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
-                            imageCache["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
-                            imageCache["linktoinstagram"] = jsonObject.data[index].link;
-                            imageCache["imageid"] = jsonObject.data[index].id;
+                        imageCache["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
+                        imageCache["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
+                        imageCache["linktoinstagram"] = jsonObject.data[index].link;
+                        imageCache["imageid"] = jsonObject.data[index].id;
+                        imageCache["caption"] = ensureVariableNotNull(jsonObject.data[index].caption["text"]);
+                        imageCache["username"] = jsonObject.data[index].user["username"];
+                        imageCache["profilepicture"] = jsonObject.data[index].user["profile_picture"];
+                        imageCache["userid"] = jsonObject.data[index].user["id"];
+                        imageCache["likes"] = jsonObject.data[index].likes["count"];
 
-                            if (jsonObject.data[index].caption !== null)
-                            {
-                                imageCache["caption"] = jsonObject.data[index].caption["text"];
-                            }
-                            else
-                            {
-                                imageCache["caption"] = "";
-                            }
+                        // format time
+                        imageCache["createdtime"] = formatInstagramTime(jsonObject.data[index].created_time);
 
-                            imageCache["username"] = jsonObject.data[index].user["username"];
-                            imageCache["profilepicture"] = jsonObject.data[index].user["profile_picture"];
-                            imageCache["userid"] = jsonObject.data[index].user["id"];
-                            imageCache["likes"] = jsonObject.data[index].likes["count"];
+                        userprofileGallery.addToGallery({
+                                                            "url":imageCache["thumbnail"],
+                                                            "index":imageCache["imageid"]
+                                                        });
 
-                            imageCache["createdtime"] = jsonObject.data[index].created_time;
-                            var time = new Date(imageCache["createdtime"] * 1000);
-                            var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
-                                    time.getHours() + ":" + time.getMinutes();
-                            imageCache["createdtime"] = timeStr;
-
-                            userprofileGallery.addToGallery({
-                                                                "url":imageCache["thumbnail"],
-                                                                "index":imageCache["imageid"]
-                                                            });
-
-                            // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
-                        }
+                        // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
 
                     if (jsonObject.pagination.next_max_id != null)
@@ -164,7 +163,7 @@ function loadUserImages(userId, max_id)
                         userprofileGallery.paginationNextMaxId = jsonObject.pagination.next_max_id;
                     }
 
-                    if (max_id === 0)
+                    if (paginationId === 0)
                     {
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
@@ -176,15 +175,16 @@ function loadUserImages(userId, max_id)
                     }
 
                     userprofileGallery.visible = true;
+
                     // console.log("Done loading user image list");
                 }
             }
 
     var instagramUserdata = getStoredInstagramData();
-    var url = "https://api.instagram.com/v1/users/" + userId + "/media/recent/?count=15&access_token=" + instagramUserdata["access_token"];
-    if (max_id !== 0)
+    var url = "https://api.instagram.com/v1/users/" + userId + "/media/recent/?count=30&access_token=" + instagramUserdata["access_token"];
+    if (paginationId !== 0)
     {
-        url += "&max_id=" + max_id;
+        url += "&max_id=" + paginationId;
     }
 
     req.open("GET", url, true);
@@ -194,9 +194,12 @@ function loadUserImages(userId, max_id)
 
 // load the user follower data for a given Instagram user id
 // the user data will be used to fill the UserList component
-function loadUserFollowers(userId, max_id)
+function loadUserFollowers(userId)
 {
     // console.log("Loading user follower data for user " + userId);
+
+    loadingIndicator.running = true;
+    loadingIndicator.visible = true;
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -213,12 +216,12 @@ function loadUserFollowers(userId, max_id)
                         return;
                     }
 
-                    userprofileFollowers.clearList();
                     // console.debug("content: " + req.responseText);
-
                     var jsonObject = eval('(' + req.responseText + ')');
-                    var userCache = new Array();
 
+                    userprofileFollowers.clearList();
+
+                    var userCache = new Array();
                     for ( var index in jsonObject.data )
                     {
                         userCache = [];
@@ -238,10 +241,9 @@ function loadUserFollowers(userId, max_id)
                                                            "d_index": index
                                                        });
 
-                       // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
+                        // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
 
-                    // hide loading indicator
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
 
@@ -258,9 +260,12 @@ function loadUserFollowers(userId, max_id)
 
 // load the user following data for a given Instagram user id
 // the user data will be used to fill the UserList component
-function loadUserFollowing(userId, max_id)
+function loadUserFollowing(userId)
 {
     // console.log("Loading user following data for user " + userId);
+
+    loadingIndicator.running = true;
+    loadingIndicator.visible = true;
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -277,12 +282,11 @@ function loadUserFollowing(userId, max_id)
                         return;
                     }
 
-                    userprofileFollowing.clearList();
-                    // console.debug("content: " + req.responseText);
-
                     var jsonObject = eval('(' + req.responseText + ')');
-                    var userCache = new Array();
 
+                    userprofileFollowing.clearList();
+
+                    var userCache = new Array();
                     for ( var index in jsonObject.data )
                     {
                         userCache = [];
@@ -302,10 +306,9 @@ function loadUserFollowing(userId, max_id)
                                                            "d_index": index
                                                        });
 
-                       // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
+                        // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
 
-                    // hide loading indicator
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
 

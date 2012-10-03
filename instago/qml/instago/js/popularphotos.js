@@ -1,5 +1,6 @@
 // Globals contain the instagram API keys
-Qt.include("instagramkeys.js")
+Qt.include("instagramkeys.js");
+Qt.include("helpermethods.js");
 
 
 // load the popular image stream from Instagram
@@ -14,7 +15,7 @@ function loadImages()
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                if (req.readyState === XMLHttpRequest.DONE)
                 {
                     if (req.status != 200)
                     {
@@ -29,43 +30,30 @@ function loadImages()
                     // console.debug("content: " + req.responseText);
                     var jsonObject = eval('(' + req.responseText + ')');
 
+                    var imageCache = new Array();
                     for ( var index in jsonObject.data )
                     {
-                        var imageData = new Array();
-
                         if (index <= 17)
                         {
-                            imageData["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
-                            imageData["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
-                            imageData["linktoinstagram"] = jsonObject.data[index].link;
-                            imageData["imageid"] = jsonObject.data[index].id;
+                            imageCache["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
+                            imageCache["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
+                            imageCache["linktoinstagram"] = jsonObject.data[index].link;
+                            imageCache["imageid"] = jsonObject.data[index].id;
+                            imageCache["caption"] = ensureVariableNotNull(jsonObject.data[index].caption["text"]);
+                            imageCache["username"] = jsonObject.data[index].user["username"];
+                            imageCache["profilepicture"] = jsonObject.data[index].user["profile_picture"];
+                            imageCache["userid"] = jsonObject.data[index].user["id"];
+                            imageCache["likes"] = jsonObject.data[index].likes["count"];
 
-                            if (jsonObject.data[index].caption !== null)
-                            {
-                                imageData["caption"] = jsonObject.data[index].caption["text"];
-                            }
-                            else
-                            {
-                                imageData["caption"] = "";
-                            }
-
-                            imageData["username"] = jsonObject.data[index].user["username"];
-                            imageData["profilepicture"] = jsonObject.data[index].user["profile_picture"];
-                            imageData["userid"] = jsonObject.data[index].user["id"];
-                            imageData["likes"] = jsonObject.data[index].likes["count"];
-
-                            imageData["createdtime"] = jsonObject.data[index].created_time;
-                            var time = new Date(imageData["createdtime"] * 1000);
-                            var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
-                                    time.getHours() + ":" + time.getMinutes();
-                            imageData["createdtime"] = timeStr;
+                            // format time
+                            imageCache["createdtime"] = formatInstagramTime(jsonObject.data[index].created_time);
 
                             imageGallery.addToGallery({
-                                                        "url":imageData["thumbnail"],
-                                                        "index":imageData["imageid"]
+                                                        "url":imageCache["thumbnail"],
+                                                        "index":imageCache["imageid"]
                                                     });
 
-                            // console.log("Appended list with URL: " + imageData["thumbnail"] + " and ID: " + imageData["imageid"]);
+                            // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                         }
                     }
 

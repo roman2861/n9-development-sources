@@ -38,33 +38,18 @@ function loadUserFeed()
                         imageCache = [];
                         imageCache["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
                         imageCache["originalImage"] = jsonObject.data[index].images["standard_resolution"]["url"];
-                        imageCache["linkToInstagram"] = jsonObject.data[index].link;
                         imageCache["imageId"] = jsonObject.data[index].id;
                         imageCache["username"] = jsonObject.data[index].user["username"];
                         imageCache["profilePicture"] = jsonObject.data[index].user["profile_picture"];
                         imageCache["userId"] = jsonObject.data[index].user["id"];
                         imageCache["likes"] = jsonObject.data[index].likes["count"];
 
-                        if (jsonObject.data[index].caption !== null)
-                        {
-                            imageCache["caption"] = jsonObject.data[index].caption["text"];
-                        }
-                        else
-                        {
-                            imageCache["caption"] = "";
-                        }
+                        // images that are new and just updated may not have an Instagram page yet
+                        // their link will thus be null
+                        imageCache["linkToInstagram"] = ensureVariableNotNull(jsonObject.data[index].link);
 
-                        imageCache["createdTime"] = jsonObject.data[index].created_time;
-                        var time = new Date(imageCache["createdTime"] * 1000);
-                        var timeStr = time.getMonth() +
-                                "/" + time.getDate() +
-                                "/" + time.getFullYear() + ", ";
-                        if (time.getHours() < 10) { timeStr += "0" + time.getHours() }
-                        else { timeStr += time.getHours() }
-                        timeStr += ":";
-                        if (time.getMinutes() < 10) { timeStr += "0" + time.getMinutes() }
-                        else { timeStr += time.getMinutes() }
-                        imageCache["createdTime"] = timeStr;
+                        imageCache["caption"] = ensureVariableNotNull(jsonObject.data[index].caption["text"]);
+                        imageCache["createdTime"] = formatInstagramTime(jsonObject.data.created_time);
 
                         feedListModel.append({
                                                  "d_originalImage":imageCache["originalImage"],
