@@ -196,7 +196,7 @@ function loadUserImages(userId, max_id)
 // the user data will be used to fill the UserList component
 function loadUserFollowers(userId, max_id)
 {
-    console.log("Loading user follower data for user " + userId);
+    // console.log("Loading user follower data for user " + userId);
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -245,12 +245,11 @@ function loadUserFollowers(userId, max_id)
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
 
-                    console.log("Done loading user followers");
+                    // console.log("Done loading user followers");
                 }
             }
 
     var url = "https://api.instagram.com/v1/users/" + userId + "/followed-by?client_id=" + instagramClientId;
-    console.log("URL: " + url);
 
     req.open("GET", url, true);
     req.send();
@@ -261,7 +260,7 @@ function loadUserFollowers(userId, max_id)
 // the user data will be used to fill the UserList component
 function loadUserFollowing(userId, max_id)
 {
-    console.log("Loading user following data for user " + userId);
+    // console.log("Loading user following data for user " + userId);
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -310,12 +309,11 @@ function loadUserFollowing(userId, max_id)
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
 
-                    console.log("Done loading user following");
+                    // console.log("Done loading user following");
                 }
             }
 
     var url = "https://api.instagram.com/v1/users/" + userId + "/follows?client_id=" + instagramClientId;
-    console.log("URL: " + url);
 
     req.open("GET", url, true);
     req.send();
