@@ -196,7 +196,7 @@ function loadUserImages(userId, max_id)
 // the user data will be used to fill the UserList component
 function loadUserFollowers(userId, max_id)
 {
-    console.log("Loading user profile for user " + userId);
+    console.log("Loading user follower data for user " + userId);
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -213,6 +213,7 @@ function loadUserFollowers(userId, max_id)
                         return;
                     }
 
+                    userprofileFollowers.clearList();
                     // console.debug("content: " + req.responseText);
 
                     var jsonObject = eval('(' + req.responseText + ')');
@@ -239,17 +240,77 @@ function loadUserFollowers(userId, max_id)
 
                        // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
-/*
-                    // activate profile containers
-                    userprofileMetadata.visible = true;
-                    userprofileContentHeadline.visible = true;
-                    userprofileBio.visible = true;
-*/
+
                     // hide loading indicator
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
 
-                    console.log("Done loading user profile");
+                    console.log("Done loading user followers");
+                }
+            }
+
+    var url = "https://api.instagram.com/v1/users/" + userId + "/followed-by?client_id=" + instagramClientId;
+    console.log("URL: " + url);
+
+    req.open("GET", url, true);
+    req.send();
+}
+
+
+// load the user following data for a given Instagram user id
+// the user data will be used to fill the UserList component
+function loadUserFollowing(userId, max_id)
+{
+    console.log("Loading user following data for user " + userId);
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function()
+            {
+                if (req.readyState == XMLHttpRequest.DONE)
+                {
+                    if (req.status != 200)
+                    {
+                        // console.debug("bad status: " + req.status);
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+                        networkErrorMesage.visible = true;
+
+                        return;
+                    }
+
+                    userprofileFollowing.clearList();
+                    // console.debug("content: " + req.responseText);
+
+                    var jsonObject = eval('(' + req.responseText + ')');
+                    var userCache = new Array();
+
+                    for ( var index in jsonObject.data )
+                    {
+                        userCache = [];
+
+                        userCache["username"] = jsonObject.data[index].username;
+                        userCache["fullname"] = jsonObject.data[index].full_name;
+                        if (userCache["fullname"] === "") userCache["fullname"] = userCache["username"];
+                        userCache["profilepicture"] = jsonObject.data[index].profile_picture;
+                        userCache["userid"] = jsonObject.data[index].id;
+                        userCache["bio"] = jsonObject.data[index].bio;
+
+                        userprofileFollowing.addToList({
+                                                           "d_username": userCache["username"],
+                                                           "d_fullname": userCache["fullname"],
+                                                           "d_profilepicture": userCache["profilepicture"],
+                                                           "d_userid": userCache["userid"],
+                                                           "d_index": index
+                                                       });
+
+                       // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
+                    }
+
+                    // hide loading indicator
+                    loadingIndicator.running = false;
+                    loadingIndicator.visible = false;
+
+                    console.log("Done loading user following");
                 }
             }
 
@@ -259,4 +320,3 @@ function loadUserFollowers(userId, max_id)
     req.open("GET", url, true);
     req.send();
 }
-

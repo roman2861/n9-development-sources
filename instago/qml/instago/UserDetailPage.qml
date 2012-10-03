@@ -81,6 +81,7 @@ Page {
             {
                 userprofileBio.visible = false;
                 userprofileFollowers.visible = false;
+                userprofileFollowing.visible = false;
                 userprofileContentHeadline.text = "Photos";
 
                 UserDataScript.loadUserImages(userId, 0);
@@ -95,6 +96,7 @@ Page {
             {
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
+                userprofileFollowing.visible = false;
                 userprofileContentHeadline.text = "Followers";
 
                 UserDataScript.loadUserFollowers(userId, 0);
@@ -104,10 +106,17 @@ Page {
         }
 
         onFollowingClicked: {
-            // follower list only available for authenticated users
+            // following list only available for authenticated users
             if (Authentication.isAuthenticated())
             {
+                userprofileBio.visible = false;
+                userprofileGallery.visible = false;
+                userprofileFollowers.visible = false;
+                userprofileContentHeadline.text = "Following";
 
+                UserDataScript.loadUserFollowing(userId, 0);
+
+                userprofileFollowing.visible = true;
             }
         }
     }
@@ -220,11 +229,21 @@ Page {
         }
 
         visible: false
+    }
 
-        onItemClicked: {
-            console.log("User tapped: " + userId);
-            // pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+
+    UserList {
+        id: userprofileFollowing;
+
+        anchors {
+            top: userprofileContentHeadline.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
         }
+
+        visible: false
     }
 
 
