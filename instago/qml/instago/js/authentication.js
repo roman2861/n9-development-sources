@@ -138,7 +138,7 @@ function getStoredInstagramData()
 
 
 // check if the user is currently authenticated with Instagram
-function isAuthorized()
+function isAuthenticated()
 {
     var userdata = new Array();
 

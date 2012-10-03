@@ -58,12 +58,12 @@ function getRelationship(userId)
                     // check if user is already followed
                     if (jsonObject.data.outgoing_status === "follows")
                     {
-                        userprofileUnfollowUser.visible = true;
+                        userprofileBio.unfollowButtonVisible = true;
                     }
                     // else check if the user is not followed yet
                     else if (jsonObject.data.outgoing_status === "none")
                     {
-                        userprofileFollowUser.visible = true;
+                        userprofileBio.followButtonVisible = true;
                     }
 
                     // console.log("Done getting relationship");

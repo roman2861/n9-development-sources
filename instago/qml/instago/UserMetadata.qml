@@ -151,7 +151,6 @@ Rectangle {
                 imagecountClicked();
             }
         }
-
     }
 
 
@@ -210,6 +209,16 @@ Rectangle {
 
             text: "followers"
         }
+
+        // use the whole item as tap surface
+        // all taps on the item will be handled by the onclick event
+        MouseArea {
+            anchors.fill: parent
+            onClicked:
+            {
+                followersClicked();
+            }
+        }
     }
 
 
@@ -267,6 +276,17 @@ Rectangle {
             wrapMode: Text.Wrap
 
             text: "following"
+        }
+
+
+        // use the whole item as tap surface
+        // all taps on the item will be handled by the onclick event
+        MouseArea {
+            anchors.fill: parent
+            onClicked:
+            {
+                followingClicked();
+            }
         }
     }
 }

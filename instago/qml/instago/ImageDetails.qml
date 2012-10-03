@@ -69,7 +69,7 @@ Rectangle {
             onClicked:
             {
                 // console.log("Profile tapped. Id was: " + userId);
-                pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId})
+                pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
             }
         }
 

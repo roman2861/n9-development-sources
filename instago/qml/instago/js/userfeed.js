@@ -58,8 +58,12 @@ function loadUserFeed()
                         var time = new Date(imageCache["createdTime"] * 1000);
                         var timeStr = time.getMonth() +
                                 "/" + time.getDate() +
-                                "/" + time.getFullYear() + ", " +
-                                time.getHours() + ":" + time.getMinutes();
+                                "/" + time.getFullYear() + ", ";
+                        if (time.getHours() < 10) { timeStr += "0" + time.getHours() }
+                        else { timeStr += time.getHours() }
+                        timeStr += ":";
+                        if (time.getMinutes() < 10) { timeStr += "0" + time.getMinutes() }
+                        else { timeStr += time.getMinutes() }
                         imageCache["createdTime"] = timeStr;
 
                         feedListModel.append({

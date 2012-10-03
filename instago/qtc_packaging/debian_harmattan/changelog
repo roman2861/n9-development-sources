@@ -1,8 +1,19 @@
+instago (0.3.1) unstable; urgency=low
+
+  * Added network error check + message to image detail view
+  * Added user follower list
+  * Optimized image detail loading behavior
+  * Optimized user profile pages
+  * Fixed wrong time format in image detail views (now shows "0n:0n")
+
+ -- Dirk Songuer <dirk@songuer.de>  Mon, 01 Oct 2012 15:17:00 +0000
+
+
 instago (0.3.0) stable; urgency=low
 
   * Public Beta release
 
- -- Dirk Songuer <dirk@songuer.de>  Sun, 29 Sep 2012 15:17:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Sun, 30 Sep 2012 15:17:00 +0000
 
 
 instago (0.2.2) unstable; urgency=low
@@ -12,7 +23,7 @@ instago (0.2.2) unstable; urgency=low
   * Added generic network error message
   * Fixed unliking images (works now)
 
- -- Dirk Songuer <dirk@songuer.de>  Sun, 29 Sep 2012 12:55:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Sun, 30 Sep 2012 12:55:00 +0000
 
 
 instago (0.2.0) unstable; urgency=low

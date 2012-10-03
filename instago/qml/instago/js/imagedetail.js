@@ -21,7 +21,7 @@ function loadImage(imageId)
                         console.debug("bad status: " + req.status);
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
-                        //errorIndicator.visible = true;
+                        networkErrorMesage.visible = true;
 
                         return;
                     }
@@ -80,17 +80,25 @@ function loadImage(imageId)
                     var time = new Date(imageCache["createdTime"] * 1000);
                     var timeStr = time.getMonth() +
                             "/" + time.getDate() +
-                            "/" + time.getFullYear() + ", " +
-                            time.getHours() + ":" + time.getMinutes();
+                            "/" + time.getFullYear() + ", ";
+                    if (time.getHours() < 10) { timeStr += "0" + time.getHours() }
+                    else { timeStr += time.getHours() }
+                    timeStr += ":";
+                    if (time.getMinutes() < 10) { timeStr += "0" + time.getMinutes() }
+                    else { timeStr += time.getMinutes() }
                     imageCache["createdTime"] = timeStr;
                     imageData.createdTime = imageCache["createdTime"];
+
+                    loadingIndicator.running = false;
+                    loadingIndicator.visible = false;
+                    contentFlickableContainer.visible = true;
 
                     // console.log("Done loading image");
                 }
             }
 
     var url = "";
-    if (isAuthorized())
+    if (isAuthenticated())
     {
         var instagramUserdata = getStoredInstagramData();
         url = "https://api.instagram.com/v1/media/" + imageId + "/?access_token=" + instagramUserdata["access_token"];

@@ -215,7 +215,6 @@ Page {
     // toolbar for the detail page
     ToolBarLayout {
         id: loginToolbar
-        visible: false
 
         ToolIcon {
             iconId: "toolbar-back";

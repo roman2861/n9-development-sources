@@ -23,7 +23,7 @@ Page {
 
     // check if the user is already logged in
     Component.onCompleted: {
-        if (Authentication.isAuthorized())
+        if (Authentication.isAuthenticated())
         {
             // user is authorized with Instagram
             // console.log("User is authorized");
@@ -148,12 +148,12 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
-            userprofileBioContainer.visible = true;
+            userprofileBio.visible = true;
             userprofileContentHeadline.text = "Your Bio";
         }
 
         onImagecountClicked: {
-            userprofileBioContainer.visible = false;
+            userprofileBio.visible = false;
             userprofileContentHeadline.text = "Your Photos";
 
             var instagramUserdata = Authentication.getStoredInstagramData();
@@ -198,10 +198,10 @@ Page {
     }
 
 
-    // bio of the user
-    // this also contains the logout button
-    Rectangle {
-        id: userprofileBioContainer
+    // user bio
+    // this also contains the logout functionality
+    UserBio {
+        id: userprofileBio;
 
         anchors {
             top: userprofileContentHeadline.bottom
@@ -212,56 +212,13 @@ Page {
         }
 
         visible: false
+        logoutButtonVisible: true
 
-        // no background color
-        color: "transparent"
+        onLogoutButtonClicked: {
+            Authentication.deleteStoredInstagramData();
 
-        // bio of the user
-        Text {
-            id: userprofileBio
-
-            anchors {
-                top: userprofileBioContainer.top
-                topMargin: 10
-                left: parent.left
-                leftMargin: 10
-                right: parent.right;
-                rightMargin: 10
-            }
-
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 25
-            wrapMode: Text.Wrap
-
-            // user bio
-            // text will be given by the js function
-            // beware that the length is not limited by Instagram
-            // this might be LONG!
-            text: ""
-        }
-
-
-        // follow button
-        Button {
-            id: userprofileLogout
-
-            anchors {
-                left: parent.left;
-                leftMargin: 30;
-                right: parent.right;
-                rightMargin: 30;
-                top: userprofileBio.bottom;
-                topMargin: 30;
-            }
-
-            text: "Logout"
-
-            onClicked: {
-                Authentication.deleteStoredInstagramData();
-
-                pageStack.clear();
-                pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
-            }
+            pageStack.clear();
+            pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
         }
     }
 
@@ -326,7 +283,7 @@ Page {
             networkErrorMesage.visible = false;
             userprofileMetadata.visible = false;
             userprofileContentHeadline.visible = false;
-            userprofileBioContainer.visible = false;
+            userprofileBio.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
             var instagramUserdata = Authentication.getStoredInstagramData();
@@ -338,8 +295,6 @@ Page {
     // toolbar for the detail page
     ToolBarLayout {
         id: profileToolbar
-        visible: false
-
 
         // jump back to the popular photos page
         ToolIcon {

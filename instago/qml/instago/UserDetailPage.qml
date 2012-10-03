@@ -32,7 +32,7 @@ Page {
         UserDataScript.loadUserProfile(userId);
 
         // show follow button if the user is logged in
-        if (Authentication.isAuthorized())
+        if (Authentication.isAuthenticated())
         {
             UserRelationshipScript.getRelationship(userId);
         }
@@ -71,27 +71,44 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
-            userprofileBioContainer.visible = true;
-            userprofileContentHeadline.text = "User Bio";
+            userprofileBio.visible = true;
+            userprofileContentHeadline.text = "Bio";
         }
 
         onImagecountClicked: {
-            // user photos are only available for logged in users
-            if (Authentication.isAuthorized())
+            // user photos are only available for authenticated users
+            if (Authentication.isAuthenticated())
             {
-                userprofileBioContainer.visible = false;
-                userprofileContentHeadline.text = "User Photos";
+                userprofileBio.visible = false;
+                userprofileFollowers.visible = false;
+                userprofileContentHeadline.text = "Photos";
+
                 UserDataScript.loadUserImages(userId, 0);
+
                 userprofileGallery.visible = true;
             }
         }
 
         onFollowersClicked: {
+            // follower list only available for authenticated users
+            if (Authentication.isAuthenticated())
+            {
+                userprofileBio.visible = false;
+                userprofileGallery.visible = false;
+                userprofileContentHeadline.text = "Followers";
 
+                UserDataScript.loadUserFollowers(userId, 0);
+
+                userprofileFollowers.visible = true;
+            }
         }
 
         onFollowingClicked: {
+            // follower list only available for authenticated users
+            if (Authentication.isAuthenticated())
+            {
 
+            }
         }
     }
 
@@ -119,14 +136,14 @@ Page {
 
         // content container headline
         // text will be given by the content switchers
-        text: "User Bio"
+        text: "Bio"
     }
 
 
-    // bio of the user
-    // this also contains the follow buttons
-    Rectangle {
-        id: userprofileBioContainer
+    // user bio
+    // this also contains the follow / unfollow functionality
+    UserBio {
+        id: userprofileBio;
 
         anchors {
             top: userprofileContentHeadline.bottom
@@ -138,87 +155,26 @@ Page {
 
         visible: false
 
-        // no background color
-        color: "transparent"
+        // follow user
+        onFollowButtonClicked: {
+            notification.text = "You now follow " + pageHeader.text;
+            notification.show();
 
-        // bio of the user
-        Text {
-            id: userprofileBio
+            UserRelationshipScript.setRelationship(userId, "follow");
 
-            anchors {
-                top: userprofileBioContainer.top
-                topMargin: 10
-                left: parent.left
-                leftMargin: 10
-                right: parent.right;
-                rightMargin: 10
-            }
-
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 25
-            wrapMode: Text.Wrap
-
-            // user bio
-            // text will be given by the js function
-            // beware that the length is not limited by Instagram
-            // this might be LONG!
-            text: ""
+            userprofileBio.followButtonVisible = false;
+            userprofileBio.unfollowButtonVisible = true;
         }
 
+        // unfollow user
+        onUnfollowButtonClicked: {
+            notification.text = "You unfollowed " + pageHeader.text;
+            notification.show();
 
-        // follow button
-        Button {
-            id: userprofileFollowUser
+            UserRelationshipScript.setRelationship(userId, "unfollow");
 
-            anchors {
-                left: parent.left;
-                leftMargin: 30;
-                right: parent.right;
-                rightMargin: 30;
-                top: userprofileBio.bottom;
-                topMargin: 30;
-            }
-
-            visible: false
-            text: "Follow"
-
-            onClicked: {
-                notification.text = "You now follow " + pageHeader.text;
-                notification.show();
-
-                UserRelationshipScript.setRelationship(userId, "follow");
-
-                userprofileFollowUser.visible = false;
-                userprofileUnfollowUser.visible = true;
-            }
-        }
-
-
-        // unfollow button
-        Button {
-            id: userprofileUnfollowUser
-
-            anchors {
-                left: parent.left;
-                leftMargin: 30;
-                right: parent.right;
-                rightMargin: 30;
-                top: userprofileBio.bottom;
-                topMargin: 30;
-            }
-
-            visible: false
-            text: "Unfollow"
-
-            onClicked: {
-                notification.text = "You unfollowed " + pageHeader.text;
-                notification.show();
-
-                UserRelationshipScript.setRelationship(userId, "unfollow");
-
-                userprofileUnfollowUser.visible = false;
-                userprofileFollowUser.visible = true;
-            }
+            userprofileBio.unfollowButtonVisible = false;
+            userprofileBio.followButtonVisible = true;
         }
     }
 
@@ -248,6 +204,26 @@ Page {
             {
                 UserDataScript.loadUserImages(userId, paginationNextMaxId);
             }
+        }
+    }
+
+
+    UserList {
+        id: userprofileFollowers;
+
+        anchors {
+            top: userprofileContentHeadline.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onItemClicked: {
+            console.log("User tapped: " + userId);
+            // pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
         }
     }
 
@@ -283,7 +259,7 @@ Page {
             networkErrorMesage.visible = false;
             userprofileMetadata.visible = false;
             userprofileContentHeadline.visible = false;
-            userprofileBioContainer.visible = false;
+            userprofileBio.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
             UserDataScript.loadUserProfile(userId);
@@ -294,7 +270,6 @@ Page {
     // toolbar for the detail page
     ToolBarLayout {
         id: profileToolbar
-        visible: false
 
         // jump back to the detail image
         ToolIcon {

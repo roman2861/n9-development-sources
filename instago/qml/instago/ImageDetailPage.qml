@@ -65,8 +65,10 @@ Page {
             bottom: parent.bottom;
         }
 
-        contentWidth : parent.width
-        contentHeight : parent.height
+        contentWidth: parent.width
+        contentHeight: parent.height
+
+        visible: false
 
         // clipping needs to be true so that the size is limited to the container
         clip: true
@@ -85,7 +87,7 @@ Page {
             anchors.right: parent.right
 
             onDetailImageClicked: {
-                if (Authentication.isAuthorized())
+                if (Authentication.isAuthenticated())
                 {
                     if (iconLiked.visible === false)
                     {
@@ -113,10 +115,48 @@ Page {
     }
 
 
+    // show the loading indicator as long as the page is not ready
+    BusyIndicator {
+        id: loadingIndicator
+
+        anchors.centerIn: parent
+        platformStyle: BusyIndicatorStyle { size: "large" }
+
+        running:  true
+        visible: true
+    }
+
+
+    // error indicator that is shown when a network error occured
+    NetworkErrorMessage {
+        id: networkErrorMesage
+
+        anchors {
+            top: pageHeader.bottom;
+            topMargin: 3;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onMessageTap: {
+            // console.log("Refresh clicked")
+            networkErrorMesage.visible = false;
+            contentFlickableContainer.visible = false;
+            loadingIndicator.running = true;
+            loadingIndicator.visible = true;
+            ImageDetailScript.loadImage(imageId);
+        }
+    }
+
+
     // this is the share helper component that makes the share dialog available
     ShareHelper {
         id: shareHelper
     }
+
 
     // this is the network helper component that makes the network helper methods available
     NetworkHelper {
@@ -127,7 +167,6 @@ Page {
     // toolbar for the detail page
     ToolBarLayout {
         id: detailViewToolbar
-        visible: false
 
         // jump back to the popular photos page
         ToolIcon {

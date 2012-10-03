@@ -27,7 +27,7 @@ Page {
         PopularPhotosScript.loadImages();
 
         // show main buttons if the user is logged in
-        if (Authentication.isAuthorized())
+        if (Authentication.isAuthenticated())
         {
             iconHome.visible = true;
             iconPopular.visible = true;

@@ -22,7 +22,7 @@ Page {
     Component.onCompleted: {
 
         // show main buttosn if the user is logged in
-        if (Authentication.isAuthorized())
+        if (Authentication.isAuthenticated())
         {
             iconHome.visible = true;
             iconPopular.visible = true;

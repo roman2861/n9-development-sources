@@ -70,7 +70,6 @@ Page {
     // toolbar for the detail page
     ToolBarLayout {
         id: aboutToolbar
-        visible: false
 
         // jump back to the user profile page
         ToolIcon {

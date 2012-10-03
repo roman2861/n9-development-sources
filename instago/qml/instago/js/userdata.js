@@ -57,7 +57,7 @@ function loadUserProfile(userId)
                     // activate profile containers
                     userprofileMetadata.visible = true;
                     userprofileContentHeadline.visible = true;
-                    userprofileBioContainer.visible = true;
+                    userprofileBio.visible = true;
 
                     // hide loading indicator
                     loadingIndicator.running = false;
@@ -117,43 +117,45 @@ function loadUserImages(userId, max_id)
                         userprofileGallery.clearGallery();
                     }
 
+                    var imageCache = new Array();
+
                     for ( var index in jsonObject.data )
                     {
-                        var imageData = new Array();
+                        imageCache = [];
 
                         if (index <= 17)
                         {
-                            imageData["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
-                            imageData["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
-                            imageData["linktoinstagram"] = jsonObject.data[index].link;
-                            imageData["imageid"] = jsonObject.data[index].id;
+                            imageCache["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
+                            imageCache["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
+                            imageCache["linktoinstagram"] = jsonObject.data[index].link;
+                            imageCache["imageid"] = jsonObject.data[index].id;
 
                             if (jsonObject.data[index].caption !== null)
                             {
-                                imageData["caption"] = jsonObject.data[index].caption["text"];
+                                imageCache["caption"] = jsonObject.data[index].caption["text"];
                             }
                             else
                             {
-                                imageData["caption"] = "";
+                                imageCache["caption"] = "";
                             }
 
-                            imageData["username"] = jsonObject.data[index].user["username"];
-                            imageData["profilepicture"] = jsonObject.data[index].user["profile_picture"];
-                            imageData["userid"] = jsonObject.data[index].user["id"];
-                            imageData["likes"] = jsonObject.data[index].likes["count"];
+                            imageCache["username"] = jsonObject.data[index].user["username"];
+                            imageCache["profilepicture"] = jsonObject.data[index].user["profile_picture"];
+                            imageCache["userid"] = jsonObject.data[index].user["id"];
+                            imageCache["likes"] = jsonObject.data[index].likes["count"];
 
-                            imageData["createdtime"] = jsonObject.data[index].created_time;
-                            var time = new Date(imageData["createdtime"] * 1000);
+                            imageCache["createdtime"] = jsonObject.data[index].created_time;
+                            var time = new Date(imageCache["createdtime"] * 1000);
                             var timeStr = time.getMonth() + "/" + time.getDate() + "/" + time.getFullYear() + ", " +
                                     time.getHours() + ":" + time.getMinutes();
-                            imageData["createdtime"] = timeStr;
+                            imageCache["createdtime"] = timeStr;
 
                             userprofileGallery.addToGallery({
-                                                        "url":imageData["thumbnail"],
-                                                        "index":imageData["imageid"]
-                                                    });
+                                                                "url":imageCache["thumbnail"],
+                                                                "index":imageCache["imageid"]
+                                                            });
 
-                            // console.log("Appended list with URL: " + imageData["thumbnail"] + " and ID: " + imageData["imageid"]);
+                            // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                         }
                     }
 
@@ -188,3 +190,73 @@ function loadUserImages(userId, max_id)
     req.open("GET", url, true);
     req.send();
 }
+
+
+// load the user follower data for a given Instagram user id
+// the user data will be used to fill the UserList component
+function loadUserFollowers(userId, max_id)
+{
+    console.log("Loading user profile for user " + userId);
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function()
+            {
+                if (req.readyState == XMLHttpRequest.DONE)
+                {
+                    if (req.status != 200)
+                    {
+                        // console.debug("bad status: " + req.status);
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+                        networkErrorMesage.visible = true;
+
+                        return;
+                    }
+
+                    // console.debug("content: " + req.responseText);
+
+                    var jsonObject = eval('(' + req.responseText + ')');
+                    var userCache = new Array();
+
+                    for ( var index in jsonObject.data )
+                    {
+                        userCache = [];
+
+                        userCache["username"] = jsonObject.data[index].username;
+                        userCache["fullname"] = jsonObject.data[index].full_name;
+                        if (userCache["fullname"] === "") userCache["fullname"] = userCache["username"];
+                        userCache["profilepicture"] = jsonObject.data[index].profile_picture;
+                        userCache["userid"] = jsonObject.data[index].id;
+                        userCache["bio"] = jsonObject.data[index].bio;
+
+                        userprofileFollowers.addToList({
+                                                           "d_username": userCache["username"],
+                                                           "d_fullname": userCache["fullname"],
+                                                           "d_profilepicture": userCache["profilepicture"],
+                                                           "d_userid": userCache["userid"],
+                                                           "d_index": index
+                                                       });
+
+                       // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
+                    }
+/*
+                    // activate profile containers
+                    userprofileMetadata.visible = true;
+                    userprofileContentHeadline.visible = true;
+                    userprofileBio.visible = true;
+*/
+                    // hide loading indicator
+                    loadingIndicator.running = false;
+                    loadingIndicator.visible = false;
+
+                    console.log("Done loading user profile");
+                }
+            }
+
+    var url = "https://api.instagram.com/v1/users/" + userId + "/follows?client_id=" + instagramClientId;
+    console.log("URL: " + url);
+
+    req.open("GET", url, true);
+    req.send();
+}
+
