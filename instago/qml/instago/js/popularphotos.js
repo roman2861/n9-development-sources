@@ -35,19 +35,10 @@ function loadImages()
                     {
                         if (index <= 17)
                         {
-                            imageCache["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
-                            imageCache["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
-                            imageCache["linktoinstagram"] = jsonObject.data[index].link;
-                            imageCache["imageid"] = jsonObject.data[index].id;
-                            imageCache["caption"] = ensureVariableNotNull(jsonObject.data[index].caption["text"]);
-                            imageCache["username"] = jsonObject.data[index].user["username"];
-                            imageCache["profilepicture"] = jsonObject.data[index].user["profile_picture"];
-                            imageCache["userid"] = jsonObject.data[index].user["id"];
-                            imageCache["likes"] = jsonObject.data[index].likes["count"];
+                            // get image object
+                            imageCache = getImageDataFromObject(jsonObject.data[index]);
 
-                            // format time
-                            imageCache["createdtime"] = formatInstagramTime(jsonObject.data[index].created_time);
-
+                            // add image object to gallery list
                             imageGallery.addToGallery({
                                                         "url":imageCache["thumbnail"],
                                                         "index":imageCache["imageid"]

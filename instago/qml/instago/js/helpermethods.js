@@ -21,15 +21,52 @@ function formatInstagramTime(instagramTime)
 }
 
 
-// ensure that the given content is not empty
-function ensureVariableNotNull(content)
+// extract all image data from an image object
+// return unified image array
+function getImageDataFromObject(imageObject)
 {
-    if (content !== null)
+    var imageReturnArray = new Array();
+
+    imageReturnArray["thumbnail"] = imageObject.images["thumbnail"]["url"];
+    imageReturnArray["originalimage"] = imageObject.images["standard_resolution"]["url"];
+    imageReturnArray["imageid"] = imageObject.id;
+    imageReturnArray["username"] = imageObject.user["username"];
+    imageReturnArray["profilepicture"] = imageObject.user["profile_picture"];
+    imageReturnArray["userid"] = imageObject.user["id"];
+    imageReturnArray["likes"] = imageObject.likes["count"];
+    imageReturnArray["createdtime"] = formatInstagramTime(imageObject.created_time);
+
+    // image may be liked by user
+    // this node is only in the result set if the user is logged in
+    if (imageObject.user_has_liked !== null)
     {
-        return content;
+        imageReturnArray["userhasliked"] = imageObject.user_has_liked;
     }
     else
     {
-        return "";
+        imageReturnArray["userhasliked"] = "false";
     }
+
+    // images that are new and just updated may not have an Instagram page yet
+    // their link will thus be null
+    if (imageObject.link !== null)
+    {
+        imageReturnArray["linktoinstagram"] = imageObject.link;
+    }
+    else
+    {
+        imageReturnArray["linktoinstagram"] = "";
+    }
+
+    // caption may be empty
+    if (imageObject.caption !== null)
+    {
+        imageReturnArray["caption"] = imageObject.caption["text"];
+    }
+    else
+    {
+        imageReturnArray["caption"] = "";
+    }
+
+    return imageReturnArray;
 }

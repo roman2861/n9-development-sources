@@ -29,64 +29,37 @@ function loadImage(imageId)
 
                     var jsonObject = eval('(' + req.responseText + ')');
 
+                    // get image object
                     var imageCache = new Array();
-                    imageCache["thumbnail"] = jsonObject.data.images["thumbnail"]["url"];
+                    imageCache = getImageDataFromObject(jsonObject.data);
 
-                    imageCache["originalImage"] = jsonObject.data.images["standard_resolution"]["url"];
-                    imageData.originalImage = imageCache["originalImage"];
-
-                    imageCache["imageId"] = jsonObject.data.id;
-                    imageData.imageId = imageCache["imageId"];
-
-                    imageCache["username"] = jsonObject.data.user["username"];
+                    // apply image object to page components
+                    imageData.originalImage = imageCache["originalimage"];
+                    imageData.imageId = imageCache["imageid"];
                     imageData.username = imageCache["username"];
-
-                    imageCache["profilePicture"] = jsonObject.data.user["profile_picture"];
-                    imageData.profilePicture = imageCache["profilePicture"];
-
-                    imageCache["userId"] = jsonObject.data.user["id"];
-                    imageData.userId = imageCache["userId"];
-
-                    imageCache["likes"] = jsonObject.data.likes["count"];
+                    imageData.profilePicture = imageCache["profilepicture"];
+                    imageData.userId = imageCache["userid"];
                     imageData.likes = imageCache["likes"] + " people liked this";
+                    imageData.linkToInstagram = imageCache["linktoinstagram"];
+                    imageData.caption = imageCache["caption"];
+                    imageData.createdTime = imageCache["createdtime"];
 
-                    // images that are new and just updated may not have an Instagram page yet
-                    // their link will thus be null
                     // if they don't have an Instagram page, the share button needs to be deactivated
-                    imageCache["linkToInstagram"] = ensureVariableNotNull(jsonObject.data.link);
-                    imageData.linkToInstagram = imageCache["linkToInstagram"];
-
-                    // the caption is optional
-                    if (jsonObject.data.caption !== null)
+                    if (imageCache["linktoinstagram"] === "")
                     {
-                        imageCache["caption"] = jsonObject.data.caption["text"];
-                    }
-                    else
-                    {
-                        imageCache["caption"] = "";
                         iconShare.visible = false;
                         iconShareDeactivated.visible = true;
                     }
-                    imageData.caption = imageCache["caption"];
 
-                    // check if user has already liked the image
-                    if (jsonObject.data.user_has_liked !== null)
+                    // check if user has already liked the image and set icons accordingly
+                    if (imageCache["userhasliked"])
                     {
-                        imageCache["userHasLiked"] = jsonObject.data.user_has_liked;
-                        imageData.userHasLiked = imageCache["userHasLiked"];
-                        if (jsonObject.data.user_has_liked)
-                        {
-                            iconLiked.visible = true;
-                        }
-                        else
-                        {
-                            iconUnliked.visible = true;
-                        }
+                        iconLiked.visible = true;
                     }
-
-                    // format time
-                    imageCache["createdTime"] = formatInstagramTime(jsonObject.data.created_time);
-                    imageData.createdTime = imageCache["createdTime"];
+                    else
+                    {
+                        iconUnliked.visible = true;
+                    }
 
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
@@ -96,6 +69,8 @@ function loadImage(imageId)
                 }
             }
 
+    // only authenticated users have user_has_liked nodes in their response data
+    // thus the request should be done with the access token whenever possible
     var url = "";
     if (isAuthenticated())
     {

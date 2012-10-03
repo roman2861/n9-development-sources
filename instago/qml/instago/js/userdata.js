@@ -132,24 +132,12 @@ function loadUserImages(userId, paginationId)
                     }
 
                     var imageCache = new Array();
-
                     for ( var index in jsonObject.data )
                     {
-                        imageCache = [];
+                        // get image object
+                        imageCache = getImageDataFromObject(jsonObject.data[index]);
 
-                        imageCache["thumbnail"] = jsonObject.data[index].images["thumbnail"]["url"];
-                        imageCache["originalimage"] = jsonObject.data[index].images["standard_resolution"]["url"];
-                        imageCache["linktoinstagram"] = jsonObject.data[index].link;
-                        imageCache["imageid"] = jsonObject.data[index].id;
-                        imageCache["caption"] = ensureVariableNotNull(jsonObject.data[index].caption["text"]);
-                        imageCache["username"] = jsonObject.data[index].user["username"];
-                        imageCache["profilepicture"] = jsonObject.data[index].user["profile_picture"];
-                        imageCache["userid"] = jsonObject.data[index].user["id"];
-                        imageCache["likes"] = jsonObject.data[index].likes["count"];
-
-                        // format time
-                        imageCache["createdtime"] = formatInstagramTime(jsonObject.data[index].created_time);
-
+                        // add image object to gallery list
                         userprofileGallery.addToGallery({
                                                             "url":imageCache["thumbnail"],
                                                             "index":imageCache["imageid"]
@@ -158,23 +146,26 @@ function loadUserImages(userId, paginationId)
                         // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
 
-                    if (jsonObject.pagination.next_max_id != null)
+                    // check if the page has a following page in the pagination list
+                    // if so then remember it in the gallery component
+                    if (jsonObject.pagination.next_max_id !== null)
                     {
                         userprofileGallery.paginationNextMaxId = jsonObject.pagination.next_max_id;
                     }
 
                     if (paginationId === 0)
                     {
+                        // initial loading
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
+                        userprofileGallery.visible = true;
                     }
                     else
                     {
+                        // loading additional images
                         notification.hide();
                         notification.useTimer = true;
                     }
-
-                    userprofileGallery.visible = true;
 
                     // console.log("Done loading user image list");
                 }
