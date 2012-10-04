@@ -3,7 +3,7 @@
 function formatInstagramTime(instagramTime)
 {
     var time = new Date(instagramTime * 1000);
-    var timeStr = time.getMonth() +
+    var timeStr = (time.getMonth()+1) +
             "/" + time.getDate() +
             "/" + time.getFullYear() + ", ";
 
@@ -27,13 +27,16 @@ function getImageDataFromObject(imageObject)
 {
     var imageReturnArray = new Array();
 
+    // extract the standard data
+    imageReturnArray["username"] = imageObject.user["username"];
+    imageReturnArray["userid"] = imageObject.user["id"];
+    imageReturnArray["profilepicture"] = imageObject.user["profile_picture"];
     imageReturnArray["thumbnail"] = imageObject.images["thumbnail"]["url"];
     imageReturnArray["originalimage"] = imageObject.images["standard_resolution"]["url"];
     imageReturnArray["imageid"] = imageObject.id;
-    imageReturnArray["username"] = imageObject.user["username"];
-    imageReturnArray["profilepicture"] = imageObject.user["profile_picture"];
-    imageReturnArray["userid"] = imageObject.user["id"];
     imageReturnArray["likes"] = imageObject.likes["count"];
+
+    // get and format date
     imageReturnArray["createdtime"] = formatInstagramTime(imageObject.created_time);
 
     // image may be liked by user
@@ -58,7 +61,7 @@ function getImageDataFromObject(imageObject)
         imageReturnArray["linktoinstagram"] = "";
     }
 
-    // caption may be empty
+    // caption node may not exist if empty
     if (imageObject.caption !== null)
     {
         imageReturnArray["caption"] = imageObject.caption["text"];
