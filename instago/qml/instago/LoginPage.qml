@@ -51,13 +51,11 @@ Page {
         // check on every page load if the oauth token is in it
         onUrlChanged: {
             var auth = new Authentication.AuthenticationHandler();
-
             var instagramResponse = new Array();
             instagramResponse = auth.checkInstagramAuthenticationUrl(url);
-            // console.log("Status: " + instagramResponse["status"]);
 
             // Show the error message if the Instagram authentication was not successfull
-            if (instagramResponse["status"] == "AUTH_ERROR")
+            if (instagramResponse["status"] === "AUTH_ERROR")
             {
                 loginInstagramWebView.visible = false;
                 loginErrorText.text = instagramResponse["error_description"];
@@ -65,7 +63,7 @@ Page {
             }
 
             // Show the success message if the Instagram authentication was ok
-            if (instagramResponse["status"] == "AUTH_SUCCESS")
+            if (instagramResponse["status"] === "AUTH_SUCCESS")
             {
                 loginInstagramWebView.visible = false;
                 loginSuccessContainer.visible = true;

@@ -9,6 +9,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 import "js/globals.js" as Globals
+import "js/authenticationhandler.js" as Authentication
 
 Page {
     // lock orientation to portrait mode
@@ -54,7 +55,15 @@ Page {
         // when done, replace the splash page with the popular photos page
         onTriggered: {
             // console.log("Closing splash screen");
-            pageStack.replace(popularPhotosPage);
+            var auth = new Authentication.AuthenticationHandler();
+            if (auth.isAuthenticated())
+            {
+                pageStack.push(Qt.resolvedUrl("UserFeedPage.qml"));
+            }
+            else
+            {
+                pageStack.replace(popularPhotosPage);
+            }
         }
     }
 }

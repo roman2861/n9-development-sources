@@ -78,6 +78,12 @@ NetworkHandler.prototype.checkResponseForErrors = function(httpResponseText)
                     this.errorData["error_type"] = jsonObject.meta.error_type;
                     this.errorData["code"] = jsonObject.meta.code;
                     this.errorData["error_message"] = jsonObject.meta.error_message;
+
+                    if (this.errorData["error_type"] === "OAuthAccessTokenException")
+                    {
+                        pageStack.push(Qt.resolvedUrl("ForcedLogoutPage.qml"));
+                        return;
+                    }
                 }
                 else
                 {

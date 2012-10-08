@@ -59,14 +59,19 @@ function loadImage(imageId)
                         iconShareDeactivated.visible = true;
                     }
 
-                    // check if user has already liked the image and set icons accordingly
-                    if (imageCache["userhasliked"])
+                    // check if the user is authenticated
+                    // if so, show the like buttons
+                    if (auth.isAuthenticated())
                     {
-                        iconLiked.visible = true;
-                    }
-                    else
-                    {
-                        iconUnliked.visible = true;
+                        // check if user has already liked the image and set icons accordingly
+                        if (imageCache["userhasliked"])
+                        {
+                            iconLiked.visible = true;
+                        }
+                        else
+                        {
+                            iconUnliked.visible = true;
+                        }
                     }
 
                     loadingIndicator.running = false;

@@ -225,6 +225,7 @@ Page {
             }
         }
 
+
         // initiate the share dialog
         ToolIcon {
             id: iconShareDeactivated

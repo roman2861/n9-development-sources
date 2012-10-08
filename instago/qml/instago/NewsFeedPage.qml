@@ -20,7 +20,6 @@ Page {
 
     // load the gallery content as soon as the page is ready
     Component.onCompleted: {
-
         // show main buttosn if the user is logged in
         var auth = new Authentication.AuthenticationHandler();
         if (auth.isAuthenticated())

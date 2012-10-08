@@ -28,12 +28,6 @@ Rectangle  {
     // this extracts the Instagram error response (if there is any)
     // and adds it to the error message texts
     onShowErrorMessage: {
-        if (errordata["d_error_type"] === "OAuthAccessTokenException")
-        {
-            pageStack.push(Qt.resolvedUrl("ForcedLogoutPage.qml"));
-            return;
-        }
-
         if (errordata['d_error_message'].length > 0)
         {
             errorMessageText.text += "<br /><br />Instagram says: <i>" + errordata['d_error_message'] + "</i>";

@@ -12,7 +12,8 @@ PageStackWindow {
         id: popularPhotosPage
     }
 
-    // register the popular photo page
+
+    // register the splash screen page
     SplashScreenPage {
         id: splashScreenPage
     }

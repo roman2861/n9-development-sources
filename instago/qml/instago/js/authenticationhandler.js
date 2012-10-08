@@ -43,7 +43,7 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
                 if (instagramTokenCode.length > 0)
                 {
                     // console.log("Found Instagram token code: " + instagramTokenCode);
-                    requestPermanentToken(instagramTokenCode);
+                    this.requestPermanentToken(instagramTokenCode);
                     returnStatus["status"] = "AUTH_SUCCESS";
                 }
             }
@@ -94,8 +94,20 @@ AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
                             var jsonObject = eval('(' + req.responseText + ')');
                             if (jsonObject.error == null)
                             {
+                                // console.log("Response: " + req.responseText + " and object: " + jsonObject);
                                 instagramPermanentToken = jsonObject.access_token;
-                                this.storeInstagramData(jsonObject);
+                                // this.storeInstagramData(jsonObject);
+
+                                var db = openDatabaseSync("Instago", "1.0", "Instago persistent data storage", 1);
+                                db.transaction(function(tx) {
+                                                   tx.executeSql('CREATE TABLE IF NOT EXISTS userdata(id TEXT, access_token TEXT)');
+                                               });
+
+                                var dataStr = "INSERT INTO userdata VALUES(?, ?)";
+                                var data = [jsonObject["user"].id, jsonObject.access_token];
+                                db.transaction(function(tx) {
+                                                   tx.executeSql(dataStr, data);
+                                               });
                             }
                         }
                     }
