@@ -21,7 +21,6 @@ Page {
     Header {
         id: pageHeader
         source: "img/top_header_logo.png"
-        text: qsTr("")
     }
 
 

@@ -15,7 +15,7 @@ import QtShareHelper 1.0
 import QtNetworkHelper 1.0
 
 import "js/globals.js" as Globals
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 import "js/imagedetail.js" as ImageDetailScript
 import "js/likes.js" as Likes
 
@@ -38,8 +38,6 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-
-        source: "img/top_header.png"
         text: qsTr("Photo")
     }
 
@@ -87,7 +85,8 @@ Page {
             anchors.right: parent.right
 
             onDetailImageClicked: {
-                if (Authentication.isAuthenticated())
+                var auth = new Authentication.AuthenticationHandler();
+                if (auth.isAuthenticated())
                 {
                     if (iconLiked.visible === false)
                     {
@@ -128,8 +127,8 @@ Page {
 
 
     // error indicator that is shown when a network error occured
-    NetworkErrorMessage {
-        id: networkErrorMesage
+    ErrorMessage {
+        id: errorMessage
 
         anchors {
             top: pageHeader.bottom;
@@ -141,9 +140,9 @@ Page {
 
         visible: false
 
-        onMessageTap: {
+        onErrorMessageClicked: {
             // console.log("Refresh clicked")
-            networkErrorMesage.visible = false;
+            errorMessage.visible = false;
             contentFlickableContainer.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;

@@ -11,7 +11,7 @@ import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
 import "js/globals.js" as Globals
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 
 Rectangle {
     id: userBio

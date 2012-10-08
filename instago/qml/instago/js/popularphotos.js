@@ -1,6 +1,23 @@
-// Globals contain the instagram API keys
+// *************************************************** //
+// Popularphotos Script
+//
+// This script is used to load, format and show the
+// popular image feed.
+// It's used by the PopularPhotosPage.
+// *************************************************** //
+
+
+// include other scripts used here
 Qt.include("instagramkeys.js");
+Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
+Qt.include("networkhandler.js");
+
+// general network handler that acts upon the http request
+var network = new NetworkHandler();
+
+// general authentication handler that provides user authentication methods
+var auth = new AuthenticationHandler();
 
 
 // load the popular image stream from Instagram
@@ -15,21 +32,12 @@ function loadImages()
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState === XMLHttpRequest.DONE)
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
                 {
-                    if (req.status != 200)
-                    {
-                        // console.debug("bad status: " + req.status);
-                        loadingIndicator.running = false;
-                        loadingIndicator.visible = false;
-                        networkErrorMesage.visible = true;
-
-                        return;
-                    }
-
-                    // console.debug("content: " + req.responseText);
-                    var jsonObject = eval('(' + req.responseText + ')');
-
                     var imageCache = new Array();
                     for ( var index in jsonObject.data )
                     {
@@ -37,6 +45,7 @@ function loadImages()
                         {
                             // get image object
                             imageCache = getImageDataFromObject(jsonObject.data[index]);
+                            // cacheImage(imageCache);
 
                             // add image object to gallery list
                             imageGallery.addToGallery({
@@ -53,6 +62,22 @@ function loadImages()
                     imageGallery.visible = true;
 
                     // console.log("Done loading popular photos");
+                }
+                else
+                {
+                    // either the request is not done yet or an error occured
+                    // check for both and act accordingly
+                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
                 }
             }
 

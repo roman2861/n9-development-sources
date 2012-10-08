@@ -1,5 +1,7 @@
 instago (0.3.2) unstable; urgency=low
 
+  * Added force logout page if existing token is not accepted by Instagram anymore
+  * Optimized network and error handler for Instagram API calls
   * Fixed edge case when sharing new images that have no Instagram page yet (share button is dimmed)
 
  -- Dirk Songuer <dirk@songuer.de>  Wed, 03 Oct 2012 15:39:00 +0000

@@ -1,7 +1,23 @@
-// Globals contain the instagram API keys
+// *************************************************** //
+// Imagedetail Script
+//
+// This script is used to load, format and show image
+// related data.
+// Its used by the ImageDetailPage.
+// *************************************************** //
+
+
+// include other scripts used here
 Qt.include("instagramkeys.js");
-Qt.include("authentication.js");
+Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
+Qt.include("networkhandler.js");
+
+// general network handler that acts upon the http request
+var network = new NetworkHandler();
+
+// general authentication handler that provides user authentication methods
+var auth = new AuthenticationHandler();
 
 
 // load an image with a given Instagram media id
@@ -15,20 +31,12 @@ function loadImage(imageId)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState === XMLHttpRequest.DONE)
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
                 {
-                    if (req.status != 200)
-                    {
-                        console.debug("bad status: " + req.status);
-                        loadingIndicator.running = false;
-                        loadingIndicator.visible = false;
-                        networkErrorMesage.visible = true;
-
-                        return;
-                    }
-
-                    var jsonObject = eval('(' + req.responseText + ')');
-
                     // get image object
                     var imageCache = new Array();
                     imageCache = getImageDataFromObject(jsonObject.data);
@@ -67,14 +75,30 @@ function loadImage(imageId)
 
                     // console.log("Done loading image");
                 }
+                else
+                {
+                    // either the request is not done yet or an error occured
+                    // check for both and act accordingly
+                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
+                }
             }
 
     // only authenticated users have user_has_liked nodes in their response data
     // thus the request should be done with the access token whenever possible
     var url = "";
-    if (isAuthenticated())
+    if (auth.isAuthenticated())
     {
-        var instagramUserdata = getStoredInstagramData();
+        var instagramUserdata = auth.getStoredInstagramData();
         url = "https://api.instagram.com/v1/media/" + imageId + "/?access_token=" + instagramUserdata["access_token"];
     }
     else

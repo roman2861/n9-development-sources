@@ -13,11 +13,17 @@ Rectangle{
 
     // text property for the header
     // set text will be shown in the header
-    property alias text : txtHeader.text
+    property alias text : headerText.text
 
     // image property for the header
     // given image will be shown (640x80)
-    property alias source : imgHeader.source
+    property alias source : headerImage.source
+
+    // property if reload button is visible
+    property alias reloadButtonVisible : headerReloadButton.visible
+
+    // signal if the reload button has been pressed
+    signal reloadButtonClicked()
 
     // place it on top
     anchors {
@@ -33,14 +39,14 @@ Rectangle{
 
     // image element that holds the image property
     Image {
-        id: imgHeader
-        source: source
+        id: headerImage
+        source: "img/top_header.png"
     }
 
 
     // text element that holds the text property
     Text {
-        id: txtHeader
+        id: headerText
 
         anchors.fill: parent
 
@@ -49,7 +55,38 @@ Rectangle{
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
 
-        text: qsTr(text)
+        text: ""
         color: "white"
+    }
+
+
+    // Reload button top right in the header
+    Image {
+        id: headerReloadButton
+
+        anchors {
+            right: parent.right
+            rightMargin: 30
+            top: parent.top
+            topMargin: 20
+            bottom: parent.bottom
+            bottomMargin: 20
+        }
+
+        width: 40
+        z: 10
+
+        visible: false
+
+        source: "image://theme/icon-m-toolbar-refresh-white"
+
+
+        MouseArea {
+            anchors.fill: parent
+
+            onClicked: {
+                reloadButtonClicked();
+            }
+        }
     }
 }

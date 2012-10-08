@@ -9,7 +9,7 @@ import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
 import "js/globals.js" as Globals
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 
 Page {
     // use the main navigation toolbar
@@ -22,7 +22,8 @@ Page {
     Component.onCompleted: {
 
         // show main buttosn if the user is logged in
-        if (Authentication.isAuthenticated())
+        var auth = new Authentication.AuthenticationHandler();
+        if (auth.isAuthenticated())
         {
             iconHome.visible = true;
             iconPopular.visible = true;
@@ -32,7 +33,6 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header.png"
         text: qsTr("News")
     }
 

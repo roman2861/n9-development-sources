@@ -10,7 +10,7 @@ import com.nokia.meego 1.0
 import QtWebKit 1.0
 
 import "js/instagramkeys.js" as InstagramKeys
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 
 Page {
     // use the login view toolbar
@@ -50,8 +50,10 @@ Page {
 
         // check on every page load if the oauth token is in it
         onUrlChanged: {
+            var auth = new Authentication.AuthenticationHandler();
+
             var instagramResponse = new Array();
-            instagramResponse = Authentication.checkInstagramAuthenticationUrl(url);
+            instagramResponse = auth.checkInstagramAuthenticationUrl(url);
             // console.log("Status: " + instagramResponse["status"]);
 
             // Show the error message if the Instagram authentication was not successfull

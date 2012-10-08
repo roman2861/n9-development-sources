@@ -12,7 +12,7 @@ import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
 import "js/globals.js" as Globals
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 import "js/userdata.js" as UserDataScript
 import "js/relationships.js" as UserRelationshipScript
 
@@ -32,7 +32,8 @@ Page {
         UserDataScript.loadUserProfile(userId);
 
         // show follow button if the user is logged in
-        if (Authentication.isAuthenticated())
+        var auth = new Authentication.AuthenticationHandler();
+        if (auth.isAuthenticated())
         {
             UserRelationshipScript.getRelationship(userId);
         }
@@ -41,7 +42,6 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header.png"
         text: qsTr("")
     }
 
@@ -80,7 +80,8 @@ Page {
 
         onImagecountClicked: {
             // user photos are only available for authenticated users
-            if (Authentication.isAuthenticated())
+            var auth = new Authentication.AuthenticationHandler();
+            if (auth.isAuthenticated())
             {
                 userprofileBio.visible = false;
                 userprofileFollowers.visible = false;
@@ -95,7 +96,8 @@ Page {
 
         onFollowersClicked: {
             // follower list only available for authenticated users
-            if (Authentication.isAuthenticated())
+            var auth = new Authentication.AuthenticationHandler();
+            if (auth.isAuthenticated())
             {
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
@@ -110,7 +112,8 @@ Page {
 
         onFollowingClicked: {
             // following list only available for authenticated users
-            if (Authentication.isAuthenticated())
+            var auth = new Authentication.AuthenticationHandler();
+            if (auth.isAuthenticated())
             {
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
@@ -267,8 +270,8 @@ Page {
 
 
     // error indicator that is shown when a network error occured
-    NetworkErrorMessage {
-        id: networkErrorMesage
+    ErrorMessage {
+        id: errorMessage
 
         anchors {
             top: pageHeader.bottom;
@@ -280,12 +283,13 @@ Page {
 
         visible: false
 
-        onMessageTap: {
+        onErrorMessageClicked: {
             // console.log("Refresh clicked")
-            networkErrorMesage.visible = false;
+            errorMessage.visible = false;
             userprofileMetadata.visible = false;
             userprofileContentHeadline.visible = false;
             userprofileBio.visible = false;
+
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
             UserDataScript.loadUserProfile(userId);

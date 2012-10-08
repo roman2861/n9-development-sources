@@ -12,7 +12,7 @@ import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
 import "js/globals.js" as Globals
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 import "js/popularphotos.js" as PopularPhotosScript
 
 Page {
@@ -27,7 +27,8 @@ Page {
         PopularPhotosScript.loadImages();
 
         // show main buttons if the user is logged in
-        if (Authentication.isAuthenticated())
+        var auth = new Authentication.AuthenticationHandler();
+        if (auth.isAuthenticated())
         {
             iconHome.visible = true;
             iconPopular.visible = true;
@@ -44,37 +45,16 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header.png"
         text: qsTr("Popular")
+        reloadButtonVisible: true
 
-        // Reload button top right in the header
-        Image {
-            anchors {
-                right: parent.right
-                rightMargin: 30
-                top: parent.top
-                topMargin: 20
-                bottom: parent.bottom
-                bottomMargin: 20
-            }
-
-            width: 40
-            z: 10
-
-            source: "image://theme/icon-m-toolbar-refresh-white"
-
-            MouseArea {
-                anchors.fill: parent
-
-                onClicked: {
-                    // console.log("Refresh clicked");
-                    imageGallery.visible = false;
-                    networkErrorMesage.visible = false;
-                    loadingIndicator.running = true;
-                    loadingIndicator.visible = true;
-                    PopularPhotosScript.loadImages();
-                }
-            }
+        onReloadButtonClicked: {
+            // console.log("Refresh clicked");
+            imageGallery.visible = false;
+            errorMessage.visible = false;
+            loadingIndicator.running = true;
+            loadingIndicator.visible = true;
+            PopularPhotosScript.loadImages();
         }
     }
 
@@ -92,8 +72,8 @@ Page {
 
 
     // error indicator that is shown when a network error occured
-    NetworkErrorMessage {
-        id: networkErrorMesage
+    ErrorMessage {
+        id: errorMessage
 
         anchors {
             top: pageHeader.bottom;
@@ -105,9 +85,9 @@ Page {
 
         visible: false
 
-        onMessageTap: {
+        onErrorMessageClicked: {
             // console.log("Refresh clicked")
-            networkErrorMesage.visible = false;
+            errorMessage.visible = false;
             imageGallery.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;

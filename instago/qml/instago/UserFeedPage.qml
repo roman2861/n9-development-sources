@@ -11,7 +11,7 @@ import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
 import "js/globals.js" as Globals
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 import "js/userfeed.js" as Userfeed
 import "js/likes.js" as Likes
 
@@ -33,40 +33,20 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header.png"
-        text: qsTr("Your Feed")
+        text: qsTr("Friend Feed")
+        reloadButtonVisible: true
 
-        // Reload button top right in the header
-        Image {
-            anchors {
-                right: parent.right
-                rightMargin: 30
-                top: parent.top
-                topMargin: 20
-                bottom: parent.bottom
-                bottomMargin: 20
-            }
+        onReloadButtonClicked: {
+            // console.log("Refresh clicked");
+            feedList.visible = false;
+            errorMessage.visible = false;
 
-            width: 40
-            z: 10
-
-            source: "image://theme/icon-m-toolbar-refresh-white"
-
-            MouseArea {
-                anchors.fill: parent
-
-                onClicked: {
-                    // console.log("Refresh clicked");
-                    feedList.visible = false;
-                    networkErrorMesage.visible = false;
-
-                    loadingIndicator.running = true;
-                    loadingIndicator.visible = true;
-                    Userfeed.loadUserFeed();
-                }
-            }
+            loadingIndicator.running = true;
+            loadingIndicator.visible = true;
+            Userfeed.loadUserFeed();
         }
     }
+
 
     // standard notification area
     NotificationArea {
@@ -92,8 +72,8 @@ Page {
 
 
     // error indicator that is shown when a network error occured
-    NetworkErrorMessage {
-        id: networkErrorMesage
+    ErrorMessage {
+        id: errorMessage
 
         anchors {
             top: pageHeader.bottom;
@@ -105,9 +85,9 @@ Page {
 
         visible: false
 
-        onMessageTap: {
+        onErrorMessageClicked: {
             // console.log("Refresh clicked")
-            networkErrorMesage.visible = false;
+            errorMessage.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
             Userfeed.loadUserFeed();

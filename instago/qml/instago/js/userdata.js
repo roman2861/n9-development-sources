@@ -1,7 +1,23 @@
-// Globals contain the instagram API keys
+// *************************************************** //
+// Userdata Script
+//
+// This script is used to load, format and show user
+// related data.
+// It's used by the UserDetailPage and UserProfilePage.
+// *************************************************** //
+
+
+// include other scripts used here
 Qt.include("instagramkeys.js");
-Qt.include("authentication.js");
+Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
+Qt.include("networkhandler.js");
+
+// general network handler that acts upon the http request
+var network = new NetworkHandler();
+
+// general authentication handler that provides user authentication methods
+var auth = new AuthenticationHandler();
 
 
 // load the user data for a given Instagram user id
@@ -10,25 +26,19 @@ function loadUserProfile(userId)
 {
     // console.log("Loading user profile for user " + userId);
 
+    loadingIndicator.running = true;
+    loadingIndicator.visible = true;
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState === XMLHttpRequest.DONE)
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
                 {
-                    if (req.status != 200)
-                    {
-                        // console.debug("bad status: " + req.status);
-                        loadingIndicator.running = false;
-                        loadingIndicator.visible = false;
-                        networkErrorMesage.visible = true;
-
-                        return;
-                    }
-
-                    // console.debug("content: " + req.responseText);
-
                     var userCache = [];
-                    var jsonObject = eval('(' + req.responseText + ')');
 
                     userCache["username"] = jsonObject.data.username;
                     pageHeader.text = qsTr("@" + userCache["username"]);
@@ -66,13 +76,29 @@ function loadUserProfile(userId)
 
                     // console.log("Done loading user profile");
                 }
+                else
+                {
+                    // either the request is not done yet or an error occured
+                    // check for both and act accordingly
+                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
+                }
             }
 
     var url = "";
-    if (isAuthenticated())
+    if (auth.isAuthenticated())
     {
         // we need the auth token for users that are private
-        var instagramUserdata = getStoredInstagramData();
+        var instagramUserdata = auth.getStoredInstagramData();
         url = "https://api.instagram.com/v1/users/" + userId + "?access_token=" + instagramUserdata["access_token"];
     }
     else
@@ -107,25 +133,12 @@ function loadUserImages(userId, paginationId)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState === XMLHttpRequest.DONE)
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
                 {
-                    if (req.status != 200)
-                    {
-                        // console.debug("bad status: " + req.status);
-
-                        notification.hide();
-                        notification.useTimer = true;
-
-                        loadingIndicator.running = false;
-                        loadingIndicator.visible = false;
-                        networkErrorMesage.visible = true;
-
-                        return;
-                    }
-
-                    // console.debug("content: " + req.responseText);
-                    var jsonObject = eval('(' + req.responseText + ')');
-
                     if (paginationId === 0)
                     {
                         userprofileGallery.clearGallery();
@@ -148,7 +161,7 @@ function loadUserImages(userId, paginationId)
 
                     // check if the page has a following page in the pagination list
                     // if so then remember it in the gallery component
-                    if (jsonObject.pagination.next_max_id !== null)
+                    if (jsonObject.pagination.next_max_id != null)
                     {
                         userprofileGallery.paginationNextMaxId = jsonObject.pagination.next_max_id;
                     }
@@ -169,9 +182,28 @@ function loadUserImages(userId, paginationId)
 
                     // console.log("Done loading user image list");
                 }
+                else
+                {
+                    // either the request is not done yet or an error occured
+                    // check for both and act accordingly
+                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
+                    {
+                        notification.hide();
+                        notification.useTimer = true;
+
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
+                }
             }
 
-    var instagramUserdata = getStoredInstagramData();
+    var instagramUserdata = auth.getStoredInstagramData();
     var url = "https://api.instagram.com/v1/users/" + userId + "/media/recent/?count=30&access_token=" + instagramUserdata["access_token"];
     if (paginationId !== 0)
     {
@@ -195,21 +227,12 @@ function loadUserFollowers(userId)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
                 {
-                    if (req.status != 200)
-                    {
-                        // console.debug("bad status: " + req.status);
-                        loadingIndicator.running = false;
-                        loadingIndicator.visible = false;
-                        networkErrorMesage.visible = true;
-
-                        return;
-                    }
-
-                    // console.debug("content: " + req.responseText);
-                    var jsonObject = eval('(' + req.responseText + ')');
-
                     userprofileFollowers.clearList();
 
                     var userCache = new Array();
@@ -240,6 +263,22 @@ function loadUserFollowers(userId)
 
                     // console.log("Done loading user followers");
                 }
+                else
+                {
+                    // either the request is not done yet or an error occured
+                    // check for both and act accordingly
+                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
+                }
             }
 
     var url = "https://api.instagram.com/v1/users/" + userId + "/followed-by?client_id=" + instagramClientId;
@@ -261,20 +300,12 @@ function loadUserFollowing(userId)
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
-                if (req.readyState == XMLHttpRequest.DONE)
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
                 {
-                    if (req.status != 200)
-                    {
-                        // console.debug("bad status: " + req.status);
-                        loadingIndicator.running = false;
-                        loadingIndicator.visible = false;
-                        networkErrorMesage.visible = true;
-
-                        return;
-                    }
-
-                    var jsonObject = eval('(' + req.responseText + ')');
-
                     userprofileFollowing.clearList();
 
                     var userCache = new Array();
@@ -304,6 +335,22 @@ function loadUserFollowing(userId)
                     loadingIndicator.visible = false;
 
                     // console.log("Done loading user following");
+                }
+                else
+                {
+                    // either the request is not done yet or an error occured
+                    // check for both and act accordingly
+                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
                 }
             }
 

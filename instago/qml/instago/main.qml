@@ -18,7 +18,6 @@ PageStackWindow {
     }
 
 
-
     // toolbar for the popular photos
     ToolBarLayout {
         id: mainNavigationToolbar

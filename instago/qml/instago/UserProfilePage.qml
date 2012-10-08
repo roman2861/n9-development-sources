@@ -11,7 +11,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 import "js/globals.js" as Globals
-import "js/authentication.js" as Authentication
+import "js/authenticationhandler.js" as Authentication
 import "js/userdata.js" as UserDataScript
 
 Page {
@@ -23,7 +23,8 @@ Page {
 
     // check if the user is already logged in
     Component.onCompleted: {
-        if (Authentication.isAuthenticated())
+        var auth = new Authentication.AuthenticationHandler();
+        if (auth.isAuthenticated())
         {
             // user is authorized with Instagram
             // console.log("User is authorized");
@@ -33,7 +34,7 @@ Page {
             loadingIndicator.visible = false;
 
             // load profile data for user
-            var instagramUserdata = Authentication.getStoredInstagramData();
+            var instagramUserdata = auth.getStoredInstagramData();
             UserDataScript.loadUserProfile(instagramUserdata["id"]);
         }
         else
@@ -49,7 +50,6 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header.png"
         text: qsTr("You")
     }
 
@@ -161,7 +161,8 @@ Page {
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Your photos";
 
-            var instagramUserdata = Authentication.getStoredInstagramData();
+            var auth = new Authentication.AuthenticationHandler();
+            var instagramUserdata = auth.getStoredInstagramData();
             UserDataScript.loadUserImages(instagramUserdata["id"], 0);
 
             userprofileGallery.visible = true;
@@ -173,7 +174,8 @@ Page {
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "People that follow you";
 
-            var instagramUserdata = Authentication.getStoredInstagramData();
+            var auth = new Authentication.AuthenticationHandler();
+            var instagramUserdata = auth.getStoredInstagramData();
             UserDataScript.loadUserFollowers(instagramUserdata["id"], 0);
 
             userprofileFollowers.visible = true;
@@ -185,7 +187,8 @@ Page {
             userprofileFollowers.visible = false;
             userprofileContentHeadline.text = "People that you follow";
 
-            var instagramUserdata = Authentication.getStoredInstagramData();
+            var auth = new Authentication.AuthenticationHandler();
+            var instagramUserdata = auth.getStoredInstagramData();
             UserDataScript.loadUserFollowing(instagramUserdata["id"], 0);
 
             userprofileFollowing.visible = true;
@@ -237,7 +240,8 @@ Page {
         logoutButtonVisible: true
 
         onLogoutButtonClicked: {
-            Authentication.deleteStoredInstagramData();
+            var auth = new Authentication.AuthenticationHandler();
+            auth.deleteStoredInstagramData();
 
             pageStack.clear();
             pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
@@ -314,8 +318,8 @@ Page {
 
 
     // error indicator that is shown when a network error occured
-    NetworkErrorMessage {
-        id: networkErrorMesage
+    ErrorMessage {
+        id: errorMessage
 
         anchors {
             top: pageHeader.bottom;
@@ -327,15 +331,17 @@ Page {
 
         visible: false
 
-        onMessageTap: {
+        onErrorMessageClicked: {
             // console.log("Refresh clicked")
-            networkErrorMesage.visible = false;
+            errorMessage.visible = false;
             userprofileMetadata.visible = false;
             userprofileContentHeadline.visible = false;
             userprofileBio.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
-            var instagramUserdata = Authentication.getStoredInstagramData();
+
+            var auth = new Authentication.AuthenticationHandler();
+            var instagramUserdata = auth.getStoredInstagramData();
             UserDataScript.loadUserProfile(instagramUserdata["id"]);
         }
     }
