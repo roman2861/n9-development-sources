@@ -1,3 +1,10 @@
+// *************************************************** //
+// Helpermethod Script
+//
+// This script contains methods that are generally
+// useful and are used throughout the application.
+// *************************************************** //
+
 
 // format an Instagram time stamp into readable format
 function formatInstagramTime(instagramTime)
