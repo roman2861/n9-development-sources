@@ -19,6 +19,8 @@ var network = new NetworkHandler();
 // general authentication handler that provides user authentication methods
 var auth = new AuthenticationHandler();
 
+// this is the global storage for the pagination id
+var lastPaginationId = "";
 
 // load the user data for a given Instagram user id
 // the user data will be used to fill the UserMetadata component
@@ -41,7 +43,7 @@ function loadUserProfile(userId)
                     var userCache = [];
 
                     userCache["username"] = jsonObject.data.username;
-                    pageHeader.text = qsTr("@" + userCache["username"]);
+                    pageHeader.text = "@" + userCache["username"];
 
                     userCache["fullname"] = jsonObject.data.full_name;
                     if (userCache["fullname"] == "") userCache["fullname"] = userCache["username"];
@@ -63,35 +65,26 @@ function loadUserProfile(userId)
                     userprofileMetadata.following = userCache["numberoffollows"];
 
                     userCache["bio"] = jsonObject.data.bio;
-                    userprofileBio.text = qsTr(userCache["bio"]);
+                    userprofileBio.text = userCache["bio"];
 
                     // activate profile containers
                     userprofileMetadata.visible = true;
                     userprofileContentHeadline.visible = true;
-                    userprofileBio.visible = true;
-
-                    // hide loading indicator
-                    loadingIndicator.running = false;
-                    loadingIndicator.visible = false;
 
                     // console.log("Done loading user profile");
                 }
                 else
                 {
-                    // either the request is not done yet or an error occured
-                    // check for both and act accordingly
-                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
-                    {
-                        loadingIndicator.running = false;
-                        loadingIndicator.visible = false;
-
-                        errorMessage.showErrorMessage({
-                                                          "d_code":network.errorData['code'],
-                                                          "d_error_type":network.errorData['error_type'],
-                                                          "d_error_message":network.errorData['error_message']
-                                                      });
-                    }
+                    // no need for error handling here
+                    // the page will execute getRelationship, which will handle the error states
                 }
+
+                // make userprofile visible
+                userprofileBio.visible = true;
+
+                // hide loading indicator
+                loadingIndicator.running = false;
+                loadingIndicator.visible = false;
             }
 
     var url = "";
@@ -118,6 +111,15 @@ function loadUserImages(userId, paginationId)
 {
     // console.log("Loading user image list for user " + userId + " and pagination id: " + paginationId);
 
+    // check if the current pagination id is the same as the last one
+    // this is the case if all images habe been loaded and there are no more
+    if ( (paginationId !== 0) && (paginationId === lastPaginationId) )
+    {
+        // console.log("Last pagination id matches this one: " + paginationId + " - returning");
+        return;
+    }
+
+    // check if this is a new call or loading more images
     if (paginationId === 0)
     {
         loadingIndicator.running = true;
@@ -208,6 +210,7 @@ function loadUserImages(userId, paginationId)
     if (paginationId !== 0)
     {
         url += "&max_id=" + paginationId;
+        lastPaginationId = paginationId;
     }
 
     req.open("GET", url, true);
@@ -281,7 +284,8 @@ function loadUserFollowers(userId)
                 }
             }
 
-    var url = "https://api.instagram.com/v1/users/" + userId + "/followed-by?client_id=" + instagramClientId;
+    var instagramUserdata = auth.getStoredInstagramData();
+    var url = "https://api.instagram.com/v1/users/" + userId + "/followed-by?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();
@@ -354,7 +358,8 @@ function loadUserFollowing(userId)
                 }
             }
 
-    var url = "https://api.instagram.com/v1/users/" + userId + "/follows?client_id=" + instagramClientId;
+    var instagramUserdata = auth.getStoredInstagramData();
+    var url = "https://api.instagram.com/v1/users/" + userId + "/follows?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();

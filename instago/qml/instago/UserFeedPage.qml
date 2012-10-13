@@ -33,7 +33,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        text: qsTr("Friend Feed")
+        text: "Friend Feed"
         reloadButtonVisible: true
 
         onReloadButtonClicked: {

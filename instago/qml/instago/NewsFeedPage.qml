@@ -32,7 +32,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        text: qsTr("News")
+        text: "News"
     }
 
 }

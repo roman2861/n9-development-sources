@@ -1,11 +1,22 @@
+instago (0.3.3) unstable; urgency=low
+
+  * Optimized labels
+  * Fixed relationship status and buttons
+  * Fixed showing follower information for private users
+  * Fixed loading additional images when reaching the last pagination id
+  * Fixed error messages should be cleared every call
+
+ -- Dirk Songuer <dirk@songuer.de>  Sat, 13 Oct 2012 11:11:00 +0000
+
+
 instago (0.3.2) unstable; urgency=low
 
   * Added force logout page if existing token is not accepted by Instagram anymore
   * Added user feed as default view for authenticated users
-  * Optimized network and error handler for Instagram API calls
+  * Optimized network and authentication handler for Instagram API calls
   * Fixed edge case when sharing new images that have no Instagram page yet (share button is dimmed)
 
- -- Dirk Songuer <dirk@songuer.de>  Wed, 03 Oct 2012 15:39:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Tue, 09 Oct 2012 12:05:00 +0000
 
 
 instago (0.3.1) unstable; urgency=low

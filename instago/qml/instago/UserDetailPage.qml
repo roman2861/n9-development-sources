@@ -42,7 +42,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        text: qsTr("")
+        text: ""
     }
 
     // standard notification area
@@ -190,6 +190,28 @@ Page {
 
             userprofileBio.unfollowButtonVisible = false;
             userprofileBio.followButtonVisible = true;
+        }
+
+        // request to follow user
+        onRequestButtonClicked: {
+            notification.text = "You requested to follow";
+            notification.show();
+
+            UserRelationshipScript.setRelationship(userId, "follow");
+
+            userprofileBio.requestButtonVisible = false;
+            userprofileBio.unrequestButtonVisible = true;
+        }
+
+        // unrequest to follow user
+        onUnrequestButtonClicked: {
+            notification.text = "You withdrew your request to follow";
+            notification.show();
+
+            UserRelationshipScript.setRelationship(userId, "unfollow");
+
+            userprofileBio.unrequestButtonVisible = false;
+            userprofileBio.requestButtonVisible = true;
         }
     }
 

@@ -45,7 +45,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        text: qsTr("Popular")
+        text: "Popular"
         reloadButtonVisible: true
 
         onReloadButtonClicked: {

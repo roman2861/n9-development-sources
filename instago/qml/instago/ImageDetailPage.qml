@@ -38,7 +38,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        text: qsTr("Photo")
+        text: "Photo"
     }
 
     // standard notification area

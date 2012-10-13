@@ -23,7 +23,7 @@ Page {
     Header {
         id: pageHeader
         source: "img/top_header.png"
-        text: qsTr("Login")
+        text: "Login"
     }
 
 

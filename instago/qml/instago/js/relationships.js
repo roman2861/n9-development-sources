@@ -80,10 +80,30 @@ function getRelationship(userId)
                     {
                         userprofileBio.unfollowButtonVisible = true;
                     }
-                    // else check if the user is not followed yet
-                    else if (jsonObject.data.outgoing_status === "none")
+
+                    // check if user is not followed and not private
+                    if ( (jsonObject.data.outgoing_status === "none") && (jsonObject.data.target_user_is_private === false) )
                     {
+                        // console.log("User is not followed and not private")
                         userprofileBio.followButtonVisible = true;
+                    }
+
+                    // check if user is not followed and private
+                    if ( (jsonObject.data.outgoing_status === "none") && (jsonObject.data.target_user_is_private === true) )
+                    {
+                        // console.log("User is not followed and private")
+                        pageHeader.text = "User is private";
+                        userprofileBio.userIsPrivateMessageVisible = true;
+                        userprofileBio.requestButtonVisible = true;
+                    }
+
+                    // check if user is not followed but follow requested
+                    if ( (jsonObject.data.outgoing_status === "requested") && (jsonObject.data.target_user_is_private === true) )
+                    {
+                        // console.log("User is not followed but follow requested")
+                        pageHeader.text = "User is private";
+                        userprofileBio.userIsPrivateMessageVisible = true;
+                        userprofileBio.unrequestButtonVisible = true;
                     }
 
                     // console.log("Done getting relationship");

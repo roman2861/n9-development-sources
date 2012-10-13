@@ -20,11 +20,16 @@ Rectangle {
     property alias text: userBioText.text;
     property alias followButtonVisible: userBioFollowUser.visible
     property alias unfollowButtonVisible: userBioUnfollowUser.visible
+    property alias requestButtonVisible: userBioRequestFollowUser.visible
+    property alias unrequestButtonVisible: userBioUnrequestFollowUser.visible
     property alias logoutButtonVisible: userBioLogoutUser.visible
+    property alias userIsPrivateMessageVisible: userBioUserIsPrivate.visible
 
     // define signals to make the interactions accessible
     signal followButtonClicked();
     signal unfollowButtonClicked();
+    signal requestButtonClicked();
+    signal unrequestButtonClicked();
     signal logoutButtonClicked();
 
     // no background color
@@ -48,6 +53,58 @@ Rectangle {
         wrapMode: Text.Wrap
 
         text: ""
+    }
+
+
+    // message that user is private
+    Rectangle {
+        id : userBioUserIsPrivate
+
+        anchors {
+            bottom: userBioFollowUser.top
+            bottomMargin: 30
+            horizontalCenter: parent.horizontalCenter
+        }
+
+        visible: false;
+
+        // user profile image
+        Image {
+            id: userBioLockedIcon
+
+            anchors {
+                bottom: userBioLockedText.top
+                bottomMargin: 10
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            smooth: true
+
+            width: 80
+            height: 80
+
+            source: "image://theme/icon-m-common-locked"
+        }
+
+
+        // description for the about page
+        Text {
+            id: userBioLockedText
+
+            anchors {
+                bottom: userBioUserIsPrivate.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+
+            wrapMode: Text.WordWrap
+            textFormat: Text.RichText
+
+            text: "This user is private";
+        }
+
     }
 
 
@@ -91,6 +148,50 @@ Rectangle {
 
         onClicked: {
             unfollowButtonClicked();
+        }
+    }
+
+
+    // request follow button
+    Button {
+        id: userBioRequestFollowUser
+
+        anchors {
+            left: parent.left;
+            leftMargin: 30;
+            right: parent.right;
+            rightMargin: 30;
+            top: userBioText.bottom;
+            topMargin: 30;
+        }
+
+        visible: false
+        text: "Request permission"
+
+        onClicked: {
+            requestButtonClicked();
+        }
+    }
+
+
+    // withdraw request button
+    Button {
+        id: userBioUnrequestFollowUser
+
+        anchors {
+            left: parent.left;
+            leftMargin: 30;
+            right: parent.right;
+            rightMargin: 30;
+            top: userBioText.bottom;
+            topMargin: 30;
+        }
+
+        visible: false
+        text: "Already requested"
+
+        onClicked: {
+            unrequestButtonClicked();
         }
     }
 

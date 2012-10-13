@@ -7,6 +7,7 @@
 
 
 // format an Instagram time stamp into readable format
+// return format will be mm/dd/yy, HH:MM
 function formatInstagramTime(instagramTime)
 {
     var time = new Date(instagramTime * 1000);

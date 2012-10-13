@@ -37,12 +37,12 @@ NetworkHandler.prototype.handleHttpResult = function(XMLHttpRequestObject)
             if (XMLHttpRequestObject.readyState === XMLHttpRequest.DONE)
             {
                 this.requestIsFinished = true;
+                // console.debug("status: " + XMLHttpRequestObject.status + " content: " + XMLHttpRequestObject.responseText);
 
                 // check if the status is not 200 (= an error has occured)
                 // this might either be already caught during loading or be something new
                 if (XMLHttpRequestObject.status != 200)
                 {
-                    // console.debug("status: " + req.status + " content: " + req.responseText + " for url: " + url);
                     if (!this.errorData['code']) { this.checkResponseForErrors(XMLHttpRequestObject.responseText); }
 
                     return;
