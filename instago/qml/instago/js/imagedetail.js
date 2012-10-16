@@ -47,6 +47,7 @@ function loadImage(imageId)
                     imageData.username = imageCache["username"];
                     imageData.profilePicture = imageCache["profilepicture"];
                     imageData.userId = imageCache["userid"];
+                    imageData.comments = imageCache["comments"] + " comments";
                     imageData.likes = imageCache["likes"] + " people liked this";
                     imageData.linkToInstagram = imageCache["linktoinstagram"];
                     imageData.caption = imageCache["caption"];

@@ -1,21 +1,21 @@
 // *************************************************** //
-// User List Component
+// Comment List Component
 //
-// The user list component is used by the application
-// pages. It displays a number of given user names with
-// their metadata in a list.
+// The comment list component is used by the application
+// pages. It displays the comments for a given media id
+// with their respective metadata
 // The list is flickable and clips.
 // *************************************************** //
 
 import QtQuick 1.0
 
 Rectangle {
-    id: userList
+    id: commentList
 
     // signal to clear the list contents
     signal clearList()
     onClearList: {
-        userListModel.clear();
+        commentListModel.clear();
     }
 
     // signal to add a new item
@@ -27,7 +27,7 @@ Rectangle {
     // "index":ITEM_INDEX
     signal addToList( variant items )
     onAddToList: {
-        userListModel.append(items);
+        commentListModel.append(items);
     }
 
     // general style definition
@@ -39,12 +39,12 @@ Rectangle {
     // this is the main container component
     // it contains the actual user items
     Component {
-        id: userListDelegate
+        id: commentListDelegate
 
         // this is an individual list item
         Item {
-            id: userItem
-            width: userList.width
+            id: commentItem
+            width: commentList.width
             height: 110
 
 
@@ -63,7 +63,7 @@ Rectangle {
             // this is the rectangle that holds the profile picture image
             // its used as an empty default rect that is filled if the image could be loaded
             Rectangle {
-                id: userListProfilepicture
+                id: commentListProfilepicture
 
                 anchors {
                     top: parent.top
@@ -86,35 +86,16 @@ Rectangle {
             }
 
 
-            // progress button
-            Image {
-                id: userListLinkbutton
-
-                anchors {
-                    top: parent.top
-                    topMargin: 35
-                    right: parent.right
-                    rightMargin: 10
-                }
-
-                width: 30
-                height: 30
-                z: 10
-
-                source: "image://theme/icon-m-toolbar-next-dimmed"
-            }
-
-
             // the Instagram username of the user
             Text {
-                id: userListUsername
+                id: commentListUsername
 
                 anchors {
                     top: parent.top;
                     topMargin: 10;
-                    left: userListProfilepicture.right;
-                    leftMargin: 10;
-                    right: userListLinkbutton.left;
+                    left: commentListProfilepicture.right;
+                    leftMargin: 5;
+                    right: parent.right;
                     rightMargin: 5;
                 }
 
@@ -128,16 +109,16 @@ Rectangle {
             }
 
 
-            // the full name of the Instagram user
+            // the actual comment content
             Text {
-                id: userListFullname
+                id: commentListComment
 
                 anchors {
-                    top: userListUsername.bottom
+                    top: commentListUsername.bottom
                     topMargin: 5;
-                    left: userListProfilepicture.right;
+                    left: commentListProfilepicture.right;
                     leftMargin: 10;
-                    right: userListLinkbutton.left;
+                    right: parent.right;
                     rightMargin: 5;
                 }
 
@@ -147,44 +128,27 @@ Rectangle {
                 font.pixelSize: 18
                 wrapMode: Text.Wrap
 
-                text: d_fullname
+                text: d_comment
             }
 
-            /*
-                    // separator
-                    Rectangle {
-                        id: imagedetailSeparator
 
-                        anchors {
-                            top: imagedetailMetadataComments.bottom
-                            topMargin: 10
-                            left: parent.left;
-                            leftMargin: 5;
-                            right: parent.right;
-                            rightMargin: 5;
-                        }
+            // separator
+            Image {
+                id: commentListSeparator
 
-                        height: 1
-                        color: "gainsboro"
-                    }
-            */
+                anchors {
+                    top: commentListProfilepicture.bottom
+                    topMargin: 15
+                    left: parent.left;
+                    leftMargin: 5;
+                    right: parent.right;
+                    rightMargin: 5;
+                }
 
-                    Image {
-                        id: userListSeparator
+                source: "image://theme/meegotouch-separator-background-horizontal"
 
-                        anchors {
-                            top: userListProfilepicture.bottom
-                            topMargin: 15
-                            left: parent.left;
-                            leftMargin: 5;
-                            right: parent.right;
-                            rightMargin: 5;
-                        }
-
-                        source: "image://theme/meegotouch-separator-background-horizontal"
-
-                        fillMode: Image.TileHorizontally
-                    }
+                fillMode: Image.TileHorizontally
+            }
 
         }
     }
@@ -193,14 +157,14 @@ Rectangle {
     // this is just an id
     // the model is defined in the array
     ListModel {
-        id: userListModel
+        id: commentListModel
     }
 
 
     // the actual list view component
     // this will be the main component and contain all the items
     ListView {
-        id: userListView
+        id: commentListView
 
         anchors.fill: parent;
         // anchors.margins: 5
@@ -211,7 +175,7 @@ Rectangle {
         clip: true
 
         // define model and delegate
-        model: userListModel
-        delegate: userListDelegate
+        model: commentListModel
+        delegate: commentListDelegate
     }
 }

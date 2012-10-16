@@ -1,3 +1,14 @@
+instago (0.3.4) unstable; urgency=low
+
+  * Added list of user that liked an image
+  * Added comment indicator to image detail view
+  * Added comment list for images
+  * Added several UI elements (icons, separators)
+  * Fixed loading indicator on user profile page (now shown correctly)
+
+ -- Dirk Songuer <dirk@songuer.de>  Tue, 16 Oct 2012 11:11:00 +0000
+
+
 instago (0.3.3) unstable; urgency=low
 
   * Optimized labels

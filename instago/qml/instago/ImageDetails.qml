@@ -27,6 +27,7 @@ Rectangle {
     // image metadata
     property alias caption: imagedetailMetadataCaption.text
     property alias likes: imagedetailMetadataLikes.text
+    property alias comments: imagedetailMetadataComments.text
 
     // additional data
     property string linkToInstagram: ""
@@ -234,13 +235,31 @@ Rectangle {
         color: "transparent"
 
 
+        // likes icon
+        Image {
+            id: imagedetailMetadataLikeIcon
+
+            anchors {
+                top: parent.top;
+                topMargin: 2;
+                left: parent.left;
+            }
+
+            width: 28
+            height: 28
+            z: 10
+
+            source: "image://theme/icon-m-toolbar-frequent-used-dimmed"
+        }
+
+
         // number of likes
         Text {
             id: imagedetailMetadataLikes
 
             anchors {
                 top: parent.top;
-                left: parent.left;
+                left: imagedetailMetadataLikeIcon.right;
                 leftMargin: 5;
                 right: parent.right;
             }
@@ -252,6 +271,71 @@ Rectangle {
             // number of likes
             // text will be given by the js function
             text: ""
+
+            // use the whole user profile as tap surface
+            MouseArea {
+                anchors.fill: parent
+                onClicked:
+                {
+                    if (likes != "0 people liked this")
+                    {
+                        // console.log("Likes tapped for: " + imageId);
+                        pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
+                    }
+                }
+            }
+        }
+
+
+        // comments icon
+        Image {
+            id: imagedetailMetadataCommentIcon
+
+            anchors {
+                top: imagedetailMetadataLikes.bottom;
+                topMargin: 2;
+                left: parent.left;
+            }
+
+            width: 28
+            height: 28
+            z: 10
+
+            source: "image://theme/icon-m-toolbar-new-chat-dimmed"
+        }
+
+
+        // number of comments
+        Text {
+            id: imagedetailMetadataComments
+
+            anchors {
+                top: imagedetailMetadataLikes.bottom;
+                left: imagedetailMetadataCommentIcon.right;
+                leftMargin: 5;
+                right: parent.right;
+            }
+
+            font.family: "Nokia Pure Text Light"
+            font.pixelSize: 25
+            wrapMode: Text.Wrap
+
+            // number of comments
+            // text will be given by the js function
+            text: ""
+
+            // use the whole user profile as tap surface
+            MouseArea {
+                anchors.fill: parent
+                onClicked:
+                {
+                    if (comments != "0 comments")
+                    {
+                        // console.log("Comments tapped for: " + imageId);
+                        pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});
+                    }
+                }
+            }
         }
 
 
@@ -261,7 +345,7 @@ Rectangle {
             id: imagedetailMetadataCaption
 
             anchors {
-                top: imagedetailMetadataLikes.bottom
+                top: imagedetailMetadataComments.bottom
                 topMargin: 10
                 left: parent.left;
                 leftMargin: 5;

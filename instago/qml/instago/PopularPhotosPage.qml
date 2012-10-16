@@ -32,12 +32,14 @@ Page {
         {
             iconHome.visible = true;
             iconPopular.visible = true;
+            // iconNews.visible = true;
             iconNone.visible = false;
         }
         else
         {
             iconHome.visible = false;
             iconPopular.visible = false;
+            iconNews.visible = false;
             iconNone.visible = true;
         }
     }

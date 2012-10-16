@@ -43,6 +43,7 @@ function getImageDataFromObject(imageObject)
     imageReturnArray["originalimage"] = imageObject.images["standard_resolution"]["url"];
     imageReturnArray["imageid"] = imageObject.id;
     imageReturnArray["likes"] = imageObject.likes["count"];
+    imageReturnArray["comments"] = imageObject.comments["count"];
 
     // get and format date
     imageReturnArray["createdtime"] = formatInstagramTime(imageObject.created_time);

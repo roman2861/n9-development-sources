@@ -28,12 +28,13 @@ Page {
 
         iconHome.visible = true;
         iconPopular.visible = true;
+        // iconNews.visible = true;
     }
 
     // standard header for the current page
     Header {
         id: pageHeader
-        text: "Friend Feed"
+        text: "Your Feed"
         reloadButtonVisible: true
 
         onReloadButtonClicked: {
@@ -104,7 +105,7 @@ Page {
         Item {
             id: feedItem
             width: feedList.width
-            height: 610
+            height: 640
 
             // actual image component
             // this does all the ui stuff for the image and metadata
@@ -124,6 +125,7 @@ Page {
                 userId: d_userId;
                 createdTime: d_createdTime;
                 likes: d_likes + " people liked this";
+                comments: d_comments + " comments";
 
                 onDetailImageClicked: {
                     notification.text = "Added photo to your favourites";

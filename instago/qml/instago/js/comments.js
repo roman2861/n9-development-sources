@@ -1,11 +1,11 @@
 // *************************************************** //
-// Likes Script
+// Comments Script
 //
-// This script handles the adding / removal of likes
+// This script handles the adding / removal of comments
 // for a given image.
-// Note that only authenticated users can like images.
+// Note that only authenticated users can comment images.
 // It's used by the ImageDetailPage, UserFeedPage
-// and ImageLikesPage.
+// and ImageCommentPage.
 // *************************************************** //
 
 
@@ -20,7 +20,7 @@ var network = new NetworkHandler();
 // general authentication handler that provides user authentication methods
 var auth = new AuthenticationHandler();
 
-
+/*
 // like a given image
 // second parameter is true if the associated components should be updated
 function likeImage(imageId, updateComponents)
@@ -81,13 +81,13 @@ function unlikeImage(imageId, updateComponents)
 
     // console.log("Done unliking image");
 }
+*/
 
-
-// get all likes for a given image
-// likes will be used to fill a UserList component
-function getLikesForImage(imageId)
+// get all comments for a given image
+// comments will be used to fill a UserList component
+function getCommentsForImage(imageId)
 {
-    // console.log("Getting likes for image " + imageId);
+    // console.log("Getting comments for image " + imageId);
 
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
@@ -101,27 +101,28 @@ function getLikesForImage(imageId)
                 // jsonObject contains either false or the http result as object
                 if (jsonObject)
                 {
-                    imagelikesUserlist.clearList();
+                    imageComments.clearList();
 
-                    var userCache = new Array();
+                    var commentCache = new Array();
                     for ( var index in jsonObject.data )
                     {
-                        userCache = [];
+                        commentCache = [];
 
-                        userCache["username"] = jsonObject.data[index].username;
-                        userCache["fullname"] = jsonObject.data[index].full_name;
-                        if (userCache["fullname"] === "") userCache["fullname"] = userCache["username"];
-                        userCache["profilepicture"] = jsonObject.data[index].profile_picture;
-                        userCache["userid"] = jsonObject.data[index].id;
-                        userCache["bio"] = jsonObject.data[index].bio;
+                        commentCache["username"] = jsonObject.data[index].from["username"];
+                        commentCache["fullname"] = jsonObject.data[index].from["full_name"];
+                        if (commentCache["fullname"] === "") commentCache["fullname"] = commentCache["username"];
+                        commentCache["profilepicture"] = jsonObject.data[index].from["profile_picture"];
+                        commentCache["userid"] = jsonObject.data[index].from["id"];
+                        commentCache["comment"] = jsonObject.data[index].text;
 
-                        imagelikesUserlist.addToList({
-                                                           "d_username": userCache["username"],
-                                                           "d_fullname": userCache["fullname"],
-                                                           "d_profilepicture": userCache["profilepicture"],
-                                                           "d_userid": userCache["userid"],
-                                                           "d_index": index
-                                                       });
+                        imageComments.addToList({
+                                                    "d_username": commentCache["username"],
+                                                    "d_fullname": commentCache["fullname"],
+                                                    "d_profilepicture": commentCache["profilepicture"],
+                                                    "d_userid": commentCache["userid"],
+                                                    "d_comment": commentCache["comment"],
+                                                    "d_index": index
+                                                });
                     }
 
                     loadingIndicator.running = false;
@@ -148,7 +149,7 @@ function getLikesForImage(imageId)
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = "https://api.instagram.com/v1/media/" + imageId + "/likes/?access_token=" + instagramUserdata["access_token"];
+    var url = "https://api.instagram.com/v1/media/" + imageId + "/comments/?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();

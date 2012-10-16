@@ -28,6 +28,10 @@ Page {
     property string userId: "";
 
     Component.onCompleted: {
+        // show loading indicators while loading user data
+        loadingIndicator.running = true;
+        loadingIndicator.visible = true;
+
         // load the users profile
         UserDataScript.loadUserProfile(userId);
 

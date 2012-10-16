@@ -47,6 +47,18 @@ PageStackWindow {
         }
 
 
+        // jump to the news streams
+        ToolIcon {
+            id: iconNews
+            iconId: "toolbar-new-message"
+            visible: false
+
+            onClicked: {
+                pageStack.replace(Qt.resolvedUrl("NewsFeedPage.qml"))
+            }
+        }
+
+
         // this is an "empty" icon slot
         // it's visible when the user is logged out thus keeping the user profile icon right
         // will throw an error on runtime: QML QDeclarativeImage_QML_36: Failed to get image from provider: image://theme/icon-m-

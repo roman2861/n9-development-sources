@@ -6,10 +6,10 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import QtMobility.gallery 1.1
+import QtWebKit 1.0
 
 import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
+import "js/newsfeed.js" as Newsfeed
 
 Page {
     // use the main navigation toolbar
@@ -20,13 +20,11 @@ Page {
 
     // load the gallery content as soon as the page is ready
     Component.onCompleted: {
-        // show main buttosn if the user is logged in
-        var auth = new Authentication.AuthenticationHandler();
-        if (auth.isAuthenticated())
-        {
-            iconHome.visible = true;
-            iconPopular.visible = true;
-        }
+        Newsfeed.loadInboxFeed();
+
+        iconHome.visible = true;
+        iconPopular.visible = true;
+        // iconNews.visible = true;
     }
 
     // standard header for the current page
@@ -35,4 +33,58 @@ Page {
         text: "News"
     }
 
+    // browser window showing the Instagram authentication process
+    WebView {
+        id: newsInstagramWebView
+
+        anchors {
+            top: pageHeader.bottom;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        preferredWidth: parent.width
+        preferredHeight: parent.height
+
+        smooth: true
+        focus: true
+        contentsScale: 1
+
+        // Instagram oauth URL
+        url: "";
+
+        onLoadFailed: {
+            console.log("Load failed");
+        }
+
+        // check on every page load if the oauth token is in it
+        onUrlChanged: {
+            console.log("New URL: " + url);
+        }
+
+        // activates the loading indicator when a new page is loaded
+        onLoadStarted: {
+            loadingIndicator.running = true;
+            loadingIndicator.visible = true;
+        }
+
+        // deactivates the loading indicator when the page is done loading
+        onLoadFinished: {
+            loadingIndicator.running = false;
+            loadingIndicator.visible = false;
+        }
+
+
+        // show the loading indicator as long as the page is not ready
+        BusyIndicator {
+            id: loadingIndicator
+
+            anchors.centerIn: parent
+            platformStyle: BusyIndicatorStyle { size: "large" }
+
+            running:  false
+            visible: false
+        }
+    }
 }

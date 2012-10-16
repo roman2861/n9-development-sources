@@ -51,6 +51,7 @@ function loadUserFeed()
                                                  "d_createdTime":imageCache["createdtime"],
                                                  "d_likes":imageCache["likes"],
                                                  "d_linkToInstagram":imageCache["linktoinstagram"],
+                                                 "d_comments":imageCache["comments"],
                                                  "d_imageId":imageCache["imageid"],
                                                  "d_userId":imageCache["userid"],
                                                  "d_createdTime":imageCache["createdtime"],

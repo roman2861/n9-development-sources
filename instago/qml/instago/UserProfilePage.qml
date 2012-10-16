@@ -29,10 +29,6 @@ Page {
             // user is authorized with Instagram
             // console.log("User is authorized");
 
-            // show loading indicators while loading user data
-            loadingIndicator.running = false;
-            loadingIndicator.visible = false;
-
             // load profile data for user
             var instagramUserdata = auth.getStoredInstagramData();
             UserDataScript.loadUserProfile(instagramUserdata["id"]);
@@ -337,8 +333,6 @@ Page {
             userprofileMetadata.visible = false;
             userprofileContentHeadline.visible = false;
             userprofileBio.visible = false;
-            loadingIndicator.running = true;
-            loadingIndicator.visible = true;
 
             var auth = new Authentication.AuthenticationHandler();
             var instagramUserdata = auth.getStoredInstagramData();

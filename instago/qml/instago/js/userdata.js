@@ -28,6 +28,7 @@ function loadUserProfile(userId)
 {
     // console.log("Loading user profile for user " + userId);
 
+    // show loading indicators while loading user data
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
 
