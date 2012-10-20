@@ -48,8 +48,8 @@ Rectangle {
             rightMargin: 10
         }
 
-        font.family: "Nokia Pure Text Light"
-        font.pixelSize: 25
+        font.family: "Nokia Pure Text"
+        font.pixelSize: 20
         wrapMode: Text.Wrap
 
         text: ""
@@ -206,7 +206,7 @@ Rectangle {
             right: parent.right;
             rightMargin: 30;
             top: userBioText.bottom;
-            topMargin: 30;
+            topMargin: 15;
         }
 
         visible: false

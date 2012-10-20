@@ -8,16 +8,9 @@
 
 
 // include other scripts used here
-Qt.include("instagramkeys.js");
 Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
-
-// general network handler that acts upon the http request
-var network = new NetworkHandler();
-
-// general authentication handler that provides user authentication methods
-var auth = new AuthenticationHandler();
 
 
 // load the popular image stream from Instagram
@@ -48,13 +41,12 @@ function loadUserFeed()
                         feedListModel.append({
                                                  "d_originalImage":imageCache["originalimage"],
                                                  "d_username":imageCache["username"],
-                                                 "d_createdTime":imageCache["createdtime"],
+                                                 "d_timeAndLocation":imageCache["timeandlocation"],
                                                  "d_likes":imageCache["likes"],
                                                  "d_linkToInstagram":imageCache["linktoinstagram"],
                                                  "d_comments":imageCache["comments"],
                                                  "d_imageId":imageCache["imageid"],
                                                  "d_userId":imageCache["userid"],
-                                                 "d_createdTime":imageCache["createdtime"],
                                                  "d_profilePicture":imageCache["profilepicture"]
                                              });
 

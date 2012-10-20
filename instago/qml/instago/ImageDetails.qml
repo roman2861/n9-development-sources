@@ -12,6 +12,7 @@ import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
 import "js/globals.js" as Globals
+import "js/authenticationhandler.js" as Authentication
 
 Rectangle {
     id: imageDetail
@@ -19,7 +20,7 @@ Rectangle {
     // userdata and image metadata
     property alias username: imagedetailUsername.text
     property alias profilePicture: imagedetailUserpicture.source
-    property alias createdTime: imagedetailCreatedtime.text
+    property alias timeAndLocation: imagedetailTimeAndLocation.text
 
     // actual image
     property alias originalImage: imagedetailImage.source
@@ -125,7 +126,7 @@ Rectangle {
 
         // creation time
         Text {
-            id: imagedetailCreatedtime
+            id: imagedetailTimeAndLocation
 
             anchors {
                 top: imagedetailUsername.bottom;
@@ -140,10 +141,10 @@ Rectangle {
             font.pixelSize: 18
             wrapMode: Text.Wrap
 
-            // date and time the image was created
+            // date / time + location the image was created
             text: ""
         }
-    }
+    }    
 
 
     // container for the detail image and its loader
@@ -277,7 +278,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked:
                 {
-                    if (likes != "0 people liked this")
+                    if ( (likes != "0 people liked this") && (Authentication.auth.isAuthenticated()) )
                     {
                         // console.log("Likes tapped for: " + imageId);
                         pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
@@ -329,7 +330,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked:
                 {
-                    if (comments != "0 comments")
+                    if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
                     {
                         // console.log("Comments tapped for: " + imageId);
                         pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});

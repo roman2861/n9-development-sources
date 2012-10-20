@@ -47,6 +47,20 @@ function getImageDataFromObject(imageObject)
 
     // get and format date
     imageReturnArray["createdtime"] = formatInstagramTime(imageObject.created_time);
+    imageReturnArray["timeandlocation"] = imageReturnArray["createdtime"];
+
+    // image may have no location
+    // note that if this is the case the whole location node is missing
+    // however if the location has no name the node is there but not the name node inside it
+    if ( (imageObject.location !== null) && (imageObject.location["name"] !== undefined) )
+    {
+        imageReturnArray["locationname"] = imageObject.location["name"];
+        imageReturnArray["timeandlocation"] += ", " + imageReturnArray["locationname"];
+    }
+    else
+    {
+        imageReturnArray["locationname"] = "";
+    }
 
     // image may be liked by user
     // this node is only in the result set if the user is logged in

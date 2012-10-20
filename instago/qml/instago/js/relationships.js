@@ -10,15 +10,8 @@
 
 
 // include other scripts used here
-Qt.include("instagramkeys.js");
 Qt.include("authenticationhandler.js");
 Qt.include("networkhandler.js");
-
-// general network handler that acts upon the http request
-var network = new NetworkHandler();
-
-// general authentication handler that provides user authentication methods
-var auth = new AuthenticationHandler();
 
 
 // set the relationship with a given user
@@ -66,6 +59,14 @@ function getRelationship(userId)
 {
     // console.log("Getting relationship for user " + userId);
 
+    // check if the given user id is the currently logged in user
+    var instagramUserdata = auth.getStoredInstagramData();
+    if ( (auth.isAuthenticated()) && (instagramUserdata["id"] == userId) )
+    {
+        console.log("This is the current user")
+        return;
+    }
+
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
             {
@@ -106,6 +107,12 @@ function getRelationship(userId)
                         userprofileBio.unrequestButtonVisible = true;
                     }
 
+                    // hide loading indicator
+                    loadingIndicator.running = false;
+                    loadingIndicator.visible = false;
+
+                    userprofileBio.visible = true;
+
                     // console.log("Done getting relationship");
                 }
                 else
@@ -126,7 +133,6 @@ function getRelationship(userId)
                 }
             }
 
-    var instagramUserdata = auth.getStoredInstagramData();
     var url = "https://api.instagram.com/v1/users/" + userId + "/relationship?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);

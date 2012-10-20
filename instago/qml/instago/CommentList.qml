@@ -102,7 +102,7 @@ Rectangle {
                 height: 35
 
                 font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
+                font.pixelSize: 25
                 wrapMode: Text.Wrap
 
                 text: d_username
@@ -122,22 +122,31 @@ Rectangle {
                     rightMargin: 5;
                 }
 
-                height: 20
+                height: 50
 
                 font.family: "Nokia Pure Text"
-                font.pixelSize: 18
+                font.pixelSize: 20
                 wrapMode: Text.Wrap
+
+                onTextChanged: {
+                    // this is magic: since commentListComment.height gives me garbage I calculate the height by multiplying the number of lines with the line height
+                    var itemheight = Math.floor(((commentListComment.text.length / 40) + 1) * 20) + 10;
+                    height = itemheight;
+                    commentItem.height = itemheight + 70;
+
+                    // console.log("Text changed! Lines: " + Math.floor((commentListComment.text.length / 40) + 1) + " Height: " + height + " and itemheight: " + commentItem.height);
+                }
 
                 text: d_comment
             }
 
 
             // separator
-            Image {
-                id: commentListSeparator
+            Rectangle {
+                id: imagedetailSeparator
 
                 anchors {
-                    top: commentListProfilepicture.bottom
+                    top: commentListComment.bottom
                     topMargin: 15
                     left: parent.left;
                     leftMargin: 5;
@@ -145,11 +154,9 @@ Rectangle {
                     rightMargin: 5;
                 }
 
-                source: "image://theme/meegotouch-separator-background-horizontal"
-
-                fillMode: Image.TileHorizontally
+                height: 1
+                color: "gainsboro"
             }
-
         }
     }
 

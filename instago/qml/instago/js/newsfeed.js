@@ -8,16 +8,9 @@
 
 
 // include other scripts used here
-Qt.include("instagramkeys.js");
 Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
-
-// general network handler that acts upon the http request
-var network = new NetworkHandler();
-
-// general authentication handler that provides user authentication methods
-var auth = new AuthenticationHandler();
 
 
 // load the popular image stream from Instagram

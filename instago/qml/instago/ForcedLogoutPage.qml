@@ -13,7 +13,6 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
-import "js/instagramkeys.js" as InstagramKeys
 import "js/authenticationhandler.js" as Authentication
 
 Page {
@@ -25,8 +24,7 @@ Page {
 
     // clear the cached user data
     Component.onCompleted: {
-        var auth = new Authentication.AuthenticationHandler();
-        auth.deleteStoredInstagramData();
+        Authentication.auth.deleteStoredInstagramData();
     }
 
     // standard header for the current page

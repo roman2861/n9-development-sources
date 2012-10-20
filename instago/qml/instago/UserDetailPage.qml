@@ -36,8 +36,7 @@ Page {
         UserDataScript.loadUserProfile(userId);
 
         // show follow button if the user is logged in
-        var auth = new Authentication.AuthenticationHandler();
-        if (auth.isAuthenticated())
+        if (Authentication.auth.isAuthenticated())
         {
             UserRelationshipScript.getRelationship(userId);
         }
@@ -78,19 +77,23 @@ Page {
             userprofileFollowers.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Bio";
+            if (userprofileBio.text == "")
+            {
+                userprofileContentHeadline.visible = false;
+            }
 
             userprofileBio.visible = true;
         }
 
         onImagecountClicked: {
             // user photos are only available for authenticated users
-            var auth = new Authentication.AuthenticationHandler();
-            if (auth.isAuthenticated())
+            if (Authentication.auth.isAuthenticated())
             {
                 userprofileBio.visible = false;
                 userprofileFollowers.visible = false;
                 userprofileFollowing.visible = false;
                 userprofileContentHeadline.text = "Photos";
+                userprofileContentHeadline.visible = true;
 
                 UserDataScript.loadUserImages(userId, 0);
 
@@ -100,13 +103,13 @@ Page {
 
         onFollowersClicked: {
             // follower list only available for authenticated users
-            var auth = new Authentication.AuthenticationHandler();
-            if (auth.isAuthenticated())
+            if (Authentication.auth.isAuthenticated())
             {
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
                 userprofileFollowing.visible = false;
                 userprofileContentHeadline.text = "Followers";
+                userprofileContentHeadline.visible = true;
 
                 UserDataScript.loadUserFollowers(userId, 0);
 
@@ -116,13 +119,13 @@ Page {
 
         onFollowingClicked: {
             // following list only available for authenticated users
-            var auth = new Authentication.AuthenticationHandler();
-            if (auth.isAuthenticated())
+            if (Authentication.auth.isAuthenticated())
             {
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
                 userprofileFollowers.visible = false;
                 userprofileContentHeadline.text = "Following";
+                userprofileContentHeadline.visible = true;
 
                 UserDataScript.loadUserFollowing(userId, 0);
 

@@ -10,15 +10,8 @@
 
 
 // include other scripts used here
-Qt.include("instagramkeys.js");
 Qt.include("authenticationhandler.js");
 Qt.include("networkhandler.js");
-
-// general network handler that acts upon the http request
-var network = new NetworkHandler();
-
-// general authentication handler that provides user authentication methods
-var auth = new AuthenticationHandler();
 
 
 // like a given image
@@ -52,7 +45,6 @@ function likeImage(imageId, updateComponents)
                 }
             }
 
-    var auth = new AuthenticationHandler();
     var instagramUserdata = auth.getStoredInstagramData();
     var params = "access_token=" + instagramUserdata["access_token"];
 
@@ -68,7 +60,6 @@ function unlikeImage(imageId, updateComponents)
 {
     // console.log("Unliking image " + imageId);
 
-    var auth = new AuthenticationHandler();
     var instagramUserdata = auth.getStoredInstagramData();
     networkHelper.sendDeleteRequest("https://api.instagram.com/v1/media/" + imageId + "/likes?access_token=" + instagramUserdata["access_token"]);
 

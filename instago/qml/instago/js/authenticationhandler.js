@@ -12,9 +12,14 @@
 // auth = new AuthenticationHandler();
 // *************************************************** //
 
+// mark javascript file as library
+.pragma library
 
 // include other scripts used here
 Qt.include("instagramkeys.js");
+
+// singleton instance of class
+var auth = new AuthenticationHandler();
 
 // class function that gets the prototype methods
 function AuthenticationHandler() { }
@@ -27,6 +32,7 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
         {
             var currentURL = url.toString();
             var returnStatus = new Array();
+
 
             // set default status
             returnStatus["status"] = "NOT_RELEVANT";

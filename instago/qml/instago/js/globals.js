@@ -8,5 +8,5 @@
 
 .pragma library
 
-var currentApplicationVersion = "0.3.4 (Developer Build)";
+var currentApplicationVersion = "0.4.0 (Public Beta)";
 

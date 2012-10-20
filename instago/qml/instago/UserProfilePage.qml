@@ -23,14 +23,17 @@ Page {
 
     // check if the user is already logged in
     Component.onCompleted: {
-        var auth = new Authentication.AuthenticationHandler();
-        if (auth.isAuthenticated())
+        if (Authentication.auth.isAuthenticated())
         {
             // user is authorized with Instagram
             // console.log("User is authorized");
 
+            // show loading indicators only if the user is logged in
+            loadingIndicator.running = true;
+            loadingIndicator.visible = true;
+
             // load profile data for user
-            var instagramUserdata = auth.getStoredInstagramData();
+            var instagramUserdata = Authentication.auth.getStoredInstagramData();
             UserDataScript.loadUserProfile(instagramUserdata["id"]);
         }
         else
@@ -147,6 +150,10 @@ Page {
             userprofileFollowers.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Your bio";
+            if (userprofileBio.text == "")
+            {
+                userprofileContentHeadline.visible = false;
+            }
 
             userprofileBio.visible = true;
         }
@@ -156,9 +163,9 @@ Page {
             userprofileFollowers.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Your photos";
+            userprofileContentHeadline.visible = true;
 
-            var auth = new Authentication.AuthenticationHandler();
-            var instagramUserdata = auth.getStoredInstagramData();
+            var instagramUserdata = Authentication.auth.getStoredInstagramData();
             UserDataScript.loadUserImages(instagramUserdata["id"], 0);
 
             userprofileGallery.visible = true;
@@ -169,9 +176,9 @@ Page {
             userprofileGallery.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "People that follow you";
+            userprofileContentHeadline.visible = true;
 
-            var auth = new Authentication.AuthenticationHandler();
-            var instagramUserdata = auth.getStoredInstagramData();
+            var instagramUserdata = Authentication.auth.getStoredInstagramData();
             UserDataScript.loadUserFollowers(instagramUserdata["id"], 0);
 
             userprofileFollowers.visible = true;
@@ -182,9 +189,9 @@ Page {
             userprofileGallery.visible = false;
             userprofileFollowers.visible = false;
             userprofileContentHeadline.text = "People that you follow";
+            userprofileContentHeadline.visible = true;
 
-            var auth = new Authentication.AuthenticationHandler();
-            var instagramUserdata = auth.getStoredInstagramData();
+            var instagramUserdata = Authentication.auth.getStoredInstagramData();
             UserDataScript.loadUserFollowing(instagramUserdata["id"], 0);
 
             userprofileFollowing.visible = true;
@@ -236,8 +243,7 @@ Page {
         logoutButtonVisible: true
 
         onLogoutButtonClicked: {
-            var auth = new Authentication.AuthenticationHandler();
-            auth.deleteStoredInstagramData();
+            Authentication.auth.deleteStoredInstagramData();
 
             pageStack.clear();
             pageStack.push(Qt.resolvedUrl("PopularPhotosPage.qml"));
@@ -334,8 +340,7 @@ Page {
             userprofileContentHeadline.visible = false;
             userprofileBio.visible = false;
 
-            var auth = new Authentication.AuthenticationHandler();
-            var instagramUserdata = auth.getStoredInstagramData();
+            var instagramUserdata = Authentication.auth.getStoredInstagramData();
             UserDataScript.loadUserProfile(instagramUserdata["id"]);
         }
     }

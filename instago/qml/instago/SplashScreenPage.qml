@@ -55,8 +55,7 @@ Page {
         // when done, replace the splash page with the popular photos page
         onTriggered: {
             // console.log("Closing splash screen");
-            var auth = new Authentication.AuthenticationHandler();
-            if (auth.isAuthenticated())
+            if (Authentication.auth.isAuthenticated())
             {
                 pageStack.push(Qt.resolvedUrl("UserFeedPage.qml"));
             }

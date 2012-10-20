@@ -122,8 +122,8 @@ Page {
                 imageId: d_imageId;
                 username: d_username;
                 profilePicture: d_profilePicture;
+                timeAndLocation: d_timeAndLocation;
                 userId: d_userId;
-                createdTime: d_createdTime;
                 likes: d_likes + " people liked this";
                 comments: d_comments + " comments";
 

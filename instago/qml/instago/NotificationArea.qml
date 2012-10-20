@@ -87,7 +87,7 @@ Rectangle {
         }
 
         font.family: "Nokia Pure Text"
-        font.pixelSize: 24
+        font.pixelSize: 25
 
         wrapMode: Text.WordWrap
         textFormat: Text.RichText

@@ -1,9 +1,11 @@
-instago (0.3.4) unstable; urgency=low
+instago (0.4.0) stable; urgency=normal
 
   * Added list of user that liked an image
-  * Added comment indicator to image detail view
+  * Added comment indicator to user feed and image detail view
   * Added comment list for images
+  * Added location to user feed and image detail view
   * Added several UI elements (icons, separators)
+  * Optimized login process & Instagram key handling
   * Fixed loading indicator on user profile page (now shown correctly)
 
  -- Dirk Songuer <dirk@songuer.de>  Tue, 16 Oct 2012 11:11:00 +0000
@@ -42,7 +44,7 @@ instago (0.3.1) unstable; urgency=low
  -- Dirk Songuer <dirk@songuer.de>  Mon, 01 Oct 2012 15:17:00 +0000
 
 
-instago (0.3.0) stable; urgency=low
+instago (0.3.0) stable; urgency=normal
 
   * Public Beta release
 

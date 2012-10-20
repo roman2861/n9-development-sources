@@ -9,11 +9,19 @@
 // network = new NetworkHandler();
 // *************************************************** //
 
+// mark javascript file as library
+.pragma library
+
+// singleton instance of class
+var network = new NetworkHandler();
 
 // class function that gets the prototype methods
 function NetworkHandler()
 {
+    // array to store error data in
     this.errorData = new Array();
+
+    // flag to indicate that loading is finished
     this.requestIsFinished = false;
 }
 
@@ -34,6 +42,7 @@ NetworkHandler.prototype.handleHttpResult = function(XMLHttpRequestObject)
                 return;
             }
 
+            // check if the server response is actually finished
             if (XMLHttpRequestObject.readyState === XMLHttpRequest.DONE)
             {
                 this.requestIsFinished = true;
@@ -44,7 +53,6 @@ NetworkHandler.prototype.handleHttpResult = function(XMLHttpRequestObject)
                 if (XMLHttpRequestObject.status != 200)
                 {
                     if (!this.errorData['code']) { this.checkResponseForErrors(XMLHttpRequestObject.responseText); }
-
                     return;
                 }
 
@@ -63,6 +71,17 @@ NetworkHandler.prototype.handleHttpResult = function(XMLHttpRequestObject)
 // Note that this scripts does the analysing but does not act upon found errors
 NetworkHandler.prototype.checkResponseForErrors = function(httpResponseText)
         {
+            // check for general network error
+            // in this case the httpResponseText would be empty
+            // in that case fill the error data object with a generic error description
+            if (httpResponseText === "")
+            {
+                this.errorData["error_type"] = "GenericNetworkError";
+                this.errorData["code"] = "0";
+                this.errorData["error_message"] = "A generic network error occured";
+                return;
+            }
+
             // every response from the Instagram API server contains a "meta" node
             // every meta node containss a node "code" that has the http response code as content
             // thus if the response does not contain the status code 200 it's an error

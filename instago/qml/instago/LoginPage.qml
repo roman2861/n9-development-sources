@@ -48,11 +48,16 @@ Page {
         // Instagram oauth URL
         url: InstagramKeys.instagramAuthorizeUrl + "/?client_id=" + InstagramKeys.instagramClientId + "&redirect_uri=" + InstagramKeys.instagramRedirectUrl + "&response_type=code&scope=likes+comments+relationships";
 
+        onStatusChanged: {
+            // console.log("Status of webview request to server: " + status);
+        }
+
         // check on every page load if the oauth token is in it
         onUrlChanged: {
-            var auth = new Authentication.AuthenticationHandler();
             var instagramResponse = new Array();
-            instagramResponse = auth.checkInstagramAuthenticationUrl(url);
+            instagramResponse = Authentication.auth.checkInstagramAuthenticationUrl(url);
+
+            console.log("Loading URL: " + url);
 
             // Show the error message if the Instagram authentication was not successfull
             if (instagramResponse["status"] === "AUTH_ERROR")

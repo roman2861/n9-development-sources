@@ -13,12 +13,6 @@ Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
 
-// general network handler that acts upon the http request
-var network = new NetworkHandler();
-
-// general authentication handler that provides user authentication methods
-var auth = new AuthenticationHandler();
-
 
 // load an image with a given Instagram media id
 // the image data will be used to fill the ImageDetailPage
@@ -51,7 +45,7 @@ function loadImage(imageId)
                     imageData.likes = imageCache["likes"] + " people liked this";
                     imageData.linkToInstagram = imageCache["linktoinstagram"];
                     imageData.caption = imageCache["caption"];
-                    imageData.createdTime = imageCache["createdtime"];
+                    imageData.timeAndLocation = imageCache["timeandlocation"];
 
                     // if they don't have an Instagram page, the share button needs to be deactivated
                     if (imageCache["linktoinstagram"] === "")

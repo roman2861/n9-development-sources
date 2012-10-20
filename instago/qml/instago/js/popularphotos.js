@@ -13,12 +13,6 @@ Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
 
-// general network handler that acts upon the http request
-var network = new NetworkHandler();
-
-// general authentication handler that provides user authentication methods
-var auth = new AuthenticationHandler();
-
 
 // load the popular image stream from Instagram
 // the image data will be used to fill the standard ImageGallery component
@@ -81,6 +75,7 @@ function loadImages()
                 }
             }
 
-    req.open("GET", "https://api.instagram.com/v1/media/popular?client_id=" + instagramClientId, true);
+    var url = "https://api.instagram.com/v1/media/popular?client_id=" + instagramClientId;
+    req.open("GET", url, true);
     req.send();
 }

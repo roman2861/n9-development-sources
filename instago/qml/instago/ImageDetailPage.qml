@@ -85,8 +85,7 @@ Page {
             anchors.right: parent.right
 
             onDetailImageClicked: {
-                var auth = new Authentication.AuthenticationHandler();
-                if (auth.isAuthenticated())
+                if (Authentication.auth.isAuthenticated())
                 {
                     if (iconLiked.visible === false)
                     {
@@ -105,7 +104,7 @@ Page {
 
             onCaptionChanged: {
                 // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
-                height = Math.floor(((caption.length / 42) + (caption.split("\n").length - 1)) * 24 ) + 600;
+                height = Math.floor(((caption.length / 42) + (caption.split("\n").length - 1)) * 24 ) + 640;
 
                 // that number is fed to the flickable container as content height
                 contentFlickableContainer.contentHeight = height;

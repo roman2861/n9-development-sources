@@ -10,7 +10,7 @@ import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
 import "js/globals.js" as Globals
-import "js/comments.js" as Likes
+import "js/comments.js" as Comments
 
 Page {
     // use the detail view toolbar
@@ -24,13 +24,13 @@ Page {
     property string imageId: "";
 
     Component.onCompleted: {
-        Likes.getCommentsForImage(imageId);
+        Comments.getCommentsForImage(imageId);
     }
 
     // standard header for the current page
     Header {
         id: pageHeader
-        text: "Liked it"
+        text: "Comments"
     }
 
     // standard notification area
@@ -90,7 +90,7 @@ Page {
         onErrorMessageClicked: {
             // console.log("Refresh clicked")
             errorMessage.visible = false;
-            Likes.getLikesForImage(imageId);
+            Comments.getCommentsForImage(imageId);
         }
     }
 

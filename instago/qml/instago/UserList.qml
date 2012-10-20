@@ -144,48 +144,28 @@ Rectangle {
                 height: 20
 
                 font.family: "Nokia Pure Text"
-                font.pixelSize: 18
+                font.pixelSize: 20
                 wrapMode: Text.Wrap
 
                 text: d_fullname
             }
 
-            /*
-                    // separator
-                    Rectangle {
-                        id: imagedetailSeparator
+            // separator
+            Rectangle {
+                id: imagedetailSeparator
 
-                        anchors {
-                            top: imagedetailMetadataComments.bottom
-                            topMargin: 10
-                            left: parent.left;
-                            leftMargin: 5;
-                            right: parent.right;
-                            rightMargin: 5;
-                        }
+                anchors {
+                    top: userListProfilepicture.bottom
+                    topMargin: 15
+                    left: parent.left;
+                    leftMargin: 5;
+                    right: parent.right;
+                    rightMargin: 5;
+                }
 
-                        height: 1
-                        color: "gainsboro"
-                    }
-            */
-
-                    Image {
-                        id: userListSeparator
-
-                        anchors {
-                            top: userListProfilepicture.bottom
-                            topMargin: 15
-                            left: parent.left;
-                            leftMargin: 5;
-                            right: parent.right;
-                            rightMargin: 5;
-                        }
-
-                        source: "image://theme/meegotouch-separator-background-horizontal"
-
-                        fillMode: Image.TileHorizontally
-                    }
-
+                height: 1
+                color: "gainsboro"
+            }
         }
     }
 

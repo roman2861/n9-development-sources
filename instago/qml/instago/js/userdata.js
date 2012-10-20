@@ -13,14 +13,10 @@ Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
 
-// general network handler that acts upon the http request
-var network = new NetworkHandler();
-
-// general authentication handler that provides user authentication methods
-var auth = new AuthenticationHandler();
 
 // this is the global storage for the pagination id
 var lastPaginationId = "";
+
 
 // load the user data for a given Instagram user id
 // the user data will be used to fill the UserMetadata component
@@ -68,24 +64,39 @@ function loadUserProfile(userId)
                     userCache["bio"] = jsonObject.data.bio;
                     userprofileBio.text = userCache["bio"];
 
+                    // hide loading indicator
+                    loadingIndicator.running = false;
+                    loadingIndicator.visible = false;
+
                     // activate profile containers
                     userprofileMetadata.visible = true;
-                    userprofileContentHeadline.visible = true;
+                    userprofileBio.visible = true;
+                    if (userprofileBio.text != "")
+                    {
+                        userprofileContentHeadline.visible = true;
+                    }
 
                     // console.log("Done loading user profile");
                 }
                 else
                 {
-                    // no need for error handling here
-                    // the page will execute getRelationship, which will handle the error states
+                    // normally there is no need for error handling here
+                    // the normal user page will execute getRelationship, which will handle the error states
+                    // however this method is also used for loading the profile page data, which needs error handling
+                    // either the request is not done yet or an error occured check for both and act accordingly
+                    var instagramUserdata = auth.getStoredInstagramData();
+                    if ( ( (network.requestIsFinished) && (network.errorData['code'] != null) ) && auth.isAuthenticated() && (instagramUserdata["id"] == userId) )
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
                 }
-
-                // make userprofile visible
-                userprofileBio.visible = true;
-
-                // hide loading indicator
-                loadingIndicator.running = false;
-                loadingIndicator.visible = false;
             }
 
     var url = "";
