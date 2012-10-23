@@ -287,6 +287,7 @@ Rectangle {
             // use the whole user profile as tap surface
             MouseArea {
                 anchors.fill: parent
+
                 onCanceled:
                 {
                     imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;

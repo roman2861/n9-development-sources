@@ -84,7 +84,19 @@ Rectangle{
         MouseArea {
             anchors.fill: parent
 
-            onClicked: {
+            onCanceled:
+            {
+                headerReloadButton.source = "image://theme/icon-m-toolbar-refresh-white"
+            }
+
+            onPressed:
+            {
+                headerReloadButton.source = "image://theme/icon-m-toolbar-refresh-selected"
+            }
+
+            onReleased:
+            {
+                headerReloadButton.source = "image://theme/icon-m-toolbar-refresh-white"
                 reloadButtonClicked();
             }
         }
