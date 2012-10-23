@@ -56,8 +56,6 @@ Page {
             right: parent.right;
             bottom: parent.bottom;
         }
-
-        visible: true
     }
 
 

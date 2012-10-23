@@ -68,9 +68,19 @@ Rectangle {
         // use the whole user profile as tap surface
         MouseArea {
             anchors.fill: parent
-            onClicked:
+            onCanceled:
             {
-                // console.log("Profile tapped. Id was: " + userId);
+                imagedetailUserprofileContainer.color = Globals.instagoDefaultListItemColor;
+            }
+
+            onPressed:
+            {
+                imagedetailUserprofileContainer.color = Globals.instagoHighlightedListItemColor;
+            }
+
+            onReleased:
+            {
+                imagedetailUserprofileContainer.color = Globals.instagoDefaultListItemColor;
                 pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
             }
         }
@@ -268,6 +278,7 @@ Rectangle {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.Wrap
+            color: "#333333"
 
             // number of likes
             // text will be given by the js function
@@ -276,11 +287,24 @@ Rectangle {
             // use the whole user profile as tap surface
             MouseArea {
                 anchors.fill: parent
-                onClicked:
+                onCanceled:
+                {
+                    imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;
+                }
+
+                onPressed:
                 {
                     if ( (likes != "0 people liked this") && (Authentication.auth.isAuthenticated()) )
                     {
-                        // console.log("Likes tapped for: " + imageId);
+                        imagedetailMetadataLikes.color = Globals.instagoHighlightedTextColor;
+                    }
+                }
+
+                onReleased:
+                {
+                    if ( (likes != "0 people liked this") && (Authentication.auth.isAuthenticated()) )
+                    {
+                        imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;
                         pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
                     }
                 }
@@ -328,11 +352,24 @@ Rectangle {
             // use the whole user profile as tap surface
             MouseArea {
                 anchors.fill: parent
-                onClicked:
+                onCanceled:
+                {
+                    imagedetailMetadataComments.color = Globals.instagoDefaultTextColor;
+                }
+
+                onPressed:
                 {
                     if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
                     {
-                        // console.log("Comments tapped for: " + imageId);
+                        imagedetailMetadataComments.color = Globals.instagoHighlightedTextColor;
+                    }
+                }
+
+                onReleased:
+                {
+                    if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
+                    {
+                        imagedetailMetadataComments.color = Globals.instagoDefaultTextColor;
                         pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});
                     }
                 }

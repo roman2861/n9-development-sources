@@ -75,7 +75,8 @@ function loadImages()
                 }
             }
 
-    var url = "https://api.instagram.com/v1/media/popular?client_id=" + instagramClientId;
+    var url = instagramAPIUrl + "/v1/media/popular?client_id=" + instagramClientId;
+
     req.open("GET", url, true);
     req.send();
 }

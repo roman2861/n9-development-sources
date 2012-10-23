@@ -99,11 +99,11 @@ function loadImage(imageId)
     if (auth.isAuthenticated())
     {
         var instagramUserdata = auth.getStoredInstagramData();
-        url = "https://api.instagram.com/v1/media/" + imageId + "/?access_token=" + instagramUserdata["access_token"];
+        url = instagramAPIUrl + "/v1/media/" + imageId + "/?access_token=" + instagramUserdata["access_token"];
     }
     else
     {
-        url = "https://api.instagram.com/v1/media/" + imageId + "/?client_id=" + instagramClientId;
+        url = instagramAPIUrl + "/v1/media/" + imageId + "/?client_id=" + instagramClientId;
     }
 
     req.open("GET", url, true);

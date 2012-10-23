@@ -48,7 +48,7 @@ function setRelationship(userId, relationship)
     var instagramUserdata = auth.getStoredInstagramData();
     var params = "access_token=" + instagramUserdata["access_token"] + "&action=" + relationship;
 
-    var url = "https://api.instagram.com/v1/users/" + userId + "/relationship";
+    var url = instagramAPIUrl + "/v1/users/" + userId + "/relationship";
     req.open("POST", url, true);
     req.send(params);
 }
@@ -133,7 +133,7 @@ function getRelationship(userId)
                 }
             }
 
-    var url = "https://api.instagram.com/v1/users/" + userId + "/relationship?access_token=" + instagramUserdata["access_token"];
+    var url = instagramAPIUrl + "/v1/users/" + userId + "/relationship?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();

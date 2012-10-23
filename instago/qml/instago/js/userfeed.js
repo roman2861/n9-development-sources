@@ -78,7 +78,8 @@ function loadUserFeed()
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = "https://api.instagram.com/v1/users/self/feed?access_token=" + instagramUserdata["access_token"];
+    var url = instagramAPIUrl + "/v1/users/self/feed?access_token=" + instagramUserdata["access_token"];
+
     req.open("GET", url, true);
     req.send();
 }

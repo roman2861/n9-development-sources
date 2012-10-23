@@ -9,6 +9,8 @@
 
 import QtQuick 1.0
 
+import "js/globals.js" as Globals
+
 Rectangle {
     id: userList
 
@@ -47,124 +49,141 @@ Rectangle {
             width: userList.width
             height: 110
 
-
-            // use the whole item as tap surface
-            // all taps on the item will be handled by the itemClicked event
-            MouseArea {
+            Rectangle {
+                id: userItemContainer
                 anchors.fill: parent
-                onClicked:
-                {
-                    // console.log("Profile tapped. Id was: " + d_userid);
-                    pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
-                }
-            }
+                color: "transparent"
 
 
-            // this is the rectangle that holds the profile picture image
-            // its used as an empty default rect that is filled if the image could be loaded
-            Rectangle {
-                id: userListProfilepicture
-
-                anchors {
-                    top: parent.top
-                    topMargin: 10
-                    left: parent.left
-                    leftMargin: 10
-                }
-
-                width: 80
-                height: 80
-
-                // light gray color to mark loading image
-                color: "gainsboro"
-
-                // the actual profile image
-                Image {
+                // use the whole item as tap surface
+                // all taps on the item will be handled by the itemClicked event
+                MouseArea {
                     anchors.fill: parent
-                    source: d_profilepicture
-                }
-            }
+                    onCanceled:
+                    {
+                        userItemContainer.color = Globals.instagoDefaultListItemColor;
+                    }
 
+                    onPressed:
+                    {
+                        userItemContainer.color = Globals.instagoHighlightedListItemColor;
+                    }
 
-            // progress button
-            Image {
-                id: userListLinkbutton
-
-                anchors {
-                    top: parent.top
-                    topMargin: 35
-                    right: parent.right
-                    rightMargin: 10
-                }
-
-                width: 30
-                height: 30
-                z: 10
-
-                source: "image://theme/icon-m-toolbar-next-dimmed"
-            }
-
-
-            // the Instagram username of the user
-            Text {
-                id: userListUsername
-
-                anchors {
-                    top: parent.top;
-                    topMargin: 10;
-                    left: userListProfilepicture.right;
-                    leftMargin: 10;
-                    right: userListLinkbutton.left;
-                    rightMargin: 5;
+                    onReleased:
+                    {
+                        // console.log("Profile tapped. Id was: " + d_userid);
+                        userItemContainer.color = Globals.instagoDefaultListItemColor;
+                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
+                    }
                 }
 
-                height: 35
 
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: 30
-                wrapMode: Text.Wrap
+                // this is the rectangle that holds the profile picture image
+                // its used as an empty default rect that is filled if the image could be loaded
+                Rectangle {
+                    id: userListProfilepicture
 
-                text: d_username
-            }
+                    anchors {
+                        top: parent.top
+                        topMargin: 15
+                        left: parent.left
+                        leftMargin: 10
+                    }
 
+                    width: 80
+                    height: 80
 
-            // the full name of the Instagram user
-            Text {
-                id: userListFullname
+                    // light gray color to mark loading image
+                    color: "gainsboro"
 
-                anchors {
-                    top: userListUsername.bottom
-                    topMargin: 5;
-                    left: userListProfilepicture.right;
-                    leftMargin: 10;
-                    right: userListLinkbutton.left;
-                    rightMargin: 5;
+                    // the actual profile image
+                    Image {
+                        anchors.fill: parent
+                        source: d_profilepicture
+                    }
                 }
 
-                height: 20
 
-                font.family: "Nokia Pure Text"
-                font.pixelSize: 20
-                wrapMode: Text.Wrap
+                // progress button
+                Image {
+                    id: userListLinkbutton
 
-                text: d_fullname
-            }
+                    anchors {
+                        top: parent.top
+                        topMargin: 40
+                        right: parent.right
+                        rightMargin: 10
+                    }
 
-            // separator
-            Rectangle {
-                id: imagedetailSeparator
+                    width: 30
+                    height: 30
+                    z: 10
 
-                anchors {
-                    top: userListProfilepicture.bottom
-                    topMargin: 15
-                    left: parent.left;
-                    leftMargin: 5;
-                    right: parent.right;
-                    rightMargin: 5;
+                    source: "image://theme/icon-m-toolbar-next-dimmed"
                 }
 
-                height: 1
-                color: "gainsboro"
+
+                // the Instagram username of the user
+                Text {
+                    id: userListUsername
+
+                    anchors {
+                        top: parent.top;
+                        topMargin: 15;
+                        left: userListProfilepicture.right;
+                        leftMargin: 10;
+                        right: userListLinkbutton.left;
+                        rightMargin: 5;
+                    }
+
+                    height: 35
+
+                    font.family: "Nokia Pure Text Light"
+                    font.pixelSize: 30
+                    wrapMode: Text.Wrap
+
+                    text: d_username
+                }
+
+
+                // the full name of the Instagram user
+                Text {
+                    id: userListFullname
+
+                    anchors {
+                        top: userListUsername.bottom
+                        topMargin: 5;
+                        left: userListProfilepicture.right;
+                        leftMargin: 10;
+                        right: userListLinkbutton.left;
+                        rightMargin: 5;
+                    }
+
+                    height: 20
+
+                    font.family: "Nokia Pure Text"
+                    font.pixelSize: 20
+                    wrapMode: Text.Wrap
+
+                    text: d_fullname
+                }
+
+                // separator
+                Rectangle {
+                    id: imagedetailSeparator
+
+                    anchors {
+                        top: userListProfilepicture.bottom
+                        topMargin: 15
+                        left: parent.left;
+                        leftMargin: 5;
+                        right: parent.right;
+                        rightMargin: 5;
+                    }
+
+                    height: 1
+                    color: Globals.instagoSeparatorColor
+                }
             }
         }
     }

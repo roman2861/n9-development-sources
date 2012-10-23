@@ -1,3 +1,10 @@
+instago (0.4.1) unstable; urgency=low
+
+  * Optimized comment spacing
+
+ -- Dirk Songuer <dirk@songuer.de>  Sat, 20 Oct 2012 19:54:00 +0000
+
+
 instago (0.4.0) stable; urgency=normal
 
   * Added list of user that liked an image

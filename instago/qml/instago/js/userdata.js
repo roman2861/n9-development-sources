@@ -104,12 +104,12 @@ function loadUserProfile(userId)
     {
         // we need the auth token for users that are private
         var instagramUserdata = auth.getStoredInstagramData();
-        url = "https://api.instagram.com/v1/users/" + userId + "?access_token=" + instagramUserdata["access_token"];
+        url = instagramAPIUrl + "/v1/users/" + userId + "?access_token=" + instagramUserdata["access_token"];
     }
     else
     {
         // calls with the client id can only show public users
-        url = "https://api.instagram.com/v1/users/" + userId + "?client_id=" + instagramClientId;
+        url = instagramAPIUrl + "/v1/users/" + userId + "?client_id=" + instagramClientId;
     }
 
     req.open("GET", url, true);
@@ -218,7 +218,7 @@ function loadUserImages(userId, paginationId)
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = "https://api.instagram.com/v1/users/" + userId + "/media/recent/?count=30&access_token=" + instagramUserdata["access_token"];
+    var url = instagramAPIUrl + "/v1/users/" + userId + "/media/recent/?count=30&access_token=" + instagramUserdata["access_token"];
     if (paginationId !== 0)
     {
         url += "&max_id=" + paginationId;
@@ -297,7 +297,7 @@ function loadUserFollowers(userId)
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = "https://api.instagram.com/v1/users/" + userId + "/followed-by?access_token=" + instagramUserdata["access_token"];
+    var url = instagramAPIUrl + "/v1/users/" + userId + "/followed-by?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();
@@ -371,7 +371,7 @@ function loadUserFollowing(userId)
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = "https://api.instagram.com/v1/users/" + userId + "/follows?access_token=" + instagramUserdata["access_token"];
+    var url = instagramAPIUrl + "/v1/users/" + userId + "/follows?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();

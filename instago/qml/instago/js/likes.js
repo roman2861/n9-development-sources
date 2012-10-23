@@ -48,7 +48,7 @@ function likeImage(imageId, updateComponents)
     var instagramUserdata = auth.getStoredInstagramData();
     var params = "access_token=" + instagramUserdata["access_token"];
 
-    var url = "https://api.instagram.com/v1/media/" + imageId + "/likes";
+    var url = instagramAPIUrl + "/v1/media/" + imageId + "/likes";
     req.open("POST", url, true);
     req.send(params);
 }
@@ -61,7 +61,7 @@ function unlikeImage(imageId, updateComponents)
     // console.log("Unliking image " + imageId);
 
     var instagramUserdata = auth.getStoredInstagramData();
-    networkHelper.sendDeleteRequest("https://api.instagram.com/v1/media/" + imageId + "/likes?access_token=" + instagramUserdata["access_token"]);
+    networkHelper.sendDeleteRequest(instagramAPIUrl + "/v1/media/" + imageId + "/likes?access_token=" + instagramUserdata["access_token"]);
 
     var numberOfLikes = parseInt(imageData.likes);
     numberOfLikes -= 1;
@@ -139,7 +139,7 @@ function getLikesForImage(imageId)
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = "https://api.instagram.com/v1/media/" + imageId + "/likes/?access_token=" + instagramUserdata["access_token"];
+    var url = instagramAPIUrl + "/v1/media/" + imageId + "/likes/?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();

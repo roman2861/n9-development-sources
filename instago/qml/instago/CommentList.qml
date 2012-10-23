@@ -7,7 +7,7 @@
 // The list is flickable and clips.
 // *************************************************** //
 
-import QtQuick 1.0
+import QtQuick 1.1
 
 Rectangle {
     id: commentList
@@ -32,8 +32,8 @@ Rectangle {
 
     // general style definition
     color: "transparent"
-    width: parent.width;
-    height: parent.height;
+//    width: parent.width;
+//    height: parent.height;
 
 
     // this is the main container component
@@ -45,19 +45,7 @@ Rectangle {
         Item {
             id: commentItem
             width: commentList.width
-            height: 110
-
-
-            // use the whole item as tap surface
-            // all taps on the item will be handled by the itemClicked event
-            MouseArea {
-                anchors.fill: parent
-                onClicked:
-                {
-                    // console.log("Profile tapped. Id was: " + d_userid);
-                    pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
-                }
-            }
+            // height: 110
 
 
             // this is the rectangle that holds the profile picture image
@@ -83,6 +71,17 @@ Rectangle {
                     anchors.fill: parent
                     source: d_profilepicture
                 }
+
+                // use the whole item as tap surface
+                // all taps on the item will be handled by the itemClicked event
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        // console.log("Profile tapped. Id was: " + d_userid);
+                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
+                    }
+                }
             }
 
 
@@ -106,6 +105,17 @@ Rectangle {
                 wrapMode: Text.Wrap
 
                 text: d_username
+
+                // use the whole item as tap surface
+                // all taps on the item will be handled by the itemClicked event
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        // console.log("Profile tapped. Id was: " + d_userid);
+                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
+                    }
+                }
             }
 
 
@@ -122,19 +132,16 @@ Rectangle {
                     rightMargin: 5;
                 }
 
-                height: 50
-
                 font.family: "Nokia Pure Text"
                 font.pixelSize: 20
                 wrapMode: Text.Wrap
 
                 onTextChanged: {
                     // this is magic: since commentListComment.height gives me garbage I calculate the height by multiplying the number of lines with the line height
-                    var itemheight = Math.floor(((commentListComment.text.length / 40) + 1) * 20) + 10;
+                    var calculatedLines = Math.floor( (commentListComment.text.length / 44) + 1 );
+                    var itemheight = Math.floor( (calculatedLines+1) * 25);
                     height = itemheight;
                     commentItem.height = itemheight + 70;
-
-                    // console.log("Text changed! Lines: " + Math.floor((commentListComment.text.length / 40) + 1) + " Height: " + height + " and itemheight: " + commentItem.height);
                 }
 
                 text: d_comment
@@ -174,8 +181,6 @@ Rectangle {
         id: commentListView
 
         anchors.fill: parent;
-        // anchors.margins: 5
-
         focus: true
 
         // clipping needs to be true so that the size is limited to the container
