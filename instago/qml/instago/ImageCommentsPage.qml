@@ -24,7 +24,7 @@ Page {
     property string imageId: "";
 
     Component.onCompleted: {
-        Comments.getCommentsForImage(imageId);
+        Comments.getComments(imageId);
     }
 
     // standard header for the current page
@@ -54,8 +54,38 @@ Page {
             topMargin: 10;
             left: parent.left;
             right: parent.right;
-            bottom: parent.bottom;
+            bottom: imageCommentInput.top;
+            bottomMargin: 5;
         }
+    }
+
+
+    // comment entry field
+    TextField {
+        id: imageCommentInput
+
+        anchors {
+            left: parent.left;
+            leftMargin: 10;
+            right: parent.right;
+            rightMargin: 10;
+            bottom: parent.bottom;
+            bottomMargin: 15;
+        }
+
+        onAccepted: {
+            console.log("Input received: " + imageCommentInput.text);
+            Comments.addComment(imageId, imageCommentInput.text);
+
+            imageCommentInput.text = "";
+            imageCommentInput.platformCloseSoftwareInputPanel();
+
+            notification.text = "Added comment for this image";
+            notification.show();
+        }
+
+        placeholderText: "Add Comment"
+        text: ""
     }
 
 
@@ -88,7 +118,7 @@ Page {
         onErrorMessageClicked: {
             // console.log("Refresh clicked")
             errorMessage.visible = false;
-            Comments.getCommentsForImage(imageId);
+            Comments.getComments(imageId);
         }
     }
 

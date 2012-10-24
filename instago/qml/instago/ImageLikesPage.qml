@@ -24,7 +24,7 @@ Page {
     property string imageId: "";
 
     Component.onCompleted: {
-        Likes.getLikesForImage(imageId);
+        Likes.getLikes(imageId);
     }
 
     // standard header for the current page
@@ -90,7 +90,7 @@ Page {
         onErrorMessageClicked: {
             // console.log("Refresh clicked")
             errorMessage.visible = false;
-            Likes.getLikesForImage(imageId);
+            Likes.getLikes(imageId);
         }
     }
 

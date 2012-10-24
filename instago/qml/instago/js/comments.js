@@ -14,9 +14,40 @@ Qt.include("authenticationhandler.js");
 Qt.include("networkhandler.js");
 
 
+// add a comment to a given image
+function addComment(imageId, commentText)
+{
+    console.log("Adding comment for " + imageId);
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function()
+            {
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
+                {
+                    console.log("Done adding comment");
+
+                    // done, reload comment list now
+                    getComments(imageId);
+                }
+            }
+
+    var instagramUserdata = auth.getStoredInstagramData();
+    var params = "access_token=" + instagramUserdata["access_token"] + "&text=" + commentText;
+
+    var url = instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/comments/";
+
+    req.open("POST", url, true);
+    req.send(params);
+}
+
+
 // get all comments for a given image
 // comments will be used to fill a UserList component
-function getCommentsForImage(imageId)
+function getComments(imageId)
 {
     // console.log("Getting comments for image " + imageId);
 
@@ -59,6 +90,8 @@ function getCommentsForImage(imageId)
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
 
+                    imageComments.jumpToBottom();
+
                     // console.log("Done loading like list");
                 }
                 else
@@ -80,7 +113,7 @@ function getCommentsForImage(imageId)
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = instagramAPIUrl + "/v1/media/" + imageId + "/comments/?access_token=" + instagramUserdata["access_token"];
+    var url = instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/comments/?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();

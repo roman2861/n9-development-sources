@@ -1,8 +1,9 @@
 instago (0.4.1) unstable; urgency=low
 
   * Optimized comment spacing
+  * Optimized dynamic height of lists and components
 
- -- Dirk Songuer <dirk@songuer.de>  Sat, 20 Oct 2012 19:54:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Mon, 24 Oct 2012 19:54:00 +0000
 
 
 instago (0.4.0) stable; urgency=normal

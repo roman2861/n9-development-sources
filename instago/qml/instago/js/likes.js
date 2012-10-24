@@ -48,7 +48,7 @@ function likeImage(imageId, updateComponents)
     var instagramUserdata = auth.getStoredInstagramData();
     var params = "access_token=" + instagramUserdata["access_token"];
 
-    var url = instagramAPIUrl + "/v1/media/" + imageId + "/likes";
+    var url = instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/likes";
     req.open("POST", url, true);
     req.send(params);
 }
@@ -61,7 +61,7 @@ function unlikeImage(imageId, updateComponents)
     // console.log("Unliking image " + imageId);
 
     var instagramUserdata = auth.getStoredInstagramData();
-    networkHelper.sendDeleteRequest(instagramAPIUrl + "/v1/media/" + imageId + "/likes?access_token=" + instagramUserdata["access_token"]);
+    networkHelper.sendDeleteRequest(instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/likes?access_token=" + instagramUserdata["access_token"]);
 
     var numberOfLikes = parseInt(imageData.likes);
     numberOfLikes -= 1;
@@ -76,7 +76,7 @@ function unlikeImage(imageId, updateComponents)
 
 // get all likes for a given image
 // likes will be used to fill a UserList component
-function getLikesForImage(imageId)
+function getLikes(imageId)
 {
     // console.log("Getting likes for image " + imageId);
 
@@ -139,7 +139,7 @@ function getLikesForImage(imageId)
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = instagramAPIUrl + "/v1/media/" + imageId + "/likes/?access_token=" + instagramUserdata["access_token"];
+    var url = instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/likes/?access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();

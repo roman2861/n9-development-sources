@@ -38,7 +38,7 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
             returnStatus["status"] = "NOT_RELEVANT";
 
             // authentication was successful: the URL contains the redirect address as well the token code
-            if ( (currentURL.indexOf(instagramRedirectUrl) === 0) && (currentURL.indexOf("code=") > 0) )
+            if ( (currentURL.indexOf(instagramKeys.instagramRedirectUrl) === 0) && (currentURL.indexOf("code=") > 0) )
             {
                 // cut URL from string and extract the instagram token
                 var instagramTokenCode = "";
@@ -55,7 +55,7 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
             }
 
             // an error occured: the URL contains the error parameters
-            if ( (currentURL.indexOf(instagramRedirectUrl) === 0) && (currentURL.indexOf("error=") > 0) )
+            if ( (currentURL.indexOf(instagramKeys.instagramRedirectUrl) === 0) && (currentURL.indexOf("error=") > 0) )
             {
                 // cut URL from string so that only the error message is left
                 var stringIndexPosition = currentURL.indexOf("/?");
@@ -118,11 +118,11 @@ AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
                         }
                     }
 
-            req.open("POST", instagramTokenRequestUrl, true);
+            req.open("POST", instagramKeys.instagramTokenRequestUrl, true);
             var params = "grant_type=authorization_code" +
-                    "&client_id=" + instagramClientId +
-                    "&client_secret=" + instagramClientSecret +
-                    "&code=" + tokenCode + "&redirect_uri=" + instagramRedirectUrl;
+                    "&client_id=" + instagramKeys.instagramClientId +
+                    "&client_secret=" + instagramKeys.instagramClientSecret +
+                    "&code=" + tokenCode + "&redirect_uri=" + instagramKeys.instagramRedirectUrl;
             req.send(params);
         };
 

@@ -46,7 +46,7 @@ Page {
         contentsScale: 1
 
         // Instagram oauth URL
-        url: InstagramKeys.instagramAuthorizeUrl + "/?client_id=" + InstagramKeys.instagramClientId + "&redirect_uri=" + InstagramKeys.instagramRedirectUrl + "&response_type=code&scope=likes+comments+relationships";
+        url: InstagramKeys.instagramKeys.instagramAuthorizeUrl + "/?client_id=" + InstagramKeys.instagramKeys.instagramClientId + "&redirect_uri=" + InstagramKeys.instagramKeys.instagramRedirectUrl + "&response_type=code&scope=likes+comments+relationships";
 
         onStatusChanged: {
             // console.log("Status of webview request to server: " + status);

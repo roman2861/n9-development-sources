@@ -75,7 +75,7 @@ function loadImages()
                 }
             }
 
-    var url = instagramAPIUrl + "/v1/media/popular?client_id=" + instagramClientId;
+    var url = instagramkeys.instagramAPIUrl + "/v1/media/popular?client_id=" + instagramkeys.instagramClientId;
 
     req.open("GET", url, true);
     req.send();

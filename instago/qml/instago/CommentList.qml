@@ -18,6 +18,12 @@ Rectangle {
         commentListModel.clear();
     }
 
+    // signal to jump to the bottom of the list
+    signal jumpToBottom()
+    onJumpToBottom: {
+        commentListView.positionViewAtEnd();
+    }
+
     // signal to add a new item
     // item is given as array:
     // "username":USER_USERNAME
