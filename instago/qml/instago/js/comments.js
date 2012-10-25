@@ -17,7 +17,11 @@ Qt.include("networkhandler.js");
 // add a comment to a given image
 function addComment(imageId, commentText)
 {
-    console.log("Adding comment for " + imageId);
+    // console.log("Adding comment for " + imageId);
+
+    imageComments.visible = false;
+    loadingIndicator.running = true;
+    loadingIndicator.visible = true;
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -28,10 +32,29 @@ function addComment(imageId, commentText)
                 // jsonObject contains either false or the http result as object
                 if (jsonObject)
                 {
-                    console.log("Done adding comment");
+                    // console.log("Done adding comment");
+
+                    notification.text = "Added comment for this image";
+                    notification.show();
 
                     // done, reload comment list now
                     getComments(imageId);
+                }
+                else
+                {
+                    // either the request is not done yet or an error occured
+                    // check for both and act accordingly
+                    if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+                    }
                 }
             }
 
@@ -87,12 +110,20 @@ function getComments(imageId)
                                                 });
                     }
 
+                    // check if list is empty and show message
+                    if (imageComments.numberOfItems < 1)
+                    {
+                        imageCommentEmptyList.visible = true;
+                    }
+
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
 
+                    imageComments.visible = true;
                     imageComments.jumpToBottom();
+                    imageComments.focus = true;
 
-                    // console.log("Done loading like list");
+                    // console.log("Done loading comment list");
                 }
                 else
                 {

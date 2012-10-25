@@ -40,6 +40,7 @@ Page {
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
         wrapMode: Text.WordWrap
+        color: Globals.instagoDefaultTextColor
 
         text: "Instago";
     }
@@ -58,9 +59,9 @@ Page {
 
         font.family: "Nokia Pure Text"
         font.pixelSize: 20
-
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
+        color: Globals.instagoDefaultTextColor
 
         text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version " + Globals.currentApplicationVersion;
     }

@@ -30,11 +30,10 @@ Page {
 
         y: 560
         width: 480
+        horizontalAlignment: Text.AlignHCenter
 
         font.family: "Nokia Pure Text"
         font.pixelSize: 20
-
-        horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 

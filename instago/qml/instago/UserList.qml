@@ -32,10 +32,11 @@ Rectangle {
         userListModel.append(items);
     }
 
+    // general list properties
+    property alias numberOfItems: userListModel.count;
+
     // general style definition
     color: "transparent"
-    width: parent.width;
-    height: parent.height;
 
 
     // this is the main container component
@@ -141,6 +142,7 @@ Rectangle {
                     font.family: "Nokia Pure Text Light"
                     font.pixelSize: 30
                     wrapMode: Text.Wrap
+                    color: Globals.instagoDefaultTextColor
 
                     text: d_username
                 }
@@ -164,6 +166,7 @@ Rectangle {
                     font.family: "Nokia Pure Text"
                     font.pixelSize: 20
                     wrapMode: Text.Wrap
+                    color: Globals.instagoDefaultTextColor
 
                     text: d_fullname
                 }

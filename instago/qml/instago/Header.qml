@@ -8,7 +8,9 @@
 
 import QtQuick 1.0
 
-Rectangle{
+import "js/globals.js" as Globals
+
+Rectangle {
     id: header
 
     // text property for the header
@@ -49,14 +51,14 @@ Rectangle{
         id: headerText
 
         anchors.fill: parent
-
-        font.pixelSize: 30
-        font.family: "Nokia Pure Text Light"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
 
-        text: ""
+        font.pixelSize: 30
+        font.family: "Nokia Pure Text Light"
         color: "white"
+
+        text: ""
     }
 
 

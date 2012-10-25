@@ -57,6 +57,8 @@ Page {
             bottom: imageCommentInput.top;
             bottomMargin: 5;
         }
+
+        visible: false;
     }
 
 
@@ -74,18 +76,33 @@ Page {
         }
 
         onAccepted: {
-            console.log("Input received: " + imageCommentInput.text);
+            // console.log("Input received: " + imageCommentInput.text);
             Comments.addComment(imageId, imageCommentInput.text);
 
             imageCommentInput.text = "";
             imageCommentInput.platformCloseSoftwareInputPanel();
-
-            notification.text = "Added comment for this image";
-            notification.show();
         }
 
         placeholderText: "Add Comment"
         text: ""
+    }
+
+
+    // text shown if no comment entered yet
+    Text {
+        id: imageCommentEmptyList
+
+        anchors.centerIn: parent
+
+        font.family: "Nokia Pure Text Light"
+        font.pixelSize: 45
+        wrapMode: Text.Wrap
+        color: "darkgray"
+        horizontalAlignment: Text.AlignHCenter
+
+        visible: false;
+
+        text: "No comments yet"
     }
 
 

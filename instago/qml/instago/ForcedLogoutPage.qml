@@ -13,6 +13,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
+import "js/globals.js" as Globals
 import "js/authenticationhandler.js" as Authentication
 
 Page {
@@ -50,6 +51,7 @@ Page {
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
         wrapMode: Text.WordWrap
+        color: Globals.instagoDefaultTextColor
 
         text: "You have been logged out";
     }
@@ -68,9 +70,9 @@ Page {
 
         font.family: "Nokia Pure Text"
         font.pixelSize: 20
-
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
+        color: Globals.instagoDefaultTextColor
 
         text: "Your Instagram session is not valid anymore. This can happen if you or Instagram revoked the application access or changed your user information.<br /><br />You can authenticate again once you restart the application.";
     }

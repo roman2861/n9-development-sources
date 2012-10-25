@@ -92,7 +92,7 @@ function getLikes(imageId)
                 // jsonObject contains either false or the http result as object
                 if (jsonObject)
                 {
-                    imagelikesUserlist.clearList();
+                    imageLikesUserlist.clearList();
 
                     var userCache = new Array();
                     for ( var index in jsonObject.data )
@@ -106,13 +106,19 @@ function getLikes(imageId)
                         userCache["userid"] = jsonObject.data[index].id;
                         userCache["bio"] = jsonObject.data[index].bio;
 
-                        imagelikesUserlist.addToList({
+                        imageLikesUserlist.addToList({
                                                            "d_username": userCache["username"],
                                                            "d_fullname": userCache["fullname"],
                                                            "d_profilepicture": userCache["profilepicture"],
                                                            "d_userid": userCache["userid"],
                                                            "d_index": index
                                                        });
+                    }
+
+                    // check if list is empty and show message
+                    if (imageLikesUserlist.numberOfItems < 1)
+                    {
+                        imageLikesEmptyList.visible = true;
                     }
 
                     loadingIndicator.running = false;

@@ -128,6 +128,7 @@ Rectangle {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.Wrap
+            color: Globals.instagoDefaultTextColor
 
             // actual user name
             text: ""
@@ -150,6 +151,7 @@ Rectangle {
             font.family: "Nokia Pure Text"
             font.pixelSize: 18
             wrapMode: Text.Wrap
+            color: Globals.instagoDefaultTextColor
 
             // date / time + location the image was created
             text: ""
@@ -278,7 +280,7 @@ Rectangle {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.Wrap
-            color: "#333333"
+            color: Globals.instagoDefaultTextColor
 
             // number of likes
             // text will be given by the js function
@@ -295,7 +297,7 @@ Rectangle {
 
                 onPressed:
                 {
-                    if ( (likes != "0 people liked this") && (Authentication.auth.isAuthenticated()) )
+                    if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataLikes.color = Globals.instagoHighlightedTextColor;
                     }
@@ -303,7 +305,7 @@ Rectangle {
 
                 onReleased:
                 {
-                    if ( (likes != "0 people liked this") && (Authentication.auth.isAuthenticated()) )
+                    if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;
                         pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
@@ -345,6 +347,7 @@ Rectangle {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.Wrap
+            color: Globals.instagoDefaultTextColor
 
             // number of comments
             // text will be given by the js function
@@ -360,7 +363,8 @@ Rectangle {
 
                 onPressed:
                 {
-                    if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
+                    if (Authentication.auth.isAuthenticated())
+                    // if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
                     {
                         imagedetailMetadataComments.color = Globals.instagoHighlightedTextColor;
                     }
@@ -368,7 +372,7 @@ Rectangle {
 
                 onReleased:
                 {
-                    if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
+                    if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataComments.color = Globals.instagoDefaultTextColor;
                         pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});
@@ -395,6 +399,7 @@ Rectangle {
             font.family: "Nokia Pure Text"
             font.pixelSize: 20
             wrapMode: TextEdit.Wrap
+            color: Globals.instagoDefaultTextColor
 
             // image description
             // text will be given by the js function

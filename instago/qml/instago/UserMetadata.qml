@@ -9,6 +9,8 @@
 
 import QtQuick 1.0
 
+import "js/globals.js" as Globals
+
 Rectangle {
     id: usermetadata
 
@@ -83,6 +85,7 @@ Rectangle {
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 30
         wrapMode: Text.Wrap
+        color: Globals.instagoDefaultTextColor
     }
 
 
@@ -118,6 +121,7 @@ Rectangle {
             font.pixelSize: 30
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.Wrap
+            color: Globals.instagoDefaultTextColor
         }
 
 
@@ -187,6 +191,7 @@ Rectangle {
             font.pixelSize: 30
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.Wrap
+            color: Globals.instagoDefaultTextColor
         }
 
 
@@ -255,6 +260,7 @@ Rectangle {
             font.pixelSize: 30
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.Wrap
+            color: Globals.instagoDefaultTextColor
         }
 
 

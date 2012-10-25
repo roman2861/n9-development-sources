@@ -9,6 +9,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtWebKit 1.0
 
+import "js/globals.js" as Globals
 import "js/instagramkeys.js" as InstagramKeys
 import "js/authenticationhandler.js" as Authentication
 
@@ -46,7 +47,7 @@ Page {
         contentsScale: 1
 
         // Instagram oauth URL
-        url: InstagramKeys.instagramKeys.instagramAuthorizeUrl + "/?client_id=" + InstagramKeys.instagramKeys.instagramClientId + "&redirect_uri=" + InstagramKeys.instagramKeys.instagramRedirectUrl + "&response_type=code&scope=likes+comments+relationships";
+        url: InstagramKeys.instagramkeys.instagramAuthorizeUrl + "/?client_id=" + InstagramKeys.instagramkeys.instagramClientId + "&redirect_uri=" + InstagramKeys.instagramkeys.instagramRedirectUrl + "&response_type=code&scope=likes+comments+relationships";
 
         onStatusChanged: {
             // console.log("Status of webview request to server: " + status);
@@ -133,6 +134,7 @@ Page {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.WordWrap
+            color: Globals.instagoDefaultTextColor
 
             text: "Could not authenticate you";
         }
@@ -150,9 +152,9 @@ Page {
 
             font.family: "Nokia Pure Text"
             font.pixelSize: 20
-
             wrapMode: Text.WordWrap
             textFormat: Text.RichText
+            color: Globals.instagoDefaultTextColor
 
             text: "";
         }
@@ -191,6 +193,7 @@ Page {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.WordWrap
+            color: Globals.instagoDefaultTextColor
 
             text: "Thank you for authenticating";
         }
@@ -208,9 +211,9 @@ Page {
 
             font.family: "Nokia Pure Text"
             font.pixelSize: 20
-
             wrapMode: Text.WordWrap
             textFormat: Text.RichText
+            color: Globals.instagoDefaultTextColor
 
             text: "You are authenticated with Instagram and you can now use all Instago features. Have fun!";
         }

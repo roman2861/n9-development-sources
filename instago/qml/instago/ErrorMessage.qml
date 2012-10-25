@@ -12,6 +12,8 @@
 import QtQuick 1.1
 import com.nokia.meego 1.1
 
+import "js/globals.js" as Globals
+
 Rectangle  {
     id: errorMessage
 
@@ -28,6 +30,8 @@ Rectangle  {
     // this extracts the Instagram error response (if there is any)
     // and adds it to the error message texts
     onShowErrorMessage: {
+        errorMessageText.text = "Please check your network connection and tap to try again.";
+
         if (errordata['d_error_message'].length > 0)
         {
             errorMessageText.text += "<br /><br />Instagram says: <i>" + errordata['d_error_message'] + "</i>";
@@ -60,6 +64,7 @@ Rectangle  {
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
         wrapMode: Text.WordWrap
+        color: Globals.instagoDefaultTextColor
 
         text: "Can't load data from Instagram";
     }
@@ -78,11 +83,11 @@ Rectangle  {
 
         font.family: "Nokia Pure Text"
         font.pixelSize: 20
-
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
+        color: Globals.instagoDefaultTextColor
 
-        text: "Please check your network connection and tap to try again.";
+        text: "";
     }
 
 

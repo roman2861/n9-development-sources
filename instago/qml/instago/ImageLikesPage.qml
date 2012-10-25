@@ -47,7 +47,7 @@ Page {
     // list of the followers
     // container is only visible if user is authenticated
     UserList {
-        id: imagelikesUserlist;
+        id: imageLikesUserlist;
 
         anchors {
             top: pageHeader.bottom
@@ -58,6 +58,24 @@ Page {
         }
 
         visible: true
+    }
+
+
+    // text shown if no likes added yet
+    Text {
+        id: imageLikesEmptyList
+
+        anchors.centerIn: parent
+
+        font.family: "Nokia Pure Text Light"
+        font.pixelSize: 45
+        wrapMode: Text.Wrap
+        color: "darkgray"
+        horizontalAlignment: Text.AlignHCenter
+
+        visible: false;
+
+        text: "No likes yet"
     }
 
 

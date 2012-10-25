@@ -11,6 +11,8 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
+import "js/globals.js" as Globals
+
 Rectangle {
     id: notificationArea
 
@@ -88,7 +90,6 @@ Rectangle {
 
         font.family: "Nokia Pure Text"
         font.pixelSize: 25
-
         wrapMode: Text.WordWrap
         textFormat: Text.RichText
 

@@ -29,6 +29,46 @@ function formatInstagramTime(instagramTime)
 }
 
 
+// calculate the elapsed time for a timestamp until now
+// return format will be XX seconds / minutes / days / months / years ago
+function calculateElapsedTime(instagramTime)
+{
+    var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+
+    var currentTime = new Date().getTime();
+    var time = new Date(instagramTime * 1000);
+    var elapsed = currentTime - time;
+
+    if (elapsed < msPerMinute) {
+         return Math.round(elapsed/1000) + 's';
+    }
+
+    else if (elapsed < msPerHour) {
+         return Math.round(elapsed/msPerMinute) + 'm';
+    }
+
+    else if (elapsed < msPerDay ) {
+         return Math.round(elapsed/msPerHour ) + 'h';
+    }
+
+    else if (elapsed < msPerMonth) {
+        return Math.round(elapsed/msPerDay) + 'd';
+    }
+
+    else if (elapsed < msPerYear) {
+        return (Math.round(elapsed/msPerMonth)*4) + 'w';
+    }
+
+    else {
+        return Math.round(elapsed/msPerYear ) + 'y';
+    }
+}
+
+
 // extract all image data from an image object
 // return unified image array
 function getImageDataFromObject(imageObject)
@@ -47,6 +87,7 @@ function getImageDataFromObject(imageObject)
 
     // get and format date
     imageReturnArray["createdtime"] = formatInstagramTime(imageObject.created_time);
+    imageReturnArray["elapsedtime"] = calculateElapsedTime(imageObject.created_time);
     imageReturnArray["timeandlocation"] = imageReturnArray["createdtime"];
 
     // image may have no location

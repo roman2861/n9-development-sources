@@ -33,12 +33,11 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
             var currentURL = url.toString();
             var returnStatus = new Array();
 
-
             // set default status
             returnStatus["status"] = "NOT_RELEVANT";
 
             // authentication was successful: the URL contains the redirect address as well the token code
-            if ( (currentURL.indexOf(instagramKeys.instagramRedirectUrl) === 0) && (currentURL.indexOf("code=") > 0) )
+            if ( (currentURL.indexOf(instagramkeys.instagramRedirectUrl) === 0) && (currentURL.indexOf("code=") > 0) )
             {
                 // cut URL from string and extract the instagram token
                 var instagramTokenCode = "";
@@ -48,14 +47,14 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
                 // if there is an Instagram token, store it and set the return status
                 if (instagramTokenCode.length > 0)
                 {
-                    // console.log("Found Instagram token code: " + instagramTokenCode);
+                    console.log("Found Instagram token code: " + instagramTokenCode);
                     this.requestPermanentToken(instagramTokenCode);
                     returnStatus["status"] = "AUTH_SUCCESS";
                 }
             }
 
             // an error occured: the URL contains the error parameters
-            if ( (currentURL.indexOf(instagramKeys.instagramRedirectUrl) === 0) && (currentURL.indexOf("error=") > 0) )
+            if ( (currentURL.indexOf(instagramkeys.instagramRedirectUrl) === 0) && (currentURL.indexOf("error=") > 0) )
             {
                 // cut URL from string so that only the error message is left
                 var stringIndexPosition = currentURL.indexOf("/?");
@@ -86,6 +85,8 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
 // the response will be a permanent token that is stored by the application
 AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
         {
+            console.log("Requesting permanent token");
+
             var instagramPermanentToken = "";
             var req = new XMLHttpRequest();
             req.onreadystatechange = function()
@@ -100,7 +101,7 @@ AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
                             var jsonObject = eval('(' + req.responseText + ')');
                             if (jsonObject.error == null)
                             {
-                                // console.log("Response: " + req.responseText + " and object: " + jsonObject);
+                                console.log("Response: " + req.responseText + " and object: " + jsonObject);
                                 instagramPermanentToken = jsonObject.access_token;
                                 // this.storeInstagramData(jsonObject);
 
@@ -118,11 +119,12 @@ AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
                         }
                     }
 
-            req.open("POST", instagramKeys.instagramTokenRequestUrl, true);
+            req.open("POST", instagramkeys.instagramTokenRequestUrl, true);
+            console.log(instagramkeys.instagramTokenRequestUrl);
             var params = "grant_type=authorization_code" +
-                    "&client_id=" + instagramKeys.instagramClientId +
-                    "&client_secret=" + instagramKeys.instagramClientSecret +
-                    "&code=" + tokenCode + "&redirect_uri=" + instagramKeys.instagramRedirectUrl;
+                    "&client_id=" + instagramkeys.instagramClientId +
+                    "&client_secret=" + instagramkeys.instagramClientSecret +
+                    "&code=" + tokenCode + "&redirect_uri=" + instagramkeys.instagramRedirectUrl;
             req.send(params);
         };
 

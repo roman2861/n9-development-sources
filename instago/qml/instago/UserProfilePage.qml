@@ -85,6 +85,7 @@ Page {
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.WordWrap
+            color: Globals.instagoDefaultTextColor
 
             text: "Please log in";
         }
@@ -102,9 +103,9 @@ Page {
 
             font.family: "Nokia Pure Text"
             font.pixelSize: 20
-
             wrapMode: Text.WordWrap
             textFormat: Text.RichText
+            color: Globals.instagoDefaultTextColor
 
             text: "You are not connected to Instagram,<br />only the public features are available at the moment.<br /><br />Please connect to Instagram to use features like your news stream, following other users<br />or liking other users photos.";
         }
@@ -219,6 +220,7 @@ Page {
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
         wrapMode: Text.Wrap
+        color: Globals.instagoDefaultTextColor
 
         // content container headline
         // text will be given by the content switchers

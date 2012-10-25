@@ -1,20 +1,35 @@
-.pragma library
-
-// these are the keys for the Instagram client
-// get them here: http://instagram.com/developer/clients/manage/
+// *************************************************** //
+// Instagramkeys
+//
+// These are the keys for the Instagram client
+// You can get your own here:
+// http://instagram.com/developer/clients/manage/
 // (you need to be logged into Instagram to create apps)
+// *************************************************** //
 
-// Instagram client id
-var instagramClientId = "";
 
-// Instagram client secret
-var instagramClientSecret = "";
+// singleton instance of class
+var instagramkeys = new InstagramKeys();
 
-// Instagram URL the user authenticates against
-var instagramAuthorizeUrl = "https://api.instagram.com/oauth/authorize";
+// class function that gets the prototype methods
+function InstagramKeys()
+{
+    // Instagram client id
+    this.instagramClientId = "";
 
-// Instagram URL to request a permanent token
-var instagramTokenRequestUrl = "https://api.instagram.com/oauth/access_token";
+    // Instagram client secret
+    this.instagramClientSecret = "";
 
-// Instagram redirect URL
-var instagramRedirectUrl = "";
+    // Instagram API URL
+    this.instagramAPIUrl = "https://api.instagram.com";
+    // this.instagramAPIUrl = "http://localhost";
+
+    // Instagram URL the user authenticates against
+    this.instagramAuthorizeUrl = this.instagramAPIUrl + "/oauth/authorize";
+
+    // Instagram URL to request a permanent token
+    this.instagramTokenRequestUrl = this.instagramAPIUrl + "/oauth/access_token";
+
+    // Instagram redirect URL
+    this.instagramRedirectUrl = "http://www.instago.mobi";
+}

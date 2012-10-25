@@ -155,6 +155,7 @@ Page {
         font.family: "Nokia Pure Text Light"
         font.pixelSize: 25
         wrapMode: Text.Wrap
+        color: Globals.instagoDefaultTextColor
 
         // content container headline
         // text will be given by the content switchers
