@@ -41,7 +41,8 @@ function loadUserFeed()
                         feedListModel.append({
                                                  "d_originalImage":imageCache["originalimage"],
                                                  "d_username":imageCache["username"],
-                                                 "d_timeAndLocation":imageCache["timeandlocation"],
+                                                 "d_location":imageCache["location"],
+                                                 "d_elapsedtime":imageCache["elapsedtime"],
                                                  "d_likes":imageCache["likes"],
                                                  "d_linkToInstagram":imageCache["linktoinstagram"],
                                                  "d_comments":imageCache["comments"],

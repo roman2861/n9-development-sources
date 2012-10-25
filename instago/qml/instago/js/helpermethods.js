@@ -95,12 +95,12 @@ function getImageDataFromObject(imageObject)
     // however if the location has no name the node is there but not the name node inside it
     if ( (imageObject.location !== null) && (imageObject.location["name"] !== undefined) )
     {
-        imageReturnArray["locationname"] = imageObject.location["name"];
-        imageReturnArray["timeandlocation"] += ", " + imageReturnArray["locationname"];
+        imageReturnArray["location"] = imageObject.location["name"];
+        imageReturnArray["timeandlocation"] += ", " + imageReturnArray["location"];
     }
     else
     {
-        imageReturnArray["locationname"] = "";
+        imageReturnArray["location"] = "";
     }
 
     // image may be liked by user

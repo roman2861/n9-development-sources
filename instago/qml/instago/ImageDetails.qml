@@ -20,7 +20,8 @@ Rectangle {
     // userdata and image metadata
     property alias username: imagedetailUsername.text
     property alias profilePicture: imagedetailUserpicture.source
-    property alias timeAndLocation: imagedetailTimeAndLocation.text
+    property alias location: imagedetailLocation.text
+    property alias elapsedtime: imagedetailElapsedTime.text
 
     // actual image
     property alias originalImage: imagedetailImage.source
@@ -120,10 +121,10 @@ Rectangle {
                 top: parent.top;
                 left: imagedetailUserpictureContainer.right;
                 leftMargin: 5;
-                right: parent.right;
             }
 
             height: 30
+            width: 330
 
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
@@ -135,14 +136,76 @@ Rectangle {
         }
 
 
-        // creation time
+        // elapsed time icon
+        Image {
+            id: imagedetailElapsedTimeIcon
+
+            anchors {
+                top: parent.top;
+                left: imagedetailUsername.right;
+                leftMargin: 5;
+            }
+
+            width: 28
+            height: 28
+            z: 10
+
+            source: "image://theme/icon-m-toolbar-clock-dimmed"
+        }
+
+
+        // elapsed time
         Text {
-            id: imagedetailTimeAndLocation
+            id: imagedetailElapsedTime
+
+            anchors {
+                top: parent.top;
+                left: imagedetailElapsedTimeIcon.right;
+                right: parent.right;
+            }
+
+            height: 30
+
+            font.family: "Nokia Pure Text"
+            font.pixelSize: 20
+            wrapMode: Text.Wrap
+            color: "gray"
+
+            // elapsed time
+            text: ""
+        }
+
+
+        // location icon
+        Image {
+            id: imagedetailLocationIcon
 
             anchors {
                 top: imagedetailUsername.bottom;
+                topMargin: 2;
                 left: imagedetailUserpictureContainer.right;
                 leftMargin: 5;
+            }
+
+            width: 28
+            height: 28
+            z: 10
+
+            visible: false;
+
+            source: "image://theme/icon-m-toolbar-tag-dimmed"
+        }
+
+
+        // image location
+        Text {
+            id: imagedetailLocation
+
+            anchors {
+                top: imagedetailUsername.bottom;
+                topMargin: 3;
+                left: imagedetailLocationIcon.right;
+                leftMargin: 0;
                 right: parent.right;
             }
 
@@ -150,10 +213,15 @@ Rectangle {
 
             font.family: "Nokia Pure Text"
             font.pixelSize: 18
-            wrapMode: Text.Wrap
+            clip: true;
             color: Globals.instagoDefaultTextColor
 
-            // date / time + location the image was created
+            // only show location icon if there actually is one
+            onTextChanged: {
+                imagedetailLocationIcon.visible = true;
+            }
+
+            // location the image was taken
             text: ""
         }
     }    

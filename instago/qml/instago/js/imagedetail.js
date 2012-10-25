@@ -45,7 +45,8 @@ function loadImage(imageId)
                     imageData.likes = imageCache["likes"] + " people liked this";
                     imageData.linkToInstagram = imageCache["linktoinstagram"];
                     imageData.caption = imageCache["caption"];
-                    imageData.timeAndLocation = imageCache["timeandlocation"];
+                    imageData.location = imageCache["location"];
+                    imageData.elapsedtime = imageCache["elapsedtime"];
 
                     // if they don't have an Instagram page, the share button needs to be deactivated
                     if (imageCache["linktoinstagram"] === "")
