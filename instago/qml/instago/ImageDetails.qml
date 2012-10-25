@@ -123,13 +123,15 @@ Rectangle {
                 leftMargin: 5;
             }
 
-            height: 30
+            height: 60
             width: 330
 
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.Wrap
             color: Globals.instagoDefaultTextColor
+
+            verticalAlignment: Text.AlignVCenter
 
             // actual user name
             text: ""
@@ -142,6 +144,7 @@ Rectangle {
 
             anchors {
                 top: parent.top;
+                topMargin: 17
                 left: imagedetailUsername.right;
                 leftMargin: 5;
             }
@@ -164,12 +167,13 @@ Rectangle {
                 right: parent.right;
             }
 
-            height: 30
+            height: 60
 
             font.family: "Nokia Pure Text"
             font.pixelSize: 20
             wrapMode: Text.Wrap
             color: "gray"
+            verticalAlignment: Text.AlignVCenter
 
             // elapsed time
             text: ""
@@ -218,6 +222,9 @@ Rectangle {
 
             // only show location icon if there actually is one
             onTextChanged: {
+                imagedetailUsername.height = 30;
+                imagedetailElapsedTime.height = 30;
+                imagedetailElapsedTimeIcon.anchors.topMargin = 1;
                 imagedetailLocationIcon.visible = true;
             }
 

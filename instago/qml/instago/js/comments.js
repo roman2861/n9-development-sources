@@ -22,6 +22,7 @@ function addComment(imageId, commentText)
     imageComments.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
+    imageCommentEmptyList.visible = false;
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
