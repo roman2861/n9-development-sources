@@ -1,5 +1,5 @@
 // *************************************************** //
-//  News Feed Page
+// News Feed Page
 //
 // The page shows the news feed for the user.
 // *************************************************** //
@@ -56,6 +56,7 @@ Page {
 
         onLoadFailed: {
             console.log("Load failed");
+            console.log("Status: " +  statusText);
         }
 
         // check on every page load if the oauth token is in it

@@ -2,13 +2,15 @@ instago (0.4.1) unstable; urgency=low
 
   * Added commenting images
   * Added elapsed time to image view
+  * Addes subtle touch feedback to elements
   * Removed timestamp from image view
   * Optimized comment spacing
   * Optimized like and comment pages (now enabled with 0 entries)
   * Optimized dynamic height of lists and components
   * Optimized element colors and styles
+  * Fixed error messages showing up multiple times
 
- -- Dirk Songuer <dirk@songuer.de>  Thu, 25 Oct 2012 21:55:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Sat, 27 Oct 2012 12:08:00 +0000
 
 
 instago (0.4.0) stable; urgency=normal

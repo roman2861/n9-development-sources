@@ -7,7 +7,7 @@
 // The list is flickable and clips.
 // *************************************************** //
 
-import QtQuick 1.0
+import QtQuick 1.1
 
 import "js/globals.js" as Globals
 

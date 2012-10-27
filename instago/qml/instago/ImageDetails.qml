@@ -66,27 +66,6 @@ Rectangle {
         height: 60
 
 
-        // use the whole user profile as tap surface
-        MouseArea {
-            anchors.fill: parent
-            onCanceled:
-            {
-                imagedetailUserprofileContainer.color = Globals.instagoDefaultListItemColor;
-            }
-
-            onPressed:
-            {
-                imagedetailUserprofileContainer.color = Globals.instagoHighlightedListItemColor;
-            }
-
-            onReleased:
-            {
-                imagedetailUserprofileContainer.color = Globals.instagoDefaultListItemColor;
-                pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
-            }
-        }
-
-
         // user profile picture (60x60)
         Rectangle {
             id: imagedetailUserpictureContainer
@@ -102,6 +81,26 @@ Rectangle {
 
             width: 60
             height: 60
+
+            // use the whole user image as tap surface
+            MouseArea {
+                anchors.fill: parent
+                onCanceled:
+                {
+                    imagedetailUserpicture.opacity = 1;
+                }
+
+                onPressed:
+                {
+                    imagedetailUserpicture.opacity = 0.5;
+                }
+
+                onReleased:
+                {
+                    imagedetailUserpicture.opacity = 1;
+                    pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
+                }
+            }
 
             // user profile image
             Image {
@@ -128,10 +127,29 @@ Rectangle {
 
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
-            wrapMode: Text.Wrap
+            clip: true
+            verticalAlignment: Text.AlignVCenter
             color: Globals.instagoDefaultTextColor
 
-            verticalAlignment: Text.AlignVCenter
+            // use the whole user image as tap surface
+            MouseArea {
+                anchors.fill: parent
+                onCanceled:
+                {
+                    imagedetailUsername.color = Globals.instagoDefaultTextColor;
+                }
+
+                onPressed:
+                {
+                    imagedetailUsername.color = Globals.instagoHighlightedTextColor;
+                }
+
+                onReleased:
+                {
+                    imagedetailUsername.color = Globals.instagoDefaultTextColor;
+                    pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
+                }
+            }
 
             // actual user name
             text: ""
@@ -213,7 +231,7 @@ Rectangle {
                 right: parent.right;
             }
 
-            height: 20
+            height: 25
 
             font.family: "Nokia Pure Text"
             font.pixelSize: 18
@@ -354,7 +372,7 @@ Rectangle {
 
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
-            wrapMode: Text.Wrap
+            clip: true
             color: Globals.instagoDefaultTextColor
 
             // number of likes

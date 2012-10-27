@@ -7,7 +7,7 @@
 // as a convinient box.
 // *************************************************** //
 
-import QtQuick 1.0
+import QtQuick 1.1
 
 import "js/globals.js" as Globals
 

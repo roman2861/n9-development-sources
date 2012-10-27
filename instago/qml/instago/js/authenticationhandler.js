@@ -47,7 +47,7 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
                 // if there is an Instagram token, store it and set the return status
                 if (instagramTokenCode.length > 0)
                 {
-                    console.log("Found Instagram token code: " + instagramTokenCode);
+                    // console.log("Found Instagram token code: " + instagramTokenCode);
                     this.requestPermanentToken(instagramTokenCode);
                     returnStatus["status"] = "AUTH_SUCCESS";
                 }
@@ -85,7 +85,7 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
 // the response will be a permanent token that is stored by the application
 AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
         {
-            console.log("Requesting permanent token");
+            // console.log("Requesting permanent token");
 
             var instagramPermanentToken = "";
             var req = new XMLHttpRequest();
@@ -101,7 +101,7 @@ AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
                             var jsonObject = eval('(' + req.responseText + ')');
                             if (jsonObject.error == null)
                             {
-                                console.log("Response: " + req.responseText + " and object: " + jsonObject);
+                                // console.log("Response: " + req.responseText + " and object: " + jsonObject);
                                 instagramPermanentToken = jsonObject.access_token;
                                 // this.storeInstagramData(jsonObject);
 
@@ -120,7 +120,6 @@ AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
                     }
 
             req.open("POST", instagramkeys.instagramTokenRequestUrl, true);
-            console.log(instagramkeys.instagramTokenRequestUrl);
             var params = "grant_type=authorization_code" +
                     "&client_id=" + instagramkeys.instagramClientId +
                     "&client_secret=" + instagramkeys.instagramClientSecret +

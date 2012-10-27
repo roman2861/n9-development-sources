@@ -7,7 +7,7 @@
 // The grid is flickable and clips.
 // *************************************************** //
 
-import QtQuick 1.0
+import QtQuick 1.1
 
 Rectangle {
     id: imageGallery
@@ -58,8 +58,19 @@ Rectangle {
             // all taps on the item will be handled by the itemClicked event
             MouseArea {
                 anchors.fill: parent
-                onClicked:
+                onCanceled:
                 {
+                    galleryThumbnail.opacity = 1;
+                }
+
+                onPressed:
+                {
+                    galleryThumbnail.opacity = 0.5;
+                }
+
+                onReleased:
+                {
+                    galleryThumbnail.opacity = 1;
                     itemClicked(index);
                 }
             }
@@ -84,6 +95,8 @@ Rectangle {
                         horizontalCenter: parent.horizontalCenter;
                         verticalCenter: parent.verticalCenter;
                     }
+
+                    opacity: 1
 
                     source: url
                 }

@@ -1,3 +1,11 @@
+// *************************************************** //
+// Main
+//
+// This is the main entry point of the application
+// It provides the main menu, triggers the splash screen
+// and dispatches the application to the first screen
+// *************************************************** //
+
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
@@ -29,6 +37,7 @@ PageStackWindow {
             id: iconHome
             iconId: "toolbar-home"
             visible: false
+
             onClicked: {
                 pageStack.replace(Qt.resolvedUrl("UserFeedPage.qml"))
             }

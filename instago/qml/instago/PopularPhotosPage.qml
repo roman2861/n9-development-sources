@@ -38,7 +38,7 @@ Page {
         {
             iconHome.visible = false;
             iconPopular.visible = false;
-            iconNews.visible = false;
+            // iconNews.visible = false;
             iconNone.visible = true;
         }
     }

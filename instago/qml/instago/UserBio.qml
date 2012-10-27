@@ -6,7 +6,7 @@
 // provides the interaction with a user (un- / follow).
 // *************************************************** //
 
-import QtQuick 1.0
+import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
