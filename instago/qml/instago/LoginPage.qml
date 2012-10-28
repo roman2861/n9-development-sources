@@ -58,8 +58,6 @@ Page {
             var instagramResponse = new Array();
             instagramResponse = Authentication.auth.checkInstagramAuthenticationUrl(url);
 
-            console.log("Loading URL: " + url);
-
             // Show the error message if the Instagram authentication was not successfull
             if (instagramResponse["status"] === "AUTH_ERROR")
             {

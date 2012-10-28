@@ -29,6 +29,8 @@ Page {
         iconHome.visible = true;
         iconPopular.visible = true;
         // iconNews.visible = true;
+        iconSearch.visible = true;
+        iconNone.visible = false;
     }
 
     // standard header for the current page

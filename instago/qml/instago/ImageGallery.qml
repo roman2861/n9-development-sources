@@ -27,6 +27,9 @@ Rectangle {
         galleryListModel.append(items);
     }
 
+    // general list properties
+    property alias numberOfItems: galleryListModel.count;
+
     // signal if item was clicked
     signal itemClicked( string imageId );
 

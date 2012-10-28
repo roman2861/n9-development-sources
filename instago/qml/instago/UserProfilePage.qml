@@ -28,6 +28,9 @@ Page {
             // user is authorized with Instagram
             // console.log("User is authorized");
 
+            // show icon for user likes
+            iconUserLikes.visible = true;
+
             // show loading indicators only if the user is logged in
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
@@ -357,6 +360,18 @@ Page {
             iconId: "toolbar-back";
             onClicked: {
                 pageStack.pop();
+            }
+        }
+
+
+        // jump to the likes page
+        ToolIcon {
+            id: iconUserLikes
+            iconId: "toolbar-frequent-used";
+            visible: false
+
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("UserLikes.qml"))
             }
         }
 

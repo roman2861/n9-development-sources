@@ -1,5 +1,5 @@
 // *************************************************** //
-// Popular Photos Page
+// User Likes Page
 //
 // The popular photos page is shown as default starting
 // page.
@@ -13,52 +13,24 @@ import QtMobility.gallery 1.1
 
 import "js/globals.js" as Globals
 import "js/authenticationhandler.js" as Authentication
-import "js/popularphotos.js" as PopularPhotosScript
+import "js/likes.js" as LikesScript
 
 Page {
     // use the main navigation toolbar
-    tools: mainNavigationToolbar
+    tools: likesToolbar
 
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
     // load the gallery content as soon as the page is ready
     Component.onCompleted: {
-        PopularPhotosScript.loadImages();
-
-        // show main buttons if the user is logged in
-        if (Authentication.auth.isAuthenticated())
-        {
-            iconHome.visible = true;
-            iconPopular.visible = true;
-            // iconNews.visible = true;
-            iconSearch.visible = true;
-            iconNone.visible = false;
-        }
-        else
-        {
-            iconHome.visible = false;
-            iconPopular.visible = false;
-            // iconNews.visible = false;
-            iconSearch.visible = false;
-            iconNone.visible = true;
-        }
+        LikesScript.getCurrentUserLikes();
     }
 
     // standard header for the current page
     Header {
         id: pageHeader
-        text: "Popular"
-        reloadButtonVisible: true
-
-        onReloadButtonClicked: {
-            // console.log("Refresh clicked");
-            imageGallery.visible = false;
-            errorMessage.visible = false;
-            loadingIndicator.running = true;
-            loadingIndicator.visible = true;
-            PopularPhotosScript.loadImages();
-        }
+        text: "Your Likes"
     }
 
 
@@ -91,17 +63,13 @@ Page {
         onErrorMessageClicked: {
             // console.log("Refresh clicked")
             errorMessage.visible = false;
-            imageGallery.visible = false;
-            loadingIndicator.running = true;
-            loadingIndicator.visible = true;
-            PopularPhotosScript.loadImages();
         }
     }
 
 
     // the actual image gallery that contains the the popular photos
     ImageGallery {
-        id: imageGallery;
+        id: likesGallery;
 
         anchors {
             top: pageHeader.bottom;
@@ -116,6 +84,20 @@ Page {
         onItemClicked: {
             // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+        }
+    }
+
+
+    // toolbar for the detail page
+    ToolBarLayout {
+        id: likesToolbar
+
+        // jump back to the detail image
+        ToolIcon {
+            iconId: "toolbar-back";
+            onClicked: {
+                pageStack.pop();
+            }
         }
     }
 }

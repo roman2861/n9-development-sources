@@ -71,11 +71,15 @@ NetworkHandler.prototype.handleHttpResult = function(XMLHttpRequestObject)
 // Note that this scripts does the analysing but does not act upon found errors
 NetworkHandler.prototype.checkResponseForErrors = function(httpResponseText)
         {
+            // console.log("Check HTTP response for errors");
+
             // check for general network error
             // in this case the httpResponseText would be empty
             // in that case fill the error data object with a generic error description
             if (httpResponseText === "")
             {
+                // console.log("Empty response, adding generic error");
+
                 this.errorData["error_type"] = "GenericNetworkError";
                 this.errorData["code"] = "0";
                 this.errorData["error_message"] = "A generic network error occured";
@@ -86,12 +90,16 @@ NetworkHandler.prototype.checkResponseForErrors = function(httpResponseText)
             // every meta node containss a node "code" that has the http response code as content
             // thus if the response does not contain the status code 200 it's an error
             // (may be a different error code or empty)
-            if (httpResponseText.indexOf('"code":200') === -1)
+            if ( (httpResponseText.indexOf('"code":200') === -1) && (httpResponseText.indexOf('"code":') > 1) )
             {
+                // console.log("Response does not have response 200 verification by Instagram");
+
                 // eval the response text to check the content
                 var jsonObject = eval('(' + httpResponseText + ')');
                 if (jsonObject.error == null)
                 {
+                    // console.log("JSON evaluation successful");
+
                     // the error was handled and described by Instagram
                     // fill the error data object with the Instagram error description
                     this.errorData["error_type"] = jsonObject.meta.error_type;
@@ -106,6 +114,8 @@ NetworkHandler.prototype.checkResponseForErrors = function(httpResponseText)
                 }
                 else
                 {
+                    console.log("JSON evaluation not successful, adding generic error");
+
                     // the error was not handled by Instagram
                     // fill the error data object with a generic error description
                     this.errorData["error_type"] = "GenericNetworkError";

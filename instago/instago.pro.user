@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-10-27T12:17:30. -->
+<!-- Written by Qt Creator 2.4.1, 2012-10-28T21:15:43. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">0</value>
+  <value type="int">1</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -192,6 +192,7 @@
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.1.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.0.2_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.2.0_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.4.2_armel.deb</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
        <value type="QString">192.168.2.39</value>
@@ -213,8 +214,10 @@
        <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.15</value>
+       <value type="QString">192.168.2.39</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths">
+       <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
@@ -242,7 +245,7 @@
        <value type="QDateTime">2012-10-19T23:36:37</value>
        <value type="QDateTime">2012-09-06T08:02:43</value>
        <value type="QDateTime">2012-09-29T22:52:44</value>
-       <value type="QDateTime">2012-10-27T12:13:10</value>
+       <value type="QDateTime">2012-10-27T12:20:11</value>
        <value type="QDateTime">2012-09-14T16:08:35</value>
        <value type="QDateTime">2012-10-08T23:53:36</value>
        <value type="QDateTime">2012-08-19T14:43:18</value>
@@ -255,6 +258,7 @@
        <value type="QDateTime">2012-09-16T10:33:23</value>
        <value type="QDateTime">2012-09-06T22:25:30</value>
        <value type="QDateTime">2012-09-28T21:35:56</value>
+       <value type="QDateTime">2012-10-28T10:21:42</value>
       </valuelist>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">3</value>
