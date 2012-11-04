@@ -23,6 +23,7 @@ Rectangle {
     property alias requestButtonVisible: userBioRequestFollowUser.visible
     property alias unrequestButtonVisible: userBioUnrequestFollowUser.visible
     property alias logoutButtonVisible: userBioLogoutUser.visible
+    property alias likesButtonVisible: userBioUserLikes.visible
     property alias userIsPrivateMessageVisible: userBioUserIsPrivate.visible
 
     // define signals to make the interactions accessible
@@ -215,6 +216,28 @@ Rectangle {
 
         onClicked: {
             logoutButtonClicked();
+        }
+    }
+
+
+    // user likes button
+    Button {
+        id: userBioUserLikes
+
+        anchors {
+            left: parent.left;
+            leftMargin: 30;
+            right: parent.right;
+            rightMargin: 30;
+            top: userBioLogoutUser.bottom;
+            topMargin: 10;
+        }
+
+        visible: false
+        text: "Your favourites"
+
+        onClicked: {
+            pageStack.push(Qt.resolvedUrl("UserLikes.qml"))
         }
     }
 }

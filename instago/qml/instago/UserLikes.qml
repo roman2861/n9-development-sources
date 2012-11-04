@@ -30,7 +30,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        text: "Your Likes"
+        text: "Your Favourites"
     }
 
 
