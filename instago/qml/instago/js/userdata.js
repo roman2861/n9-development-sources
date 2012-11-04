@@ -71,10 +71,13 @@ function loadUserProfile(userId)
 
                     // activate profile containers
                     userprofileMetadata.visible = true;
-                    userprofileBio.visible = true;
-                    if (userprofileBio.text != "")
+                    if (userprofileMetadata.currentComponent == "bio")
                     {
-                        userprofileContentHeadline.visible = true;
+                        userprofileBio.visible = true;
+                        if (userprofileBio.text != "")
+                        {
+                            userprofileContentHeadline.visible = true;
+                        }
                     }
 
                     // console.log("Done loading user profile");
@@ -187,7 +190,10 @@ function loadUserImages(userId, paginationId)
                         // initial loading
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
-                        userprofileGallery.visible = true;
+                        if (userprofileMetadata.currentComponent == "photos")
+                        {
+                            userprofileGallery.visible = true;
+                        }
                     }
                     else
                     {

@@ -5,7 +5,7 @@ instago (0.4.2) unstable; urgency=low
   * Added list of users likes
   * Fixed showing wrong number of comments for some users
 
- -- Dirk Songuer <dirk@songuer.de>  Sun, 28 Oct 2012 20:36:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Sun, 04 Nov 2012 13:34:00 +0000
 
 
 instago (0.4.1) unstable; urgency=low

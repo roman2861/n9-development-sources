@@ -20,6 +20,7 @@ Rectangle {
     property alias imagecount: imagecountNumber.text;
     property alias followers: followersNumber.text;
     property alias following: followingNumber.text;
+    property string currentComponent: "bio";
 
     // define signals to make the interactions accessible
     signal profilepictureClicked();
@@ -63,6 +64,7 @@ Rectangle {
             anchors.fill: parent
             onClicked:
             {
+                currentComponent = "bio";
                 profilepictureClicked();
             }
         }
@@ -152,6 +154,7 @@ Rectangle {
             anchors.fill: parent
             onClicked:
             {
+                currentComponent = "photos";
                 imagecountClicked();
             }
         }
@@ -221,6 +224,7 @@ Rectangle {
             anchors.fill: parent
             onClicked:
             {
+                currentComponent = "followers";
                 followersClicked();
             }
         }
@@ -291,6 +295,7 @@ Rectangle {
             anchors.fill: parent
             onClicked:
             {
+                currentComponent = "following";
                 followingClicked();
             }
         }
