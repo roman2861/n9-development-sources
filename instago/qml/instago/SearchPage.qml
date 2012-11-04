@@ -47,9 +47,9 @@ Page {
             topMargin: 15;
             left: parent.left;
             leftMargin: 10;
-            right: parent.right;
-            rightMargin: 10;
         }
+
+        width: 400
 
         onAccepted: {
             // console.log("Input received: " + searchInput.text);
@@ -68,6 +68,40 @@ Page {
 
         placeholderText: "Enter user name"
         text: ""
+    }
+
+
+
+    // search button
+    Button {
+        id: searchButton
+
+        anchors {
+            top: pageHeader.bottom;
+            topMargin: 16;
+            left: searchInput.right;
+            leftMargin: 5;
+        }
+
+        width: 50
+        height: 50
+
+        iconSource: "image://theme/icon-m-toolbar-search-dimmed"
+
+        onClicked: {
+            // console.log("Input received: " + searchInput.text);
+
+            if (searchUserButton.checked)
+            {
+                SearchScript.searchUser(searchInput.text);
+            }
+            else
+            {
+                SearchScript.loadHashtagImages(searchInput.text, 0);
+            }
+
+            searchInput.platformCloseSoftwareInputPanel();
+        }
     }
 
 

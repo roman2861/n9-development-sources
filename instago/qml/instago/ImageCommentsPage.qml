@@ -69,11 +69,11 @@ Page {
         anchors {
             left: parent.left;
             leftMargin: 10;
-            right: parent.right;
-            rightMargin: 10;
             bottom: parent.bottom;
             bottomMargin: 15;
         }
+
+        width: 400
 
         onAccepted: {
             // console.log("Input received: " + imageCommentInput.text);
@@ -85,6 +85,36 @@ Page {
 
         placeholderText: "Add Comment"
         text: ""
+    }
+
+
+    // user search button
+    Button {
+        id: commentButton
+
+        anchors {
+            left: imageCommentInput.right;
+            leftMargin: 5;
+            bottom: parent.bottom;
+            bottomMargin: 15;
+        }
+
+        width: 50
+        height: 50
+
+        iconSource: "image://theme/icon-m-toolbar-search-dimmed"
+
+        onClicked: {
+            // console.log("Input received: " + imageCommentInput.text);
+            if (imageCommentInput.text.length > 0)
+            {
+                Comments.addComment(imageId, imageCommentInput.text);
+
+                imageCommentInput.text = "";
+                imageCommentInput.platformCloseSoftwareInputPanel();
+            }
+        }
+
     }
 
 
