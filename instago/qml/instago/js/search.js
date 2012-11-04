@@ -26,6 +26,7 @@ function searchUser(query)
     searchUserResults.visible = false;
     imageGallery.visible = false;
     searchNoResultsFound.visible = false;
+    errorMessage.visible = false;
 
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
@@ -125,6 +126,7 @@ function loadHashtagImages(hashtag, paginationId)
         searchUserResults.visible = false;
         imageGallery.visible = false;
         searchNoResultsFound.visible = false;
+        errorMessage.visible = false;
 
         loadingIndicator.running = true;
         loadingIndicator.visible = true;

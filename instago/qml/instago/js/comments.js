@@ -20,6 +20,7 @@ function addComment(imageId, commentText)
     // console.log("Adding comment for " + imageId);
 
     imageComments.visible = false;
+    errorMessage.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
     imageCommentEmptyList.visible = false;
@@ -75,6 +76,7 @@ function getComments(imageId)
 {
     // console.log("Getting comments for image " + imageId);
 
+    errorMessage.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
 

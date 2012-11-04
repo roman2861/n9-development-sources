@@ -81,6 +81,7 @@ function getLikes(imageId)
 {
     // console.log("Getting likes for image " + imageId);
 
+    errorMessage.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
 
@@ -162,6 +163,7 @@ function getCurrentUserLikes()
     // clear likes list
     likesGallery.clearGallery();
 
+    errorMessage.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
 

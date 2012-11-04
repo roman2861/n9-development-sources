@@ -25,6 +25,7 @@ function loadUserProfile(userId)
     // console.log("Loading user profile for user " + userId);
 
     // show loading indicators while loading user data
+    errorMessage.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
 
@@ -134,6 +135,7 @@ function loadUserImages(userId, paginationId)
     // check if this is a new call or loading more images
     if (paginationId === 0)
     {
+        errorMessage.visible = false;
         loadingIndicator.running = true;
         loadingIndicator.visible = true;
     }
@@ -236,6 +238,7 @@ function loadUserFollowers(userId)
 {
     // console.log("Loading user follower data for user " + userId);
 
+    errorMessage.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
 
@@ -310,6 +313,7 @@ function loadUserFollowing(userId)
 {
     // console.log("Loading user following data for user " + userId);
 
+    errorMessage.visible = false;
     loadingIndicator.running = true;
     loadingIndicator.visible = true;
 

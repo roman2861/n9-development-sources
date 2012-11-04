@@ -3,6 +3,7 @@ instago (0.4.2) unstable; urgency=low
   * Added user search
   * Added hashtag search
   * Added list of users likes
+  * Fixed showing wrong number of comments for some users
 
  -- Dirk Songuer <dirk@songuer.de>  Sun, 28 Oct 2012 20:36:00 +0000
 
