@@ -137,16 +137,19 @@ Rectangle {
                 onCanceled:
                 {
                     imagedetailUsername.color = Globals.instagoDefaultTextColor;
+                    imagedetailUsername.font.bold = false;
                 }
 
                 onPressed:
                 {
                     imagedetailUsername.color = Globals.instagoHighlightedTextColor;
+                    imagedetailUsername.font.bold = true;
                 }
 
                 onReleased:
                 {
                     imagedetailUsername.color = Globals.instagoDefaultTextColor;
+                    imagedetailUsername.font.bold = false;
                     pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
                 }
             }
@@ -386,6 +389,7 @@ Rectangle {
                 onCanceled:
                 {
                     imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;
+                    imagedetailMetadataLikes.font.bold = false;
                 }
 
                 onPressed:
@@ -393,6 +397,7 @@ Rectangle {
                     if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataLikes.color = Globals.instagoHighlightedTextColor;
+                        imagedetailMetadataLikes.font.bold = true;
                     }
                 }
 
@@ -401,6 +406,7 @@ Rectangle {
                     if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;
+                        imagedetailMetadataLikes.font.bold = false;
                         pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
                     }
                 }
@@ -452,6 +458,7 @@ Rectangle {
                 onCanceled:
                 {
                     imagedetailMetadataComments.color = Globals.instagoDefaultTextColor;
+                    imagedetailMetadataComments.font.bold = false;
                 }
 
                 onPressed:
@@ -460,6 +467,7 @@ Rectangle {
                     // if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
                     {
                         imagedetailMetadataComments.color = Globals.instagoHighlightedTextColor;
+                        imagedetailMetadataComments.font.bold = true;
                     }
                 }
 
@@ -468,6 +476,7 @@ Rectangle {
                     if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataComments.color = Globals.instagoDefaultTextColor;
+                        imagedetailMetadataComments.font.bold = false;
                         pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});
                     }
                 }

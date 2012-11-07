@@ -7,7 +7,7 @@ Standards-Version: 3.7.3
 Homepage: <http://instago.mobi/>
 
 Package: instago
-Version: 0.4.2
+Version: 0.4.3
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: An Instagram client for MeeGo

@@ -85,8 +85,14 @@ function getImageDataFromObject(imageObject)
     imageReturnArray["likes"] = imageObject.likes["count"];
 
     // don't trust imageObject.comments["count"] as it will be wrong for some users
-    imageReturnArray["comments"] = imageObject.comments["data"];
-    imageReturnArray["comments"] = imageReturnArray["comments"].length;
+    // however this call just returns a maximum of 8 comments so we can only fact check
+    // up to 8 comments
+    imageReturnArray["comments"] = imageObject.comments["count"];
+    if (imageReturnArray["comments"] <= 8)
+    {
+        imageReturnArray["comments"] = imageObject.comments["data"];
+        imageReturnArray["comments"] = imageReturnArray["comments"].length;
+    }
 
     // get and format date
     imageReturnArray["createdtime"] = formatInstagramTime(imageObject.created_time);

@@ -107,6 +107,8 @@ function loadImage(imageId)
         url = instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/?client_id=" + instagramkeys.instagramClientId;
     }
 
+    console.log(url);
+
     req.open("GET", url, true);
     req.send();
 }

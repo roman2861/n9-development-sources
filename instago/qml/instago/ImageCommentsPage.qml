@@ -73,7 +73,7 @@ Page {
             bottomMargin: 15;
         }
 
-        width: 400
+        width: 405
 
         onAccepted: {
             // console.log("Input received: " + imageCommentInput.text);

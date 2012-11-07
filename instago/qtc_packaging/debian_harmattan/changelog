@@ -1,3 +1,12 @@
+instago (0.4.3) unstable; urgency=low
+
+  * Added confirmation button for searching
+  * Added confirmation button for commenting
+  * Fixed bug where user gallery and user followers may be visible at the same time
+
+ -- Dirk Songuer <dirk@songuer.de>  Sun, 04 Nov 2012 21:26:00 +0000
+
+
 instago (0.4.2) unstable; urgency=low
 
   * Added user search
