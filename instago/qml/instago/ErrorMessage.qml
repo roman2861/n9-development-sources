@@ -30,6 +30,8 @@ Rectangle  {
     // this extracts the Instagram error response (if there is any)
     // and adds it to the error message texts
     onShowErrorMessage: {
+        // make sure only one error message is shown
+        // if one is already active, don't show another one
         if (!errorMessage.visible)
         {
             errorMessageText.text = "Please check your network connection and tap to try again.";

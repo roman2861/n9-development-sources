@@ -122,9 +122,19 @@ Page {
         checked: true
 
         onClicked: {
-            searchUserButton.checked = true;
-            searchHashtagButton.checked = false;
-            searchInput.placeholderText = "Enter user name"
+            // do search if input field is not empty
+            if (searchInput.text.length > 0)
+            {
+                SearchScript.searchUser(searchInput.text);
+            }
+
+            // set checked state and placeholder text
+            if (!searchUserButton.checked)
+            {
+                searchUserButton.checked = true;
+                searchHashtagButton.checked = false;
+                searchInput.placeholderText = "Enter user name"
+            }
         }
 
         text: "Search user"
@@ -148,9 +158,19 @@ Page {
         checked: false
 
         onClicked: {
-            searchUserButton.checked = false;
-            searchHashtagButton.checked = true;
-            searchInput.placeholderText = "Enter hashtag"
+            // do search if input field is not empty
+            if (searchInput.text.length > 0)
+            {
+                SearchScript.loadHashtagImages(searchInput.text, 0);
+            }
+
+            // set checked state and placeholder text
+            if (!searchHashtagButton.checked)
+            {
+                searchUserButton.checked = false;
+                searchHashtagButton.checked = true;
+                searchInput.placeholderText = "Enter hashtag"
+            }
         }
 
         text: "Search hashtag"
@@ -248,14 +268,19 @@ Page {
         visible: false
 
         onVisibleChanged: {
-            console.log("changed visibility: " + visible);
         }
 
         onErrorMessageClicked: {
-            console.log("Refresh clicked")
-            // searchInput.visible = true;
-            // searchHashtagButton.visible = true;
-            // searchUserButton.visible = true;
+            // console.log("Refresh clicked")
+            if (searchUserButton.checked)
+            {
+                SearchScript.searchUser(searchInput.text);
+            }
+            else
+            {
+                SearchScript.loadHashtagImages(searchInput.text, 0);
+            }
+
             errorMessage.visible = false;
         }
     }

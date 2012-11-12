@@ -91,14 +91,19 @@ function loadUserProfile(userId)
                     var instagramUserdata = auth.getStoredInstagramData();
                     if ( ( (network.requestIsFinished) && (network.errorData['code'] != null) ) && auth.isAuthenticated() && (instagramUserdata["id"] == userId) )
                     {
+                        // console.log("error found: " + network.errorData['error_message']);
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
 
+                        // show the stored error
                         errorMessage.showErrorMessage({
                                                           "d_code":network.errorData['code'],
                                                           "d_error_type":network.errorData['error_type'],
                                                           "d_error_message":network.errorData['error_message']
                                                       });
+
+                        // clear error message objects again
+                        network.clearErrors();
                     }
                 }
             }
@@ -210,17 +215,23 @@ function loadUserImages(userId, paginationId)
                     // check for both and act accordingly
                     if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
                     {
+                        // console.log("error found: " + network.errorData['error_message']);
+
+                        // hide messages and notifications
                         notification.hide();
                         notification.useTimer = true;
-
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
 
+                        // show the stored error
                         errorMessage.showErrorMessage({
                                                           "d_code":network.errorData['code'],
                                                           "d_error_type":network.errorData['error_type'],
                                                           "d_error_message":network.errorData['error_message']
                                                       });
+
+                        // clear error message objects again
+                        network.clearErrors();
                     }
                 }
             }
@@ -293,14 +304,21 @@ function loadUserFollowers(userId)
                     // check for both and act accordingly
                     if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
                     {
+                        // console.log("error found: " + network.errorData['error_message']);
+
+                        // hide messages and notifications
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
 
+                        // show the stored error
                         errorMessage.showErrorMessage({
                                                           "d_code":network.errorData['code'],
                                                           "d_error_type":network.errorData['error_type'],
                                                           "d_error_message":network.errorData['error_message']
                                                       });
+
+                        // clear error message objects again
+                        network.clearErrors();
                     }
                 }
             }
@@ -368,14 +386,21 @@ function loadUserFollowing(userId)
                     // check for both and act accordingly
                     if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
                     {
+                        // console.log("error found: " + network.errorData['error_message']);
+
+                        // hide messages and notifications
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
 
+                        // show the stored error
                         errorMessage.showErrorMessage({
                                                           "d_code":network.errorData['code'],
                                                           "d_error_type":network.errorData['error_type'],
                                                           "d_error_message":network.errorData['error_message']
                                                       });
+
+                        // clear error message objects again
+                        network.clearErrors();
                     }
                 }
             }

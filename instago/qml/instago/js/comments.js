@@ -48,14 +48,21 @@ function addComment(imageId, commentText)
                     // check for both and act accordingly
                     if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
                     {
+                        // console.log("error found: " + network.errorData['error_message']);
+
+                        // hide messages and notifications
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
 
+                        // show the stored error
                         errorMessage.showErrorMessage({
                                                           "d_code":network.errorData['code'],
                                                           "d_error_type":network.errorData['error_type'],
                                                           "d_error_message":network.errorData['error_message']
                                                       });
+
+                        // clear error message objects again
+                        network.clearErrors();
                     }
                 }
             }
@@ -134,14 +141,21 @@ function getComments(imageId)
                     // check for both and act accordingly
                     if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
                     {
+                        // console.log("error found: " + network.errorData['error_message']);
+
+                        // hide messages and notifications
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
 
+                        // show the stored error
                         errorMessage.showErrorMessage({
                                                           "d_code":network.errorData['code'],
                                                           "d_error_type":network.errorData['error_type'],
                                                           "d_error_message":network.errorData['error_message']
                                                       });
+
+                        // clear error message objects again
+                        network.clearErrors();
                     }
                 }
             }
