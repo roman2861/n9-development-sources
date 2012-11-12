@@ -52,7 +52,6 @@ Page {
 
         anchors {
             top: pageHeader.bottom;
-            topMargin: 3;
             left: parent.left;
             right: parent.right;
             bottom: parent.bottom;

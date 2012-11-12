@@ -8,12 +8,15 @@
 
 .pragma library
 
-var currentApplicationVersion = "0.4.3 (Developer Build)";
+var currentApplicationVersion = "0.5.0 (Public Beta)";
 
 var instagoDefaultTextColor = "#333333";
 var instagoHighlightedTextColor = "#2E5E86";
 
 var instagoDefaultListItemColor = "transparent";
 var instagoHighlightedListItemColor = "gainsboro";
+
+var instagoDefaultSurfaceColor = "gainsboro";
+var instagoHighlightedSurfaceColor = "silver";
 
 var instagoSeparatorColor = "gainsboro";

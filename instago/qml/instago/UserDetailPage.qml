@@ -304,8 +304,7 @@ Page {
         id: errorMessage
 
         anchors {
-            top: pageHeader.bottom;
-            topMargin: 3;
+            top: userprofileContentHeadline.bottom
             left: parent.left;
             right: parent.right;
             bottom: parent.bottom;

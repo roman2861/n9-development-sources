@@ -124,3 +124,11 @@ NetworkHandler.prototype.checkResponseForErrors = function(httpResponseText)
                 }
             }
         };
+
+
+// this method clears any error messages that are currently stored in the object
+// this is called after the error messages have been processed and shown
+NetworkHandler.prototype.clearErrors = function()
+        {
+            this.errorData = new Array();
+        }

@@ -30,23 +30,27 @@ Rectangle  {
     // this extracts the Instagram error response (if there is any)
     // and adds it to the error message texts
     onShowErrorMessage: {
-        errorMessageText.text = "Please check your network connection and tap to try again.";
-
-        if (errordata['d_error_message'].length > 0)
+        if (!errorMessage.visible)
         {
-            errorMessageText.text += "<br /><br />Instagram says: <i>" + errordata['d_error_message'] + "</i>";
-        }
+            errorMessageText.text = "Please check your network connection and tap to try again.";
 
-        errorMessage.visible = true;
+            if (errordata['d_error_message'].length > 0)
+            {
+                errorMessageText.text += "<br /><br />Instagram says: <i>" + errordata['d_error_message'] + "</i>";
+            }
+
+            errorMessage.visible = true;
+        }
     }
 
     // signal to indicate tap on message
     signal errorMessageClicked();
 
-    anchors.fill: parent
+    // anchors.fill: parent
 
     // no background color
     color: "transparent"
+
 
     // error message headline
     Text {

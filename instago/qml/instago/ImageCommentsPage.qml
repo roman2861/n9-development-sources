@@ -102,7 +102,7 @@ Page {
         width: 50
         height: 50
 
-        iconSource: "image://theme/icon-m-toolbar-search-dimmed"
+        iconSource: "image://theme/icon-m-toolbar-new-message-dimmed"
 
         onClicked: {
             // console.log("Input received: " + imageCommentInput.text);
@@ -154,7 +154,6 @@ Page {
 
         anchors {
             top: pageHeader.bottom;
-            topMargin: 3;
             left: parent.left;
             right: parent.right;
             bottom: parent.bottom;

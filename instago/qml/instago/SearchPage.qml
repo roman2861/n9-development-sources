@@ -238,8 +238,8 @@ Page {
         id: errorMessage
 
         anchors {
-            top: pageHeader.bottom;
-            topMargin: 3;
+            top: searchHashtagButton.bottom;
+            topMargin: 5;
             left: parent.left;
             right: parent.right;
             bottom: parent.bottom;
@@ -248,18 +248,11 @@ Page {
         visible: false
 
         onVisibleChanged: {
-/*
-            if (visible == false)
-            {
-                searchInput.visible = false;
-                searchHashtagButton.visible = false;
-                searchUserButton.visible = false;
-            }
-*/
+            console.log("changed visibility: " + visible);
         }
 
         onErrorMessageClicked: {
-            // console.log("Refresh clicked")
+            console.log("Refresh clicked")
             // searchInput.visible = true;
             // searchHashtagButton.visible = true;
             // searchUserButton.visible = true;

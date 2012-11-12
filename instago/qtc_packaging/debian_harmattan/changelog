@@ -1,8 +1,9 @@
-instago (0.4.3) unstable; urgency=low
+instago (0.5.0) stable; urgency=normal
 
   * Added confirmation button for searching
   * Added confirmation button for commenting
   * Fixed bug where user gallery and user followers may be visible at the same time
+  * Fixed network process, multiple errors should not cause problems anymore
 
  -- Dirk Songuer <dirk@songuer.de>  Sun, 04 Nov 2012 21:26:00 +0000
 

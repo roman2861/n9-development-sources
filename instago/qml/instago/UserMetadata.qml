@@ -62,8 +62,20 @@ Rectangle {
         // all taps on the item will be handled by the onclick event
         MouseArea {
             anchors.fill: parent
-            onClicked:
+
+            onCanceled:
             {
+                usermetadataPicture.opacity = 1;
+            }
+
+            onPressed:
+            {
+                usermetadataPicture.opacity = 0.5;
+            }
+
+            onReleased:
+            {
+                usermetadataPicture.opacity = 1;
                 currentComponent = "bio";
                 profilepictureClicked();
             }
@@ -103,7 +115,7 @@ Rectangle {
         }
 
         // light background to create boxes
-        color: "gainsboro"
+        color: Globals.instagoDefaultSurfaceColor;
 
         width: 100
         height: 80
@@ -152,8 +164,20 @@ Rectangle {
         // all taps on the item will be handled by the onclick event
         MouseArea {
             anchors.fill: parent
-            onClicked:
+
+            onCanceled:
             {
+                usermetadataImagecount.color = Globals.instagoDefaultSurfaceColor;
+            }
+
+            onPressed:
+            {
+                usermetadataImagecount.color = Globals.instagoHighlightedSurfaceColor;
+            }
+
+            onReleased:
+            {
+                usermetadataImagecount.color = Globals.instagoDefaultSurfaceColor;
                 currentComponent = "photos";
                 imagecountClicked();
             }
@@ -173,7 +197,7 @@ Rectangle {
         }
 
         // light background to create boxes
-        color: "gainsboro"
+        color: Globals.instagoDefaultSurfaceColor;
 
         width: 100
         height: 80
@@ -222,8 +246,20 @@ Rectangle {
         // all taps on the item will be handled by the onclick event
         MouseArea {
             anchors.fill: parent
-            onClicked:
+
+            onCanceled:
             {
+                usermetadataFollowers.color = Globals.instagoDefaultSurfaceColor;
+            }
+
+            onPressed:
+            {
+                usermetadataFollowers.color = Globals.instagoHighlightedSurfaceColor;
+            }
+
+            onReleased:
+            {
+                usermetadataFollowers.color = Globals.instagoDefaultSurfaceColor;
                 currentComponent = "followers";
                 followersClicked();
             }
@@ -243,7 +279,7 @@ Rectangle {
         }
 
         // light background to create boxes
-        color: "gainsboro"
+        color: Globals.instagoDefaultSurfaceColor;
 
         width: 100
         height: 80
@@ -293,8 +329,20 @@ Rectangle {
         // all taps on the item will be handled by the onclick event
         MouseArea {
             anchors.fill: parent
-            onClicked:
+
+            onCanceled:
             {
+                usermetadataFollowing.color = Globals.instagoDefaultSurfaceColor;
+            }
+
+            onPressed:
+            {
+                usermetadataFollowing.color = Globals.instagoHighlightedSurfaceColor;
+            }
+
+            onReleased:
+            {
+                usermetadataFollowing.color = Globals.instagoDefaultSurfaceColor;
                 currentComponent = "following";
                 followingClicked();
             }

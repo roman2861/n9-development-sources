@@ -101,6 +101,8 @@ function searchUser(query)
     var instagramUserdata = auth.getStoredInstagramData();
     var url = instagramkeys.instagramAPIUrl + "/v1/users/search?q=" + query + "&access_token=" + instagramUserdata["access_token"];
 
+    console.log(url);
+
     req.open("GET", url, true);
     req.send();
 }
@@ -110,7 +112,7 @@ function searchUser(query)
 // the return data is a list of found tags
 function loadHashtagImages(hashtag, paginationId)
 {
-    // console.log("Searching for hashtag: " + hashtag);
+    console.log("Searching for hashtag: " + hashtag);
 
     // check if the current pagination id is the same as the last one
     // this is the case if all images habe been loaded and there are no more
@@ -202,7 +204,7 @@ function loadHashtagImages(hashtag, paginationId)
                         notification.useTimer = true;
                     }
 
-                    // console.log("Done searching for hashtag");
+                    console.log("Done searching for hashtag");
                 }
                 else
                 {
@@ -210,6 +212,7 @@ function loadHashtagImages(hashtag, paginationId)
                     // check for both and act accordingly
                     if ( (network.requestIsFinished) && (network.errorData['code'] != null) )
                     {
+                        console.log("error found: " + network.errorData['error_message']);
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
 
@@ -218,6 +221,7 @@ function loadHashtagImages(hashtag, paginationId)
                                                           "d_error_type":network.errorData['error_type'],
                                                           "d_error_message":network.errorData['error_message']
                                                       });
+                        network.clearErrors();
                     }
                 }
             }
@@ -229,6 +233,8 @@ function loadHashtagImages(hashtag, paginationId)
         url += "&max_id=" + paginationId;
         lastPaginationId = paginationId;
     }
+
+    console.log(url);
 
     req.open("GET", url, true);
     req.send();
