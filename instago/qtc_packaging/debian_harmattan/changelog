@@ -1,3 +1,10 @@
+instago (0.5.1) stable; urgency=high
+
+  * Fixed bug with wrong client id
+
+ -- Dirk Songuer <dirk@songuer.de>  Tue, 32 Nov 2012 20:07:00 +0000
+
+
 instago (0.5.0) stable; urgency=normal
 
   * Added confirmation button for searching

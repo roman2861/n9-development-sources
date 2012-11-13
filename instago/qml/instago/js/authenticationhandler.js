@@ -30,6 +30,8 @@ function AuthenticationHandler() { }
 // or it can contain an error with respective message
 AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
         {
+            // console.log("Checking Instagram URL for authentication information: " + url.toString());
+
             var currentURL = url.toString();
             var returnStatus = new Array();
 
@@ -77,6 +79,7 @@ AuthenticationHandler.prototype.checkInstagramAuthenticationUrl = function(url)
                 returnStatus["status"] = "AUTH_ERROR";
             }
 
+            // console.log("Done checking Instagram URL for authentication information: " + returnStatus);
             return returnStatus;
         };
 
@@ -124,6 +127,8 @@ AuthenticationHandler.prototype.requestPermanentToken = function(tokenCode)
                     "&client_id=" + instagramkeys.instagramClientId +
                     "&client_secret=" + instagramkeys.instagramClientSecret +
                     "&code=" + tokenCode + "&redirect_uri=" + instagramkeys.instagramRedirectUrl;
+
+            // console.log("Done requesting permanent token: " + params);
             req.send(params);
         };
 

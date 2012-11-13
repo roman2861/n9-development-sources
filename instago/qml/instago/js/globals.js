@@ -8,7 +8,7 @@
 
 .pragma library
 
-var currentApplicationVersion = "0.5.0 (Public Beta)";
+var currentApplicationVersion = "0.5.1 (Public Beta)";
 
 var instagoDefaultTextColor = "#333333";
 var instagoHighlightedTextColor = "#2E5E86";
