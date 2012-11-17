@@ -136,6 +136,21 @@ Page {
     }
 
 
+    // reload the comments after 1 second
+    // this is triggerd by the comments.js after adding a comment
+    Timer {
+        id: imageCommentReloadTimer
+        interval: 1000
+        running: false
+        repeat:  false
+
+        // when triggered, reload the comment data
+        onTriggered: {
+            Comments.getComments(imageId);
+        }
+    }
+
+
     // show the loading indicator as long as the page is not ready
     BusyIndicator {
         id: loadingIndicator

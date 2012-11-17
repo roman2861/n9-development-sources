@@ -1,9 +1,11 @@
 // *************************************************** //
-// Userfeed Script
+// Locations Script
 //
-// This script is used to load, format and show the
-// user related feed.
-// It's used by the UserFeedPage.
+// This script handles the location based data for a
+// given image.
+// Note that only authenticated users can request
+// location based data.
+// It's used by the ImageDetailPage and UserFeedPage.
 // *************************************************** //
 
 
@@ -13,14 +15,15 @@ Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
 
 
-// load the popular image stream from Instagram
-// the image data will be used to fill the standard ImageGallery component
-function loadUserFeed()
+// get location based data for a given location id
+// data will be used to fill the location detail page
+function getLocationData(locationId)
 {
-    // console.log("Loading user feed");
+    console.log("Getting location data for id: " + locationId);
 
-    // clear feed list
-    feedListModel.clear();
+    errorMessage.visible = false;
+    loadingIndicator.running = true;
+    loadingIndicator.visible = true;
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -31,35 +34,41 @@ function loadUserFeed()
                 // jsonObject contains either false or the http result as object
                 if (jsonObject)
                 {
+
                     var imageCache = new Array();
+                    var locationLatitude = "";
+                    var locationLongitude = "";
+                    var locationHeadline = "";
+
                     for ( var index in jsonObject.data )
                     {
                         // get image object
                         imageCache = getImageDataFromObject(jsonObject.data[index]);
 
-                        // add image object to feed list
-                        feedListModel.append({
-                                                 "d_originalImage":imageCache["originalimage"],
-                                                 "d_username":imageCache["username"],
-                                                 "d_location":imageCache["location"],
-                                                 "d_locationId":imageCache["locationId"],
-                                                 "d_elapsedtime":imageCache["elapsedtime"],
-                                                 "d_likes":imageCache["likes"],
-                                                 "d_linkToInstagram":imageCache["linktoinstagram"],
-                                                 "d_comments":imageCache["comments"],
-                                                 "d_imageId":imageCache["imageid"],
-                                                 "d_userId":imageCache["userid"],
-                                                 "d_profilePicture":imageCache["profilepicture"]
-                                             });
+                        // add image object to gallery list
+                        locationGallery.addToGallery({
+                                                            "url":imageCache["thumbnail"],
+                                                            "index":imageCache["imageid"]
+                                                        });
 
-                        // console.log("Appended list with ID: " + imageCache["imageId"] + " in index: " + index);
+                        locationLatitude = imageCache["locationLatitude"];
+                        locationLongitude = imageCache["locationLongitude"];
+                        locationHeadline = imageCache["location"];
+
+                        // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
+
+                    locationCenter.position.coordinate.latitude = locationLatitude;
+                    locationCenter.position.coordinate.longitude = locationLongitude;
+                    locationMap.center = locationCenter.position.coordinate;
+                    locationName.text = locationHeadline;
 
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
-                    feedList.visible = true;
+                    locationMetadata.visible = true;
+                    locationGallery.visible = true;
 
-                    // console.log("Done loading user feed");
+                    console.log("Done loading location data");
                 }
                 else
                 {
@@ -87,7 +96,9 @@ function loadUserFeed()
             }
 
     var instagramUserdata = auth.getStoredInstagramData();
-    var url = instagramkeys.instagramAPIUrl + "/v1/users/self/feed?access_token=" + instagramUserdata["access_token"];
+    var url = instagramkeys.instagramAPIUrl + "/v1/locations/" + locationId + "/media/recent?access_token=" + instagramUserdata["access_token"];
+
+    console.log(url);
 
     req.open("GET", url, true);
     req.send();

@@ -208,7 +208,7 @@ Rectangle {
             right: parent.right;
             rightMargin: 30;
             top: userBioText.bottom;
-            topMargin: 15;
+            topMargin: 20;
         }
 
         visible: false

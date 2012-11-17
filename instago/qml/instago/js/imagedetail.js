@@ -46,6 +46,7 @@ function loadImage(imageId)
                     imageData.linkToInstagram = imageCache["linktoinstagram"];
                     imageData.caption = imageCache["caption"];
                     imageData.location = imageCache["location"];
+                    imageData.locationId = imageCache["locationId"];
                     imageData.elapsedtime = imageCache["elapsedtime"];
 
                     // if they don't have an Instagram page, the share button needs to be deactivated
@@ -113,8 +114,6 @@ function loadImage(imageId)
     {
         url = instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/?client_id=" + instagramkeys.instagramClientId;
     }
-
-    console.log(url);
 
     req.open("GET", url, true);
     req.send();

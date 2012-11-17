@@ -34,7 +34,7 @@ Rectangle {
     height: 140
 
 
-    // user profile picture (120x120)
+    // user profile picture (125x125)
     Rectangle {
         id: usermetadataPictureContainer
 

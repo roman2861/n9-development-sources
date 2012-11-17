@@ -42,9 +42,8 @@ Rectangle {
 
     // general style definition
     color: "transparent"
-    width: parent.width;
-    height: parent.height;
-
+//    width: parent.width;
+//    height: parent.height;
 
     // this is the main container component
     // it contains the actual gallery items

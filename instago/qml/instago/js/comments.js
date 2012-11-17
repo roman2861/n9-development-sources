@@ -40,7 +40,8 @@ function addComment(imageId, commentText)
                     notification.show();
 
                     // done, reload comment list now
-                    getComments(imageId);
+                    imageCommentReloadTimer.start();
+                    // getComments(imageId);
                 }
                 else
                 {

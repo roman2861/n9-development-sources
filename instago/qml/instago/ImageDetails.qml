@@ -35,6 +35,7 @@ Rectangle {
     property string linkToInstagram: ""
     property string imageId: ""
     property string userId: ""
+    property string locationId: ""
     property string userHasLiked: ""
 
     // define signals to make the interactions accessible
@@ -240,6 +241,30 @@ Rectangle {
             font.pixelSize: 18
             clip: true;
             color: Globals.instagoDefaultTextColor
+
+            // use the whole user image as tap surface
+            MouseArea {
+                // TODO: Deactivate for not logged in users!
+                anchors.fill: parent
+                onCanceled:
+                {
+                    imagedetailLocation.color = Globals.instagoDefaultTextColor;
+                    imagedetailLocation.font.bold = false;
+                }
+
+                onPressed:
+                {
+                    imagedetailLocation.color = Globals.instagoHighlightedTextColor;
+                    imagedetailLocation.font.bold = true;
+                }
+
+                onReleased:
+                {
+                    imagedetailLocation.color = Globals.instagoDefaultTextColor;
+                    imagedetailLocation.font.bold = false;
+                    pageStack.push(Qt.resolvedUrl("LocationDetailPage.qml"), {locationId: locationId});
+                }
+            }
 
             // only show location icon if there actually is one
             onTextChanged: {

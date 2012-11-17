@@ -28,11 +28,12 @@ Rectangle {
 
     // signal to add a new item
     // item is given as array:
-    // "username":USER_USERNAME
-    // "fullname":USER_FULLNAME
-    // "profilepicture":USER_PROFILEPICTURE
-    // "userid":USER_USERID
-    // "index":ITEM_INDEX
+    // "d_username":USER_USERNAME
+    // "d_fullname":USER_FULLNAME
+    // "d_profilepicture":USER_PROFILEPICTURE
+    // "d_userid":USER_USERID
+    // "d_comment":USER_COMMENT
+    // "d_index":ITEM_INDEX
     signal addToList( variant items )
     onAddToList: {
         commentListModel.append(items);

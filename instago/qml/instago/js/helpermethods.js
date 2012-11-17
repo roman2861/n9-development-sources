@@ -104,11 +104,15 @@ function getImageDataFromObject(imageObject)
     if ( (imageObject.location !== null) && (imageObject.location["name"] !== undefined) )
     {
         imageReturnArray["location"] = imageObject.location["name"];
+        imageReturnArray["locationId"] = imageObject.location["id"];
+        imageReturnArray["locationLatitude"] = imageObject.location["latitude"];
+        imageReturnArray["locationLongitude"] = imageObject.location["longitude"];
         imageReturnArray["timeandlocation"] += ", " + imageReturnArray["location"];
     }
     else
     {
         imageReturnArray["location"] = "";
+        imageReturnArray["locationId"] = "";
     }
 
     // image may be liked by user

@@ -348,7 +348,7 @@ Page {
     }
 
 
-    // toolbar for the detail page
+    // toolbar for the user profile page
     ToolBarLayout {
         id: profileToolbar
 

@@ -124,6 +124,7 @@ Page {
                 username: d_username;
                 profilePicture: d_profilePicture;
                 location: d_location;
+                locationId: d_locationId;
                 elapsedtime: d_elapsedtime;
                 userId: d_userId;
                 likes: d_likes + " people liked this";
