@@ -15,15 +15,53 @@ Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
 
 
+// this is the global storage for the pagination id
+var lastPaginationId = "";
+
+// this is the global storage for the venue name and position
+var locationHeadline = "";
+var locationLatitude = "";
+var locationLongitude = "";
+
+
+// get location position based on the stored data
+// note that this will only return valid data if getLocationData has been successfully called first
+function recenterLocationMap()
+{
+    locationCenter.position.coordinate.latitude = locationLatitude;
+    locationCenter.position.coordinate.longitude = locationLongitude;
+    locationMap.center.latitude = locationLatitude;
+    locationMap.center.longitude = locationLongitude;
+}
+
+
 // get location based data for a given location id
 // data will be used to fill the location detail page
-function getLocationData(locationId)
+function getLocationData(locationId, paginationId)
 {
-    console.log("Getting location data for id: " + locationId);
+    // console.log("Getting location data for id: " + locationId + " and pagination id: " + paginationId);
 
-    errorMessage.visible = false;
-    loadingIndicator.running = true;
-    loadingIndicator.visible = true;
+    // check if the current pagination id is the same as the last one
+    // this is the case if all images habe been loaded and there are no more
+    if ( (paginationId !== 0) && (paginationId === lastPaginationId) )
+    {
+        // console.log("Last pagination id matches this one: " + paginationId + " - returning");
+        return;
+    }
+
+    // check if this is a new call or loading more images
+    if (paginationId === 0)
+    {
+        errorMessage.visible = false;
+        loadingIndicator.running = true;
+        loadingIndicator.visible = true;
+    }
+    else
+    {
+        notification.useTimer = false;
+        notification.text = "Loading more images..";
+        notification.show();
+    }
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -34,11 +72,12 @@ function getLocationData(locationId)
                 // jsonObject contains either false or the http result as object
                 if (jsonObject)
                 {
+                    if (paginationId === 0)
+                    {
+                        locationGallery.clearGallery();
+                    }
 
                     var imageCache = new Array();
-                    var locationLatitude = "";
-                    var locationLongitude = "";
-                    var locationHeadline = "";
 
                     for ( var index in jsonObject.data )
                     {
@@ -47,9 +86,9 @@ function getLocationData(locationId)
 
                         // add image object to gallery list
                         locationGallery.addToGallery({
-                                                            "url":imageCache["thumbnail"],
-                                                            "index":imageCache["imageid"]
-                                                        });
+                                                         "url":imageCache["thumbnail"],
+                                                         "index":imageCache["imageid"]
+                                                     });
 
                         locationLatitude = imageCache["locationLatitude"];
                         locationLongitude = imageCache["locationLongitude"];
@@ -58,17 +97,35 @@ function getLocationData(locationId)
                         // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
 
-                    locationCenter.position.coordinate.latitude = locationLatitude;
-                    locationCenter.position.coordinate.longitude = locationLongitude;
-                    locationMap.center = locationCenter.position.coordinate;
-                    locationName.text = locationHeadline;
+                    // check if the page has a following page in the pagination list
+                    // if so then remember it in the gallery component
+                    if (jsonObject.pagination.next_max_id != null)
+                    {
+                        locationGallery.paginationNextMaxId = jsonObject.pagination.next_max_id;
+                    }
 
-                    loadingIndicator.running = false;
-                    loadingIndicator.visible = false;
-                    locationMetadata.visible = true;
-                    locationGallery.visible = true;
 
-                    console.log("Done loading location data");
+                    if (paginationId === 0)
+                    {
+                        locationCenter.position.coordinate.latitude = locationLatitude;
+                        locationCenter.position.coordinate.longitude = locationLongitude;
+                        locationMap.center = locationCenter.position.coordinate;
+                        locationName.text = locationHeadline;
+
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+                        locationMetadata.visible = true;
+                        locationMetadata.height = locationName.height + 170;
+                        locationGallery.visible = true;
+                    }
+                    else
+                    {
+                        // loading additional images
+                        notification.hide();
+                        notification.useTimer = true;
+                    }
+
+                    // console.log("Done loading location data");
                 }
                 else
                 {
@@ -97,8 +154,11 @@ function getLocationData(locationId)
 
     var instagramUserdata = auth.getStoredInstagramData();
     var url = instagramkeys.instagramAPIUrl + "/v1/locations/" + locationId + "/media/recent?access_token=" + instagramUserdata["access_token"];
-
-    console.log(url);
+    if (paginationId !== 0)
+    {
+        url += "&max_id=" + paginationId;
+        lastPaginationId = paginationId;
+    }
 
     req.open("GET", url, true);
     req.send();

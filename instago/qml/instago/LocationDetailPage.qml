@@ -28,7 +28,7 @@ Page {
     // check if the user is already logged in
     Component.onCompleted: {
         // load the location data for the given location id
-        Location.getLocationData(locationId);
+        Location.getLocationData(locationId, 0);
     }
 
     // standard header for the current page
@@ -37,20 +37,47 @@ Page {
         text: "Location"
     }
 
+    // standard notification area
+    NotificationArea {
+        id: notification
+
+        visibilitytime: 1500
+
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+    }
+
+
+    // container component for map metadata
     Rectangle {
         id: locationMetadata
 
         anchors {
-            top: pageHeader.bottom;
-            left: parent.left;
+            top: pageHeader.bottom
+            left: parent.left
+            leftMargin: 5
             right: parent.right;
+            rightMargin: 5
         }
 
-        height: 200
         visible: false;
 
-        // no background color
+        // general style definition
         color: "transparent"
+
+
+        // location icon
+        Image {
+            id: locationIcon
+
+            anchors {
+                top: parent.top;
+                topMargin: 10;
+                left: parent.left
+            }
+
+            source: "image://theme/icon-m-toolbar-tag-dimmed"
+        }
 
 
         // location name as headline
@@ -60,50 +87,106 @@ Page {
             anchors {
                 top: parent.top
                 topMargin: 10
-                left: parent.left
-                leftMargin: 10
+                left: locationIcon.right
+                leftMargin: 5
                 right: parent.right;
-                rightMargin: 10
             }
-
-            height: 30
 
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 25
             wrapMode: Text.Wrap
             color: Globals.instagoDefaultTextColor
 
-            // content container headline
-            // text will be given by the content switchers
             text: ""
+
+
+            // on tap, return to center of the map
+            MouseArea {
+                anchors.fill: parent
+
+                onPressed:
+                {
+                    Location.recenterLocationMap();
+                    // Qt.openUrlExternally("geo:" + locationCenter.position.coordinate.latitude + "," +  + locationCenter.position.coordinate.longitude);
+                }
+            }
         }
 
 
-        // the position of the location
-        // this is used by the map as center
-        PositionSource {
-            id: locationCenter
-        }
-
-
-        // the actual map module
-        Map {
-            id: locationMap
+        // general container for the map components
+        Rectangle {
+            id: locationMapContainer
 
             anchors {
                 top: locationName.bottom
-                topMargin: 10;
+                topMargin: 10
                 left: parent.left
-                leftMargin: 5;
                 right: parent.right;
-                rightMargin: 5;
             }
 
             height: 150
 
-            plugin : Plugin {name : "nokia"}
-            zoomLevel: 14
-            center: locationCenter.position.coordinate
+
+            // the position of the location
+            // this is used by the map as center
+            PositionSource {
+                id: locationCenter
+            }
+
+
+            // the actual map module
+            // note that location shown in the center of the map  is defined by the position source
+            Map {
+                id: locationMap
+
+                anchors.fill: parent
+
+                plugin : Plugin {name : "nokia"}
+                connectivityMode: Map.HybridMode
+
+                zoomLevel: 14
+                center: locationCenter.position.coordinate
+
+
+                // marker for the current location on the map
+                MapCircle {
+                    id: locationMapVenuePosition
+
+                    color: Globals.instagoHighlightedTextColor
+                    border.color: Globals.instagoMeegoDimmedIconColor
+                    border.width: 2
+
+                    radius: 75.0
+                    center: locationCenter.position.coordinate
+                    z: 2
+                }
+            }
+
+
+            // this is the mousearea to pan the map around
+            MouseArea {
+                id: locationMapManipulation
+
+                property int locationMapLastX: -1
+                property int locationMapLastY: -1
+
+                anchors.fill : parent
+
+                onPressed: {
+                    locationMapLastX = mouseX
+                    locationMapLastY = mouseY
+                }
+
+                onPositionChanged: {
+                    var locationMapNewX = mouseX - locationMapLastX
+                    var locationMapNewY = mouseY - locationMapLastY
+
+                    locationMap.pan(-locationMapNewX, -locationMapNewY)
+
+                    locationMapLastX = mouseX
+                    locationMapLastY = mouseY
+                }
+            }
         }
     }
 
@@ -125,6 +208,13 @@ Page {
         onItemClicked: {
             // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+        }
+
+        onListBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                Location.getLocationData(locationId, paginationNextMaxId);
+            }
         }
     }
 
@@ -159,12 +249,12 @@ Page {
             errorMessage.visible = false;
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
-            Location.getLocationData(locationId);
+            Location.getLocationData(locationId, 0);
         }
     }
 
 
-    // toolbar for the detail page
+    // toolbar for the location detail page
     ToolBarLayout {
         id: locationToolbar
 
@@ -173,15 +263,6 @@ Page {
             iconId: "toolbar-back";
             onClicked: {
                 pageStack.pop();
-            }
-        }
-
-
-        // jump to the about page
-        ToolIcon {
-            iconId: "toolbar-settings";
-            onClicked: {
-                pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         }
     }

@@ -10,6 +10,8 @@
 
 var currentApplicationVersion = "0.5.2 (Developer version)";
 
+var instagoMeegoDimmedIconColor = "#A7A7A8";
+
 var instagoDefaultTextColor = "#333333";
 var instagoHighlightedTextColor = "#2E5E86";
 

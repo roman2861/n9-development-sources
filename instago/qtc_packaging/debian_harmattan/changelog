@@ -1,8 +1,9 @@
 instago (0.5.2) unstable; urgency=low
 
+  * Added location detail page
   * Added timer for comment refresh to give Instagram time to update data
 
- -- Dirk Songuer <dirk@songuer.de>  Fri, 16 Nov 2012 12:39:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Mon, 19 Nov 2012 00:08:00 +0000
 
 
 instago (0.5.1) stable; urgency=high
