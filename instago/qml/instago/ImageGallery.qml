@@ -27,6 +27,12 @@ Rectangle {
         galleryListModel.append(items);
     }
 
+    // jump to the top of the gallery
+    signal jumpToTop()
+    onJumpToTop: {
+        galleryGrid.positionViewAtBeginning();
+    }
+
     // general list properties
     property alias numberOfItems: galleryListModel.count;
 

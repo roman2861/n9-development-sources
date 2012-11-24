@@ -8,7 +8,7 @@
 
 .pragma library
 
-var currentApplicationVersion = "0.5.2 (Developer version)";
+var currentApplicationVersion = "0.5.3 (Developer version)";
 
 var instagoMeegoDimmedIconColor = "#A7A7A8";
 

@@ -115,7 +115,7 @@ function getLocationData(locationId, paginationId)
                         loadingIndicator.running = false;
                         loadingIndicator.visible = false;
                         locationMetadata.visible = true;
-                        locationMetadata.height = locationName.height + 170;
+                        locationMetadata.height = locationName.height + 230;
                         locationGallery.visible = true;
                     }
                     else

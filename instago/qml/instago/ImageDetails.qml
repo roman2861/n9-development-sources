@@ -36,12 +36,12 @@ Rectangle {
     property string imageId: ""
     property string userId: ""
     property string locationId: ""
-    property string userHasLiked: ""
+    property bool userHasLiked: false
 
     // define signals to make the interactions accessible
-    signal detailImageClicked
-    signal captionChanged
-
+    signal detailImageDoubleClicked
+    signal detailImageLongPress
+    signal captionChanged( int itemheight )
 
     // general style definition
     color: "transparent"
@@ -67,7 +67,7 @@ Rectangle {
         height: 60
 
 
-        // user profile picture (60x60)
+        // user profile picture (65x65)
         Rectangle {
             id: imagedetailUserpictureContainer
 
@@ -80,8 +80,8 @@ Rectangle {
             // light gray color to mark loading image
             color: "gainsboro"
 
-            width: 60
-            height: 60
+            width: 65
+            height: 65
 
             // use the whole user image as tap surface
             MouseArea {
@@ -113,9 +113,9 @@ Rectangle {
         }
 
 
-        // username
-        Text {
-            id: imagedetailUsername
+        // username container
+        Rectangle {
+            id: imagedetailUsernameContainer
 
             anchors {
                 top: parent.top;
@@ -123,161 +123,215 @@ Rectangle {
                 leftMargin: 5;
             }
 
-            height: 60
-            width: 330
+            height: 65
+            width: 320
 
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 25
-            clip: true
-            verticalAlignment: Text.AlignVCenter
-            color: Globals.instagoDefaultTextColor
+            color: "transparent"
 
-            // use the whole user image as tap surface
+
+            // username text
+            Text {
+                id: imagedetailUsername
+
+                anchors.fill: parent
+                anchors.leftMargin: 5;
+
+                font.family: "Nokia Pure Text Light"
+                font.pixelSize: 30
+                verticalAlignment: Text.AlignVCenter
+                clip: true
+
+                color: Globals.instagoDefaultTextColor
+
+                // actual user name
+                text: ""
+            }
+
+
+            // use the whole username container as tap surface
             MouseArea {
                 anchors.fill: parent
                 onCanceled:
                 {
-                    imagedetailUsername.color = Globals.instagoDefaultTextColor;
-                    imagedetailUsername.font.bold = false;
+                    imagedetailUsernameContainer.color = "transparent";
                 }
 
                 onPressed:
                 {
-                    imagedetailUsername.color = Globals.instagoHighlightedTextColor;
-                    imagedetailUsername.font.bold = true;
+                    imagedetailUsernameContainer.color = Globals.instagoHighlightedListItemColor;
                 }
 
                 onReleased:
                 {
-                    imagedetailUsername.color = Globals.instagoDefaultTextColor;
-                    imagedetailUsername.font.bold = false;
+                    imagedetailUsernameContainer.color = "transparent";
                     pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
                 }
             }
-
-            // actual user name
-            text: ""
         }
 
 
-        // elapsed time icon
-        Image {
-            id: imagedetailElapsedTimeIcon
+        // elapsed timer container
+        Rectangle {
+            id: imagedetailElapsedTimeContainer
 
             anchors {
                 top: parent.top;
-                topMargin: 17
-                left: imagedetailUsername.right;
+                left: imagedetailUsernameContainer.right;
                 leftMargin: 5;
+                right: parent.right
+                rightMargin: 5
             }
 
-            width: 28
-            height: 28
-            z: 10
-
-            source: "image://theme/icon-m-toolbar-clock-dimmed"
-        }
+            height: 65
+            color: "transparent"
 
 
-        // elapsed time
-        Text {
-            id: imagedetailElapsedTime
+            // elapsed time icon
+            Image {
+                id: imagedetailElapsedTimeIcon
 
-            anchors {
-                top: parent.top;
-                left: imagedetailElapsedTimeIcon.right;
-                right: parent.right;
+                anchors {
+                    top: parent.top;
+                    topMargin: 20;
+                    left: imagedetailElapsedTimeContainer.left;
+                }
+
+                width: 25
+                height: 25
+                z: 10
+
+                source: "image://theme/icon-m-toolbar-clock-dimmed"
             }
 
-            height: 60
-
-            font.family: "Nokia Pure Text"
-            font.pixelSize: 20
-            wrapMode: Text.Wrap
-            color: "gray"
-            verticalAlignment: Text.AlignVCenter
 
             // elapsed time
-            text: ""
+            Text {
+                id: imagedetailElapsedTime
+
+                anchors {
+                    top: parent.top;
+                    left: imagedetailElapsedTimeIcon.right;
+                    right: parent.right;
+                }
+
+                height: parent.height
+
+                font.family: "Nokia Pure Text"
+                font.pixelSize: 20
+                wrapMode: Text.Wrap
+                color: "gray"
+                verticalAlignment: Text.AlignVCenter
+
+                // elapsed time
+                text: ""
+            }
         }
 
 
-        // location icon
-        Image {
-            id: imagedetailLocationIcon
+        // location container
+        Rectangle {
+            id: imagedetailLocationContainer
 
             anchors {
-                top: imagedetailUsername.bottom;
-                topMargin: 2;
+                top: imagedetailUsernameContainer.bottom;
+                topMargin: 5;
                 left: imagedetailUserpictureContainer.right;
                 leftMargin: 5;
             }
 
-            width: 28
-            height: 28
-            z: 10
+            height: 30
+            width: 320
 
-            visible: false;
+            color: "transparent"
 
-            source: "image://theme/icon-m-toolbar-tag-dimmed"
-        }
+            visible: false
 
 
-        // image location
-        Text {
-            id: imagedetailLocation
+            // location icon
+            Image {
+                id: imagedetailLocationIcon
 
-            anchors {
-                top: imagedetailUsername.bottom;
-                topMargin: 3;
-                left: imagedetailLocationIcon.right;
-                leftMargin: 0;
-                right: parent.right;
+                anchors {
+                    top: parent.top;
+                    topMargin: 2;
+                    left: parent.left;
+                }
+
+                width: 25
+                height: 25
+                z: 10
+
+                source: "image://theme/icon-m-toolbar-tag-dimmed"
             }
 
-            height: 25
 
-            font.family: "Nokia Pure Text"
-            font.pixelSize: 18
-            clip: true;
-            color: Globals.instagoDefaultTextColor
+            // image location
+            Text {
+                id: imagedetailLocation
 
-            // use the whole user image as tap surface
+                anchors {
+                    top: parent.top;
+                    //                    topMargin: -3;
+                    bottom: parent.bottom;
+                    left: imagedetailLocationIcon.right;
+                    right: parent.right;
+                }
+
+                font.family: "Nokia Pure Text"
+                font.pixelSize: 20
+                clip: true;
+                color: Globals.instagoDefaultTextColor
+
+                // only show location icon if there actually is one
+                onTextChanged: {
+                    // change height of username container
+                    imagedetailUsernameContainer.height = 32;
+                    imagedetailUsername.verticalAlignment = Text.AlignTop;
+                    imagedetailUsername.anchors.topMargin = -5;
+
+                    // change height of elapsed time information
+                    imagedetailElapsedTimeContainer.height = 32;
+                    imagedetailElapsedTimeIcon.anchors.topMargin = 1;
+
+                    // change width of location container
+                    imagedetailLocationContainer.width = 405;
+
+                    // show location info
+                    imagedetailLocationContainer.visible = true;
+                }
+
+                // location the image was taken
+                text: ""
+            }
+
+
+            // use the whole location container as tap surface
             MouseArea {
-                // TODO: Deactivate for not logged in users!
                 anchors.fill: parent
                 onCanceled:
                 {
-                    imagedetailLocation.color = Globals.instagoDefaultTextColor;
-                    imagedetailLocation.font.bold = false;
+                    imagedetailLocationContainer.color = "transparent";
                 }
 
                 onPressed:
                 {
-                    imagedetailLocation.color = Globals.instagoHighlightedTextColor;
-                    imagedetailLocation.font.bold = true;
+                    if (Authentication.auth.isAuthenticated())
+                    {
+                        imagedetailLocationContainer.color = Globals.instagoHighlightedListItemColor;
+                    }
                 }
 
                 onReleased:
                 {
-                    imagedetailLocation.color = Globals.instagoDefaultTextColor;
-                    imagedetailLocation.font.bold = false;
-                    pageStack.push(Qt.resolvedUrl("LocationDetailPage.qml"), {locationId: locationId});
+                    if (Authentication.auth.isAuthenticated())
+                    {
+                        imagedetailLocationContainer.color = "transparent";
+                        pageStack.push(Qt.resolvedUrl("LocationDetailPage.qml"), {locationId: locationId});
+                    }
                 }
             }
-
-            // only show location icon if there actually is one
-            onTextChanged: {
-                imagedetailUsername.height = 30;
-                imagedetailElapsedTime.height = 30;
-                imagedetailElapsedTimeIcon.anchors.topMargin = 1;
-                imagedetailLocationIcon.visible = true;
-            }
-
-            // location the image was taken
-            text: ""
         }
-    }    
+    }
 
 
     // container for the detail image and its loader
@@ -286,7 +340,7 @@ Rectangle {
 
         anchors {
             top: imagedetailUserprofileContainer.bottom;
-            topMargin: 5;
+            topMargin: 10;
             left: parent.left;
             leftMargin: 5;
             right: parent.right;
@@ -343,9 +397,15 @@ Rectangle {
         // use the whole detail image as tap surface
         MouseArea {
             anchors.fill: parent
+
             onDoubleClicked:
             {
-                detailImageClicked();
+                detailImageDoubleClicked();
+            }
+
+            onPressAndHold:
+            {
+                detailImageLongPress();
             }
         }
     }
@@ -369,9 +429,9 @@ Rectangle {
         color: "transparent"
 
 
-        // likes icon
+        // caption icon
         Image {
-            id: imagedetailMetadataLikeIcon
+            id: imagedetailMetadataCaptionIcon
 
             anchors {
                 top: parent.top;
@@ -379,154 +439,34 @@ Rectangle {
                 left: parent.left;
             }
 
-            width: 28
-            height: 28
+            width: 25
+            height: 25
             z: 10
 
-            source: "image://theme/icon-m-toolbar-frequent-used-dimmed"
-        }
+            visible: false
 
-
-        // number of likes
-        Text {
-            id: imagedetailMetadataLikes
-
-            anchors {
-                top: parent.top;
-                left: imagedetailMetadataLikeIcon.right;
-                leftMargin: 5;
-                right: parent.right;
-            }
-
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 25
-            clip: true
-            color: Globals.instagoDefaultTextColor
-
-            // number of likes
-            // text will be given by the js function
-            text: ""
-
-            // use the whole user profile as tap surface
-            MouseArea {
-                anchors.fill: parent
-
-                onCanceled:
-                {
-                    imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;
-                    imagedetailMetadataLikes.font.bold = false;
-                }
-
-                onPressed:
-                {
-                    if (Authentication.auth.isAuthenticated())
-                    {
-                        imagedetailMetadataLikes.color = Globals.instagoHighlightedTextColor;
-                        imagedetailMetadataLikes.font.bold = true;
-                    }
-                }
-
-                onReleased:
-                {
-                    if (Authentication.auth.isAuthenticated())
-                    {
-                        imagedetailMetadataLikes.color = Globals.instagoDefaultTextColor;
-                        imagedetailMetadataLikes.font.bold = false;
-                        pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
-                    }
-                }
-            }
-        }
-
-
-        // comments icon
-        Image {
-            id: imagedetailMetadataCommentIcon
-
-            anchors {
-                top: imagedetailMetadataLikes.bottom;
-                topMargin: 2;
-                left: parent.left;
-            }
-
-            width: 28
-            height: 28
-            z: 10
-
-            source: "image://theme/icon-m-toolbar-new-chat-dimmed"
-        }
-
-
-        // number of comments
-        Text {
-            id: imagedetailMetadataComments
-
-            anchors {
-                top: imagedetailMetadataLikes.bottom;
-                left: imagedetailMetadataCommentIcon.right;
-                leftMargin: 5;
-                right: parent.right;
-            }
-
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: 25
-            wrapMode: Text.Wrap
-            color: Globals.instagoDefaultTextColor
-
-            // number of comments
-            // text will be given by the js function
-            text: ""
-
-            // use the whole user profile as tap surface
-            MouseArea {
-                anchors.fill: parent
-                onCanceled:
-                {
-                    imagedetailMetadataComments.color = Globals.instagoDefaultTextColor;
-                    imagedetailMetadataComments.font.bold = false;
-                }
-
-                onPressed:
-                {
-                    if (Authentication.auth.isAuthenticated())
-                    // if ( (comments != "0 comments") && (Authentication.auth.isAuthenticated()) )
-                    {
-                        imagedetailMetadataComments.color = Globals.instagoHighlightedTextColor;
-                        imagedetailMetadataComments.font.bold = true;
-                    }
-                }
-
-                onReleased:
-                {
-                    if (Authentication.auth.isAuthenticated())
-                    {
-                        imagedetailMetadataComments.color = Globals.instagoDefaultTextColor;
-                        imagedetailMetadataComments.font.bold = false;
-                        pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});
-                    }
-                }
-            }
+            source: "image://theme/icon-m-toolbar-new-message-dimmed"
         }
 
 
         // image caption
-        // this is pretty much unlimited length by instagram so it has to be cut
         Text {
             id: imagedetailMetadataCaption
 
             anchors {
-                top: imagedetailMetadataComments.bottom
-                topMargin: 10
-                left: parent.left;
+                top: parent.top;
+                left: imagedetailMetadataCaptionIcon.right;
                 leftMargin: 5;
                 right: parent.right;
-                rightMargin: 5;
+                rightMargin: 5
             }
 
             font.family: "Nokia Pure Text"
             font.pixelSize: 20
-            wrapMode: TextEdit.Wrap
+            wrapMode: Text.WordWrap
             color: Globals.instagoDefaultTextColor
+
+            visible: false
 
             // image description
             // text will be given by the js function
@@ -534,7 +474,182 @@ Rectangle {
             // this might be LONG!
             text: ""
             onTextChanged: {
-                captionChanged();
+                // make caption icons and text visible
+                imagedetailMetadataCaption.visible = true;
+                imagedetailMetadataCaptionIcon.visible = true;
+                imagedetailMetadataLikeContainer.anchors.top = imagedetailMetadataCaption.bottom;
+                imagedetailMetadataLikeContainer.anchors.topMargin = 5;
+
+                // calculate item height and hand it over to the signal
+                var itemheight = 40;
+                itemheight += imagedetailUserprofileContainer.height + imagedetailImageContainer.height;
+                itemheight += imagedetailMetadataCaption.height + imagedetailMetadataComments.height + imagedetailMetadataLikes.height;
+                captionChanged( itemheight );
+            }
+        }
+
+
+        // likes container
+        Rectangle {
+            id: imagedetailMetadataLikeContainer
+
+            anchors {
+                top: parent.top;
+                left: parent.left;
+                right: parent.right;
+            }
+
+            height: 30
+            color: "transparent"
+
+
+            // likes icon
+            Image {
+                id: imagedetailMetadataLikeIcon
+
+                anchors {
+                    top: parent.top;
+                    topMargin: 2;
+                    left: parent.left;
+                }
+
+                width: 25
+                height: 25
+                z: 10
+
+                source: "image://theme/icon-m-toolbar-frequent-used-dimmed"
+            }
+
+
+            // number of likes
+            Text {
+                id: imagedetailMetadataLikes
+
+                anchors {
+                    top: parent.top;
+                    left: imagedetailMetadataLikeIcon.right;
+                    leftMargin: 5;
+                    right: parent.right;
+                }
+
+                font.family: "Nokia Pure Text"
+                font.pixelSize: 20
+                clip: true
+                color: Globals.instagoDefaultTextColor
+
+                // number of likes
+                // text will be given by the js function
+                text: ""
+            }
+
+
+            // use the whole likes container as tap surface
+            MouseArea {
+                anchors.fill: parent
+
+                onCanceled:
+                {
+                    imagedetailMetadataLikeContainer.color = "transparent";
+                }
+
+                onPressed:
+                {
+                    if (Authentication.auth.isAuthenticated())
+                    {
+                        imagedetailMetadataLikeContainer.color = Globals.instagoHighlightedListItemColor;
+                    }
+                }
+
+                onReleased:
+                {
+                    if (Authentication.auth.isAuthenticated())
+                    {
+                        imagedetailMetadataLikeContainer.color = "transparent";
+                        pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
+                    }
+                }
+            }
+        }
+
+
+        // comments container
+        Rectangle {
+            id: imagedetailMetadataCommentContainer
+
+            anchors {
+                top: imagedetailMetadataLikeContainer.bottom;
+                left: parent.left;
+                right: parent.right;
+            }
+
+            height: 30
+            color: "transparent"
+
+
+            // comments icon
+            Image {
+                id: imagedetailMetadataCommentIcon
+
+                anchors {
+                    top: parent.top
+                    topMargin: 2;
+                    left: parent.left;
+                }
+
+                width: 25
+                height: 25
+                z: 10
+
+                source: "image://theme/icon-m-toolbar-new-chat-dimmed"
+            }
+
+
+            // number of comments
+            Text {
+                id: imagedetailMetadataComments
+
+                anchors {
+                    top: parent.top;
+                    left: imagedetailMetadataCommentIcon.right;
+                    leftMargin: 5;
+                    right: parent.right;
+                }
+
+                font.family: "Nokia Pure Text"
+                font.pixelSize: 20
+                wrapMode: Text.Wrap
+                color: Globals.instagoDefaultTextColor
+
+                // number of comments
+                // text will be given by the js function
+                text: ""
+            }
+
+
+            // use the whole comment container as tap surface
+            MouseArea {
+                anchors.fill: parent
+                onCanceled:
+                {
+                    imagedetailMetadataCommentContainer.color = "transparent";
+                }
+
+                onPressed:
+                {
+                    if (Authentication.auth.isAuthenticated())
+                    {
+                        imagedetailMetadataCommentContainer.color = Globals.instagoHighlightedListItemColor;
+                    }
+                }
+
+                onReleased:
+                {
+                    if (Authentication.auth.isAuthenticated())
+                    {
+                        imagedetailMetadataCommentContainer.color = "transparent";
+                        pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});
+                    }
+                }
             }
         }
     }

@@ -48,6 +48,17 @@ Page {
     }
 
 
+    // standard context menu
+    NotificationLocationMenu {
+        id: menu
+
+        // reload list when user did a selection
+        onStatusChanged: {
+            // console.log("clicked " + status + " and requires update: " + requiresUpdate);
+        }
+    }
+
+
     // container component for map metadata
     Rectangle {
         id: locationMetadata
@@ -107,7 +118,6 @@ Page {
                 onPressed:
                 {
                     Location.recenterLocationMap();
-                    // Qt.openUrlExternally("geo:" + locationCenter.position.coordinate.latitude + "," +  + locationCenter.position.coordinate.longitude);
                 }
             }
         }
@@ -124,7 +134,7 @@ Page {
                 right: parent.right;
             }
 
-            height: 150
+            height: 200
 
 
             // the position of the location
@@ -167,24 +177,16 @@ Page {
             MouseArea {
                 id: locationMapManipulation
 
-                property int locationMapLastX: -1
-                property int locationMapLastY: -1
-
                 anchors.fill : parent
 
-                onPressed: {
-                    locationMapLastX = mouseX
-                    locationMapLastY = mouseY
-                }
+                onPressAndHold: {
+                    menu.additionaldata = {
+                        "name":locationName.text,
+                        "latitude":locationCenter.position.coordinate.latitude,
+                        "longitude":locationCenter.position.coordinate.longitude
+                    };
 
-                onPositionChanged: {
-                    var locationMapNewX = mouseX - locationMapLastX
-                    var locationMapNewY = mouseY - locationMapLastY
-
-                    locationMap.pan(-locationMapNewX, -locationMapNewY)
-
-                    locationMapLastX = mouseX
-                    locationMapLastY = mouseY
+                    menu.open();
                 }
             }
         }

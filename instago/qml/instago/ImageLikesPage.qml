@@ -31,6 +31,11 @@ Page {
     Header {
         id: pageHeader
         text: "Liked it"
+
+        onHeaderBarClicked: {
+            // console.log("Jump to top clicked");
+            imageLikesUserlist.jumpToTop();
+        }
     }
 
     // standard notification area

@@ -32,6 +32,12 @@ Rectangle {
         userListModel.append(items);
     }
 
+    // jump to the top of the gallery
+    signal jumpToTop()
+    onJumpToTop: {
+        userListView.positionViewAtBeginning();
+    }
+
     // general list properties
     property alias numberOfItems: userListModel.count;
 

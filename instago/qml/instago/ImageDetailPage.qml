@@ -84,7 +84,7 @@ Page {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            onDetailImageClicked: {
+            onDetailImageDoubleClicked: {
                 if (Authentication.auth.isAuthenticated())
                 {
                     if (iconLiked.visible === false)
@@ -103,25 +103,8 @@ Page {
             }
 
             onCaptionChanged: {
-                // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
-                var numberOfLines = 0;
-
-                // check how many lines the user manually added with line breaks
-                var captionLines = new Array();
-                captionLines = caption.split("\n");
-
-                // walk through each line and check how long they are and if they wrap around
-                for (var lineIndex in captionLines)
-                {
-                    numberOfLines += Math.floor( (captionLines[lineIndex].length / 50) + 1 );
-                }
-
-                // transform the number of lines into the actual height
-                var itemheight = numberOfLines * 25;
-                height = itemheight + 640;
-
-                // that number is fed to the flickable container as content height
-                contentFlickableContainer.contentHeight = height;
+                // the actual height is calculated by the ImageDetails component and fed to the container
+                contentFlickableContainer.contentHeight = itemheight;
             }
         }
     }

@@ -40,10 +40,12 @@ function loadUserFeed()
                         // add image object to feed list
                         feedListModel.append({
                                                  "d_originalImage":imageCache["originalimage"],
+                                                 "d_caption":imageCache["caption"],
                                                  "d_username":imageCache["username"],
                                                  "d_location":imageCache["location"],
                                                  "d_locationId":imageCache["locationId"],
                                                  "d_elapsedtime":imageCache["elapsedtime"],
+                                                 "d_userhasliked":imageCache["userhasliked"],
                                                  "d_likes":imageCache["likes"],
                                                  "d_linkToInstagram":imageCache["linktoinstagram"],
                                                  "d_comments":imageCache["comments"],

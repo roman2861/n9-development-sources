@@ -31,6 +31,11 @@ Page {
     Header {
         id: pageHeader
         text: "Comments"
+
+        onHeaderBarClicked: {
+            // console.log("Jump to top clicked");
+            imageComments.jumpToTop();
+        }
     }
 
     // standard notification area

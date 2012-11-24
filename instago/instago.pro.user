@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-11-19T00:14:56. -->
+<!-- Written by Qt Creator 2.4.1, 2012-11-24T12:09:19. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -185,7 +185,9 @@
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.1.0_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.2_armel.deb</value>
        <value type="QString">D:/coding/MeeGo/instago/instago_0.0.1_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.4_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.4.2_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.0_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/Instago_0.0.1_armel.deb</value>
@@ -214,6 +216,8 @@
        <value type="QString">192.168.2.39</value>
        <value type="QString">localhost</value>
        <value type="QString">192.168.2.39</value>
+       <value type="QString">192.168.2.39</value>
+       <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.58</value>
        <value type="QString">192.168.2.39</value>
        <value type="QString">192.168.2.15</value>
@@ -255,6 +259,8 @@
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
+       <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2012-10-13T11:18:25</value>
@@ -269,7 +275,9 @@
        <value type="QDateTime">2012-09-14T16:08:35</value>
        <value type="QDateTime">2012-10-08T23:53:36</value>
        <value type="QDateTime">2012-08-19T14:43:18</value>
+       <value type="QDateTime">2012-11-20T22:39:57</value>
        <value type="QDateTime">2012-10-18T01:42:51</value>
+       <value type="QDateTime">2012-11-22T21:52:53</value>
        <value type="QDateTime">2012-11-04T13:26:18</value>
        <value type="QDateTime">2012-09-30T10:02:29</value>
        <value type="QDateTime">2012-09-04T22:52:16</value>

@@ -20,6 +20,12 @@ Rectangle {
         commentListModel.clear();
     }
 
+    // signal to jump to the top of the list
+    signal jumpToTop()
+    onJumpToTop: {
+        commentListView.positionViewAtBeginning();
+    }
+
     // signal to jump to the bottom of the list
     signal jumpToBottom()
     onJumpToBottom: {

@@ -50,6 +50,13 @@ Page {
     Header {
         id: pageHeader
         text: "You"
+
+        onHeaderBarClicked: {
+            // console.log("Jump to top clicked");
+            userprofileGallery.jumpToTop();
+            userprofileFollowers.jumpToTop();
+            userprofileFollowing.jumpToTop();
+        }
     }
 
 

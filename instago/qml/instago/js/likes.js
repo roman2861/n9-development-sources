@@ -64,13 +64,15 @@ function unlikeImage(imageId, updateComponents)
     var instagramUserdata = auth.getStoredInstagramData();
     networkHelper.sendDeleteRequest(instagramkeys.instagramAPIUrl + "/v1/media/" + imageId + "/likes?access_token=" + instagramUserdata["access_token"]);
 
-    var numberOfLikes = parseInt(imageData.likes);
-    numberOfLikes -= 1;
-    imageData.likes = numberOfLikes + " people liked this";
+    if (updateComponents)
+    {
+        var numberOfLikes = parseInt(imageData.likes);
+        numberOfLikes -= 1;
+        imageData.likes = numberOfLikes + " people liked this";
 
-    iconLiked.visible = false;
-    iconUnliked.visible = true;
-
+        iconLiked.visible = false;
+        iconUnliked.visible = true;
+    }
     // console.log("Done unliking image");
 }
 
@@ -109,12 +111,12 @@ function getLikes(imageId)
                         userCache["bio"] = jsonObject.data[index].bio;
 
                         imageLikesUserlist.addToList({
-                                                           "d_username": userCache["username"],
-                                                           "d_fullname": userCache["fullname"],
-                                                           "d_profilepicture": userCache["profilepicture"],
-                                                           "d_userid": userCache["userid"],
-                                                           "d_index": index
-                                                       });
+                                                         "d_username": userCache["username"],
+                                                         "d_fullname": userCache["fullname"],
+                                                         "d_profilepicture": userCache["profilepicture"],
+                                                         "d_userid": userCache["userid"],
+                                                         "d_index": index
+                                                     });
                     }
 
                     // check if list is empty and show message
@@ -192,9 +194,9 @@ function getCurrentUserLikes()
 
                         // add image object to gallery list
                         likesGallery.addToGallery({
-                                                    "url":imageCache["thumbnail"],
-                                                    "index":imageCache["imageid"]
-                                                });
+                                                      "url":imageCache["thumbnail"],
+                                                      "index":imageCache["imageid"]
+                                                  });
 
                         // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }

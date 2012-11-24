@@ -22,10 +22,11 @@ Rectangle {
     property alias source : headerImage.source
 
     // property if reload button is visible
-    property alias reloadButtonVisible : headerReloadButton.visible
+    property alias reloadButtonVisible : headerReloadContainer.visible
 
     // signal if the reload button has been pressed
     signal reloadButtonClicked()
+    signal headerBarClicked()
 
     // place it on top
     anchors {
@@ -62,27 +63,41 @@ Rectangle {
     }
 
 
-    // Reload button top right in the header
-    Image {
-        id: headerReloadButton
+    // container for reload button
+    // this is used mainly to increase the size of the tap area
+    Rectangle {
+        id: headerReloadContainer
 
         anchors {
             right: parent.right
             rightMargin: 30
             top: parent.top
-            topMargin: 20
+            topMargin: 5
             bottom: parent.bottom
-            bottomMargin: 20
+            bottomMargin: 5
         }
 
-        width: 40
         z: 10
+        width: 70
+        color: "transparent"
 
         visible: false
 
-        source: "image://theme/icon-m-toolbar-refresh-white"
+
+        // Reload button top right in the header
+        Image {
+            id: headerReloadButton
+
+            anchors.centerIn: parent;
+
+            width: 40
+            height: 40
+
+            source: "image://theme/icon-m-toolbar-refresh-white"
+        }
 
 
+        // use reload container as tap area
         MouseArea {
             anchors.fill: parent
 
@@ -101,6 +116,17 @@ Rectangle {
                 headerReloadButton.source = "image://theme/icon-m-toolbar-refresh-white"
                 reloadButtonClicked();
             }
+        }
+    }
+
+
+    // use whole header bar as tap area
+    MouseArea {
+        anchors.fill: parent
+
+        onClicked:
+        {
+            headerBarClicked();
         }
     }
 }

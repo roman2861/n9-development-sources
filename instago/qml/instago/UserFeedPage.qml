@@ -46,7 +46,13 @@ Page {
 
             loadingIndicator.running = true;
             loadingIndicator.visible = true;
+
             Userfeed.loadUserFeed();
+        }
+
+        onHeaderBarClicked: {
+            // console.log("Jump to top clicked");
+            feedList.positionViewAtBeginning();
         }
     }
 
@@ -59,6 +65,29 @@ Page {
 
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
+    }
+
+
+    // standard context menu
+    NotificationImageMenu {
+        id: menu
+
+        // reload list when user did a selection
+        onStatusChanged: {
+            // console.log("clicked " + status + " and requires update: " + requiresUpdate);
+
+            if ( (status === 3) && (requiresUpdate) )
+            {
+                feedList.visible = false;
+                errorMessage.visible = false;
+
+                loadingIndicator.running = true;
+                loadingIndicator.visible = true;
+                Userfeed.loadUserFeed();
+
+                requiresUpdate = false;
+            }
+        }
     }
 
 
@@ -129,12 +158,60 @@ Page {
                 userId: d_userId;
                 likes: d_likes + " people liked this";
                 comments: d_comments + " comments";
+                caption: d_caption;
+                userHasLiked: d_userhasliked;
 
-                onDetailImageClicked: {
+                onDetailImageDoubleClicked: {
                     notification.text = "Added photo to your favourites";
                     notification.show();
 
                     Likes.likeImage(imageId, false);
+                }
+
+                onDetailImageLongPress: {
+                    menu.origin = imageId;
+                    menu.additionaldata = {
+                        "caption":caption,
+                        "linkToInstagram":linkToInstagram
+                    };
+
+                    // activate additional menu items according to the state
+                    if (userHasLiked)
+                    {
+                        menu.unlikeVisible = true;
+                        menu.likeVisible = false;
+                    }
+                    else
+                    {
+                        menu.unlikeVisible = false;
+                        menu.likeVisible = true;
+                    }
+
+                    menu.open();
+                }
+
+                onCaptionChanged: {
+                    // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
+                    var numberOfLines = 0;
+
+                    // check how many lines the user manually added with line breaks
+                    var captionLines = new Array();
+                    captionLines = caption.split("\n");
+
+                    // walk through each line and check how long they are and if they wrap around
+                    for (var lineIndex in captionLines)
+                    {
+                        numberOfLines += Math.floor( (captionLines[lineIndex].length / 50) + 1 );
+                    }
+
+                    // transform the number of lines into the actual height
+                    var captionheight = numberOfLines * 25;
+
+                    // the new height of the caption item is added to the calculated by the ImageDetails component
+                    var newheight = itemheight + captionheight + 80;
+
+                    // that number is fed to the current feed item container as height
+                    feedItem.height = newheight;
                 }
             }
         }
@@ -170,5 +247,4 @@ Page {
         model: feedListModel
         delegate: feedDelegate
     }
-
 }

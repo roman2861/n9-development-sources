@@ -50,6 +50,7 @@ Rectangle {
         notificationTimer.running = false;
     }
 
+    // general properties
     anchors.left: parent.left
     anchors.leftMargin: 5
     anchors.right: parent.right

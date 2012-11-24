@@ -1,3 +1,17 @@
+instago (0.5.3) unstable; urgency=low
+
+  * Added image caption in user feed
+  * Added quick menu for images in user feed (long tap on image)
+  * Added external Nokia Maps link to location detail page (long tap on map)
+  * Added detail map view to location detail page (long tap on map)
+  * Added "tap header to jump to top" behavior on all list pages
+  * Optimized image detail component in user feed and detail view
+  * Optimized image caption in detail view
+  * Optimized touch behavior of reload buttons in top header bar
+
+ -- Dirk Songuer <dirk@songuer.de>  Fri, 23 Nov 2012 15:56:00 +0000
+
+
 instago (0.5.2) unstable; urgency=low
 
   * Added location detail page
