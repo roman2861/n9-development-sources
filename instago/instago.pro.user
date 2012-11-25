@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-11-24T12:09:19. -->
+<!-- Written by Qt Creator 2.4.1, 2012-11-25T13:37:02. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">1</value>
+  <value type="int">0</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -174,6 +174,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">MaemoUploadAndInstallDpkgPackageStep</value>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.3_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.6.0_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.4.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.1.2_armel.deb</value>
@@ -181,12 +182,15 @@
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.0.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.0_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.1_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.4.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.1.0_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.2_armel.deb</value>
        <value type="QString">D:/coding/MeeGo/instago/instago_0.0.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.4_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.4.2_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.0_armel.deb</value>
@@ -204,6 +208,7 @@
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
        <value type="QString">192.168.2.39</value>
+       <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.58</value>
        <value type="QString">192.168.1.101</value>
        <value type="QString">192.168.2.15</value>
@@ -211,13 +216,16 @@
        <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.15</value>
+       <value type="QString">192.168.1.102</value>
        <value type="QString">192.168.2.39</value>
        <value type="QString">192.168.2.15</value>
+       <value type="QString">192.168.1.101</value>
        <value type="QString">192.168.2.39</value>
        <value type="QString">localhost</value>
        <value type="QString">192.168.2.39</value>
        <value type="QString">192.168.2.39</value>
        <value type="QString">192.168.2.15</value>
+       <value type="QString">192.168.1.105</value>
        <value type="QString">192.168.2.58</value>
        <value type="QString">192.168.2.39</value>
        <value type="QString">192.168.2.15</value>
@@ -261,9 +269,14 @@
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
+       <value type="QString"></value>
+       <value type="QString"></value>
+       <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2012-10-13T11:18:25</value>
+       <value type="QDateTime">2012-11-25T13:33:51</value>
        <value type="QDateTime">2012-11-04T23:21:36</value>
        <value type="QDateTime">2012-10-03T13:10:25</value>
        <value type="QDateTime">2012-09-16T13:02:23</value>
@@ -271,13 +284,16 @@
        <value type="QDateTime">2012-09-06T08:02:43</value>
        <value type="QDateTime">2012-09-29T22:52:44</value>
        <value type="QDateTime">2012-11-13T20:08:37</value>
+       <value type="QDateTime">2012-11-24T15:22:32</value>
        <value type="QDateTime">2012-10-27T12:20:11</value>
        <value type="QDateTime">2012-09-14T16:08:35</value>
+       <value type="QDateTime">2012-11-24T15:38:33</value>
        <value type="QDateTime">2012-10-08T23:53:36</value>
        <value type="QDateTime">2012-08-19T14:43:18</value>
        <value type="QDateTime">2012-11-20T22:39:57</value>
        <value type="QDateTime">2012-10-18T01:42:51</value>
-       <value type="QDateTime">2012-11-22T21:52:53</value>
+       <value type="QDateTime">2012-11-25T12:58:32</value>
+       <value type="QDateTime">2012-11-24T13:07:39</value>
        <value type="QDateTime">2012-11-04T13:26:18</value>
        <value type="QDateTime">2012-09-30T10:02:29</value>
        <value type="QDateTime">2012-09-04T22:52:16</value>

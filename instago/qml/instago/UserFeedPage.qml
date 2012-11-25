@@ -9,6 +9,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
+import QtMobility.feedback 1.1
 
 import "js/globals.js" as Globals
 import "js/authenticationhandler.js" as Authentication
@@ -169,6 +170,8 @@ Page {
                 }
 
                 onDetailImageLongPress: {
+                    hapticFeedback.start();
+
                     menu.origin = imageId;
                     menu.additionaldata = {
                         "caption":caption,
@@ -246,5 +249,18 @@ Page {
         // define model and delegate
         model: feedListModel
         delegate: feedDelegate
+    }
+
+
+    // standard haptics effect for haptic feedback
+    HapticsEffect {
+        id: hapticFeedback
+
+        attackIntensity: 0.0
+        attackTime: 250
+        intensity: 1.0
+        duration: 100
+        fadeTime: 250
+        fadeIntensity: 0.0
     }
 }

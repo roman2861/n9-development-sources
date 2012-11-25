@@ -29,7 +29,9 @@ Page {
     Component.onCompleted: {
         // fill the location data for the given location
         locationCenter.position.coordinate.latitude = imageMetadata.latitude;
+        Location.locationLatitude = imageMetadata.latitude;
         locationCenter.position.coordinate.longitude = imageMetadata.longitude;
+        Location.locationLongitude = imageMetadata.longitude;
         locationMap.center = locationCenter.position.coordinate;
         pageHeader.text = imageMetadata.name;
     }
@@ -38,6 +40,10 @@ Page {
     Header {
         id: pageHeader
         text: "Location"
+
+        onHeaderBarClicked: {
+            Location.recenterLocationMap();
+        }
     }
 
     // standard notification area
@@ -82,6 +88,7 @@ Page {
             center: locationCenter.position.coordinate
 
             onZoomLevelChanged: {
+                // console.log("zl: " + zoomLevel);
                 var newPositionRadius = Math.pow(2, (18 - zoomLevel));
                 newPositionRadius *= 5;
                 locationMapVenuePosition.radius = newPositionRadius;
@@ -105,28 +112,29 @@ Page {
 
         // this is the pincharea to zoom the map
         PinchArea {
-           id: locationMapPinchManipulation
+            id: locationMapPinchManipulation
 
-           property double locationMapLastZoom
+            property double locationMapLastZoom
 
-           anchors.fill: parent
+            anchors.fill: parent
 
-           function calcZoomDelta(zoom, percent)
-           {
-              return zoom + Math.log(percent)/Math.log(2)
-           }
+            function calcZoomDelta(zoom, percent)
+            {
+                // console.log("z: " + zoom + " p: " + percent + " c: " + (Math.log(percent)/Math.log(1.5)));
+                return zoom + Math.log(percent)/Math.log(1.5)
+            }
 
-           onPinchStarted: {
-              locationMapLastZoom = locationMap.zoomLevel
-           }
+            onPinchStarted: {
+                locationMapLastZoom = locationMap.zoomLevel
+            }
 
-           onPinchUpdated: {
-              locationMap.zoomLevel = calcZoomDelta(locationMapLastZoom, pinch.scale);
-           }
+            onPinchUpdated: {
+                locationMap.zoomLevel = calcZoomDelta(locationMapLastZoom, pinch.scale);
+            }
 
-           onPinchFinished: {
-              locationMap.zoomLevel = calcZoomDelta(locationMapLastZoom, pinch.scale);
-           }
+            onPinchFinished: {
+                locationMap.zoomLevel = calcZoomDelta(locationMapLastZoom, pinch.scale);
+            }
         }
 
 

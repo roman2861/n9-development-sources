@@ -1,0 +1,31 @@
+Format: 1.8
+Date: Sun, 25 Nov 2012 12:53:00 +0000
+Source: instago
+Binary: instago
+Architecture: armel
+Version: 0.6.0
+Distribution: stable
+Urgency: normal
+Maintainer: Dirk Songuer <dirk@songuer.de>
+Changed-By: Dirk Songuer <dirk@songuer.de>
+Description: 
+ instago    - An Instagram client for MeeGo
+Changes: 
+ instago (0.6.0) stable; urgency=normal
+ .
+   * Added image caption in user feed
+   * Added quick menu for images in user feed (long tap on image)
+   * Added external Nokia Maps link to location detail page (long tap on map)
+   * Added detail map view to location detail page (long tap on map)
+   * Added "tap header to jump to top" behavior on all list pages
+   * Optimized image detail component in user feed and detail view
+   * Optimized image caption in detail view
+   * Optimized touch behavior of reload buttons in top header bar
+   * Fixed bug where location detail page could be loaded multiple times at ones
+Checksums-Sha1: 
+ 5c2b9d3a1758e3c3c18813138044e601e5c9cf16 689900 instago_0.6.0_armel.deb
+Checksums-Sha256: 
+ fd739f7befd9416421050fe2ce80f8e61a8b65bf7bf6ef26ce86d15d4fd474ae 689900 instago_0.6.0_armel.deb
+Files: 
+ 474009648b7948a2053f8d9e5b8aac03 689900 user/other optional instago_0.6.0_armel.deb
+Maemo-Display-Name: Instago

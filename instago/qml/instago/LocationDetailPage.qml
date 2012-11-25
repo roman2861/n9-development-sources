@@ -9,6 +9,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.location 1.2
+import QtMobility.feedback 1.1
 
 import "js/globals.js" as Globals
 import "js/authenticationhandler.js" as Authentication
@@ -180,6 +181,8 @@ Page {
                 anchors.fill : parent
 
                 onPressAndHold: {
+                    hapticFeedback.start();
+
                     menu.additionaldata = {
                         "name":locationName.text,
                         "latitude":locationCenter.position.coordinate.latitude,
@@ -253,6 +256,19 @@ Page {
             loadingIndicator.visible = true;
             Location.getLocationData(locationId, 0);
         }
+    }
+
+
+    // standard haptics effect for haptic feedback
+    HapticsEffect {
+        id: hapticFeedback
+
+        attackIntensity: 0.0
+        attackTime: 250
+        intensity: 1.0
+        duration: 100
+        fadeTime: 250
+        fadeIntensity: 0.0
     }
 
 

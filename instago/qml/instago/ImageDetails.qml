@@ -38,6 +38,9 @@ Rectangle {
     property string locationId: ""
     property bool userHasLiked: false
 
+    // interaction specific flags
+    property bool interactionBlocked: false
+
     // define signals to make the interactions accessible
     signal detailImageDoubleClicked
     signal detailImageLongPress
@@ -308,6 +311,7 @@ Rectangle {
             // use the whole location container as tap surface
             MouseArea {
                 anchors.fill: parent
+
                 onCanceled:
                 {
                     imagedetailLocationContainer.color = "transparent";
@@ -326,7 +330,16 @@ Rectangle {
                     if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailLocationContainer.color = "transparent";
-                        pageStack.push(Qt.resolvedUrl("LocationDetailPage.qml"), {locationId: locationId});
+
+                        // for some reason the N9 device does not immediately jump to a page that includes the map component.
+                        // it waits a while, shows an warning message in the stdout and then jumps to the page.
+                        // while waiting it allows multiple instances of the page to be created so a check is needed to call the page only once
+                        if (!interactionBlocked)
+                        {
+                            interactionBlocked = true;
+                            pageStack.push(Qt.resolvedUrl("LocationDetailPage.qml"), {locationId: locationId});
+                            locationInteractionRelease.start();
+                        }
                     }
                 }
             }
@@ -651,6 +664,19 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
+
+
+    // timer to release interaction blocker
+    Timer {
+        id: locationInteractionRelease
+        interval: 3000
+        running: false
+        repeat:  false
+
+        onTriggered: {
+            interactionBlocked = false;
         }
     }
 }
