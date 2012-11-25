@@ -8,6 +8,9 @@
 // (deleted user).
 // If that happens, the user is logged out automatically
 // and all his cached userdata cleared.
+// Note that the application has to be closed afterwards
+// as there is no greaceful way of handling this kind of
+// situation.
 // *************************************************** //
 
 import QtQuick 1.1
@@ -17,9 +20,6 @@ import "js/globals.js" as Globals
 import "js/authenticationhandler.js" as Authentication
 
 Page {
-    // use the forced logout view toolbar
-//    tools: forcedLogoutToolbar
-
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
@@ -35,7 +35,7 @@ Page {
     }
 
 
-    // headline for the forced logout page
+    // logout headline
     Text {
         id : forcedLogoutHeadline
 
@@ -57,7 +57,7 @@ Page {
     }
 
 
-    // description for the forced logout page
+    // logout + problem description
     Text {
         id : forcedLogoutMaintext
 

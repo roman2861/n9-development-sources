@@ -27,7 +27,7 @@ PageStackWindow {
     }
 
 
-    // toolbar for the popular photos
+    // page specific toolbar
     ToolBarLayout {
         id: mainNavigationToolbar
         visible: false

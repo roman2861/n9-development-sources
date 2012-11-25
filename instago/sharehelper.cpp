@@ -4,7 +4,7 @@
 // sharehelper.cpp is based on the PhotoMosaic App
 // See: http://www.developer.nokia.com/Community/Wiki/Photomosaic_App_with_Qt
 
-// PhotoMosaic in turn based on the butaca project
+// PhotoMosaic in turn is based on the butaca project
 // See: http://projects.developer.nokia.com/butaca/
 
 // The article "How to Use the Harmattan’s ShareUI Framework in Qml" on linux4us.org was also helpful

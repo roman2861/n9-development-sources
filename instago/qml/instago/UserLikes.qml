@@ -87,7 +87,7 @@ Page {
     }
 
 
-    // toolbar for the detail page
+    // page specific toolbar
     ToolBarLayout {
         id: likesToolbar
 

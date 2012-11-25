@@ -24,7 +24,7 @@ Page {
     }
 
 
-    // headline for the about page
+    // about headline
     Text {
         id : aboutHeadline
 
@@ -46,7 +46,7 @@ Page {
     }
 
 
-    // description for the about page
+    // about description
     Text {
         id : aboutMaintext
 
@@ -67,7 +67,7 @@ Page {
     }
 
 
-    // toolbar for the detail page
+    // page specific toolbar
     ToolBarLayout {
         id: aboutToolbar
 

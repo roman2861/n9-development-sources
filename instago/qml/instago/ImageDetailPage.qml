@@ -122,7 +122,7 @@ Page {
     }
 
 
-    // error indicator that is shown when a network error occured
+    // error indicator that is shown when an error occured
     ErrorMessage {
         id: errorMessage
 
@@ -158,7 +158,7 @@ Page {
     }
 
 
-    // toolbar for the detail page
+    // page specific toolbar
     ToolBarLayout {
         id: detailViewToolbar
 
@@ -221,7 +221,8 @@ Page {
         }
 
 
-        // initiate the share dialog
+        // show a deactivated share icon
+        // this is used if there is no Instagram link available
         ToolIcon {
             id: iconShareDeactivated
 

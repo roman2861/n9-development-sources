@@ -199,7 +199,7 @@ Page {
     }
 
 
-    // toolbar for the location detail page
+    // page specific toolbar
     ToolBarLayout {
         id: locationToolbar
 

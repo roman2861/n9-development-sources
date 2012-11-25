@@ -170,7 +170,7 @@ Page {
                 }
 
                 onDetailImageLongPress: {
-                    hapticFeedback.start();
+                    hapticFeedback.running = true;
 
                     menu.origin = imageId;
                     menu.additionaldata = {

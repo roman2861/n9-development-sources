@@ -48,8 +48,6 @@ Rectangle  {
     // signal to indicate tap on message
     signal errorMessageClicked();
 
-    // anchors.fill: parent
-
     // no background color
     color: "transparent"
 

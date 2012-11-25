@@ -181,7 +181,7 @@ Page {
                 anchors.fill : parent
 
                 onPressAndHold: {
-                    hapticFeedback.start();
+                    hapticFeedback.running = true;
 
                     menu.additionaldata = {
                         "name":locationName.text,
@@ -272,7 +272,7 @@ Page {
     }
 
 
-    // toolbar for the location detail page
+    // page specific toolbar
     ToolBarLayout {
         id: locationToolbar
 

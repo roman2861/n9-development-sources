@@ -54,6 +54,7 @@ Rectangle {
 
     // this is the main container component
     // it contains the actual user items
+    // note that the height of each individual item in the list is set by the commentListComment.text if changed
     Component {
         id: commentListDelegate
 
@@ -61,7 +62,6 @@ Rectangle {
         Item {
             id: commentItem
             width: commentList.width
-            // height: 110
 
 
             // this is the rectangle that holds the profile picture image

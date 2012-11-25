@@ -1,5 +1,5 @@
 Format: 1.8
-Date: Sun, 25 Nov 2012 12:53:00 +0000
+Date: Sun, 25 Nov 2012 19:53:00 +0000
 Source: instago
 Binary: instago
 Architecture: armel
@@ -21,11 +21,12 @@ Changes:
    * Optimized image detail component in user feed and detail view
    * Optimized image caption in detail view
    * Optimized touch behavior of reload buttons in top header bar
+   * Optimized name and location fields to fit, elide or wrap
    * Fixed bug where location detail page could be loaded multiple times at ones
 Checksums-Sha1: 
- 5c2b9d3a1758e3c3c18813138044e601e5c9cf16 689900 instago_0.6.0_armel.deb
+ 3fe7d1c6b239399d679c8f179917e9176b9d5987 690930 instago_0.6.0_armel.deb
 Checksums-Sha256: 
- fd739f7befd9416421050fe2ce80f8e61a8b65bf7bf6ef26ce86d15d4fd474ae 689900 instago_0.6.0_armel.deb
+ 62aaaab999ffb6266b085f31dd10dac5872e16560bcd38c37c05a835d9b19801 690930 instago_0.6.0_armel.deb
 Files: 
- 474009648b7948a2053f8d9e5b8aac03 689900 user/other optional instago_0.6.0_armel.deb
+ 32518368138f7d0a3296a8d05f69cce4 690930 user/other optional instago_0.6.0_armel.deb
 Maemo-Display-Name: Instago

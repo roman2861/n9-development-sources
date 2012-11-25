@@ -26,6 +26,8 @@ Rectangle {
 
     // signal if the reload button has been pressed
     signal reloadButtonClicked()
+
+    // signal if the header bar has been pressed
     signal headerBarClicked()
 
     // place it on top
@@ -36,7 +38,7 @@ Rectangle {
     }
 
     // full width, height is 80 px
-    width: parent.width;
+//    width: parent.width;
     height: 80
 
 
@@ -57,6 +59,7 @@ Rectangle {
 
         font.pixelSize: 30
         font.family: "Nokia Pure Text Light"
+        elide: Text.ElideRight;
         color: "white"
 
         text: ""

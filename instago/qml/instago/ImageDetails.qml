@@ -142,7 +142,7 @@ Rectangle {
                 font.family: "Nokia Pure Text Light"
                 font.pixelSize: 30
                 verticalAlignment: Text.AlignVCenter
-                clip: true
+                elide: Text.ElideRight;
 
                 color: Globals.instagoDefaultTextColor
 
@@ -282,7 +282,7 @@ Rectangle {
 
                 font.family: "Nokia Pure Text"
                 font.pixelSize: 20
-                clip: true;
+                elide: Text.ElideRight;
                 color: Globals.instagoDefaultTextColor
 
                 // only show location icon if there actually is one
@@ -294,7 +294,7 @@ Rectangle {
 
                     // change height of elapsed time information
                     imagedetailElapsedTimeContainer.height = 32;
-                    imagedetailElapsedTimeIcon.anchors.topMargin = 1;
+                    imagedetailElapsedTimeIcon.anchors.topMargin = 4;
 
                     // change width of location container
                     imagedetailLocationContainer.width = 405;
