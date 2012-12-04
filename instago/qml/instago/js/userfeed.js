@@ -20,7 +20,7 @@ function loadUserFeed()
     // console.log("Loading user feed");
 
     // clear feed list
-    feedListModel.clear();
+    userImageFeed.clearFeed();
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -38,7 +38,7 @@ function loadUserFeed()
                         imageCache = getImageDataFromObject(jsonObject.data[index]);
 
                         // add image object to feed list
-                        feedListModel.append({
+                        userImageFeed.addToFeed({
                                                  "d_originalImage":imageCache["originalimage"],
                                                  "d_caption":imageCache["caption"],
                                                  "d_username":imageCache["username"],
@@ -59,7 +59,7 @@ function loadUserFeed()
 
                     loadingIndicator.running = false;
                     loadingIndicator.visible = false;
-                    feedList.visible = true;
+                    userImageFeed.visible = true;
 
                     // console.log("Done loading user feed");
                 }

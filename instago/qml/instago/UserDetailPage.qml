@@ -74,6 +74,9 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
+            iconUserprofileGalleryView.visible = false;
+            userprofileFeed.visible = false;
+            iconUserprofileFeedView.visible = false;
             userprofileFollowers.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Bio";
@@ -98,6 +101,7 @@ Page {
                 UserDataScript.loadUserImages(userId, 0);
 
                 userprofileGallery.visible = true;
+                iconUserprofileFeedView.visible = true;
             }
         }
 
@@ -107,6 +111,9 @@ Page {
             {
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
+                iconUserprofileGalleryView.visible = false;
+                userprofileFeed.visible = false;
+                iconUserprofileFeedView.visible = false;
                 userprofileFollowing.visible = false;
                 userprofileContentHeadline.text = "Followers";
                 userprofileContentHeadline.visible = true;
@@ -123,6 +130,9 @@ Page {
             {
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
+                iconUserprofileGalleryView.visible = false;
+                userprofileFeed.visible = false;
+                iconUserprofileFeedView.visible = false;
                 userprofileFollowers.visible = false;
                 userprofileContentHeadline.text = "Following";
                 userprofileContentHeadline.visible = true;
@@ -253,6 +263,34 @@ Page {
     }
 
 
+    // feed of user images
+    // container is only visible if user is authenticated
+    ImageFeed {
+        id: userprofileFeed;
+
+        anchors {
+            top: userprofileContentHeadline.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onFeedRequiresUpdate: {
+           UserDataScript.loadUserImages(userId, 0);
+        }
+
+        onFeedBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                UserDataScript.loadUserImages(userId, paginationNextMaxId);
+            }
+        }
+    }
+
+
     // list of the followers
     // container is only visible if user is authenticated
     UserList {
@@ -335,6 +373,28 @@ Page {
             iconId: "toolbar-back";
             onClicked: {
                 pageStack.pop();
+            }
+        }
+
+        // view as gallery view
+        ToolIcon {
+            id: iconUserprofileGalleryView
+            iconId: "toolbar-grid"
+            visible: false
+
+            onClicked: {
+                UserDataScript.changeUserImageView(userId);
+            }
+        }
+
+        // view as feed view
+        ToolIcon {
+            id: iconUserprofileFeedView
+            iconId: "toolbar-view-menu"
+            visible: false
+
+            onClicked: {
+                UserDataScript.changeUserImageView(userId);
             }
         }
     }

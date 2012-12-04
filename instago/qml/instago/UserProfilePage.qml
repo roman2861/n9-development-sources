@@ -155,6 +155,9 @@ Page {
 
         onProfilepictureClicked: {
             userprofileGallery.visible = false;
+            iconUserprofileGalleryView.visible = false;
+            userprofileFeed.visible = false;
+            iconUserprofileFeedView.visible = false;
             userprofileFollowers.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Your bio";
@@ -177,11 +180,15 @@ Page {
             UserDataScript.loadUserImages(instagramUserdata["id"], 0);
 
             userprofileGallery.visible = true;
+            iconUserprofileGalleryView.visible = true;
         }
 
         onFollowersClicked: {
             userprofileBio.visible = false;
             userprofileGallery.visible = false;
+            iconUserprofileGalleryView.visible = false;
+            userprofileFeed.visible = false;
+            iconUserprofileFeedView.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "People that follow you";
             userprofileContentHeadline.visible = true;
@@ -195,6 +202,9 @@ Page {
         onFollowingClicked: {
             userprofileBio.visible = false;
             userprofileGallery.visible = false;
+            iconUserprofileGalleryView.visible = false;
+            userprofileFeed.visible = false;
+            iconUserprofileFeedView.visible = false;
             userprofileFollowers.visible = false;
             userprofileContentHeadline.text = "People that you follow";
             userprofileContentHeadline.visible = true;
@@ -279,6 +289,44 @@ Page {
         onItemClicked: {
             // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+        }
+
+        onListBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                var instagramUserdata = Authentication.auth.getStoredInstagramData();
+                UserDataScript.loadUserImages(instagramUserdata["id"], paginationNextMaxId);
+            }
+        }
+    }
+
+
+    // feed of user images
+    // container is only visible if user is authenticated
+    ImageFeed {
+        id: userprofileFeed;
+
+        anchors {
+            top: userprofileContentHeadline.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onFeedRequiresUpdate: {
+            var instagramUserdata = Authentication.auth.getStoredInstagramData();
+            UserDataScript.loadUserImages(instagramUserdata["id"], 0);
+        }
+
+        onFeedBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                var instagramUserdata = Authentication.auth.getStoredInstagramData();
+                UserDataScript.loadUserImages(instagramUserdata["id"], paginationNextMaxId);
+            }
         }
     }
 
@@ -367,6 +415,29 @@ Page {
             }
         }
 
+        // view as gallery view
+        ToolIcon {
+            id: iconUserprofileGalleryView
+            iconId: "toolbar-grid"
+            visible: false
+
+            onClicked: {
+                var instagramUserdata = Authentication.auth.getStoredInstagramData();
+                UserDataScript.changeUserImageView(instagramUserdata["id"]);
+            }
+        }
+
+        // view as feed view
+        ToolIcon {
+            id: iconUserprofileFeedView
+            iconId: "toolbar-view-menu"
+            visible: false
+
+            onClicked: {
+                var instagramUserdata = Authentication.auth.getStoredInstagramData();
+                UserDataScript.changeUserImageView(instagramUserdata["id"]);
+            }
+        }
 
         // jump to the about page
         ToolIcon {

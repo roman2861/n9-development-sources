@@ -143,6 +143,8 @@ function loadUserImages(userId, paginationId)
     // check if this is a new call or loading more images
     if (paginationId === 0)
     {
+        userprofileGallery.visible = false;
+        userprofileFeed.visible = false;
         errorMessage.visible = false;
         loadingIndicator.running = true;
         loadingIndicator.visible = true;
@@ -166,6 +168,7 @@ function loadUserImages(userId, paginationId)
                     if (paginationId === 0)
                     {
                         userprofileGallery.clearGallery();
+                        userprofileFeed.clearFeed();
                     }
 
                     var imageCache = new Array();
@@ -174,11 +177,33 @@ function loadUserImages(userId, paginationId)
                         // get image object
                         imageCache = getImageDataFromObject(jsonObject.data[index]);
 
-                        // add image object to gallery list
-                        userprofileGallery.addToGallery({
-                                                            "url":imageCache["thumbnail"],
-                                                            "index":imageCache["imageid"]
-                                                        });
+                        if (iconUserprofileFeedView.visible)
+                        {
+                            // add image object to gallery list
+                            userprofileGallery.addToGallery({
+                                                                "url":imageCache["thumbnail"],
+                                                                "index":imageCache["imageid"]
+                                                            });
+                        }
+                        else
+                        {
+                            // add image object to feed list
+                            userprofileFeed.addToFeed({
+                                                     "d_originalImage":imageCache["originalimage"],
+                                                     "d_caption":imageCache["caption"],
+                                                     "d_username":imageCache["username"],
+                                                     "d_location":imageCache["location"],
+                                                     "d_locationId":imageCache["locationId"],
+                                                     "d_elapsedtime":imageCache["elapsedtime"],
+                                                     "d_userhasliked":imageCache["userhasliked"],
+                                                     "d_likes":imageCache["likes"],
+                                                     "d_linkToInstagram":imageCache["linktoinstagram"],
+                                                     "d_comments":imageCache["comments"],
+                                                     "d_imageId":imageCache["imageid"],
+                                                     "d_userId":imageCache["userid"],
+                                                     "d_profilePicture":imageCache["profilepicture"]
+                                                 });
+                        }
 
                         // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
@@ -188,6 +213,7 @@ function loadUserImages(userId, paginationId)
                     if (jsonObject.pagination.next_max_id != null)
                     {
                         userprofileGallery.paginationNextMaxId = jsonObject.pagination.next_max_id;
+                        userprofileFeed.paginationNextMaxId = jsonObject.pagination.next_max_id;
                     }
 
                     if (paginationId === 0)
@@ -197,7 +223,14 @@ function loadUserImages(userId, paginationId)
                         loadingIndicator.visible = false;
                         if (userprofileMetadata.currentComponent == "photos")
                         {
-                            userprofileGallery.visible = true;
+                            if (iconUserprofileFeedView.visible)
+                            {
+                                userprofileGallery.visible = true;
+                            }
+                            else
+                            {
+                                userprofileFeed.visible = true;
+                            }
                         }
                     }
                     else
@@ -410,4 +443,31 @@ function loadUserFollowing(userId)
 
     req.open("GET", url, true);
     req.send();
+}
+
+
+// change the user image view to gallery or feed view
+// the image list will be reloaded into the new view
+function changeUserImageView(userId)
+{
+    // console.log("Switching image view");
+
+    lastPaginationId = "";
+
+    if (iconUserprofileFeedView.visible)
+    {
+        userprofileFeed.visible = false;
+        iconUserprofileFeedView.visible = false;
+        iconUserprofileGalleryView.visible = true;
+        userprofileGallery.visible = true;
+    }
+    else
+    {
+        userprofileGallery.visible = false;
+        iconUserprofileGalleryView.visible = false;
+        iconUserprofileFeedView.visible = true;
+        userprofileFeed.visible = true;
+    }
+
+    loadUserImages(userId, 0);
 }

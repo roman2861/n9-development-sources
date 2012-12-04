@@ -71,7 +71,6 @@ Page {
     }
 
 
-
     // search button
     Button {
         id: searchButton
