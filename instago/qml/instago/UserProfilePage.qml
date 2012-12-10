@@ -51,6 +51,11 @@ Page {
         id: pageHeader
         text: "You"
 
+        onImageViewButtonClicked: {
+            var instagramUserdata = Authentication.auth.getStoredInstagramData();
+            UserDataScript.changeUserImageView(instagramUserdata["id"]);
+        }
+
         onHeaderBarClicked: {
             // console.log("Jump to top clicked");
             userprofileGallery.jumpToTop();
@@ -154,10 +159,9 @@ Page {
         visible: false
 
         onProfilepictureClicked: {
+            pageHeader.imageViewButtonVisible = false;
             userprofileGallery.visible = false;
-            iconUserprofileGalleryView.visible = false;
             userprofileFeed.visible = false;
-            iconUserprofileFeedView.visible = false;
             userprofileFollowers.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Your bio";
@@ -180,15 +184,14 @@ Page {
             UserDataScript.loadUserImages(instagramUserdata["id"], 0);
 
             userprofileGallery.visible = true;
-            iconUserprofileGalleryView.visible = true;
+            pageHeader.imageViewButtonVisible = true;
         }
 
         onFollowersClicked: {
+            pageHeader.imageViewButtonVisible = false;
             userprofileBio.visible = false;
             userprofileGallery.visible = false;
-            iconUserprofileGalleryView.visible = false;
             userprofileFeed.visible = false;
-            iconUserprofileFeedView.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "People that follow you";
             userprofileContentHeadline.visible = true;
@@ -200,11 +203,10 @@ Page {
         }
 
         onFollowingClicked: {
+            pageHeader.imageViewButtonVisible = false;
             userprofileBio.visible = false;
             userprofileGallery.visible = false;
-            iconUserprofileGalleryView.visible = false;
             userprofileFeed.visible = false;
-            iconUserprofileFeedView.visible = false;
             userprofileFollowers.visible = false;
             userprofileContentHeadline.text = "People that you follow";
             userprofileContentHeadline.visible = true;
@@ -412,30 +414,6 @@ Page {
             iconId: "toolbar-back";
             onClicked: {
                 pageStack.pop();
-            }
-        }
-
-        // view as gallery view
-        ToolIcon {
-            id: iconUserprofileGalleryView
-            iconId: "toolbar-grid"
-            visible: false
-
-            onClicked: {
-                var instagramUserdata = Authentication.auth.getStoredInstagramData();
-                UserDataScript.changeUserImageView(instagramUserdata["id"]);
-            }
-        }
-
-        // view as feed view
-        ToolIcon {
-            id: iconUserprofileFeedView
-            iconId: "toolbar-view-menu"
-            visible: false
-
-            onClicked: {
-                var instagramUserdata = Authentication.auth.getStoredInstagramData();
-                UserDataScript.changeUserImageView(instagramUserdata["id"]);
             }
         }
 

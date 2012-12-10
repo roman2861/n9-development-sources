@@ -24,8 +24,16 @@ Rectangle {
     // property if reload button is visible
     property alias reloadButtonVisible : headerReloadContainer.visible
 
+    // property if image view switch button is visible
+    property alias imageViewButtonVisible : headerImageViewContainer.visible
+    property alias galleryViewActive : headerGalleryViewButton.visible
+    property alias feedViewActive : headerFeedViewButton.visible
+
     // signal if the reload button has been pressed
     signal reloadButtonClicked()
+
+    // signal if the reload button has been pressed
+    signal imageViewButtonClicked()
 
     // signal if the header bar has been pressed
     signal headerBarClicked()
@@ -87,7 +95,7 @@ Rectangle {
         visible: false
 
 
-        // Reload button top right in the header
+        // reload button top right in the header
         Image {
             id: headerReloadButton
 
@@ -118,6 +126,77 @@ Rectangle {
             {
                 headerReloadButton.source = "image://theme/icon-m-toolbar-refresh-white"
                 reloadButtonClicked();
+            }
+        }
+    }
+
+
+    // container for gallery / feed view switch
+    // this is used mainly to increase the size of the tap area
+    Rectangle {
+        id: headerImageViewContainer
+
+        anchors {
+            right: parent.right
+            rightMargin: 30
+            top: parent.top
+            topMargin: 10
+            bottom: parent.bottom
+            bottomMargin: 5
+        }
+
+        z: 10
+        width: 70
+        color: "transparent"
+
+        visible: false
+
+
+        // gallery view button top right in the header
+        Image {
+            id: headerGalleryViewButton
+
+            anchors.centerIn: parent;
+
+            width: 40
+            height: 40
+
+            visible: false
+
+            source: "image://theme/icon-m-toolbar-grid-white"
+        }
+
+
+        // feed view button top right in the header
+        Image {
+            id: headerFeedViewButton
+
+            anchors.centerIn: parent;
+
+            width: 40
+            height: 40
+
+            source: "image://theme/icon-m-toolbar-view-menu-white"
+        }
+
+
+        // use reload container as tap area
+        MouseArea {
+            anchors.fill: parent
+
+            onCanceled:
+            {
+                headerReloadButton.source = "image://theme/icon-m-toolbar-refresh-white"
+            }
+
+            onPressed:
+            {
+                headerReloadButton.source = "image://theme/icon-m-toolbar-refresh-selected"
+            }
+
+            onReleased:
+            {
+                imageViewButtonClicked();
             }
         }
     }

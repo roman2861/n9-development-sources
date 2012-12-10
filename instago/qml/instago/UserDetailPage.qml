@@ -46,6 +46,11 @@ Page {
     Header {
         id: pageHeader
         text: ""
+
+
+        onImageViewButtonClicked: {
+            UserDataScript.changeUserImageView(userId);
+        }
     }
 
     // standard notification area
@@ -73,10 +78,9 @@ Page {
         visible: false
 
         onProfilepictureClicked: {
+            pageHeader.imageViewButtonVisible = false;
             userprofileGallery.visible = false;
-            iconUserprofileGalleryView.visible = false;
             userprofileFeed.visible = false;
-            iconUserprofileFeedView.visible = false;
             userprofileFollowers.visible = false;
             userprofileFollowing.visible = false;
             userprofileContentHeadline.text = "Bio";
@@ -101,7 +105,7 @@ Page {
                 UserDataScript.loadUserImages(userId, 0);
 
                 userprofileGallery.visible = true;
-                iconUserprofileFeedView.visible = true;
+                pageHeader.imageViewButtonVisible = true;
             }
         }
 
@@ -109,11 +113,10 @@ Page {
             // follower list only available for authenticated users
             if (Authentication.auth.isAuthenticated())
             {
+                pageHeader.imageViewButtonVisible = false;
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
-                iconUserprofileGalleryView.visible = false;
                 userprofileFeed.visible = false;
-                iconUserprofileFeedView.visible = false;
                 userprofileFollowing.visible = false;
                 userprofileContentHeadline.text = "Followers";
                 userprofileContentHeadline.visible = true;
@@ -128,11 +131,10 @@ Page {
             // following list only available for authenticated users
             if (Authentication.auth.isAuthenticated())
             {
+                pageHeader.imageViewButtonVisible = false;
                 userprofileBio.visible = false;
                 userprofileGallery.visible = false;
-                iconUserprofileGalleryView.visible = false;
                 userprofileFeed.visible = false;
-                iconUserprofileFeedView.visible = false;
                 userprofileFollowers.visible = false;
                 userprofileContentHeadline.text = "Following";
                 userprofileContentHeadline.visible = true;
@@ -373,28 +375,6 @@ Page {
             iconId: "toolbar-back";
             onClicked: {
                 pageStack.pop();
-            }
-        }
-
-        // view as gallery view
-        ToolIcon {
-            id: iconUserprofileGalleryView
-            iconId: "toolbar-grid"
-            visible: false
-
-            onClicked: {
-                UserDataScript.changeUserImageView(userId);
-            }
-        }
-
-        // view as feed view
-        ToolIcon {
-            id: iconUserprofileFeedView
-            iconId: "toolbar-view-menu"
-            visible: false
-
-            onClicked: {
-                UserDataScript.changeUserImageView(userId);
             }
         }
     }

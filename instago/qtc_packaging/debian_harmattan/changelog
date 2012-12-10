@@ -1,3 +1,10 @@
+instago (0.6.1) unstable; urgency=low
+
+  * Added gallery / feed view switch for user images
+
+ -- Dirk Songuer <dirk@songuer.de>  Tue, 04 Dec 2012 20:50:00 +0000
+
+
 instago (0.6.0) stable; urgency=normal
 
   * Added image caption in user feed

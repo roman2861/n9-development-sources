@@ -177,7 +177,7 @@ function loadUserImages(userId, paginationId)
                         // get image object
                         imageCache = getImageDataFromObject(jsonObject.data[index]);
 
-                        if (iconUserprofileFeedView.visible)
+                        if (pageHeader.feedViewActive)
                         {
                             // add image object to gallery list
                             userprofileGallery.addToGallery({
@@ -223,7 +223,7 @@ function loadUserImages(userId, paginationId)
                         loadingIndicator.visible = false;
                         if (userprofileMetadata.currentComponent == "photos")
                         {
-                            if (iconUserprofileFeedView.visible)
+                            if (pageHeader.feedViewActive)
                             {
                                 userprofileGallery.visible = true;
                             }
@@ -454,18 +454,18 @@ function changeUserImageView(userId)
 
     lastPaginationId = "";
 
-    if (iconUserprofileFeedView.visible)
+    if (pageHeader.feedViewActive)
     {
         userprofileFeed.visible = false;
-        iconUserprofileFeedView.visible = false;
-        iconUserprofileGalleryView.visible = true;
+        pageHeader.feedViewActive = false;
+        pageHeader.galleryViewActive = true;
         userprofileGallery.visible = true;
     }
     else
     {
         userprofileGallery.visible = false;
-        iconUserprofileGalleryView.visible = false;
-        iconUserprofileFeedView.visible = true;
+        pageHeader.galleryViewActive = false;
+        pageHeader.feedViewActive = true;
         userprofileFeed.visible = true;
     }
 
