@@ -47,9 +47,16 @@ Page {
         id: pageHeader
         text: ""
 
-
         onImageViewButtonClicked: {
             UserDataScript.changeUserImageView(userId);
+        }
+
+        onHeaderBarClicked: {
+            // console.log("Jump to top clicked");
+            userprofileGallery.jumpToTop();
+            userprofileFeed.jumpToTop();
+            userprofileFollowers.jumpToTop();
+            userprofileFollowing.jumpToTop();
         }
     }
 

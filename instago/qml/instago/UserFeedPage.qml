@@ -40,7 +40,7 @@ Page {
 
         onReloadButtonClicked: {
             // console.log("Refresh clicked");
-            feedList.visible = false;
+            userImageFeed.visible = false;
             errorMessage.visible = false;
 
             loadingIndicator.running = true;
@@ -51,7 +51,7 @@ Page {
 
         onHeaderBarClicked: {
             // console.log("Jump to top clicked");
-            feedList.positionViewAtBeginning();
+            userImageFeed.jumpToTop();
         }
     }
 

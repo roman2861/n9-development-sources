@@ -22,6 +22,9 @@ Page {
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
 
+    // flag to keep track if intro has been shown
+    property bool introShown: false
+
     // load the gallery content as soon as the page is ready
     Component.onCompleted: {
         PopularPhotosScript.loadImages();
@@ -34,6 +37,7 @@ Page {
             // iconNews.visible = true;
             iconSearch.visible = true;
             iconNone.visible = false;
+            introShown = true;
         }
         else
         {
@@ -42,6 +46,14 @@ Page {
             // iconNews.visible = false;
             iconSearch.visible = false;
             iconNone.visible = true;
+        }
+    }
+
+    onStatusChanged: {
+        if ((status == 2) && (!introShown))
+        {
+            introShown = true;
+            pageStack.push(Qt.resolvedUrl("IntroPage.qml"));
         }
     }
 
@@ -59,6 +71,17 @@ Page {
             loadingIndicator.visible = true;
             PopularPhotosScript.loadImages();
         }
+    }
+
+
+    // standard notification area
+    NotificationArea {
+        id: notification
+
+        visibilitytime: 1500
+
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
     }
 
 
@@ -96,6 +119,26 @@ Page {
             PopularPhotosScript.loadImages();
         }
     }
+
+/*
+    QueryDialog {
+        id: queryDialog
+
+        titleText: "Welcome to Instago!"
+        message: "An" //" Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.\n\nYou are not connected to Instagram, only the public features are available at the moment.\n\nPlease connect to Instagram to use features like your news stream, following other users or liking other users photos."
+
+        icon: "img/instago80.png"
+
+        acceptButtonText: "Ok"
+
+        onAccepted: {
+            console.log("hello");
+            queryDialog.visible = false;
+            queryDialog.close();
+        }
+        onRejected: {} // some functionality
+    }
+*/
 
 
     // the actual image gallery that contains the the popular photos
