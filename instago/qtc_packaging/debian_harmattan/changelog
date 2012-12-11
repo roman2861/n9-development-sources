@@ -1,8 +1,11 @@
 instago (0.6.1) unstable; urgency=low
 
   * Added gallery / feed view switch for user images
+  * Added intro page if users are not logged in
+  * Added links for hashtags in image caption
+  * Added links for user names in image caption
 
- -- Dirk Songuer <dirk@songuer.de>  Tue, 04 Dec 2012 20:50:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Tue, 11 Dec 2012 09:52:00 +0000
 
 
 instago (0.6.0) stable; urgency=normal

@@ -44,15 +44,15 @@ function calculateElapsedTime(instagramTime)
     var elapsed = currentTime - time;
 
     if (elapsed < msPerMinute) {
-         return Math.round(elapsed/1000) + 's';
+        return Math.round(elapsed/1000) + 's';
     }
 
     else if (elapsed < msPerHour) {
-         return Math.round(elapsed/msPerMinute) + 'm';
+        return Math.round(elapsed/msPerMinute) + 'm';
     }
 
     else if (elapsed < msPerDay ) {
-         return Math.round(elapsed/msPerHour ) + 'h';
+        return Math.round(elapsed/msPerHour ) + 'h';
     }
 
     else if (elapsed < msPerMonth) {
@@ -66,6 +66,58 @@ function calculateElapsedTime(instagramTime)
     else {
         return Math.round(elapsed/msPerYear ) + 'y';
     }
+}
+
+
+function analyzeLink(linkString)
+{
+    var linkData = linkString.split(":");
+
+    if (linkData[0] === "hashtag")
+    {
+//        console.log("hashtag found: " + linkData[1]);
+        pageStack.push(Qt.resolvedUrl("HashtagPage.qml"), {hashtagName: linkData[1]});
+    }
+
+    if (linkData[0] === "user")
+    {
+//        console.log("user found: " + linkData[1]);
+        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userName: linkData[1]});
+    }
+}
+
+
+// analyze text and add links to hashtags
+// hashtags start with # followed by the actual tag
+function addHashtagLinksToText(originalText)
+{
+    var parsedText = "";
+
+    var regexp = new RegExp('#([^\\s]*)','g');
+    parsedText = originalText.replace(regexp, function(u) {
+                                          var hashtag = u.replace("#","");
+                                          var hashtaglink = "<a href=\"hashtag:" + hashtag + "\">" + u + "</a>";
+                                          return hashtaglink;
+                                      });
+
+    return parsedText;
+}
+
+
+// analyze text and add links to user names
+// user names start with @ followed by the actual name
+function addUserLinksToText(originalText)
+{
+    var parsedText = "";
+
+    var regexp = new RegExp('[@]+[A-Za-z0-9-_]+','g');
+    parsedText = originalText.replace(regexp, function(u) {
+                                          var username = u.replace("@","");
+                                          var userlink = "<a href=\"user:" + username + "\">" + u + "</a>";
+                                          return userlink;
+                                      });
+
+    return parsedText;
 }
 
 
@@ -140,7 +192,10 @@ function getImageDataFromObject(imageObject)
     // caption node may not exist if empty
     if (imageObject.caption !== null)
     {
-        imageReturnArray["caption"] = imageObject.caption["text"];
+        var imageCaption = imageObject.caption["text"];
+        imageCaption = addHashtagLinksToText(imageCaption);
+        imageCaption = addUserLinksToText(imageCaption);
+        imageReturnArray["caption"] = imageCaption;
     }
     else
     {

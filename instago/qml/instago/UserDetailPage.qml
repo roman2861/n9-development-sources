@@ -27,18 +27,29 @@ Page {
     // the property will be filled by the calling page
     property string userId: "";
 
+    // this holds the user name of the respective user
+    // the property will be filled by the calling page
+    property string userName: "";
+
     Component.onCompleted: {
         // show loading indicators while loading user data
         loadingIndicator.running = true;
         loadingIndicator.visible = true;
 
-        // load the users profile
-        UserDataScript.loadUserProfile(userId);
-
-        // show follow button if the user is logged in
-        if (Authentication.auth.isAuthenticated())
+        if (userId != "")
         {
-            UserRelationshipScript.getRelationship(userId);
+            // load the users profile
+            UserDataScript.loadUserProfile(userId);
+
+            // show follow button if the user is logged in
+            if (Authentication.auth.isAuthenticated())
+            {
+                UserRelationshipScript.getRelationship(userId);
+            }
+        }
+        else
+        {
+            UserDataScript.loadUserProfileByName(userName);
         }
     }
 
@@ -288,7 +299,7 @@ Page {
         visible: false
 
         onFeedRequiresUpdate: {
-           UserDataScript.loadUserImages(userId, 0);
+            UserDataScript.loadUserImages(userId, 0);
         }
 
         onFeedBottomReached: {

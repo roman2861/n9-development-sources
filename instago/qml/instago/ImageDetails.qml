@@ -13,6 +13,7 @@ import com.nokia.extras 1.1
 
 import "js/globals.js" as Globals
 import "js/authenticationhandler.js" as Authentication
+import "js/helpermethods.js" as Helpermethods
 
 Rectangle {
     id: imageDetail
@@ -474,6 +475,7 @@ Rectangle {
                 rightMargin: 5
             }
 
+            textFormat: Text.RichText
             font.family: "Nokia Pure Text"
             font.pixelSize: 20
             wrapMode: Text.WordWrap
@@ -486,6 +488,7 @@ Rectangle {
             // beware that the length is not limited by Instagram
             // this might be LONG!
             text: ""
+
             onTextChanged: {
                 // make caption icons and text visible
                 imagedetailMetadataCaption.visible = true;
@@ -499,6 +502,8 @@ Rectangle {
                 itemheight += imagedetailMetadataCaption.height + imagedetailMetadataComments.height + imagedetailMetadataLikes.height;
                 captionChanged( itemheight );
             }
+
+            onLinkActivated: Helpermethods.analyzeLink(link);
         }
 
 

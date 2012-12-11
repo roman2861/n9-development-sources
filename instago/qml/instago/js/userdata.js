@@ -12,6 +12,7 @@ Qt.include("instagramkeys.js");
 Qt.include("authenticationhandler.js");
 Qt.include("helpermethods.js");
 Qt.include("networkhandler.js");
+Qt.include("relationships.js");
 
 
 // this is the global storage for the pagination id
@@ -120,6 +121,81 @@ function loadUserProfile(userId)
         // calls with the client id can only show public users
         url = instagramkeys.instagramAPIUrl + "/v1/users/" + userId + "?client_id=" + instagramkeys.instagramClientId;
     }
+
+    req.open("GET", url, true);
+    req.send();
+}
+
+
+// load the user data for a given Instagram user name
+// first a search for the user name will be done, the user id extracted
+// and then load via the normal methods
+// the user data will be used to fill the UserMetadata component
+function loadUserProfileByName(userName)
+{
+    // console.log("Loading user profile for user with name " + userName);
+
+    // show loading indicators while loading user data
+    errorMessage.visible = false;
+    loadingIndicator.running = true;
+    loadingIndicator.visible = true;
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function()
+            {
+                // this handles the result for each ready state
+                var jsonObject = network.handleHttpResult(req);
+
+                // jsonObject contains either false or the http result as object
+                if (jsonObject)
+                {
+                    var foundUserId = 0;
+                    for ( var index in jsonObject.data )
+                    {
+                        // console.log("Found user id " + userId + " for user " + userName)
+
+                        // store the user id into the page
+                        userId = jsonObject.data[index].id;
+                    }
+
+                    // load the users profile
+                    loadUserProfile(userId);
+
+                    // show follow button if the user is logged in
+                    if (auth.isAuthenticated())
+                    {
+                        getRelationship(userId);
+                    }
+
+                    // console.log("Done loading user profile by name");
+                }
+                else
+                {
+                    // normally there is no need for error handling here
+                    // the normal user page will execute getRelationship, which will handle the error states
+                    // however this method is also used for loading the profile page data, which needs error handling
+                    // either the request is not done yet or an error occured check for both and act accordingly
+                    var instagramUserdata = auth.getStoredInstagramData();
+                    if ( ( (network.requestIsFinished) && (network.errorData['code'] != null) ) && auth.isAuthenticated() && (instagramUserdata["id"] == userId) )
+                    {
+                        // console.log("error found: " + network.errorData['error_message']);
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+
+                        // show the stored error
+                        errorMessage.showErrorMessage({
+                                                          "d_code":network.errorData['code'],
+                                                          "d_error_type":network.errorData['error_type'],
+                                                          "d_error_message":network.errorData['error_message']
+                                                      });
+
+                        // clear error message objects again
+                        network.clearErrors();
+                    }
+                }
+            }
+
+    var instagramUserdata = auth.getStoredInstagramData();
+    var url = instagramkeys.instagramAPIUrl + "/v1/users/search?q=" + userName + "&count=1&access_token=" + instagramUserdata["access_token"];
 
     req.open("GET", url, true);
     req.send();
