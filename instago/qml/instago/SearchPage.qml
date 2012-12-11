@@ -25,6 +25,10 @@ Page {
     Header {
         id: pageHeader
         text: "Search"
+
+        onImageViewButtonClicked: {
+            SearchScript.changeSearchImageView(searchInput.text);
+        }
     }
 
     // standard notification area
@@ -56,10 +60,12 @@ Page {
 
             if (searchUserButton.checked)
             {
+                pageHeader.imageViewButtonVisible = false;
                 SearchScript.searchUser(searchInput.text);
             }
             else
             {
+                pageHeader.imageViewButtonVisible = true;
                 SearchScript.loadHashtagImages(searchInput.text, 0);
             }
 
@@ -92,10 +98,12 @@ Page {
 
             if (searchUserButton.checked)
             {
+                pageHeader.imageViewButtonVisible = false;
                 SearchScript.searchUser(searchInput.text);
             }
             else
             {
+                pageHeader.imageViewButtonVisible = true;
                 SearchScript.loadHashtagImages(searchInput.text, 0);
             }
 
@@ -124,12 +132,14 @@ Page {
             // do search if input field is not empty
             if (searchInput.text.length > 0)
             {
+                pageHeader.imageViewButtonVisible = false;
                 SearchScript.searchUser(searchInput.text);
             }
 
             // set checked state and placeholder text
             if (!searchUserButton.checked)
             {
+                pageHeader.imageViewButtonVisible = false;
                 searchUserButton.checked = true;
                 searchHashtagButton.checked = false;
                 searchInput.placeholderText = "Enter user name"
@@ -160,12 +170,14 @@ Page {
             // do search if input field is not empty
             if (searchInput.text.length > 0)
             {
+                pageHeader.imageViewButtonVisible = true;
                 SearchScript.loadHashtagImages(searchInput.text, 0);
             }
 
             // set checked state and placeholder text
             if (!searchHashtagButton.checked)
             {
+                pageHeader.imageViewButtonVisible = false;
                 searchUserButton.checked = false;
                 searchHashtagButton.checked = true;
                 searchInput.placeholderText = "Enter hashtag"
@@ -214,6 +226,34 @@ Page {
         }
 
         onListBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                SearchScript.loadHashtagImages(searchInput.text, paginationNextMaxId);
+            }
+        }
+    }
+
+
+    // list of search results for hashtag search
+    // container is only visible if hashtag search has completed
+    ImageFeed {
+        id: imageFeed;
+
+        anchors {
+            top: searchUserButton.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onFeedRequiresUpdate: {
+            SearchScript.loadHashtagImages(searchInput.text, 0);
+        }
+
+        onFeedBottomReached: {
             if (paginationNextMaxId !== "")
             {
                 SearchScript.loadHashtagImages(searchInput.text, paginationNextMaxId);

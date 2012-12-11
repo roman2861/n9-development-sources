@@ -32,6 +32,12 @@ Page {
     Header {
         id: pageHeader
         text: ""
+
+        imageViewButtonVisible: true
+
+        onImageViewButtonClicked: {
+            SearchScript.changeSearchImageView(hashtagName);
+        }
     }
 
     // standard notification area
@@ -66,6 +72,34 @@ Page {
         }
 
         onListBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                SearchScript.loadHashtagImages(hashtagName, paginationNextMaxId);
+            }
+        }
+    }
+
+
+    // list of search results for hashtag search
+    // container is only visible if hashtag search has completed
+    ImageFeed {
+        id: imageFeed;
+
+        anchors {
+            top: pageHeader.bottom
+            topMargin: 10;
+            left: parent.left;
+            right: parent.right;
+            bottom: parent.bottom;
+        }
+
+        visible: false
+
+        onFeedRequiresUpdate: {
+            SearchScript.loadHashtagImages(hashtagName, 0);
+        }
+
+        onFeedBottomReached: {
             if (paginationNextMaxId !== "")
             {
                 SearchScript.loadHashtagImages(hashtagName, paginationNextMaxId);

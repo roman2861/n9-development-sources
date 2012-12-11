@@ -1,7 +1,8 @@
 instago (0.6.1) unstable; urgency=low
 
-  * Added gallery / feed view switch for user images
   * Added intro page if users are not logged in
+  * Added gallery / feed view switch for user images
+  * Added gallery / feed view switch for hashtag search results
   * Added links for hashtags in image caption
   * Added links for user names in image caption
   * Added WazappPureRegular font by @knobtviker for limited Emoji support

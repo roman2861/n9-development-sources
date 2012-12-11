@@ -55,12 +55,12 @@ function searchUser(query)
                         userCache["bio"] = jsonObject.data[index].bio;
 
                         searchUserResults.addToList({
-                                                           "d_username": userCache["username"],
-                                                           "d_fullname": userCache["fullname"],
-                                                           "d_profilepicture": userCache["profilepicture"],
-                                                           "d_userid": userCache["userid"],
-                                                           "d_index": index
-                                                       });
+                                                        "d_username": userCache["username"],
+                                                        "d_fullname": userCache["fullname"],
+                                                        "d_profilepicture": userCache["profilepicture"],
+                                                        "d_userid": userCache["userid"],
+                                                        "d_index": index
+                                                    });
 
                         // console.log("Appended list with ID: " + imageCache["imageId"] + " in index: " + index);
                     }
@@ -132,6 +132,7 @@ function loadHashtagImages(hashtag, paginationId)
     {
         searchUserResults.visible = false;
         imageGallery.visible = false;
+        imageFeed.visible = false;
         searchNoResultsFound.visible = false;
         errorMessage.visible = false;
 
@@ -157,6 +158,7 @@ function loadHashtagImages(hashtag, paginationId)
                     if (paginationId === 0)
                     {
                         imageGallery.clearGallery();
+                        imageFeed.clearFeed();
                     }
 
                     var imageCache = new Array();
@@ -168,19 +170,42 @@ function loadHashtagImages(hashtag, paginationId)
                             imageCache = getImageDataFromObject(jsonObject.data[index]);
                             // cacheImage(imageCache);
 
-                            // add image object to gallery list
-                            imageGallery.addToGallery({
-                                                        "url":imageCache["thumbnail"],
-                                                        "index":imageCache["imageid"]
+                            if (pageHeader.feedViewActive)
+                            {
+                                // add image object to gallery list
+                                imageGallery.addToGallery({
+                                                              "url":imageCache["thumbnail"],
+                                                              "index":imageCache["imageid"]
+                                                          });
+                            }
+                            else
+                            {
+                                // add image object to feed list
+                                imageFeed.addToFeed({
+                                                        "d_originalImage":imageCache["originalimage"],
+                                                        "d_caption":imageCache["caption"],
+                                                        "d_username":imageCache["username"],
+                                                        "d_location":imageCache["location"],
+                                                        "d_locationId":imageCache["locationId"],
+                                                        "d_elapsedtime":imageCache["elapsedtime"],
+                                                        "d_userhasliked":imageCache["userhasliked"],
+                                                        "d_likes":imageCache["likes"],
+                                                        "d_linkToInstagram":imageCache["linktoinstagram"],
+                                                        "d_comments":imageCache["comments"],
+                                                        "d_imageId":imageCache["imageid"],
+                                                        "d_userId":imageCache["userid"],
+                                                        "d_profilePicture":imageCache["profilepicture"]
                                                     });
+                            }
+
+
 
                             // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                         }
                     }
 
-
                     // check if list is empty and show message
-                    if (imageGallery.numberOfItems < 1)
+                    if ( (imageGallery.numberOfItems < 1) && (imageFeed.numberOfItems < 1) )
                     {
                         searchNoResultsFound.visible = true;
                     }
@@ -190,6 +215,7 @@ function loadHashtagImages(hashtag, paginationId)
                     if (jsonObject.pagination.next_max_tag_id != null)
                     {
                         imageGallery.paginationNextMaxId = jsonObject.pagination.next_max_tag_id;
+                        imageFeed.paginationNextMaxId = jsonObject.pagination.next_max_tag_id;
                     }
 
                     if (paginationId === 0)
@@ -199,8 +225,16 @@ function loadHashtagImages(hashtag, paginationId)
                         loadingIndicator.visible = false;
 
                         searchUserResults.visible = false;
-                        imageGallery.visible = true;
-                        imageGallery.focus = true;
+                        if (pageHeader.feedViewActive)
+                        {
+                            imageGallery.visible = true;
+                            imageGallery.focus = true;
+                        }
+                        else
+                        {
+                            imageFeed.visible = true;
+                            imageFeed.focus = true;
+                        }
                     }
                     else
                     {
@@ -248,4 +282,31 @@ function loadHashtagImages(hashtag, paginationId)
 
     req.open("GET", url, true);
     req.send();
+}
+
+
+// change the image view for search to gallery or feed view
+// the image list will be reloaded into the new view
+function changeSearchImageView(hashtagName)
+{
+    // console.log("Switching image view");
+
+    lastPaginationId = "";
+
+    if (pageHeader.feedViewActive)
+    {
+        imageFeed.visible = false;
+        pageHeader.feedViewActive = false;
+        pageHeader.galleryViewActive = true;
+        imageGallery.visible = true;
+    }
+    else
+    {
+        imageGallery.visible = false;
+        pageHeader.galleryViewActive = false;
+        pageHeader.feedViewActive = true;
+        imageFeed.visible = true;
+    }
+
+    loadHashtagImages(hashtagName, 0);
 }
