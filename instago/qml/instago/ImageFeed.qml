@@ -128,8 +128,9 @@ Rectangle {
                     var numberOfLines = 0;
 
                     // check how many lines the user manually added with line breaks
+                    // note that all \n have been replaced with <br /> in Helpermethods.replaceLineBreaks()
                     var captionLines = new Array();
-                    captionLines = caption.split("\n");
+                    captionLines = caption.split("<br />");
 
                     // walk through each line and check how long they are and if they wrap around
                     for (var lineIndex in captionLines)

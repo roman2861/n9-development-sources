@@ -4,8 +4,9 @@ instago (0.6.1) unstable; urgency=low
   * Added intro page if users are not logged in
   * Added links for hashtags in image caption
   * Added links for user names in image caption
+  * Added WazappPureRegular font by @knobtviker for limited Emoji support
 
- -- Dirk Songuer <dirk@songuer.de>  Tue, 11 Dec 2012 09:52:00 +0000
+ -- Dirk Songuer <dirk@songuer.de>  Tue, 11 Dec 2012 15:54:00 +0000
 
 
 instago (0.6.0) stable; urgency=normal

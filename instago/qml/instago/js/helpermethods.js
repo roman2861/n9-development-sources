@@ -121,6 +121,17 @@ function addUserLinksToText(originalText)
 }
 
 
+// replace line breaks with <br /> for use with rich text fields
+function replaceLineBreaks(originalText)
+{
+    var parsedText = "";
+
+    parsedText = originalText.replace("\n", "<br />");
+
+    return parsedText;
+}
+
+
 // extract all image data from an image object
 // return unified image array
 function getImageDataFromObject(imageObject)
@@ -195,6 +206,7 @@ function getImageDataFromObject(imageObject)
         var imageCaption = imageObject.caption["text"];
         imageCaption = addHashtagLinksToText(imageCaption);
         imageCaption = addUserLinksToText(imageCaption);
+        imageCaption = replaceLineBreaks(imageCaption);
         imageReturnArray["caption"] = imageCaption;
     }
     else

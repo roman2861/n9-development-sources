@@ -463,6 +463,15 @@ Rectangle {
         }
 
 
+        // add wazzapp font
+        // the font contains some glyphs for emojis, so instead of the squares
+        // either alternative icons will be shown or the emoji itself
+        FontLoader {
+            id: wazzappPureRegular;
+            source: "fonts/WazappPureRegular.ttf"
+        }
+
+
         // image caption
         Text {
             id: imagedetailMetadataCaption
@@ -476,7 +485,7 @@ Rectangle {
             }
 
             textFormat: Text.RichText
-            font.family: "Nokia Pure Text"
+            font.family: wazzappPureRegular.name
             font.pixelSize: 20
             wrapMode: Text.WordWrap
             color: Globals.instagoDefaultTextColor
