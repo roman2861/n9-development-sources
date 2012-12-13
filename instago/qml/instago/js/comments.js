@@ -10,6 +10,8 @@
 
 
 // include other scripts used here
+Qt.include("globals.js")
+Qt.include("helpermethods.js");
 Qt.include("authenticationhandler.js");
 Qt.include("networkhandler.js");
 
@@ -109,7 +111,22 @@ function getComments(imageId)
                         if (commentCache["fullname"] === "") commentCache["fullname"] = commentCache["username"];
                         commentCache["profilepicture"] = jsonObject.data[index].from["profile_picture"];
                         commentCache["userid"] = jsonObject.data[index].from["id"];
-                        commentCache["comment"] = jsonObject.data[index].text;
+
+                        // set style definitions
+                        var commentText = instagoDefaultRichTextStyle;
+
+                        // add actual text content
+                        commentText = jsonObject.data[index].text;
+
+                        // convert user names and hashtags to links
+                        commentText = addHashtagLinksToText(commentText);
+                        commentText = addUserLinksToText(commentText);
+
+                        // replace \n breaks with html breaks and close html
+                        commentText = replaceLineBreaks(commentText);
+                        commentText += instagoRichTextClosure;
+
+                        commentCache["comment"] = commentText;
 
                         imageComments.addToList({
                                                     "d_username": commentCache["username"],

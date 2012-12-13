@@ -128,6 +128,7 @@ Rectangle {
                     // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
                     var numberOfLines = 0;
 
+                    // clear style information
                     var rawCaption = caption.replace(Globals.instagoDefaultRichTextStyle, "");
                     rawCaption = rawCaption.replace(Globals.instagoRichTextClosure, "");
 

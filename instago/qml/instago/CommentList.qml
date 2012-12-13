@@ -10,6 +10,7 @@
 import QtQuick 1.1
 
 import "js/globals.js" as Globals
+import "js/helpermethods.js" as Helpermethods
 
 Rectangle {
     id: commentList
@@ -158,20 +159,31 @@ Rectangle {
                     rightMargin: 5;
                 }
 
+                textFormat: Text.RichText
                 font.family: wazzappPureRegular.name
                 font.pixelSize: 20
                 wrapMode: Text.Wrap
                 color: Globals.instagoLightTextColor
 
+                text: d_comment
+
                 onTextChanged: {
-                    // this is magic: since commentListComment.height gives me garbage I calculate the height by multiplying the number of lines with the line height
-                    var calculatedLines = Math.floor( (commentListComment.text.length / 44) + 1 );
+                    // this is magic: since commentListComment.height gives me garbage I calculate the height by multiplying the number of lines with the line height                    
+                    // first clear style information
+                    var rawComment = commentListComment.text.replace(Globals.instagoDefaultRichTextStyle, "");
+                    rawComment = rawComment.replace(Globals.instagoRichTextClosure, "");
+
+                    // regex to remove html tags (links, mostly)
+                    var regex = /(<([^>]+)>)/ig;
+                    rawComment = rawComment.replace(regex, "");
+
+                    var calculatedLines = Math.floor( (rawComment.length / 44) + 1 );
                     var itemheight = Math.floor( (calculatedLines+1) * 25);
                     height = itemheight;
                     commentItem.height = itemheight + 70;
                 }
 
-                text: d_comment
+                onLinkActivated: Helpermethods.analyzeLink(link);
             }
 
 
