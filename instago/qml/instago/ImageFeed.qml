@@ -11,6 +11,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.feedback 1.1
 
+import "js/globals.js" as Globals
 import "js/likes.js" as Likes
 
 Rectangle {
@@ -127,15 +128,23 @@ Rectangle {
                     // this is magic: since metadataImageCaption.height gives me garbage I calculate the height by multiplying the number of lines with the line height
                     var numberOfLines = 0;
 
+                    var rawCaption = caption.replace(Globals.instagoDefaultRichTextStyle, "");
+                    rawCaption = rawCaption.replace(Globals.instagoRichTextClosure, "");
+
                     // check how many lines the user manually added with line breaks
                     // note that all \n have been replaced with <br /> in Helpermethods.replaceLineBreaks()
                     var captionLines = new Array();
-                    captionLines = caption.split("<br />");
+                    captionLines = rawCaption.split("<br />");
+
+                    // regex to remove html tags (links, mostly)
+                    var regex = /(<([^>]+)>)/ig;
 
                     // walk through each line and check how long they are and if they wrap around
                     for (var lineIndex in captionLines)
                     {
-                        numberOfLines += Math.floor( (captionLines[lineIndex].length / 50) + 1 );
+                        var rawLine = captionLines[lineIndex].replace(regex, "");
+                        numberOfLines += Math.floor( (rawLine.length / 45) + 1 );
+                        // console.log(rawLine + " = " + numberOfLines);
                     }
 
                     // transform the number of lines into the actual height

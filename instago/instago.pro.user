@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-12-11T16:39:24. -->
+<!-- Written by Qt Creator 2.4.1, 2012-12-13T12:18:43. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -192,6 +192,7 @@
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.4_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.5.3_armel.deb</value>
+       <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.6.1_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.4.2_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/instago_0.3.0_armel.deb</value>
        <value type="QString">C:/dirks/projekte/MeeGo/n9development/trunk/instago/Instago_0.0.1_armel.deb</value>
@@ -226,6 +227,7 @@
        <value type="QString">192.168.2.39</value>
        <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.1.105</value>
+       <value type="QString">192.168.2.15</value>
        <value type="QString">192.168.2.58</value>
        <value type="QString">192.168.2.39</value>
        <value type="QString">192.168.2.15</value>
@@ -241,6 +243,7 @@
        <value type="QString">192.168.2.15</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths">
+       <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
@@ -294,6 +297,7 @@
        <value type="QDateTime">2012-10-18T01:42:51</value>
        <value type="QDateTime">2012-11-25T12:58:32</value>
        <value type="QDateTime">2012-11-24T13:07:39</value>
+       <value type="QDateTime">2012-12-13T11:31:13</value>
        <value type="QDateTime">2012-11-04T13:26:18</value>
        <value type="QDateTime">2012-09-30T10:02:29</value>
        <value type="QDateTime">2012-09-04T22:52:16</value>

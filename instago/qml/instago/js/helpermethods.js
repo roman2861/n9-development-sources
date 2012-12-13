@@ -5,6 +5,9 @@
 // useful and are used throughout the application.
 // *************************************************** //
 
+// include other scripts used here
+Qt.include("globals.js");
+
 
 // format an Instagram time stamp into readable format
 // return format will be mm/dd/yy, HH:MM
@@ -203,10 +206,20 @@ function getImageDataFromObject(imageObject)
     // caption node may not exist if empty
     if (imageObject.caption !== null)
     {
-        var imageCaption = imageObject.caption["text"];
+        // set style definitions
+        var imageCaption = instagoDefaultRichTextStyle;
+
+        // add actual text content
+        imageCaption += imageObject.caption["text"];
+
+        // convert user names and hashtags to links
         imageCaption = addHashtagLinksToText(imageCaption);
         imageCaption = addUserLinksToText(imageCaption);
+
+        // replace \n breaks with html breaks and close html
         imageCaption = replaceLineBreaks(imageCaption);
+        imageCaption += instagoRichTextClosure;
+
         imageReturnArray["caption"] = imageCaption;
     }
     else

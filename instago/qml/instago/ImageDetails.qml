@@ -488,7 +488,7 @@ Rectangle {
             font.family: wazzappPureRegular.name
             font.pixelSize: 20
             wrapMode: Text.WordWrap
-            color: Globals.instagoDefaultTextColor
+            color: Globals.instagoLightTextColor
 
             visible: false
 

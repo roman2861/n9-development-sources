@@ -13,7 +13,11 @@ var currentApplicationVersion = "0.6.1 (Developer version)";
 var instagoMeegoDimmedIconColor = "#A7A7A8";
 
 var instagoDefaultTextColor = "#333333";
+var instagoLightTextColor = "#555555";
 var instagoHighlightedTextColor = "#2E5E86";
+
+var instagoDefaultRichTextStyle = '<html><style type="text/css">a {color: rgb(46, 94, 134);}</style><p>';
+var instagoRichTextClosure = "</p></html>";
 
 var instagoDefaultListItemColor = "transparent";
 var instagoHighlightedListItemColor = "gainsboro";

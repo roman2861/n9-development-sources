@@ -101,6 +101,15 @@ Rectangle {
             }
 
 
+            // add wazzapp font
+            // the font contains some glyphs for emojis, so instead of the squares
+            // either alternative icons will be shown or the emoji itself
+            FontLoader {
+                id: wazzappPureRegular;
+                source: "fonts/WazappPureRegular.ttf"
+            }
+
+
             // the Instagram username of the user
             Text {
                 id: commentListUsername
@@ -149,10 +158,10 @@ Rectangle {
                     rightMargin: 5;
                 }
 
-                font.family: "Nokia Pure Text"
+                font.family: wazzappPureRegular.name
                 font.pixelSize: 20
                 wrapMode: Text.Wrap
-                color: Globals.instagoDefaultTextColor
+                color: Globals.instagoLightTextColor
 
                 onTextChanged: {
                     // this is magic: since commentListComment.height gives me garbage I calculate the height by multiplying the number of lines with the line height
