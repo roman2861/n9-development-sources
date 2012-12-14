@@ -7,6 +7,7 @@
 
 // include other scripts used here
 Qt.include("globals.js");
+Qt.include("authenticationhandler.js");
 
 
 // format an Instagram time stamp into readable format
@@ -78,13 +79,13 @@ function analyzeLink(linkString)
 
     if (linkData[0] === "hashtag")
     {
-//        console.log("hashtag found: " + linkData[1]);
+        //        console.log("hashtag found: " + linkData[1]);
         pageStack.push(Qt.resolvedUrl("HashtagPage.qml"), {hashtagName: linkData[1]});
     }
 
     if (linkData[0] === "user")
     {
-//        console.log("user found: " + linkData[1]);
+        //        console.log("user found: " + linkData[1]);
         pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userName: linkData[1]});
     }
 }
@@ -212,9 +213,12 @@ function getImageDataFromObject(imageObject)
         // add actual text content
         imageCaption += imageObject.caption["text"];
 
-        // convert user names and hashtags to links
-        imageCaption = addHashtagLinksToText(imageCaption);
-        imageCaption = addUserLinksToText(imageCaption);
+        if (auth.isAuthenticated())
+        {
+            // convert user names and hashtags to links
+            imageCaption = addHashtagLinksToText(imageCaption);
+            imageCaption = addUserLinksToText(imageCaption);
+        }
 
         // replace \n breaks with html breaks and close html
         imageCaption = replaceLineBreaks(imageCaption);

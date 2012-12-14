@@ -151,10 +151,14 @@ function loadUserProfileByName(userName)
                     var foundUserId = 0;
                     for ( var index in jsonObject.data )
                     {
-                        // console.log("Found user id " + userId + " for user " + userName)
-
                         // store the user id into the page
-                        userId = jsonObject.data[index].id;
+                        // only store the first user id as the count parameter does not work
+                        // and Instagram always returns all users
+                        if (!userId)
+                        {
+                            // console.log("Found user id " + userId + " for user " + userName)
+                            userId = jsonObject.data[index].id;
+                        }
                     }
 
                     // load the users profile
@@ -166,7 +170,7 @@ function loadUserProfileByName(userName)
                         getRelationship(userId);
                     }
 
-                    // console.log("Done loading user profile by name");
+                    console.log("Done loading user profile by name");
                 }
                 else
                 {
