@@ -11,9 +11,10 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
-import "js/popularphotos.js" as PopularPhotosScript
+import "../components"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
+import "../js/popularphotos.js" as PopularPhotosScript
 
 Page {
     // use the main navigation toolbar
@@ -119,26 +120,6 @@ Page {
             PopularPhotosScript.loadImages();
         }
     }
-
-/*
-    QueryDialog {
-        id: queryDialog
-
-        titleText: "Welcome to Instago!"
-        message: "An" //" Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.\n\nYou are not connected to Instagram, only the public features are available at the moment.\n\nPlease connect to Instagram to use features like your news stream, following other users or liking other users photos."
-
-        icon: "img/instago80.png"
-
-        acceptButtonText: "Ok"
-
-        onAccepted: {
-            console.log("hello");
-            queryDialog.visible = false;
-            queryDialog.close();
-        }
-        onRejected: {} // some functionality
-    }
-*/
 
 
     // the actual image gallery that contains the the popular photos

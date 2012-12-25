@@ -9,6 +9,9 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
+import "pages"
+import "components"
+
 PageStackWindow {
     id: appWindow
 
@@ -39,7 +42,7 @@ PageStackWindow {
             visible: false
 
             onClicked: {
-                pageStack.replace(Qt.resolvedUrl("UserFeedPage.qml"))
+                pageStack.replace(Qt.resolvedUrl("pages/UserFeedPage.qml"))
             }
         }
 
@@ -51,7 +54,7 @@ PageStackWindow {
             visible: false
 
             onClicked: {
-                pageStack.replace(Qt.resolvedUrl("PopularPhotosPage.qml"))
+                pageStack.replace(Qt.resolvedUrl("pages/PopularPhotosPage.qml"))
             }
         }
 
@@ -63,7 +66,7 @@ PageStackWindow {
             visible: false
 
             onClicked: {
-                pageStack.replace(Qt.resolvedUrl("NewsFeedPage.qml"))
+                pageStack.replace(Qt.resolvedUrl("pages/NewsFeedPage.qml"))
             }
         }
 
@@ -75,7 +78,7 @@ PageStackWindow {
             visible: false
 
             onClicked: {
-                pageStack.replace(Qt.resolvedUrl("SearchPage.qml"))
+                pageStack.replace(Qt.resolvedUrl("pages/SearchPage.qml"))
             }
         }
 
@@ -93,7 +96,7 @@ PageStackWindow {
             id: iconProfile
             iconId: "toolbar-contact";
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("UserProfilePage.qml"))
+                pageStack.push(Qt.resolvedUrl("pages/UserProfilePage.qml"))
             }
         }
     }

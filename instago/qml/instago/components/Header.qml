@@ -8,7 +8,8 @@
 
 import QtQuick 1.1
 
-import "js/globals.js" as Globals
+import "../pages"
+import "../js/globals.js" as Globals
 
 Rectangle {
     id: header
@@ -53,7 +54,7 @@ Rectangle {
     // image element that holds the image property
     Image {
         id: headerImage
-        source: "img/top_header.png"
+        source: "../img/top_header.png"
     }
 
 

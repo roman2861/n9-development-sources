@@ -11,7 +11,8 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
-import "js/globals.js" as Globals
+import "../pages"
+import "../js/globals.js" as Globals
 
 Rectangle {
     id: notificationArea

@@ -9,7 +9,8 @@
 
 import QtQuick 1.1
 
-import "js/globals.js" as Globals
+import "../pages"
+import "../js/globals.js" as Globals
 
 Rectangle {
     id: userList
@@ -80,7 +81,7 @@ Rectangle {
                     {
                         // console.log("Profile tapped. Id was: " + d_userid);
                         userItemContainer.color = Globals.instagoDefaultListItemColor;
-                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
+                        pageStack.push(Qt.resolvedUrl("../pages/UserDetailPage.qml"), {userId: d_userid});
                     }
                 }
 

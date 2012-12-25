@@ -11,9 +11,10 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
-import "js/helpermethods.js" as Helpermethods
+import "../pages"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
+import "../js/helpermethods.js" as Helpermethods
 
 Rectangle {
     id: imageDetail
@@ -103,7 +104,7 @@ Rectangle {
                 onReleased:
                 {
                     imagedetailUserpicture.opacity = 1;
-                    pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
+                    pageStack.push(Qt.resolvedUrl("../pages/UserDetailPage.qml"), {userId: userId});
                 }
             }
 
@@ -168,7 +169,7 @@ Rectangle {
                 onReleased:
                 {
                     imagedetailUsernameContainer.color = "transparent";
-                    pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: userId});
+                    pageStack.push(Qt.resolvedUrl("../pages/UserDetailPage.qml"), {userId: userId});
                 }
             }
         }
@@ -338,7 +339,7 @@ Rectangle {
                         if (!interactionBlocked)
                         {
                             interactionBlocked = true;
-                            pageStack.push(Qt.resolvedUrl("LocationDetailPage.qml"), {locationId: locationId});
+                            pageStack.push(Qt.resolvedUrl("../pages/LocationDetailPage.qml"), {locationId: locationId});
                             locationInteractionRelease.start();
                         }
                     }
@@ -468,7 +469,7 @@ Rectangle {
         // either alternative icons will be shown or the emoji itself
         FontLoader {
             id: wazzappPureRegular;
-            source: "fonts/WazappPureRegular.ttf"
+            source: "../fonts/WazappPureRegular.ttf"
         }
 
 
@@ -592,7 +593,7 @@ Rectangle {
                     if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataLikeContainer.color = "transparent";
-                        pageStack.push(Qt.resolvedUrl("ImageLikesPage.qml"), {imageId: imageId});
+                        pageStack.push(Qt.resolvedUrl("../pages/ImageLikesPage.qml"), {imageId: imageId});
                     }
                 }
             }
@@ -674,7 +675,7 @@ Rectangle {
                     if (Authentication.auth.isAuthenticated())
                     {
                         imagedetailMetadataCommentContainer.color = "transparent";
-                        pageStack.push(Qt.resolvedUrl("ImageCommentsPage.qml"), {imageId: imageId});
+                        pageStack.push(Qt.resolvedUrl("../pages/ImageCommentsPage.qml"), {imageId: imageId});
                     }
                 }
             }

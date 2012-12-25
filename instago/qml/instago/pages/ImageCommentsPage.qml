@@ -1,7 +1,7 @@
 // *************************************************** //
-// Image Liked Page
+// Image Comments Page
 //
-// This page shows the list of users that liked a given
+// This page shows the list of comments for a given
 // image.
 // *************************************************** //
 
@@ -9,8 +9,9 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
-import "js/globals.js" as Globals
-import "js/likes.js" as Likes
+import "../components"
+import "../js/globals.js" as Globals
+import "../js/comments.js" as Comments
 
 Page {
     // use the detail view toolbar
@@ -24,17 +25,17 @@ Page {
     property string imageId: "";
 
     Component.onCompleted: {
-        Likes.getLikes(imageId);
+        Comments.getComments(imageId);
     }
 
     // standard header for the current page
     Header {
         id: pageHeader
-        text: "Liked it"
+        text: "Comments"
 
         onHeaderBarClicked: {
             // console.log("Jump to top clicked");
-            imageLikesUserlist.jumpToTop();
+            imageComments.jumpToTop();
         }
     }
 
@@ -51,24 +52,81 @@ Page {
 
     // list of the followers
     // container is only visible if user is authenticated
-    UserList {
-        id: imageLikesUserlist;
+    CommentList {
+        id: imageComments;
 
         anchors {
             top: pageHeader.bottom
             topMargin: 10;
             left: parent.left;
             right: parent.right;
-            bottom: parent.bottom;
+            bottom: imageCommentInput.top;
+            bottomMargin: 5;
         }
 
-        visible: true
+        visible: false;
     }
 
 
-    // text shown if no likes added yet
+    // comment entry field
+    TextField {
+        id: imageCommentInput
+
+        anchors {
+            left: parent.left;
+            leftMargin: 10;
+            bottom: parent.bottom;
+            bottomMargin: 15;
+        }
+
+        width: 405
+
+        onAccepted: {
+            // console.log("Input received: " + imageCommentInput.text);
+            Comments.addComment(imageId, imageCommentInput.text);
+
+            imageCommentInput.text = "";
+            imageCommentInput.platformCloseSoftwareInputPanel();
+        }
+
+        placeholderText: "Add Comment"
+        text: ""
+    }
+
+
+    // user search button
+    Button {
+        id: commentButton
+
+        anchors {
+            left: imageCommentInput.right;
+            leftMargin: 5;
+            bottom: parent.bottom;
+            bottomMargin: 15;
+        }
+
+        width: 50
+        height: 50
+
+        iconSource: "image://theme/icon-m-toolbar-new-message-dimmed"
+
+        onClicked: {
+            // console.log("Input received: " + imageCommentInput.text);
+            if (imageCommentInput.text.length > 0)
+            {
+                Comments.addComment(imageId, imageCommentInput.text);
+
+                imageCommentInput.text = "";
+                imageCommentInput.platformCloseSoftwareInputPanel();
+            }
+        }
+
+    }
+
+
+    // text shown if no comment entered yet
     Text {
-        id: imageLikesEmptyList
+        id: imageCommentEmptyList
 
         anchors.centerIn: parent
 
@@ -80,7 +138,22 @@ Page {
 
         visible: false;
 
-        text: "No likes yet"
+        text: "No comments yet"
+    }
+
+
+    // reload the comments after 1 second
+    // this is triggerd by the comments.js after adding a comment
+    Timer {
+        id: imageCommentReloadTimer
+        interval: 1000
+        running: false
+        repeat:  false
+
+        // when triggered, reload the comment data
+        onTriggered: {
+            Comments.getComments(imageId);
+        }
     }
 
 
@@ -112,7 +185,7 @@ Page {
         onErrorMessageClicked: {
             // console.log("Refresh clicked")
             errorMessage.visible = false;
-            Likes.getLikes(imageId);
+            Comments.getComments(imageId);
         }
     }
 

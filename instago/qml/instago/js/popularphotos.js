@@ -35,7 +35,7 @@ function loadImages()
                     var imageCache = new Array();
                     for ( var index in jsonObject.data )
                     {
-                        if (index <= 17)
+                        if (index <= 14)
                         {
                             // get image object
                             imageCache = getImageDataFromObject(jsonObject.data[index]);

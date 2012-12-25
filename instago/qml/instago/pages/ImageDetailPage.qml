@@ -14,10 +14,11 @@ import com.nokia.extras 1.1
 import QtShareHelper 1.0
 import QtNetworkHelper 1.0
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
-import "js/imagedetail.js" as ImageDetailScript
-import "js/likes.js" as Likes
+import "../components"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
+import "../js/imagedetail.js" as ImageDetailScript
+import "../js/likes.js" as Likes
 
 Page {
     // use the detail view toolbar

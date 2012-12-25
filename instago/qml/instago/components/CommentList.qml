@@ -9,8 +9,9 @@
 
 import QtQuick 1.1
 
-import "js/globals.js" as Globals
-import "js/helpermethods.js" as Helpermethods
+import "../pages"
+import "../js/globals.js" as Globals
+import "../js/helpermethods.js" as Helpermethods
 
 Rectangle {
     id: commentList
@@ -96,7 +97,7 @@ Rectangle {
                     onClicked:
                     {
                         // console.log("Profile tapped. Id was: " + d_userid);
-                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
+                        pageStack.push(Qt.resolvedUrl("../pages/UserDetailPage.qml"), {userId: d_userid});
                     }
                 }
             }
@@ -107,7 +108,7 @@ Rectangle {
             // either alternative icons will be shown or the emoji itself
             FontLoader {
                 id: wazzappPureRegular;
-                source: "fonts/WazappPureRegular.ttf"
+                source: "../fonts/WazappPureRegular.ttf"
             }
 
 
@@ -140,7 +141,7 @@ Rectangle {
                     onClicked:
                     {
                         // console.log("Profile tapped. Id was: " + d_userid);
-                        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userId: d_userid});
+                        pageStack.push(Qt.resolvedUrl("../pages/UserDetailPage.qml"), {userId: d_userid});
                     }
                 }
             }

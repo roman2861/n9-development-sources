@@ -8,8 +8,9 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
+import "../components"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
 
 Page {
     // lock orientation to portrait mode
@@ -19,7 +20,7 @@ Page {
     // this is the splash image, shown in fullscreen
     Image {
         id: splashImage
-        source: "img/instago_splashscreen.png"
+        source: "../img/instago_splashscreen.png"
         anchors.fill: parent
     }
 

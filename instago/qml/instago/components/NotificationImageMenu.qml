@@ -11,9 +11,10 @@ import com.nokia.extras 1.1
 import QtShareHelper 1.0
 import QtNetworkHelper 1.0
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
-import "js/likes.js" as Likes
+import "../pages"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
+import "../js/likes.js" as Likes
 
 ContextMenu {
     id: imageContextMenu
@@ -39,7 +40,7 @@ ContextMenu {
 
             onClicked:
             {
-                pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: origin});
+                pageStack.push(Qt.resolvedUrl("../pages/ImageDetailPage.qml"), {imageId: origin});
             }
         }
 

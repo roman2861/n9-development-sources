@@ -80,13 +80,13 @@ function analyzeLink(linkString)
     if (linkData[0] === "hashtag")
     {
         //        console.log("hashtag found: " + linkData[1]);
-        pageStack.push(Qt.resolvedUrl("HashtagPage.qml"), {hashtagName: linkData[1]});
+        pageStack.push(Qt.resolvedUrl("../pages/HashtagPage.qml"), {hashtagName: linkData[1]});
     }
 
     if (linkData[0] === "user")
     {
         //        console.log("user found: " + linkData[1]);
-        pageStack.push(Qt.resolvedUrl("UserDetailPage.qml"), {userName: linkData[1]});
+        pageStack.push(Qt.resolvedUrl("../pages/UserDetailPage.qml"), {userName: linkData[1]});
     }
 }
 

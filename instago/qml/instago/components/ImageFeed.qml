@@ -11,8 +11,9 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.feedback 1.1
 
-import "js/globals.js" as Globals
-import "js/likes.js" as Likes
+import "../pages"
+import "../js/globals.js" as Globals
+import "../js/likes.js" as Likes
 
 Rectangle {
     id: imageFeed;

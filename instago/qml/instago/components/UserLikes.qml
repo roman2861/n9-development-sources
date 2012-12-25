@@ -11,9 +11,10 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
-import "js/likes.js" as LikesScript
+import "../pages"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
+import "../js/likes.js" as LikesScript
 
 Page {
     // use the main navigation toolbar
@@ -82,7 +83,7 @@ Page {
 
         onItemClicked: {
             // console.log("Image tapped: " + imageId);
-            pageStack.push(Qt.resolvedUrl("ImageDetailPage.qml"), {imageId: imageId});
+            pageStack.push(Qt.resolvedUrl("../pages/ImageDetailPage.qml"), {imageId: imageId});
         }
     }
 

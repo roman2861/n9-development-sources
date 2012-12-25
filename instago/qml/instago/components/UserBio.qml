@@ -10,8 +10,9 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
+import "../pages"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
 
 Rectangle {
     id: userBio
@@ -237,7 +238,7 @@ Rectangle {
         text: "Your favourites"
 
         onClicked: {
-            pageStack.push(Qt.resolvedUrl("UserLikes.qml"))
+            pageStack.push(Qt.resolvedUrl("../pages/UserLikes.qml"))
         }
     }
 }

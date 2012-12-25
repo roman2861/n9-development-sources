@@ -1,18 +1,20 @@
 // *************************************************** //
-// About Page
+// Intro Page
 //
-// The about page contains a description for the
-// application.
+// The intro page contains a description for the
+// application. It's only shown once at startup if
+// the user is not logged in.
 // *************************************************** //
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
-import "js/globals.js" as Globals
+import "../components"
+import "../js/globals.js" as Globals
 
 Page {
-    // use the about view toolbar
-    tools: aboutToolbar
+    // use the intro view toolbar
+    tools: introToolbar
 
     // lock orientation to portrait mode
     orientationLock: PageOrientation.LockPortrait
@@ -24,13 +26,13 @@ Page {
     }
 
 
-    // about headline
+    // intro headline
     Text {
-        id : aboutHeadline
+        id : introHeadline
 
         anchors {
             horizontalCenter: parent.horizontalCenter
-            bottom: aboutMaintext.top
+            bottom: introMaintext.top
             bottomMargin: 20
         }
 
@@ -42,13 +44,13 @@ Page {
         wrapMode: Text.WordWrap
         color: Globals.instagoDefaultTextColor
 
-        text: "Instago";
+        text: "Welcome to Instago!";
     }
 
 
-    // about description
+    // intro description
     Text {
-        id : aboutMaintext
+        id : introMaintext
 
         anchors {
             centerIn: parent
@@ -63,13 +65,13 @@ Page {
         textFormat: Text.RichText
         color: Globals.instagoDefaultTextColor
 
-        text: "An Instagram client for MeeGo. Browse popular photos, find interesting people and share beautiful images.<br /><br />A sideproject by Dirk Songür (dirk@songuer.de).<br /><br />Version " + Globals.currentApplicationVersion;
+        text: "Browse popular photos, find interesting people and share beautiful images.<br /><br />You are not connected to Instagram. Only the public features are available at the moment. Please connect to Instagram to use features like your news stream, following other users or liking other users photos.<br /><br />Please note that Instago is only a viewer application. You can't create a new Instagram account nor can you upload photos if you have one.";
     }
 
 
     // page specific toolbar
     ToolBarLayout {
-        id: aboutToolbar
+        id: introToolbar
 
         // jump back to the user profile page
         ToolIcon {

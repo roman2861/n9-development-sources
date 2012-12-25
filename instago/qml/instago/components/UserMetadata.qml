@@ -9,7 +9,8 @@
 
 import QtQuick 1.1
 
-import "js/globals.js" as Globals
+import "../pages"
+import "../js/globals.js" as Globals
 
 Rectangle {
     id: usermetadata

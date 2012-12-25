@@ -9,6 +9,8 @@
 
 import QtQuick 1.1
 
+import "../pages"
+
 Rectangle {
     id: imageGallery
 

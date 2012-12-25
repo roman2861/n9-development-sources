@@ -11,8 +11,9 @@ import com.nokia.extras 1.1
 import QtShareHelper 1.0
 import QtNetworkHelper 1.0
 
-import "js/globals.js" as Globals
-import "js/authenticationhandler.js" as Authentication
+import "../pages"
+import "../js/globals.js" as Globals
+import "../js/authenticationhandler.js" as Authentication
 
 ContextMenu {
     id: locationContextMenu
@@ -37,7 +38,7 @@ ContextMenu {
 
             onClicked:
             {
-                pageStack.push(Qt.resolvedUrl("MapDetailPage.qml"), {imageMetadata: additionaldata});
+                pageStack.push(Qt.resolvedUrl("../pages/MapDetailPage.qml"), {imageMetadata: additionaldata});
             }
         }
 
