@@ -15,10 +15,10 @@ import QtShareHelper 1.0
 import QtNetworkHelper 1.0
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/authenticationhandler.js" as Authentication
-import "../js/imagedetail.js" as ImageDetailScript
-import "../js/likes.js" as Likes
+import "../global/globals.js" as Globals
+import "../classes/authenticationhandler.js" as Authentication
+import "../models/imagedetail.js" as ImageDetailScript
+import "../models/likes.js" as Likes
 
 Page {
     // use the detail view toolbar

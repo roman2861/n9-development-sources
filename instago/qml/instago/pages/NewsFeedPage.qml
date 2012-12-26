@@ -9,8 +9,8 @@ import com.nokia.meego 1.0
 import QtWebKit 1.0
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/newsfeed.js" as Newsfeed
+import "../global/globals.js" as Globals
+import "../models/newsfeed.js" as Newsfeed
 
 Page {
     // use the main navigation toolbar

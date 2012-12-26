@@ -11,9 +11,9 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/authenticationhandler.js" as Authentication
-import "../js/userdata.js" as UserDataScript
+import "../global/globals.js" as Globals
+import "../classes/authenticationhandler.js" as Authentication
+import "../models/userdata.js" as UserDataScript
 
 Page {
     // use the detail view toolbar

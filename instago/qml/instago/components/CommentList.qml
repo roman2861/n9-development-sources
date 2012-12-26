@@ -10,8 +10,8 @@
 import QtQuick 1.1
 
 import "../pages"
-import "../js/globals.js" as Globals
-import "../js/helpermethods.js" as Helpermethods
+import "../global/globals.js" as Globals
+import "../classes/helpermethods.js" as Helpermethods
 
 Rectangle {
     id: commentList

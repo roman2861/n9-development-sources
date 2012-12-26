@@ -12,9 +12,9 @@ import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/authenticationhandler.js" as Authentication
-import "../js/popularphotos.js" as PopularPhotosScript
+import "../global/globals.js" as Globals
+import "../classes/authenticationhandler.js" as Authentication
+import "../models/popularphotos.js" as PopularPhotosScript
 
 Page {
     // use the main navigation toolbar

@@ -13,7 +13,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 
 import "../pages"
-import "../js/globals.js" as Globals
+import "../global/globals.js" as Globals
 
 Rectangle  {
     id: errorMessage

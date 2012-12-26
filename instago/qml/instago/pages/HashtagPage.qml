@@ -10,8 +10,8 @@ import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/search.js" as SearchScript
+import "../global/globals.js" as Globals
+import "../models/search.js" as SearchScript
 
 Page {
     // use the detail view toolbar

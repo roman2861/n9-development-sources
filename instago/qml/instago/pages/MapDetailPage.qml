@@ -11,9 +11,9 @@ import com.nokia.meego 1.0
 import QtMobility.location 1.2
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/authenticationhandler.js" as Authentication
-import "../js/locations.js" as Location
+import "../global/globals.js" as Globals
+import "../classes/authenticationhandler.js" as Authentication
+import "../models/locations.js" as Location
 
 Page {
     // use the detail view toolbar

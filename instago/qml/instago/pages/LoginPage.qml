@@ -10,9 +10,9 @@ import com.nokia.meego 1.0
 import QtWebKit 1.0
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/instagramkeys.js" as InstagramKeys
-import "../js/authenticationhandler.js" as Authentication
+import "../global/globals.js" as Globals
+import "../global/instagramkeys.js" as InstagramKeys
+import "../classes/authenticationhandler.js" as Authentication
 
 Page {
     // use the login view toolbar

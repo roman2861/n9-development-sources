@@ -10,7 +10,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 import "../components"
-import "../js/globals.js" as Globals
+import "../global/globals.js" as Globals
 
 Page {
     // use the intro view toolbar

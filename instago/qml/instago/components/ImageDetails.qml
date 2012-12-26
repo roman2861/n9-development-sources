@@ -12,9 +12,9 @@ import com.nokia.meego 1.1
 import com.nokia.extras 1.1
 
 import "../pages"
-import "../js/globals.js" as Globals
-import "../js/authenticationhandler.js" as Authentication
-import "../js/helpermethods.js" as Helpermethods
+import "../global/globals.js" as Globals
+import "../classes/authenticationhandler.js" as Authentication
+import "../classes/helpermethods.js" as Helpermethods
 
 Rectangle {
     id: imageDetail

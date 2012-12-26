@@ -11,9 +11,9 @@ import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
 import "../components"
-import "../js/globals.js" as Globals
-import "../js/authenticationhandler.js" as Authentication
-import "../js/userfeed.js" as Userfeed
+import "../global/globals.js" as Globals
+import "../classes/authenticationhandler.js" as Authentication
+import "../models/userfeed.js" as Userfeed
 
 Page {
     // use the main navigation toolbar
