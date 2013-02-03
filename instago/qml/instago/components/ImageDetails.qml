@@ -34,6 +34,7 @@ Rectangle {
     property alias comments: imagedetailMetadataComments.text
 
     // additional data
+    property string originalCaption: ""
     property string linkToInstagram: ""
     property string imageId: ""
     property string userId: ""

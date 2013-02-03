@@ -225,10 +225,12 @@ function getImageDataFromObject(imageObject)
         imageCaption += instagoRichTextClosure;
 
         imageReturnArray["caption"] = imageCaption;
+        imageReturnArray["originalCaption"] = imageObject.caption["text"];
     }
     else
     {
         imageReturnArray["caption"] = "";
+        imageReturnArray["originalCaption"] = "";
     }
 
     return imageReturnArray;

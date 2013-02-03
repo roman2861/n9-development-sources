@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'sharehelper.h'
 **
-** Created: Sat 29. Sep 14:23:21 2012
+** Created: Sun 3. Feb 19:17:06 2013
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

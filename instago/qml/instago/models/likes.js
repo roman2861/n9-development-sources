@@ -15,6 +15,10 @@ Qt.include("../classes/helpermethods.js");
 Qt.include("../classes/networkhandler.js");
 
 
+// this is the global storage for the pagination id
+var lastPaginationId = "";
+
+
 // like a given image
 // second parameter is true if the associated components should be updated
 function likeImage(imageId, updateComponents)
@@ -165,16 +169,32 @@ function getLikes(imageId)
 
 // get all likes for the currently authenticated user
 // likes will be used to fill a gallery component
-function getCurrentUserLikes()
+function getCurrentUserLikes( paginationId )
 {
-    // console.log("Getting likes for current user");
+    // console.log("Getting likes for current user with pagination: " + paginationId);
 
-    // clear likes list
-    likesGallery.clearGallery();
+    // check if the current pagination id is the same as the last one
+    // this is the case if all images habe been loaded and there are no more
+    if ( (paginationId !== 0) && (paginationId === lastPaginationId) )
+    {
+        // console.log("Last pagination id matches this one: " + paginationId + " - returning");
+        return;
+    }
 
-    errorMessage.visible = false;
-    loadingIndicator.running = true;
-    loadingIndicator.visible = true;
+    // check if this is a new call or loading more images
+    if (paginationId === 0)
+    {
+        errorMessage.visible = false;
+        loadingIndicator.running = true;
+        loadingIndicator.visible = true;
+    }
+    else
+    {
+        notification.useTimer = false;
+        notification.text = "Loading more images..";
+        notification.show();
+    }
+
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function()
@@ -185,6 +205,12 @@ function getCurrentUserLikes()
                 // jsonObject contains either false or the http result as object
                 if (jsonObject)
                 {
+                    if (paginationId === 0)
+                    {
+                        // clear likes list
+                        likesGallery.clearGallery();
+                    }
+
                     var imageCache = new Array();
                     for ( var index in jsonObject.data )
                     {
@@ -201,9 +227,25 @@ function getCurrentUserLikes()
                         // console.log("Appended list with URL: " + imageCache["thumbnail"] + " and ID: " + imageCache["imageid"]);
                     }
 
-                    loadingIndicator.running = false;
-                    loadingIndicator.visible = false;
-                    likesGallery.visible = true;
+                    // check if the page has a following page in the pagination list
+                    // if so then remember it in the gallery component
+                    if (jsonObject.pagination.next_max_like_id != null)
+                    {
+                        likesGallery.paginationNextMaxId = jsonObject.pagination.next_max_like_id;
+                    }
+
+                    if (paginationId === 0)
+                    {
+                        loadingIndicator.running = false;
+                        loadingIndicator.visible = false;
+                        likesGallery.visible = true;
+                    }
+                    else
+                    {
+                        // loading additional images
+                        notification.hide();
+                        notification.useTimer = true;
+                    }
 
                     // console.log("Done loading likes for user");
                 }
@@ -234,6 +276,11 @@ function getCurrentUserLikes()
 
     var instagramUserdata = auth.getStoredInstagramData();
     var url = instagramkeys.instagramAPIUrl + "/v1/users/self/media/liked?access_token=" + instagramUserdata["access_token"];
+    if (paginationId !== 0)
+    {
+        url += "&max_id=" + paginationId;
+        lastPaginationId = paginationId;
+    }
 
     req.open("GET", url, true);
     req.send();

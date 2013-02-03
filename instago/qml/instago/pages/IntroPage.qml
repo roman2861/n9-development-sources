@@ -22,7 +22,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header_logo.png"
+        source: "../img/top_header_logo.png"
     }
 
 

@@ -1,3 +1,12 @@
+instago (0.6.2) stable; urgency=low
+
+  * Added reloading of additional images to favorites
+  * Fixed number of images in popular gallery (back to 15)
+  * Fixed share link description
+
+ -- Dirk Songuer <dirk@songuer.de>  Sun, 03 Jan 2013 15:54:00 +0000
+
+
 instago (0.6.1) unstable; urgency=low
 
   * Added intro page if users are not logged in

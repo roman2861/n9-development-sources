@@ -24,7 +24,7 @@ Page {
     // standard header for the current page
     Header {
         id: pageHeader
-        source: "img/top_header.png"
+        source: "../img/top_header.png"
         text: "Login"
     }
 

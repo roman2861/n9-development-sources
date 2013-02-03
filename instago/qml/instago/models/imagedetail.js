@@ -45,6 +45,7 @@ function loadImage(imageId)
                     imageData.likes = imageCache["likes"] + " people liked this";
                     imageData.linkToInstagram = imageCache["linktoinstagram"];
                     imageData.caption = imageCache["caption"];
+                    imageData.originalCaption = imageCache["originalCaption"];
                     imageData.location = imageCache["location"];
                     imageData.locationId = imageCache["locationId"];
                     imageData.elapsedtime = imageCache["elapsedtime"];

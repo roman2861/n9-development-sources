@@ -217,7 +217,7 @@ Page {
 
                 // call the share dialog
                 // note that this will not work in the simulator
-                shareHelper.shareURL("Instago Link", imageData.caption, imageData.linkToInstagram);
+                shareHelper.shareURL("Instago Link", imageData.originalCaption, imageData.linkToInstagram);
             }
         }
 

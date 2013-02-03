@@ -11,7 +11,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 import QtMobility.gallery 1.1
 
-import "../pages"
+import "../components"
 import "../global/globals.js" as Globals
 import "../classes/authenticationhandler.js" as Authentication
 import "../models/likes.js" as LikesScript
@@ -25,7 +25,7 @@ Page {
 
     // load the gallery content as soon as the page is ready
     Component.onCompleted: {
-        LikesScript.getCurrentUserLikes();
+        LikesScript.getCurrentUserLikes(0);
     }
 
     // standard header for the current page
@@ -67,6 +67,17 @@ Page {
     }
 
 
+    // standard notification area
+    NotificationArea {
+        id: notification
+
+        visibilitytime: 1500
+
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+    }
+
+
     // the actual image gallery that contains the the popular photos
     ImageGallery {
         id: likesGallery;
@@ -84,6 +95,14 @@ Page {
         onItemClicked: {
             // console.log("Image tapped: " + imageId);
             pageStack.push(Qt.resolvedUrl("../pages/ImageDetailPage.qml"), {imageId: imageId});
+        }
+
+        onListBottomReached: {
+            if (paginationNextMaxId !== "")
+            {
+                console.log("Pagination ID: " + paginationNextMaxId);
+                LikesScript.getCurrentUserLikes( paginationNextMaxId );
+            }
         }
     }
 
